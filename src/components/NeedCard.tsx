@@ -35,7 +35,7 @@ export function NeedCard({
   onVolunteer
 }: NeedCardProps) {
   return (
-    <Card className="shadow-gentle hover:shadow-card transition-all duration-200 border-border">
+    <Card className="shadow-gentle hover:shadow-card transition-all duration-200 border-border h-full flex flex-col">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
@@ -50,11 +50,11 @@ export function NeedCard({
             {postedAt}
           </div>
         </div>
-        <CardTitle className="text-lg leading-tight">{title}</CardTitle>
+        <CardTitle className="text-lg leading-tight line-clamp-2">{title}</CardTitle>
       </CardHeader>
       
-      <CardContent className="space-y-3">
-        <p className="text-sm text-muted-foreground leading-relaxed">
+      <CardContent className="space-y-3 flex-1">
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {description}
         </p>
         
