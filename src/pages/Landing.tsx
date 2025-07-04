@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, Calendar, MessageSquare } from "lucide-react";
+import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
 export default function Landing() {
@@ -11,16 +11,18 @@ export default function Landing() {
       <section className="relative bg-hero-gradient overflow-hidden">
         <div className="container mx-auto px-4 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-                Connect Hearts,
-                <br />
-                <span className="text-accent">Share Hope</span>
-              </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
-                Join your church community in sharing God's love through acts of service. 
-                Post your needs or volunteer to help others in our caring network.
-              </p>
+            <div className="space-y-6 text-center lg:text-left">
+              <div className="pt-8">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
+                  Connect Hearts,
+                  <br />
+                  <span className="text-accent">Share Hope</span>
+                </h1>
+                <p className="text-xl text-white/90 leading-relaxed mt-6">
+                  Join your church community in sharing God's love through acts of service. 
+                  Post your needs or volunteer to help others in our caring network.
+                </p>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="default" size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
                   <Link to="/register">Join Our Community</Link>
@@ -53,17 +55,17 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="shadow-gentle hover:shadow-card transition-all duration-200 text-center">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-6 h-6 text-primary" />
+                  <Car className="w-6 h-6 text-primary" />
                 </div>
-                <CardTitle className="text-lg">Post Your Need</CardTitle>
+                <CardTitle className="text-lg">Transportation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Share what you need help with - from groceries to home repairs, meals to transportation.
+                  Rides to appointments, church, or errands for those who need a lift.
                 </p>
               </CardContent>
             </Card>
@@ -71,13 +73,13 @@ export default function Landing() {
             <Card className="shadow-gentle hover:shadow-card transition-all duration-200 text-center">
               <CardHeader>
                 <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-6 h-6 text-secondary" />
+                  <ShoppingCart className="w-6 h-6 text-secondary" />
                 </div>
-                <CardTitle className="text-lg">Find Helpers</CardTitle>
+                <CardTitle className="text-lg">Groceries</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Connect with caring community members who want to lend a helping hand.
+                  Shopping assistance for elderly, busy families, or those unable to get out.
                 </p>
               </CardContent>
             </Card>
@@ -85,13 +87,13 @@ export default function Landing() {
             <Card className="shadow-gentle hover:shadow-card transition-all duration-200 text-center">
               <CardHeader>
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Calendar className="w-6 h-6 text-accent-foreground" />
+                  <Wrench className="w-6 h-6 text-accent-foreground" />
                 </div>
-                <CardTitle className="text-lg">Coordinate</CardTitle>
+                <CardTitle className="text-lg">Home Repairs</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Use our simple messaging system to coordinate timing and details.
+                  Fix leaky faucets, change light bulbs, or tackle bigger home projects.
                 </p>
               </CardContent>
             </Card>
@@ -99,13 +101,41 @@ export default function Landing() {
             <Card className="shadow-gentle hover:shadow-card transition-all duration-200 text-center">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="w-6 h-6 text-primary" />
+                  <ChefHat className="w-6 h-6 text-primary" />
                 </div>
-                <CardTitle className="text-lg">Build Community</CardTitle>
+                <CardTitle className="text-lg">Meals</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Strengthen bonds and experience the joy of serving together in Christ's love.
+                  Meal trains for new babies, illness recovery, or just showing love.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-gentle hover:shadow-card transition-all duration-200 text-center">
+              <CardHeader>
+                <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <Baby className="w-6 h-6 text-secondary" />
+                </div>
+                <CardTitle className="text-lg">Childcare</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Babysitting, school pickups, or watching kids during appointments.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-gentle hover:shadow-card transition-all duration-200 text-center">
+              <CardHeader>
+                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <HandHeart className="w-6 h-6 text-accent-foreground" />
+                </div>
+                <CardTitle className="text-lg">Prayer & Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Emotional support, prayer requests, and spiritual encouragement.
                 </p>
               </CardContent>
             </Card>

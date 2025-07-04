@@ -25,6 +25,9 @@ export function Header() {
           <Link to="/post" className="text-foreground hover:text-primary transition-colors">
             Post a Need
           </Link>
+          <Link to="/about" className="text-foreground hover:text-primary transition-colors">
+            About Us
+          </Link>
           <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors">
             Dashboard
           </Link>
@@ -68,6 +71,13 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Post a Need
+            </Link>
+            <Link 
+              to="/about" 
+              className="block text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About Us
             </Link>
             <Link 
               to="/dashboard" 
