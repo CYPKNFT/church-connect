@@ -164,12 +164,92 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-20 lg:py-32 bg-white relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
+              <Heart className="w-4 h-4" />
+              <span>Community Stories</span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
+              Real Stories of <span className="bg-accent-gradient bg-clip-text text-transparent">God's Love</span>
+            </h2>
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              See how ChurchConnect is bringing our community together in beautiful ways
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <div className="text-accent text-4xl mb-4">"</div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved."
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-accent font-bold">SM</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Sarah Miller</p>
+                    <p className="text-sm text-muted-foreground">Grace Community Church</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <div className="text-accent text-4xl mb-4">"</div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood."
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-accent font-bold">MJ</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Mike Johnson</p>
+                    <p className="text-sm text-muted-foreground">First Baptist Church</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <div className="text-accent text-4xl mb-4">"</div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares."
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-accent font-bold">LC</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Linda Chen</p>
+                    <p className="text-sm text-muted-foreground">Community Fellowship</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80"></div>
+      <section className="py-20 lg:py-32 bg-warm-gradient relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-8">
+            <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 text-accent font-medium mb-8">
               <Heart className="w-4 h-4" />
               <span>Join the Movement</span>
             </div>
@@ -183,7 +263,7 @@ export default function Landing() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
               <Button 
                 size="lg" 
-                className="bg-accent hover:bg-accent-hover text-accent-foreground font-bold px-10 py-6 text-xl rounded-2xl shadow-accent hover-lift glow-accent" 
+                className="bg-accent hover:bg-accent-hover text-accent-foreground font-bold px-10 py-6 text-xl rounded-2xl shadow-accent hover-lift" 
                 asChild
               >
                 <Link to="/register">Start Your Journey</Link>
@@ -191,7 +271,7 @@ export default function Landing() {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-xl rounded-2xl glass-effect" 
+                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-xl rounded-2xl" 
                 asChild
               >
                 <Link to="/about">Learn More</Link>

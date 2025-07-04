@@ -10,6 +10,8 @@ import PostNeed from "./pages/PostNeed";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,8 +31,8 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/* Placeholder routes for future implementation */}
-            <Route path="/dashboard" element={<div className="p-8 text-center"><h1 className="text-2xl">Dashboard Page - Coming Soon</h1></div>} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/help" element={<Help />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { NeedCard } from "@/components/NeedCard";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, Heart } from "lucide-react";
 
 // Mock data for demonstration
 const mockNeeds = [
@@ -88,19 +88,23 @@ export default function BrowseNeeds() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-subtle-gradient">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+        <div className="text-center mb-12 animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
+            <Heart className="w-4 h-4" />
+            <span>Make a Difference</span>
+          </div>
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Community Needs
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Find ways to serve and bless others in our church family
           </p>
         </div>
 
         {/* Search and Filter Section */}
-        <div className="bg-card border border-border rounded-lg p-6 mb-8 shadow-gentle">
+        <div className="bg-white border-0 rounded-2xl p-8 mb-12 shadow-card animate-slide-up">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-2">
               <div className="relative">
@@ -159,17 +163,24 @@ export default function BrowseNeeds() {
         </div>
 
         {filteredNeeds.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-lg text-muted-foreground mb-4">
-              No needs match your current filters.
+          <div className="text-center py-16 bg-white rounded-2xl shadow-card">
+            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search className="w-10 h-10 text-muted-foreground" />
+            </div>
+            <h3 className="text-xl font-semibold text-foreground mb-4">
+              No needs match your current filters
+            </h3>
+            <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto">
+              Try adjusting your search criteria or clearing the filters to see more opportunities to help.
             </p>
-            <Button variant="outline" onClick={() => {
+            <Button className="bg-accent hover:bg-accent-hover" onClick={() => {
               setSearchQuery("");
               setSelectedCategory("All");
               setSelectedUrgency("All");
               setFilteredNeeds(mockNeeds);
             }}>
-              Clear Filters
+              <Filter className="w-4 h-4 mr-2" />
+              Clear All Filters
             </Button>
           </div>
         )}
