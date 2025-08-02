@@ -2,14 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer, Edit, Trash2, Eye, MoreHorizontal } from "lucide-react";
+import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function Dashboard() {
   const [selectedFilter, setSelectedFilter] = useState("All");
-  const [activeTab, setActiveTab] = useState("overview");
   
   const userNeeds = [
     {
@@ -23,19 +21,12 @@ export default function Dashboard() {
       urgency: "This Week",
       location: "Downtown Market District",
       estimatedTime: "2 hours",
-      responses: 12,
-      applicants: [
-        { name: "Mike Thompson", rating: 4.8, avatar: "MT", joinedAgo: "1 week ago" },
-        { name: "Sarah Chen", rating: 4.9, avatar: "SC", joinedAgo: "3 days ago" },
-        { name: "David Wilson", rating: 4.7, avatar: "DW", joinedAgo: "5 days ago" },
-        { name: "Lisa Rodriguez", rating: 5.0, avatar: "LR", joinedAgo: "2 days ago" },
-        { name: "James Kim", rating: 4.6, avatar: "JK", joinedAgo: "1 day ago" }
-      ]
+      responses: 12
     },
     {
       id: "2", 
       title: "Garden cleanup and maintenance",
-      description: "Looking for help with seasonal garden cleanup, pruning, and planting new flowers. This includes raking leaves, trimming bushes, and planting spring bulbs.",
+      description: "Looking for help with seasonal garden cleanup, pruning, and planting new flowers.",
       status: "In Progress",
       volunteers: 2,
       posted: "5 days ago",
@@ -43,16 +34,12 @@ export default function Dashboard() {
       urgency: "Flexible",
       location: "Maple Street",
       estimatedTime: "3-4 hours",
-      responses: 8,
-      applicants: [
-        { name: "Tom Johnson", rating: 4.9, avatar: "TJ", joinedAgo: "2 days ago" },
-        { name: "Emily Davis", rating: 4.8, avatar: "ED", joinedAgo: "4 days ago" }
-      ]
+      responses: 8
     },
     {
       id: "3",
       title: "Pet sitting for weekend trip",
-      description: "Need someone to watch my cat Whiskers while I visit family this weekend. Just needs feeding, water, and some companionship.",
+      description: "Need someone to watch my cat Whiskers while I visit family this weekend.",
       status: "Fulfilled",
       volunteers: 1,
       posted: "1 week ago",
@@ -60,42 +47,7 @@ export default function Dashboard() {
       urgency: "Immediate",
       location: "Oak Avenue",
       estimatedTime: "2 days",
-      responses: 15,
-      applicants: [
-        { name: "Alex Martinez", rating: 5.0, avatar: "AM", joinedAgo: "1 week ago" }
-      ]
-    },
-    {
-      id: "4",
-      title: "Computer help for online banking",
-      description: "Need assistance setting up online banking on my computer. I'm not comfortable doing this alone and would appreciate guidance.",
-      status: "Active", 
-      volunteers: 0,
-      posted: "1 day ago",
-      category: "Technology",
-      urgency: "This Week",
-      location: "Pine Avenue",
-      estimatedTime: "1 hour",
-      responses: 3,
-      applicants: []
-    },
-    {
-      id: "5",
-      title: "Meal prep assistance",
-      description: "Recovering from surgery and need help with meal preparation for the week. Simple, healthy meals would be perfect.",
-      status: "Active",
-      volunteers: 3,
-      posted: "3 days ago", 
-      category: "Meals",
-      urgency: "Immediate",
-      location: "Oak Street",
-      estimatedTime: "2-3 hours",
-      responses: 9,
-      applicants: [
-        { name: "Maria Santos", rating: 4.9, avatar: "MS", joinedAgo: "1 day ago" },
-        { name: "Robert Lee", rating: 4.7, avatar: "RL", joinedAgo: "2 days ago" },
-        { name: "Ana Gutierrez", rating: 5.0, avatar: "AG", joinedAgo: "3 days ago" }
-      ]
+      responses: 15
     }
   ];
 
@@ -272,13 +224,13 @@ export default function Dashboard() {
         <div className="flex-1 p-8">
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-4xl font-bold text-foreground mb-2">
                   Dashboard
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Welcome back, Sarah! Manage your community connections
+                  Welcome back, Sarah! Here's your community impact overview
                 </p>
               </div>
               <Button asChild className="bg-primary hover:bg-primary-hover shadow-accent rounded-xl px-6">
@@ -288,235 +240,359 @@ export default function Dashboard() {
                 </Link>
               </Button>
             </div>
+
+            {/* Pastel Metric Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              <Card className="border-0 shadow-card bg-gradient-to-br from-rose-50 to-pink-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-rose-600 mb-1">Needs Posted</p>
+                      <p className="text-3xl font-bold text-rose-700">12</p>
+                      <p className="text-xs text-rose-500 mt-1">+3 this week</p>
+                    </div>
+                    <div className="w-14 h-14 bg-rose-200/50 rounded-2xl flex items-center justify-center">
+                      <Heart className="w-7 h-7 text-rose-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-card bg-gradient-to-br from-amber-50 to-orange-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-amber-600 mb-1">Times Helped</p>
+                      <p className="text-3xl font-bold text-amber-700">28</p>
+                      <p className="text-xs text-amber-500 mt-1">+5 this week</p>
+                    </div>
+                    <div className="w-14 h-14 bg-amber-200/50 rounded-2xl flex items-center justify-center">
+                      <Users className="w-7 h-7 text-amber-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-card bg-gradient-to-br from-emerald-50 to-green-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-emerald-600 mb-1">Community Rating</p>
+                      <p className="text-3xl font-bold text-emerald-700">4.9</p>
+                      <p className="text-xs text-emerald-500 mt-1">Based on 23 reviews</p>
+                    </div>
+                    <div className="w-14 h-14 bg-emerald-200/50 rounded-2xl flex items-center justify-center">
+                      <Star className="w-7 h-7 text-emerald-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-card bg-gradient-to-br from-blue-50 to-indigo-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600 mb-1">Active Needs</p>
+                      <p className="text-3xl font-bold text-blue-700">2</p>
+                      <p className="text-xs text-blue-500 mt-1">Updated today</p>
+                    </div>
+                    <div className="w-14 h-14 bg-blue-200/50 rounded-2xl flex items-center justify-center">
+                      <Clock className="w-7 h-7 text-blue-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
-          {/* Tabs Navigation */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8 bg-muted/30 p-1 h-12 rounded-2xl">
-              <TabsTrigger value="overview" className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-card">
-                <LayoutDashboard className="w-4 h-4 mr-2" />
-                Overview
-              </TabsTrigger>
-              <TabsTrigger value="my-needs" className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-card">
-                <Heart className="w-4 h-4 mr-2" />
-                My Needs
-              </TabsTrigger>
-              <TabsTrigger value="volunteering" className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-card">
-                <HandHeart className="w-4 h-4 mr-2" />
-                Volunteering
-              </TabsTrigger>
-              <TabsTrigger value="community" className="rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-card">
-                <Users className="w-4 h-4 mr-2" />
-                Community
-              </TabsTrigger>
-            </TabsList>
-
-            {/* My Needs Tab Content */}
-            <TabsContent value="my-needs" className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-foreground">My Posted Needs</h2>
-                  <p className="text-muted-foreground">Manage your requests for help from the community</p>
+          {/* Top Section: My Activities & Achievements */}
+          <div className="grid lg:grid-cols-3 gap-6 mb-8">
+            {/* My Needs - Enhanced */}
+            <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center">
+                      <Heart className="w-4 h-4 text-primary" />
+                    </div>
+                    My Posted Needs
+                  </CardTitle>
+                  <Button variant="ghost" size="sm" className="rounded-full">
+                    <Filter className="w-4 h-4" />
+                  </Button>
                 </div>
-                <div className="flex items-center gap-3">
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {userNeeds.slice(0, 2).map((need) => (
+                  <div key={need.id} className="p-4 bg-gradient-to-r from-gray-50/80 to-gray-50/40 rounded-xl hover:shadow-gentle transition-all duration-200 group">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{need.title}</h3>
+                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{need.description}</p>
+                      </div>
+                      <Badge 
+                        variant={need.status === "Active" ? "default" : need.status === "In Progress" ? "secondary" : "outline"}
+                        className="rounded-full text-xs px-2 py-1 ml-2"
+                      >
+                        {need.status}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3" />
+                        {need.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Timer className="w-3 h-3" />
+                        {need.estimatedTime}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs text-primary font-medium flex items-center gap-1">
+                          <Users className="w-3 h-3" />
+                          {need.volunteers}
+                        </span>
+                        <span className="text-xs text-accent font-medium flex items-center gap-1">
+                          <MessageSquare className="w-3 h-3" />
+                          {need.responses}
+                        </span>
+                      </div>
+                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white">
+                        View <ChevronRight className="w-3 h-3 ml-1" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
+                  <Link to="/post">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Post New Need
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* My Volunteering - Enhanced */}
+            <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="w-8 h-8 bg-accent/10 rounded-xl flex items-center justify-center">
+                      <HandHeart className="w-4 h-4 text-accent" />
+                    </div>
+                    My Volunteering
+                  </CardTitle>
+                  <Button variant="ghost" size="sm" className="rounded-full">
+                    <Calendar className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {userVolunteering.slice(0, 2).map((volunteer) => (
+                  <div key={volunteer.id} className="p-4 bg-gradient-to-r from-emerald-50/80 to-emerald-50/40 rounded-xl hover:shadow-gentle transition-all duration-200 group">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{volunteer.title}</h3>
+                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{volunteer.description}</p>
+                      </div>
+                      <Badge 
+                        variant={volunteer.status === "Confirmed" ? "default" : "secondary"}
+                        className="rounded-full text-xs px-2 py-1 ml-2"
+                      >
+                        {volunteer.status}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                      <span className="flex items-center gap-1 font-medium">
+                        <Users className="w-3 h-3" />
+                        {volunteer.requester}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {volunteer.date}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
+                        {volunteer.category}
+                      </span>
+                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-accent group-hover:text-white">
+                        {volunteer.status === "Confirmed" ? "Details" : "Confirm"}
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
+                  <Link to="/browse">
+                    <Search className="w-4 h-4 mr-2" />
+                    Find More Ways to Help
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Achievements & Progress */}
+            <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="w-8 h-8 bg-amber-500/10 rounded-xl flex items-center justify-center">
+                    <Award className="w-4 h-4 text-amber-600" />
+                  </div>
+                  Achievements
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {achievements.map((achievement, index) => (
+                  <div key={index} className="p-4 bg-gradient-to-r from-amber-50/80 to-amber-50/40 rounded-xl">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-sm text-foreground">{achievement.label}</h4>
+                      <span className="text-xs text-muted-foreground">
+                        {achievement.current}/{achievement.target}
+                      </span>
+                    </div>
+                    <Progress value={achievement.progress} className="h-2 mb-2" />
+                    <p className="text-xs text-muted-foreground">
+                      {achievement.progress}% complete
+                    </p>
+                  </div>
+                ))}
+                <Button variant="outline" className="w-full rounded-xl text-sm">
+                  <Target className="w-4 h-4 mr-2" />
+                  View All Achievements
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Community Needs Section */}
+          <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl mb-8">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="w-8 h-8 bg-blue-500/10 rounded-xl flex items-center justify-center">
+                    <Bell className="w-4 h-4 text-blue-600" />
+                  </div>
+                  Urgent Community Needs
+                </CardTitle>
+                <div className="flex items-center gap-2">
                   <select 
                     value={selectedFilter} 
                     onChange={(e) => setSelectedFilter(e.target.value)}
-                    className="text-sm border border-border rounded-lg px-3 py-2 bg-background"
+                    className="text-sm border border-border rounded-lg px-3 py-1.5 bg-background"
                   >
-                    <option value="All">All Status</option>
-                    <option value="Active">Active</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Fulfilled">Fulfilled</option>
+                    <option value="All">All Categories</option>
+                    <option value="Moving">Moving</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Education">Education</option>
                   </select>
-                  <Button asChild>
-                    <Link to="/post">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Post New Need
-                    </Link>
+                  <Button variant="outline" size="sm" className="rounded-full" asChild>
+                    <Link to="/browse">View All</Link>
                   </Button>
                 </div>
               </div>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card className="border-0 shadow-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-blue-600">Total Needs</p>
-                        <p className="text-2xl font-bold text-blue-700">{userNeeds.length}</p>
-                      </div>
-                      <Heart className="w-8 h-8 text-blue-600" />
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {communityNeeds.map((need) => (
+                  <div key={need.id} className="p-5 bg-gradient-to-br from-blue-50/50 to-indigo-50/30 rounded-xl hover:shadow-gentle transition-all duration-200 border border-blue-100/50">
+                    <div className="flex items-start justify-between mb-3">
+                      <Badge 
+                        variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"}
+                        className="text-xs px-2 py-1 rounded-full"
+                      >
+                        {need.urgency}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">{need.posted}</span>
                     </div>
-                  </CardContent>
-                </Card>
-                <Card className="border-0 shadow-card bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-emerald-600">Active</p>
-                        <p className="text-2xl font-bold text-emerald-700">{userNeeds.filter(n => n.status === "Active").length}</p>
+                    
+                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{need.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{need.description}</p>
+                    
+                    <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-3 h-3" />
+                        <span>Posted by {need.requester}</span>
                       </div>
-                      <Clock className="w-8 h-8 text-emerald-600" />
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-3 h-3" />
+                        <span>{need.location}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-3 h-3" />
+                        <span>{need.estimatedTime}</span>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-                <Card className="border-0 shadow-card bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl">
-                  <CardContent className="p-4">
+                    
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-amber-600">Total Volunteers</p>
-                        <p className="text-2xl font-bold text-amber-700">{userNeeds.reduce((acc, need) => acc + need.volunteers, 0)}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                          {need.volunteers}/{need.needed} volunteers
+                        </span>
+                        <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
+                          {need.category}
+                        </span>
                       </div>
-                      <Users className="w-8 h-8 text-amber-600" />
+                      <Button size="sm" className="rounded-full text-xs px-4">
+                        Help
+                      </Button>
                     </div>
-                  </CardContent>
-                </Card>
-                <Card className="border-0 shadow-card bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-purple-600">Total Responses</p>
-                        <p className="text-2xl font-bold text-purple-700">{userNeeds.reduce((acc, need) => acc + need.responses, 0)}</p>
-                      </div>
-                      <MessageSquare className="w-8 h-8 text-purple-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Needs List */}
-              <div className="space-y-4">
-                {userNeeds.map((need) => (
-                  <Card key={need.id} className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-semibold text-foreground">{need.title}</h3>
-                            <Badge 
-                              variant={need.status === "Active" ? "default" : need.status === "In Progress" ? "secondary" : "outline"}
-                              className="rounded-full"
-                            >
-                              {need.status}
-                            </Badge>
-                            <Badge variant="outline" className="rounded-full">
-                              {need.category}
-                            </Badge>
-                          </div>
-                          <p className="text-muted-foreground mb-3">{need.description}</p>
-                          
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4" />
-                              <span>{need.location}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Timer className="w-4 h-4" />
-                              <span>{need.estimatedTime}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Users className="w-4 h-4" />
-                              <span>{need.volunteers} volunteers</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <MessageSquare className="w-4 h-4" />
-                              <span>{need.responses} responses</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm" className="rounded-full">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="rounded-full">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="rounded-full hover:bg-destructive hover:text-destructive-foreground">
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-
-                      {/* Applicants Section */}
-                      {need.applicants.length > 0 && (
-                        <div className="border-t border-border/50 pt-4">
-                          <div className="flex items-center justify-between mb-3">
-                            <h4 className="font-semibold text-foreground">Volunteer Applications</h4>
-                            <Badge variant="outline" className="text-xs">
-                              {need.applicants.length} {need.applicants.length === 1 ? 'applicant' : 'applicants'}
-                            </Badge>
-                          </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {need.applicants.map((applicant, index) => (
-                              <div key={index} className="p-3 bg-gradient-to-r from-gray-50/80 to-gray-50/40 rounded-xl border border-gray-100">
-                                <div className="flex items-center gap-3 mb-2">
-                                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                                    <span className="text-xs font-semibold text-primary">{applicant.avatar}</span>
-                                  </div>
-                                  <div className="flex-1">
-                                    <p className="font-semibold text-sm text-foreground">{applicant.name}</p>
-                                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                                      <span>{applicant.rating}</span>
-                                      <span>•</span>
-                                      <span>{applicant.joinedAgo}</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="flex gap-2">
-                                  <Button size="sm" className="flex-1 text-xs rounded-full">
-                                    Accept
-                                  </Button>
-                                  <Button variant="outline" size="sm" className="text-xs rounded-full">
-                                    Message
-                                  </Button>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {need.applicants.length === 0 && need.status === "Active" && (
-                        <div className="border-t border-border/50 pt-4">
-                          <div className="text-center py-4 text-muted-foreground">
-                            <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                            <p className="text-sm">No volunteers yet. Share your need to get more visibility!</p>
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
+                  </div>
                 ))}
               </div>
-            </TabsContent>
+            </CardContent>
+          </Card>
 
-            {/* Overview Tab (placeholder for now) */}
-            <TabsContent value="overview">
-              <div className="text-center py-12">
-                <h3 className="text-lg font-semibold mb-2">Overview Tab</h3>
-                <p className="text-muted-foreground">Coming next...</p>
+          {/* Recent Activity - Enhanced */}
+          <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="w-8 h-8 bg-violet-500/10 rounded-xl flex items-center justify-center">
+                    <Activity className="w-4 h-4 text-violet-600" />
+                  </div>
+                  Recent Activity
+                </CardTitle>
+                <Button variant="ghost" size="sm" className="text-xs">
+                  View All
+                </Button>
               </div>
-            </TabsContent>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {recentActivity.map((activity) => {
+                  const Icon = activity.icon;
+                  const colorClass = {
+                    emerald: "bg-emerald-50/80 hover:bg-emerald-50",
+                    rose: "bg-rose-50/80 hover:bg-rose-50", 
+                    amber: "bg-amber-50/80 hover:bg-amber-50",
+                    blue: "bg-blue-50/80 hover:bg-blue-50"
+                  }[activity.color];
+                  
+                  const iconColorClass = {
+                    emerald: "bg-emerald-100 text-emerald-600",
+                    rose: "bg-rose-100 text-rose-600",
+                    amber: "bg-amber-100 text-amber-600", 
+                    blue: "bg-blue-100 text-blue-600"
+                  }[activity.color];
 
-            {/* Other tabs placeholders */}
-            <TabsContent value="volunteering">
-              <div className="text-center py-12">
-                <h3 className="text-lg font-semibold mb-2">Volunteering Tab</h3>
-                <p className="text-muted-foreground">Coming next...</p>
+                  return (
+                    <div key={activity.id} className={`flex items-start gap-4 p-4 ${colorClass} rounded-xl transition-all duration-200 cursor-pointer group`}>
+                      <div className={`w-10 h-10 ${iconColorClass} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{activity.title}</p>
+                        <p className="text-xs text-muted-foreground line-clamp-2 mb-1">{activity.description}</p>
+                        <span className="text-xs text-muted-foreground font-medium">{activity.time}</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
+                    </div>
+                  );
+                })}
               </div>
-            </TabsContent>
-
-            <TabsContent value="community">
-              <div className="text-center py-12">
-                <h3 className="text-lg font-semibold mb-2">Community Tab</h3>
-                <p className="text-muted-foreground">Coming next...</p>
-              </div>
-            </TabsContent>
-          </Tabs>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
