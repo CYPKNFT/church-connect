@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby } from "lucide-react";
+import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
 export default function Landing() {
@@ -19,30 +19,33 @@ export default function Landing() {
                   <span>Building Stronger Communities</span>
                 </div>
                 <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                  Connect Hearts,
+                  Need Help?
                   <br />
-                  <span className="bg-accent-gradient bg-clip-text text-transparent">Share Hope</span>
+                  <span className="bg-accent-gradient bg-clip-text text-transparent">Want to Help?</span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-white/90 leading-relaxed max-w-2xl">
-                  Transform your church community through meaningful connections. 
-                  Post your needs, volunteer to help, and experience God's love in action.
+                  Connect with your community in minutes. Post what you need or volunteer to help others. 
+                  Real neighbors helping real neighbors.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 animate-slide-up">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent-hover text-accent-foreground font-semibold px-8 py-6 text-lg rounded-xl shadow-accent hover-lift" 
+                  className="bg-primary hover:bg-primary-hover text-white font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift" 
                   asChild
                 >
-                  <Link to="/register">Join Our Community</Link>
+                  <Link to="/post">
+                    <Plus className="w-5 h-5 mr-3" />
+                    Post a Need Now
+                  </Link>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-6 text-lg rounded-xl glass-effect" 
+                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect" 
                   asChild
                 >
-                  <Link to="/browse">Explore Needs</Link>
+                  <Link to="/browse">Browse & Help</Link>
                 </Button>
               </div>
             </div>
@@ -254,27 +257,30 @@ export default function Landing() {
               <span>Join the Movement</span>
             </div>
             <h2 className="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-              Ready to Make a 
-              <span className="bg-accent-gradient bg-clip-text text-transparent"> Real Difference?</span>
+              Get Started in 
+              <span className="bg-accent-gradient bg-clip-text text-transparent"> 30 Seconds</span>
             </h2>
             <p className="text-xl lg:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join thousands of church members who are transforming their communities through acts of love and service
+              Post your first need or volunteer opportunity right now. No complicated setup, no long forms. Just real help for real people.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
               <Button 
                 size="lg" 
-                className="bg-accent hover:bg-accent-hover text-accent-foreground font-bold px-10 py-6 text-xl rounded-2xl shadow-accent hover-lift" 
+                className="bg-white hover:bg-white/90 text-primary font-bold px-12 py-6 text-xl rounded-2xl shadow-xl hover-lift" 
                 asChild
               >
-                <Link to="/register">Start Your Journey</Link>
+                <Link to="/post">
+                  <Plus className="w-5 h-5 mr-3" />
+                  Post Your Need
+                </Link>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-xl rounded-2xl" 
+                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl" 
                 asChild
               >
-                <Link to="/about">Learn More</Link>
+                <Link to="/browse">Find Ways to Help</Link>
               </Button>
             </div>
           </div>

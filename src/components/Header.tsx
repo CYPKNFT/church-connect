@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart } from "lucide-react";
+import { Menu, X, User, Heart, Plus } from "lucide-react";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,31 +18,40 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <Link to="/browse" className="text-foreground hover:text-primary transition-colors">
-            Browse Needs
+        <nav className="hidden md:flex items-center space-x-8">
+          <Link to="/browse" className="text-foreground hover:text-primary transition-colors font-medium">
+            Find Help
           </Link>
-          <Link to="/post" className="text-foreground hover:text-primary transition-colors">
-            Post a Need
+          <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">
+            How It Works
           </Link>
-          <Link to="/about" className="text-foreground hover:text-primary transition-colors">
-            About Us
-          </Link>
-          <Link to="/help" className="text-foreground hover:text-primary transition-colors">
-            Help
-          </Link>
-          <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors">
-            Dashboard
+          <Link to="/help" className="text-foreground hover:text-primary transition-colors font-medium">
+            Support
           </Link>
         </nav>
 
-        {/* Desktop Auth Buttons */}
+        {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          <Button variant="gentle" size="sm" asChild>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="border-primary/20 hover:border-primary/40 hover:bg-primary/5" 
+            asChild
+          >
             <Link to="/login">Sign In</Link>
           </Button>
-          <Button variant="hero" size="sm" asChild>
-            <Link to="/register">Join Community</Link>
+          <Button 
+            className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+            size="sm" 
+            asChild
+          >
+            <Link to="/post">
+              <Plus className="w-4 h-4 mr-2" />
+              Post a Need
+            </Link>
+          </Button>
+          <Button variant="secondary" size="sm" asChild>
+            <Link to="/register">Join Free</Link>
           </Button>
         </div>
 
@@ -63,45 +72,41 @@ export function Header() {
           <div className="container mx-auto px-4 py-4 space-y-4">
             <Link 
               to="/browse" 
-              className="block text-foreground hover:text-primary transition-colors"
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
-              Browse Needs
-            </Link>
-            <Link 
-              to="/post" 
-              className="block text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Post a Need
+              Find Help
             </Link>
             <Link 
               to="/about" 
-              className="block text-foreground hover:text-primary transition-colors"
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
-              About Us
+              How It Works
             </Link>
             <Link 
               to="/help" 
-              className="block text-foreground hover:text-primary transition-colors"
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
-              Help
+              Support
             </Link>
-            <Link 
-              to="/dashboard" 
-              className="block text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Dashboard
-            </Link>
-            <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-              <Button variant="gentle" size="sm" asChild>
+            <div className="flex flex-col space-y-3 pt-6 border-t border-border">
+              <Button 
+                className="bg-primary hover:bg-primary-hover text-white shadow-md" 
+                size="sm" 
+                asChild
+              >
+                <Link to="/post" onClick={() => setIsMenuOpen(false)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Post a Need
+                </Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
                 <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
               </Button>
-              <Button variant="hero" size="sm" asChild>
-                <Link to="/register" onClick={() => setIsMenuOpen(false)}>Join Community</Link>
+              <Button variant="secondary" size="sm" asChild>
+                <Link to="/register" onClick={() => setIsMenuOpen(false)}>Join Free</Link>
               </Button>
             </div>
           </div>

@@ -5,27 +5,82 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Upload, ChevronLeft, ChevronRight, Car, ShoppingBag, Wrench, UtensilsCrossed, Hand, HelpCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Heart, Plus, Car, ShoppingBag, Wrench, UtensilsCrossed, Hand, HelpCircle, Clock, MapPin, Phone, Mail, MessageSquare, CheckCircle, User, Home, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const categories = [
-  { value: "Transportation", label: "Transportation", icon: Car, color: "bg-blue-500" },
-  { value: "Groceries", label: "Groceries", icon: ShoppingBag, color: "bg-green-500" },
-  { value: "Home Repair", label: "Home Repair", icon: Wrench, color: "bg-orange-500" },
-  { value: "Meals", label: "Meals", icon: UtensilsCrossed, color: "bg-purple-500" },
-  { value: "Prayer Support", label: "Prayer Support", icon: Hand, color: "bg-pink-500" },
-  { value: "Other", label: "Other", icon: HelpCircle, color: "bg-gray-500" }
+  { 
+    value: "Transportation", 
+    label: "Transportation", 
+    icon: Car, 
+    color: "bg-blue-100 text-blue-700 border-blue-200",
+    description: "Rides to appointments, errands, church"
+  },
+  { 
+    value: "Groceries", 
+    label: "Groceries & Shopping", 
+    icon: ShoppingBag, 
+    color: "bg-green-100 text-green-700 border-green-200",
+    description: "Grocery runs, pharmacy visits, essentials"
+  },
+  { 
+    value: "Home Repair", 
+    label: "Home & Garden", 
+    icon: Wrench, 
+    color: "bg-orange-100 text-orange-700 border-orange-200",
+    description: "Repairs, yard work, maintenance"
+  },
+  { 
+    value: "Meals", 
+    label: "Meals & Cooking", 
+    icon: UtensilsCrossed, 
+    color: "bg-purple-100 text-purple-700 border-purple-200",
+    description: "Meal prep, delivery, cooking help"
+  },
+  { 
+    value: "Childcare", 
+    label: "Childcare & Family", 
+    icon: Heart, 
+    color: "bg-pink-100 text-pink-700 border-pink-200",
+    description: "Babysitting, school pickup, playdates"
+  },
+  { 
+    value: "Other", 
+    label: "Other Support", 
+    icon: HelpCircle, 
+    color: "bg-gray-100 text-gray-700 border-gray-200",
+    description: "Prayer, encouragement, other needs"
+  }
 ];
 
 const urgencyLevels = [
-  { value: "Immediate", label: "Immediate", description: "I need help within 24 hours", color: "bg-red-500" },
-  { value: "This Week", label: "This Week", description: "I need help within the next 7 days", color: "bg-orange-500" },
-  { value: "Flexible", label: "Flexible", description: "I'm flexible with timing", color: "bg-green-500" }
+  { 
+    value: "immediate", 
+    label: "Urgent (24 hours)", 
+    description: "I need help today or tomorrow", 
+    color: "bg-red-50 border-red-200 text-red-700",
+    badge: "bg-red-100 text-red-700"
+  },
+  { 
+    value: "week", 
+    label: "This Week", 
+    description: "I need help within the next 7 days", 
+    color: "bg-orange-50 border-orange-200 text-orange-700",
+    badge: "bg-orange-100 text-orange-700"
+  },
+  { 
+    value: "flexible", 
+    label: "Flexible Timing", 
+    description: "I'm flexible with when I get help", 
+    color: "bg-green-50 border-green-200 text-green-700",
+    badge: "bg-green-100 text-green-700"
+  }
 ];
 
 export default function PostNeed() {
   const { toast } = useToast();
-  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -33,312 +88,304 @@ export default function PostNeed() {
     urgency: "",
     location: "",
     estimatedTime: "",
-    contactPreference: ""
+    contactPreference: "message",
+    phone: "",
+    name: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
     if (!formData.title || !formData.description || !formData.category || !formData.urgency) {
       toast({
-        title: "Please fill in all required fields",
-        description: "Title, description, category, and urgency are required.",
+        title: "Missing Information",
+        description: "Please fill in all required fields to post your need.",
         variant: "destructive"
       });
       return;
     }
 
-    // Simulate posting the need
-    toast({
-      title: "Need posted successfully!",
-      description: "Your need has been shared with the community. You'll be notified when someone volunteers to help."
-    });
-
-    // Reset form
-    setFormData({
-      title: "",
-      description: "",
-      category: "",
-      urgency: "",
-      location: "",
-      estimatedTime: "",
-      contactPreference: ""
-    });
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      toast({
+        title: "Need Posted Successfully! 🎉",
+        description: "Your request has been shared with the community. You'll receive notifications when people offer to help.",
+      });
+    }, 1500);
   };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const nextStep = () => {
-    if (currentStep < 4) setCurrentStep(currentStep + 1);
-  };
-
-  const prevStep = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
-  };
-
-  const canProceed = () => {
-    switch (currentStep) {
-      case 1: return formData.title && formData.description;
-      case 2: return formData.category;
-      case 3: return formData.urgency;
-      case 4: return true;
-      default: return false;
-    }
-  };
-
-  const getStepTitle = () => {
-    switch (currentStep) {
-      case 1: return "Tell us about your need";
-      case 2: return "What kind of help do you need?";
-      case 3: return "How urgent is this?";
-      case 4: return "Final details";
-      default: return "";
-    }
-  };
-
-  const getStepDescription = () => {
-    switch (currentStep) {
-      case 1: return "Share what you need help with in your own words";
-      case 2: return "Choose the category that best describes your need";
-      case 3: return "Let us know your timeline";
-      case 4: return "Add location and contact preferences";
-      default: return "";
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-hero-gradient">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 shadow-card">
-              <Heart className="w-10 h-10 text-white" />
-            </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Share Your Need
-            </h1>
-            <p className="text-xl text-white/90 mb-8">
-              Let our community know how we can help and serve you
-            </p>
-            
-            {/* Progress Bar */}
-            <div className="max-w-md mx-auto">
-              <div className="flex justify-between items-center mb-4">
-                {[1, 2, 3, 4].map((step) => (
-                  <div key={step} className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                      currentStep >= step 
-                        ? 'bg-white text-primary' 
-                        : 'bg-white/30 text-white/70'
-                    }`}>
-                      {step}
-                    </div>
-                    {step < 4 && (
-                      <div className={`w-16 h-1 mx-2 rounded-full ${
-                        currentStep > step ? 'bg-white' : 'bg-white/30'
-                      }`} />
-                    )}
-                  </div>
-                ))}
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-16">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <Card className="border-0 shadow-xl bg-white">
+            <CardContent className="p-12 text-center">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
-              <p className="text-white/80 text-sm">Step {currentStep} of 4</p>
-            </div>
-          </div>
-
-          {/* Main Content Card */}
-          <Card className="shadow-card border-0 bg-white/95 backdrop-blur-sm">
-            <CardHeader className="text-center pb-6">
-              <CardTitle className="text-2xl text-foreground mb-2">
-                {getStepTitle()}
-              </CardTitle>
-              <p className="text-muted-foreground text-lg">
-                {getStepDescription()}
+              <h1 className="text-3xl font-bold text-foreground mb-4">
+                Your Need is Now Live! 🎉
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                We've shared "{formData.title}" with your community. You'll get notifications when neighbors offer to help.
               </p>
-            </CardHeader>
-            
-            <CardContent className="px-8 pb-8">
-              <div className="min-h-[400px] flex flex-col justify-center">
-                {/* Step 1: Basic Info */}
-                {currentStep === 1 && (
-                  <div className="space-y-6 animate-fade-in">
-                    <div className="space-y-3">
-                      <Label htmlFor="title" className="text-lg font-semibold">What do you need help with? *</Label>
-                      <Input
-                        id="title"
-                        placeholder="e.g., Need groceries for elderly neighbor"
-                        value={formData.title}
-                        onChange={(e) => handleInputChange("title", e.target.value)}
-                        className="text-lg h-12 bg-white border-2"
-                      />
-                    </div>
-
-                    <div className="space-y-3">
-                      <Label htmlFor="description" className="text-lg font-semibold">Tell us more about it *</Label>
-                      <Textarea
-                        id="description"
-                        placeholder="Please provide more details about your need, including any specific requirements or preferences..."
-                        value={formData.description}
-                        onChange={(e) => handleInputChange("description", e.target.value)}
-                        rows={6}
-                        className="text-base resize-none bg-white border-2"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 2: Category Selection */}
-                {currentStep === 2 && (
-                  <div className="space-y-6 animate-fade-in">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {categories.map(category => {
-                        const Icon = category.icon;
-                        return (
-                          <div
-                            key={category.value}
-                            onClick={() => handleInputChange("category", category.value)}
-                            className={`p-6 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:scale-105 ${
-                              formData.category === category.value
-                                ? 'border-primary bg-primary/10 shadow-card'
-                                : 'border-border bg-white hover:border-primary/50'
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg ${category.color} flex items-center justify-center mb-3 mx-auto`}>
-                              <Icon className="w-6 h-6 text-white" />
-                            </div>
-                            <h3 className="font-semibold text-center text-sm">{category.label}</h3>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 3: Urgency Selection */}
-                {currentStep === 3 && (
-                  <div className="space-y-6 animate-fade-in">
-                    <div className="space-y-4">
-                      {urgencyLevels.map(urgency => (
-                        <div
-                          key={urgency.value}
-                          onClick={() => handleInputChange("urgency", urgency.value)}
-                          className={`p-6 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:scale-[1.02] ${
-                            formData.urgency === urgency.value
-                              ? 'border-primary bg-primary/10 shadow-card'
-                              : 'border-border bg-white hover:border-primary/50'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-4">
-                            <div className={`w-4 h-4 rounded-full ${urgency.color}`}></div>
-                            <div>
-                              <h3 className="font-semibold text-lg">{urgency.label}</h3>
-                              <p className="text-muted-foreground">{urgency.description}</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 4: Final Details */}
-                {currentStep === 4 && (
-                  <div className="space-y-6 animate-fade-in">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <Label htmlFor="location" className="text-lg font-semibold">Location/Address</Label>
-                        <Input
-                          id="location"
-                          placeholder="Where should volunteers meet you?"
-                          value={formData.location}
-                          onChange={(e) => handleInputChange("location", e.target.value)}
-                          className="text-base h-12 bg-white border-2"
-                        />
-                      </div>
-
-                      <div className="space-y-3">
-                        <Label htmlFor="estimatedTime" className="text-lg font-semibold">Estimated Time</Label>
-                        <Input
-                          id="estimatedTime"
-                          placeholder="e.g., 30 minutes, 2 hours"
-                          value={formData.estimatedTime}
-                          onChange={(e) => handleInputChange("estimatedTime", e.target.value)}
-                          className="text-base h-12 bg-white border-2"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <Label htmlFor="contactPreference" className="text-lg font-semibold">How should volunteers contact you?</Label>
-                      <Input
-                        id="contactPreference"
-                        placeholder="Phone, email, or through app messaging"
-                        value={formData.contactPreference}
-                        onChange={(e) => handleInputChange("contactPreference", e.target.value)}
-                        className="text-base h-12 bg-white border-2"
-                      />
-                    </div>
-
-                    <div className="border-2 border-dashed border-primary/30 rounded-xl p-8 text-center bg-primary/5">
-                      <Upload className="w-12 h-12 text-primary mx-auto mb-4" />
-                      <p className="text-lg text-foreground mb-4 font-semibold">
-                        Add a photo (optional)
-                      </p>
-                      <p className="text-muted-foreground mb-4">
-                        A picture can help volunteers better understand your need
-                      </p>
-                      <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-white">
-                        Choose File
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Navigation Buttons */}
-              <div className="flex justify-between items-center mt-8 pt-6 border-t">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="lg"
-                  onClick={prevStep}
-                  disabled={currentStep === 1}
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  Previous
+              <div className="space-y-4">
+                <Button asChild className="w-full bg-primary hover:bg-primary-hover">
+                  <Link to="/browse">Browse Other Needs</Link>
                 </Button>
-
-                {currentStep < 4 ? (
-                  <Button
-                    type="button"
-                    variant="hero"
-                    size="lg"
-                    onClick={nextStep}
-                    disabled={!canProceed()}
-                    className="flex items-center gap-2"
-                  >
-                    Next
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    variant="hero"
-                    size="lg"
-                    onClick={handleSubmit}
-                    className="flex items-center gap-2"
-                  >
-                    <Heart className="w-4 h-4" />
-                    Share My Need
-                  </Button>
-                )}
+                <Button variant="outline" asChild className="w-full">
+                  <Link to="/dashboard">View My Dashboard</Link>
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setFormData({
+                      title: "",
+                      description: "",
+                      category: "",
+                      urgency: "",
+                      location: "",
+                      estimatedTime: "",
+                      contactPreference: "message",
+                      phone: "",
+                      name: ""
+                    });
+                  }}
+                  className="w-full"
+                >
+                  Post Another Need
+                </Button>
               </div>
             </CardContent>
           </Card>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-primary font-medium mb-4">
+            <Heart className="w-4 h-4" />
+            <span>Post Your Need</span>
+          </div>
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            Get Help From Your <span className="text-primary">Community</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Tell your neighbors what you need help with. It's free, simple, and you'll be amazed by how willing people are to help.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <Card className="border-0 shadow-xl bg-white">
+            <CardHeader className="pb-6">
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <div className="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center">
+                  <MessageSquare className="w-5 h-5 text-primary" />
+                </div>
+                What do you need help with?
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <Label htmlFor="title" className="text-lg font-semibold text-foreground mb-3 block">
+                  Give your request a clear title *
+                </Label>
+                <Input
+                  id="title"
+                  placeholder="e.g., 'Weekly grocery shopping' or 'Help moving furniture'"
+                  value={formData.title}
+                  onChange={(e) => handleInputChange("title", e.target.value)}
+                  className="text-lg py-6 px-4 rounded-xl border-2 focus:border-primary"
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="description" className="text-lg font-semibold text-foreground mb-3 block">
+                  Describe what kind of help you need *
+                </Label>
+                <Textarea
+                  id="description"
+                  placeholder="Be specific about what you need. For example: 'I need someone to help me with grocery shopping every Tuesday morning. I have mobility issues and would appreciate someone who can drive me to the store and help carry bags.'"
+                  value={formData.description}
+                  onChange={(e) => handleInputChange("description", e.target.value)}
+                  className="min-h-32 text-lg py-4 px-4 rounded-xl border-2 focus:border-primary resize-none"
+                  required
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Category Selection */}
+          <Card className="border-0 shadow-xl bg-white">
+            <CardHeader className="pb-6">
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <div className="w-8 h-8 bg-accent/10 rounded-xl flex items-center justify-center">
+                  <Plus className="w-5 h-5 text-accent" />
+                </div>
+                What category best fits your need? *
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {categories.map((category) => (
+                  <button
+                    key={category.value}
+                    type="button"
+                    onClick={() => handleInputChange("category", category.value)}
+                    className={`p-6 rounded-xl border-2 text-left transition-all hover:shadow-md ${
+                      formData.category === category.value 
+                        ? 'border-primary bg-primary/5 shadow-md' 
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${category.color}`}>
+                        <category.icon className="w-6 h-6" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground mb-1">{category.label}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{category.description}</p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Urgency */}
+          <Card className="border-0 shadow-xl bg-white">
+            <CardHeader className="pb-6">
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <div className="w-8 h-8 bg-orange/10 rounded-xl flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-orange-600" />
+                </div>
+                How urgent is this need? *
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-4">
+                {urgencyLevels.map((level) => (
+                  <button
+                    key={level.value}
+                    type="button"
+                    onClick={() => handleInputChange("urgency", level.value)}
+                    className={`p-6 rounded-xl border-2 text-left transition-all hover:shadow-md ${
+                      formData.urgency === level.value 
+                        ? 'border-primary bg-primary/5 shadow-md' 
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="space-y-3">
+                      <Badge className={level.badge}>{level.label}</Badge>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{level.description}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Additional Details */}
+          <Card className="border-0 shadow-xl bg-white">
+            <CardHeader className="pb-6">
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <div className="w-8 h-8 bg-green/10 rounded-xl flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-green-600" />
+                </div>
+                Additional Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="location" className="text-lg font-semibold text-foreground mb-3 block">
+                    Your general location
+                  </Label>
+                  <Input
+                    id="location"
+                    placeholder="e.g., 'Downtown area' or 'Near Main St'"
+                    value={formData.location}
+                    onChange={(e) => handleInputChange("location", e.target.value)}
+                    className="text-lg py-6 px-4 rounded-xl border-2 focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="estimatedTime" className="text-lg font-semibold text-foreground mb-3 block">
+                    Estimated time needed
+                  </Label>
+                  <Input
+                    id="estimatedTime"
+                    placeholder="e.g., '2 hours' or 'Once a week'"
+                    value={formData.estimatedTime}
+                    onChange={(e) => handleInputChange("estimatedTime", e.target.value)}
+                    className="text-lg py-6 px-4 rounded-xl border-2 focus:border-primary"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="name" className="text-lg font-semibold text-foreground mb-3 block">
+                  Your name (how volunteers should address you)
+                </Label>
+                <Input
+                  id="name"
+                  placeholder="e.g., 'Sarah' or 'Mrs. Johnson'"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange("name", e.target.value)}
+                  className="text-lg py-6 px-4 rounded-xl border-2 focus:border-primary"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Submit Button */}
+          <div className="flex justify-center pt-8">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-primary hover:bg-primary-hover text-white font-bold px-12 py-6 text-xl rounded-xl shadow-lg hover-lift disabled:opacity-50"
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                  Posting Your Need...
+                </>
+              ) : (
+                <>
+                  <Heart className="w-5 h-5 mr-3" />
+                  Share With Community
+                </>
+              )}
+            </Button>
+          </div>
+        </form>
+
+        {/* Help Text */}
+        <div className="text-center mt-12 p-6 bg-white/50 rounded-xl border border-white/20">
+          <p className="text-muted-foreground">
+            Need help with this form? <Link to="/help" className="text-primary hover:underline">Contact our support team</Link> or call (555) 123-4567
+          </p>
         </div>
       </div>
     </div>
