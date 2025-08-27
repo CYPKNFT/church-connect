@@ -118,16 +118,21 @@ export default function BrowseNeeds() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 font-medium mb-8">
-              <Heart className="w-5 h-5" />
-              <span>Make a Difference</span>
-            </div>
+            <Heart className="w-16 h-16 text-accent mx-auto mb-8" />
             <h1 className="text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-              Community Needs
+              Ready to Make a Difference?
             </h1>
-            <p className="text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-              Every act of service, no matter how small, creates ripples of God's love throughout our community
+            <p className="text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-12">
+              Every volunteer makes a lasting impact. Your willingness to serve changes lives and strengthens our entire community.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <Button size="lg" className="bg-accent hover:bg-accent-hover text-lg px-8 py-6">
+                View More Opportunities
+              </Button>
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-2 border-white/20 text-white hover:bg-white/10">
+                Learn About Volunteering
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -240,26 +245,6 @@ export default function BrowseNeeds() {
           </div>
         )}
 
-        {/* Call to Action Section */}
-        {filteredNeeds.length > 0 && (
-          <section className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl p-12 lg:p-16 text-center">
-            <Heart className="w-16 h-16 text-accent mx-auto mb-6" />
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Ready to Make a Difference?
-            </h2>
-            <p className="text-xl lg:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto">
-              Every volunteer makes a lasting impact. Your willingness to serve changes lives and strengthens our entire community.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent hover:bg-accent-hover text-lg px-8 py-6">
-                View More Opportunities
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-2">
-                Learn About Volunteering
-              </Button>
-            </div>
-          </section>
-        )}
       </div>
     </div>
   );
