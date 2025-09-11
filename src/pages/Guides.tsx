@@ -23,24 +23,24 @@ export default function Guides() {
 
         {/* Tabs */}
         <Tabs defaultValue="getting-started" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8">
-            <TabsTrigger value="getting-started" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-secondary">
+            <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Users className="w-4 h-4" />
               Getting Started
             </TabsTrigger>
-            <TabsTrigger value="safety" className="flex items-center gap-2">
+            <TabsTrigger value="safety" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Shield className="w-4 h-4" />
               Safety & Trust
             </TabsTrigger>
-            <TabsTrigger value="communication" className="flex items-center gap-2">
+            <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <MessageSquare className="w-4 h-4" />
               Communication
             </TabsTrigger>
-            <TabsTrigger value="volunteers" className="flex items-center gap-2">
+            <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Heart className="w-4 h-4" />
               Serving Well
             </TabsTrigger>
-            <TabsTrigger value="troubleshooting" className="flex items-center gap-2">
+            <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <HelpCircle className="w-4 h-4" />
               Troubleshooting
             </TabsTrigger>
@@ -50,68 +50,70 @@ export default function Guides() {
           <TabsContent value="getting-started">
             <div className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
-                <Card>
+                <Card className="bg-[hsl(var(--volunteer-bg))] border-[hsl(var(--volunteer-border))] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl">
-                      <Heart className="w-5 h-5 text-accent" />
-                      For Volunteers (Helpers)
+                    <div className="text-xs uppercase tracking-wide text-[hsl(var(--volunteer-border))] font-semibold mb-1">For Volunteers</div>
+                    <CardTitle className="flex items-center gap-2 text-xl font-bold text-[hsl(var(--volunteer-text))]">
+                      <Heart className="w-5 h-5 text-[hsl(var(--volunteer-border))]" />
+                      Helpers
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                      <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                        <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                         <div>
-                          <h5 className="font-medium">Profile Setup</h5>
-                          <p className="text-sm text-muted-foreground">Create a complete profile with photo and skills</p>
+                          <h5 className="font-bold text-[hsl(var(--volunteer-text))]">Profile Setup</h5>
+                          <p className="text-sm text-[hsl(var(--slate-600))]">Create a complete profile with photo and skills</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                      <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                        <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                         <div>
-                          <h5 className="font-medium">Finding Needs</h5>
-                          <p className="text-sm text-muted-foreground">Browse and respond to community requests</p>
+                          <h5 className="font-bold text-[hsl(var(--volunteer-text))]">Finding Needs</h5>
+                          <p className="text-sm text-[hsl(var(--slate-600))]">Browse and respond to community requests</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                      <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                        <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                         <div>
-                          <h5 className="font-medium">First Serve</h5>
-                          <p className="text-sm text-muted-foreground">Tips for your first volunteer experience</p>
+                          <h5 className="font-bold text-[hsl(var(--volunteer-text))]">First Serve</h5>
+                          <p className="text-sm text-[hsl(var(--slate-600))]">Tips for your first volunteer experience</p>
                         </div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-[hsl(var(--neighbor-bg))] border-[hsl(var(--neighbor-border))] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 rounded-xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl">
-                      <Users className="w-5 h-5 text-accent" />
-                      For Neighbors (Receivers)
+                    <div className="text-xs uppercase tracking-wide text-[hsl(var(--neighbor-border))] font-semibold mb-1">For Neighbors</div>
+                    <CardTitle className="flex items-center gap-2 text-xl font-bold text-[hsl(var(--neighbor-text))]">
+                      <Users className="w-5 h-5 text-[hsl(var(--neighbor-border))]" />
+                      Receivers
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                      <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                        <CheckCircle className="w-4 h-4 text-[hsl(var(--neighbor-border))] mt-1" />
                         <div>
-                          <h5 className="font-medium">Posting with Dignity</h5>
-                          <p className="text-sm text-muted-foreground">How to ask for help respectfully and clearly</p>
+                          <h5 className="font-bold text-[hsl(var(--neighbor-text))]">Posting with Dignity</h5>
+                          <p className="text-sm text-[hsl(var(--slate-600))]">How to ask for help respectfully and clearly</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                      <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                        <CheckCircle className="w-4 h-4 text-[hsl(var(--neighbor-border))] mt-1" />
                         <div>
-                          <h5 className="font-medium">Privacy Options</h5>
-                          <p className="text-sm text-muted-foreground">Control who sees your requests</p>
+                          <h5 className="font-bold text-[hsl(var(--neighbor-text))]">Privacy Options</h5>
+                          <p className="text-sm text-[hsl(var(--slate-600))]">Control who sees your requests</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                      <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                        <CheckCircle className="w-4 h-4 text-[hsl(var(--neighbor-border))] mt-1" />
                         <div>
-                          <h5 className="font-medium">Responding to Help</h5>
-                          <p className="text-sm text-muted-foreground">How to coordinate with volunteers effectively</p>
+                          <h5 className="font-bold text-[hsl(var(--neighbor-text))]">Responding to Help</h5>
+                          <p className="text-sm text-[hsl(var(--slate-600))]">How to coordinate with volunteers effectively</p>
                         </div>
                       </div>
                     </div>
@@ -119,16 +121,38 @@ export default function Guides() {
                 </Card>
               </div>
 
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                <h4 className="font-semibold text-primary mb-2">Universal Quick Tips</h4>
-                <ul className="space-y-2 text-muted-foreground grid md:grid-cols-2 gap-2">
-                  <li>• Be specific when posting needs - details help volunteers prepare</li>
-                  <li>• Include timeframes and any special requirements</li>
-                  <li>• Don't hesitate to ask for help - your church family wants to support you</li>
-                  <li>• Say thank you and share how the help made a difference</li>
-                  <li>• Trust your instincts and prioritize safety</li>
-                  <li>• Communicate clearly and respond promptly</li>
-                </ul>
+              <div className="bg-gradient-to-r from-[hsl(var(--sky-blue))] to-[hsl(var(--accent-light))] border border-gray-200 rounded-xl p-6">
+                <h4 className="font-bold text-primary mb-4">Universal Quick Tips</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <p className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      Be specific when posting needs - details help volunteers prepare
+                    </p>
+                    <p className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      Include timeframes and any special requirements
+                    </p>
+                    <p className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      Don't hesitate to ask for help - your church family wants to support you
+                    </p>
+                  </div>
+                  <div className="border-l border-gray-300 pl-4 space-y-2">
+                    <p className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      Say thank you and share how the help made a difference
+                    </p>
+                    <p className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      Trust your instincts and prioritize safety
+                    </p>
+                    <p className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
+                      Communicate clearly and respond promptly
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </TabsContent>
@@ -136,110 +160,111 @@ export default function Guides() {
           {/* Serving Well for Volunteers */}
           <TabsContent value="volunteers">
             <div className="space-y-6">
-              <Card>
+              <Card className="bg-[hsl(var(--volunteer-bg))] border-[hsl(var(--volunteer-border))] rounded-xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl">
-                    <Heart className="w-6 h-6 text-accent" />
-                    Serving Well - For Volunteers
+                  <div className="text-xs uppercase tracking-wide text-[hsl(var(--volunteer-border))] font-semibold mb-1">For Volunteers</div>
+                  <CardTitle className="flex items-center gap-2 text-2xl font-bold text-primary">
+                    <Heart className="w-6 h-6 text-[hsl(var(--volunteer-border))]" />
+                    Serving Well
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <p className="text-lg text-muted-foreground">
+                  <p className="text-lg text-[hsl(var(--slate-600))]">
                     How to be an excellent volunteer who serves with excellence and joy
                   </p>
                   
                   <div className="grid gap-6 md:grid-cols-2">
                     <div>
-                      <h4 className="font-semibold text-foreground mb-3">Reliability & Commitment</h4>
+                      <h4 className="font-bold text-primary mb-3">Reliability & Commitment</h4>
                       <div className="space-y-3">
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Only commit to what you can follow through on</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Only commit to what you can follow through on</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Communicate changes as early as possible</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Communicate changes as early as possible</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Arrive on time and prepared</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Arrive on time and prepared</p>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-foreground mb-3">Respecting Privacy & Dignity</h4>
+                      <h4 className="font-bold text-primary mb-3">Respecting Privacy & Dignity</h4>
                       <div className="space-y-3">
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Follow the family's preferences and house rules</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Follow the family's preferences and house rules</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Maintain appropriate boundaries</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Maintain appropriate boundaries</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Keep personal information confidential</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Keep personal information confidential</p>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-foreground mb-3">Serving with Joy</h4>
+                      <h4 className="font-bold text-primary mb-3">Serving with Joy</h4>
                       <div className="space-y-3">
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Approach each opportunity with a positive attitude</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Approach each opportunity with a positive attitude</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Serve from love, not obligation</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Serve from love, not obligation</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Remember you represent your church and faith</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Remember you represent your church and faith</p>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-foreground mb-3">Volunteer Ethics</h4>
+                      <h4 className="font-bold text-primary mb-3">Volunteer Ethics</h4>
                       <div className="space-y-3">
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Maintain strict confidentiality</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Maintain strict confidentiality</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">No photos or social media sharing without permission</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">No photos or social media sharing without permission</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
-                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div className="flex items-start gap-3 p-3 bg-white/50 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-[hsl(var(--volunteer-border))] mt-1" />
                           <div>
-                            <p className="text-sm text-muted-foreground">Report concerns to church leadership</p>
+                            <p className="text-sm text-[hsl(var(--slate-600))]">Report concerns to church leadership</p>
                           </div>
                         </div>
                       </div>

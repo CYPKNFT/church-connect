@@ -8,38 +8,53 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
 
 @layer base {
   :root {
-    /* Core Colors */
+    /* ChurchConnect Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 215 25% 15%;
+    --foreground: 222 84% 5%; /* Slate-900 #0F172A */
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 222 84% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 222 84% 5%;
 
-    /* Primary System - Enhanced with more variants */
-    --primary: 215 85% 35%;
+    /* Primary - Navy Blue System */
+    --primary: 215 100% 16%; /* Navy #0A2540 */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 215 85% 25%;
-    --primary-light: 215 85% 45%;
-    --primary-lighter: 215 85% 55%;
-    --primary-dark: 215 85% 20%;
+    --primary-hover: 215 100% 12%;
+    --primary-light: 216 87% 33%; /* Royal Blue #154A9C */
+    --primary-lighter: 218 78% 51%; /* Azure #2D6FD6 */
+    --primary-dark: 215 100% 10%;
 
-    /* Secondary System - Enhanced variants */
+    /* Secondary System - Neutral grays */
     --secondary: 210 40% 95%;
-    --secondary-foreground: 215 25% 15%;
+    --secondary-foreground: 222 84% 5%;
     --secondary-hover: 210 40% 88%;
     --secondary-light: 210 40% 97%;
     --secondary-dark: 210 40% 85%;
 
-    /* Accent System - Enhanced variants */
-    --accent: 45 90% 55%;
-    --accent-foreground: 0 0% 100%;
-    --accent-hover: 45 90% 45%;
-    --accent-light: 45 90% 65%;
-    --accent-lighter: 45 90% 75%;
-    --accent-dark: 45 90% 35%;
+    /* Accent System - Gold */
+    --accent: 41 96% 59%; /* Gold #F4B93A */
+    --accent-foreground: 222 84% 5%;
+    --accent-hover: 41 96% 49%;
+    --accent-light: 48 95% 91%; /* Warm Yellow #FFF4D6 */
+    --accent-lighter: 48 95% 95%;
+    --accent-dark: 41 96% 39%;
+
+    /* Additional Brand Colors */
+    --sky-blue: 218 100% 95%; /* Sky Blue #EAF2FF */
+    --sky-blue-accent: 218 78% 51%; /* Azure #2D6FD6 */
+    --slate-600: 215 14% 34%; /* Slate-600 #475569 */
+    
+    /* Volunteer Colors (Gold themed) */
+    --volunteer-bg: 48 95% 91%; /* #FFF4D6 */
+    --volunteer-border: 41 96% 59%; /* #F4B93A */
+    --volunteer-text: 222 84% 5%; /* #0F172A */
+    
+    /* Neighbor Colors (Blue themed) */
+    --neighbor-bg: 218 100% 95%; /* #EAF2FF */
+    --neighbor-border: 218 78% 51%; /* #2D6FD6 */
+    --neighbor-text: 222 84% 5%; /* #0F172A */
 
     /* Neutral System - Enhanced grays */
     --muted: 210 40% 95%;
