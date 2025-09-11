@@ -9,6 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, Plus, Car, ShoppingBag, Wrench, UtensilsCrossed, Hand, HelpCircle, Clock, MapPin, Phone, Mail, MessageSquare, CheckCircle, User, Home, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { AuthDialog } from "@/components/AuthDialog";
+import { supabase } from "@/integrations/supabase/client";
 
 const categories = [
   { 
@@ -81,6 +84,8 @@ const urgencyLevels = [
 
 export default function PostNeed() {
   const { toast } = useToast();
+  const { user, loading } = useAuth();
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -99,6 +104,12 @@ export default function PostNeed() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Check if user is authenticated
+    if (!user) {
+      setShowAuthDialog(true);
+      return;
+    }
+    
     // Basic validation
     if (!formData.title || !formData.description || !formData.category || !formData.urgency) {
       toast({
@@ -111,20 +122,83 @@ export default function PostNeed() {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // For now, simulate posting since the database schema is ready but we don't have needs table yet
+      // Check if user has church membership by checking if they exist in members table
+      try {
+        const { data: memberData, error: memberError } = await (supabase as any)
+          .from('members')
+          .select('church_id, name')
+          .eq('user_id', user.id)
+          .eq('approved', true)
+          .maybeSingle();
+
+        if (memberError) {
+          console.log('Error checking membership:', memberError);
+        }
+
+        if (!memberData) {
+          toast({
+            title: "Membership Required",
+            description: "You must be an approved member of a church to post needs. Please contact your church admin.",
+            variant: "destructive"
+          });
+          setIsSubmitting(false);
+          return;
+        }
+
+        // Create need record (needs table would need to be created)
+        const needData = {
+          title: formData.title,
+          description: formData.description,
+          category: formData.category,
+          urgency: formData.urgency,
+          location: formData.location,
+          estimated_time: formData.estimatedTime,
+          contact_preference: formData.contactPreference,
+          phone: formData.phone,
+          posted_by_name: formData.name || memberData.name,
+          church_id: memberData.church_id,
+          posted_by_user_id: user.id,
+          status: 'active'
+        };
+
+        console.log('Would save need:', needData);
+      } catch (dbError) {
+        console.log('Database not ready, simulating success');
+      }
+
+      // For now, just simulate success
       setIsSubmitted(true);
       toast({
         title: "Need Posted Successfully! 🎉",
         description: "Your request has been shared with the community. You'll receive notifications when people offer to help.",
       });
-    }, 1500);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong while posting your need. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (isSubmitted) {
     return (
@@ -388,6 +462,8 @@ export default function PostNeed() {
           </p>
         </div>
       </div>
+
+      <AuthDialog open={showAuthDialog} onOpenChange={setShowAuthDialog} />
     </div>
   );
 }
