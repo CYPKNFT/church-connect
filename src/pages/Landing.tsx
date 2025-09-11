@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
-import { Footer } from "@/components/Footer";
+
 
 export default function Landing() {
   return (
@@ -371,8 +371,6 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      
-      <Footer />
     </div>
   );
 }

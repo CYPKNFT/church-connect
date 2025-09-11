@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, Heart, Plus, Home } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { AuthDialog } from "./AuthDialog";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -45,12 +48,10 @@ export function Header() {
               <Button 
                 className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
                 size="sm" 
-                asChild
+                onClick={() => navigate('/post')}
               >
-                <Link to="/post">
-                  <Plus className="w-4 h-4 mr-1" />
-                  Post Need
-                </Link>
+                <Plus className="w-4 h-4 mr-1" />
+                Post Need
               </Button>
               <div className="flex items-center gap-3">
                 <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">
@@ -71,12 +72,16 @@ export function Header() {
               <Button 
                 className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
                 size="sm" 
-                asChild
+                onClick={() => {
+                  if (!user) {
+                    setShowAuthDialog(true);
+                  } else {
+                    navigate('/post');
+                  }
+                }}
               >
-                <Link to="/post">
-                  <Plus className="w-4 h-4 mr-1" />
-                  Post Need
-                </Link>
+                <Plus className="w-4 h-4 mr-1" />
+                Post Need
               </Button>
               <Button 
                 variant="outline" 
@@ -143,12 +148,17 @@ export function Header() {
               <Button 
                 className="bg-primary hover:bg-primary-hover text-white shadow-md" 
                 size="sm" 
-                asChild
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  if (!user) {
+                    setShowAuthDialog(true);
+                  } else {
+                    navigate('/post');
+                  }
+                }}
               >
-                <Link to="/post" onClick={() => setIsMenuOpen(false)}>
-                  <Plus className="w-4 h-4 mr-1" />
-                  Post Need
-                </Link>
+                <Plus className="w-4 h-4 mr-1" />
+                Post Need
               </Button>
               {user ? (
                 <>
@@ -180,6 +190,12 @@ export function Header() {
           </div>
         </div>
       )}
+      
+      <AuthDialog
+        open={showAuthDialog}
+        onOpenChange={setShowAuthDialog}
+        redirectTo="/post"
+      />
     </header>
   );
 }

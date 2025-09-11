@@ -1,124 +1,117 @@
-import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { useState, useEffect } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { Eye, EyeOff } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 interface AuthDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  redirectTo?: string;
 }
 
-export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [churches, setChurches] = useState<Array<{ id: string; name: string }>>([]);
-  const [churchesLoading, setChurchesLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    church_id: ''
-  });
-
+export function AuthDialog({ open, onOpenChange, redirectTo }: AuthDialogProps) {
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [selectedChurch, setSelectedChurch] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [churches, setChurches] = useState<Array<{id: string, name: string, city: string, state: string}>>([]);
 
-  // Fetch churches from Supabase
+  // Fetch churches when dialog opens in signup mode
   useEffect(() => {
-    const fetchChurches = async () => {
-      setChurchesLoading(true);
-      try {
-        const { data, error } = await (supabase as any)
-          .from('Churches')
-          .select('id, name')
-          .order('name');
-        
-        if (error) {
-          console.error('Error fetching churches:', error);
-          toast({
-            title: 'Error',
-            description: 'Failed to load churches. Please try again.',
-            variant: 'destructive'
-          });
-        } else {
-          setChurches(data || []);
-        }
-      } catch (error) {
-        console.error('Error fetching churches:', error);
-      } finally {
-        setChurchesLoading(false);
-      }
-    };
-
-    if (open && mode === 'signup') {
+    if (open && mode === "signup") {
       fetchChurches();
     }
-  }, [open, mode, toast]);
+  }, [open, mode]);
+
+  const fetchChurches = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('Churches')
+        .select('id, name, city, state')
+        .order('name');
+      
+      if (error) {
+        console.error('Error fetching churches:', error);
+        return;
+      }
+      
+      setChurches(data || []);
+    } catch (error) {
+      console.error('Error fetching churches:', error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
 
     try {
-      if (mode === 'signin') {
-        const { error } = await signIn(formData.email, formData.password);
-        if (error) {
-          toast({
-            title: 'Sign In Failed',
-            description: error.message,
-            variant: 'destructive'
-          });
-        } else {
-          toast({
-            title: 'Welcome back!',
-            description: 'You have successfully signed in.'
-          });
-          onOpenChange(false);
-        }
+      let result;
+      
+      if (mode === "signin") {
+        result = await signIn(email, password);
       } else {
-        if (!formData.name || !formData.church_id) {
+        if (!name.trim() || !selectedChurch) {
           toast({
-            title: 'Missing Information',
-            description: 'Please fill in all required fields.',
-            variant: 'destructive'
+            title: "Missing Information",
+            description: "Please fill in all required fields.",
+            variant: "destructive",
           });
+          setIsLoading(false);
           return;
         }
-
-        const { error } = await signUp(formData.email, formData.password, {
-          name: formData.name,
-          church_id: formData.church_id
+        
+        result = await signUp(email, password, {
+          name: name.trim(),
+          church_id: selectedChurch
         });
+      }
 
-        if (error) {
-          toast({
-            title: 'Sign Up Failed',
-            description: error.message,
-            variant: 'destructive'
-          });
-        } else {
-          toast({
-            title: 'Account Created!',
-            description: 'Please check your email to verify your account. Your membership will need approval from your church admin.'
-          });
-          onOpenChange(false);
+      if (result.error) {
+        toast({
+          title: "Error",
+          description: result.error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: mode === "signin" ? "Signed in successfully!" : "Account created successfully!",
+        });
+        onOpenChange(false);
+        
+        // Redirect if specified
+        if (redirectTo) {
+          navigate(redirectTo);
         }
+        
+        // Reset form
+        setEmail("");
+        setPassword("");
+        setName("");
+        setSelectedChurch("");
       }
     } catch (error: any) {
       toast({
-        title: 'Error',
-        description: error.message || 'Something went wrong',
-        variant: 'destructive'
+        title: "Error",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -127,34 +120,34 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            {mode === 'signin' ? 'Sign In' : 'Join Your Church Community'}
+            {mode === "signin" ? "Sign In to ChurchConnect" : "Join Your Church Community"}
           </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {mode === 'signup' && (
+          {mode === "signup" && (
             <>
-              <div>
-                <Label htmlFor="name">Full Name</Label>
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name *</Label>
                 <Input
                   id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your full name"
                   required
                 />
               </div>
 
-              <div>
-                <Label htmlFor="church">Church</Label>
-                <Select value={formData.church_id} onValueChange={(value) => setFormData(prev => ({ ...prev, church_id: value }))}>
+              <div className="space-y-2">
+                <Label htmlFor="church">Select Your Church *</Label>
+                <Select value={selectedChurch} onValueChange={setSelectedChurch}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your church" />
+                    <SelectValue placeholder="Choose your church" />
                   </SelectTrigger>
                   <SelectContent>
                     {churches.map((church) => (
                       <SelectItem key={church.id} value={church.id}>
-                        {church.name}
+                        {church.name} - {church.city}, {church.state}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -163,28 +156,29 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
             </>
           )}
 
-          <div>
-            <Label htmlFor="email">Email</Label>
+          <div className="space-y-2">
+            <Label htmlFor="email">Email Address *</Label>
             <Input
               id="email"
               type="email"
-              value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
             />
           </div>
 
-          <div>
-            <Label htmlFor="password">Password</Label>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password *</Label>
             <div className="relative">
               <Input
                 id="password"
-                type={showPassword ? 'text' : 'password'}
-                value={formData.password}
-                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
+                minLength={6}
               />
               <Button
                 type="button"
@@ -193,37 +187,50 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
                 className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Loading...' : mode === 'signin' ? 'Sign In' : 'Create Account'}
+          <Button 
+            type="submit" 
+            className="w-full" 
+            disabled={isLoading}
+          >
+            {isLoading 
+              ? "Processing..." 
+              : mode === "signin" 
+                ? "Sign In" 
+                : "Create Account"
+            }
           </Button>
         </form>
 
         <div className="text-center text-sm">
-          {mode === 'signin' ? (
+          {mode === "signin" ? (
             <p>
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <button
                 type="button"
-                onClick={() => setMode('signup')}
-                className="text-primary hover:underline"
+                onClick={() => setMode("signup")}
+                className="text-primary hover:underline font-medium"
               >
-                Sign up
+                Sign up here
               </button>
             </p>
           ) : (
             <p>
-              Already have an account?{' '}
+              Already have an account?{" "}
               <button
                 type="button"
-                onClick={() => setMode('signin')}
-                className="text-primary hover:underline"
+                onClick={() => setMode("signin")}
+                className="text-primary hover:underline font-medium"
               >
-                Sign in
+                Sign in here
               </button>
             </p>
           )}

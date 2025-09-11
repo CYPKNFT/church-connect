@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="bg-[#0A2540] text-white">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Column 1: Branding & Mission */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-4">
@@ -36,18 +36,20 @@ export function Footer() {
                 <Link to="/help" className="block text-gray-300 hover:text-accent transition-colors">Support / Help Center</Link>
               </div>
             </div>
+          </div>
+
+          {/* Column 3: Trust Pages */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold mb-4">Trust Pages</h3>
             <div className="space-y-2">
-              <h4 className="text-gray-400 font-medium text-sm uppercase tracking-wide">Trust Pages</h4>
-              <div className="space-y-2">
-                <Link to="/guides?tab=safety" className="block text-gray-300 hover:text-accent transition-colors">Safety & Trust</Link>
-                <Link to="/guides?tab=communication" className="block text-gray-300 hover:text-accent transition-colors">Community Guidelines</Link>
-                <Link to="/privacy" className="block text-gray-300 hover:text-accent transition-colors">Privacy Policy</Link>
-                <Link to="/terms" className="block text-gray-300 hover:text-accent transition-colors">Terms of Service</Link>
-              </div>
+              <Link to="/guides?tab=safety" className="block text-gray-300 hover:text-accent transition-colors">Safety & Trust</Link>
+              <Link to="/guides?tab=communication" className="block text-gray-300 hover:text-accent transition-colors">Community Guidelines</Link>
+              <Link to="/privacy" className="block text-gray-300 hover:text-accent transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="block text-gray-300 hover:text-accent transition-colors">Terms of Service</Link>
             </div>
           </div>
 
-          {/* Column 3: For Churches */}
+          {/* Column 4: For Churches */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold mb-4">For Churches</h3>
             <div className="space-y-2">
@@ -67,7 +69,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 4: Stay Connected */}
+          {/* Column 5: Stay Connected */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold mb-4">Stay Connected</h3>
             <div className="space-y-4">
