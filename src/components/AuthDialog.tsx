@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Eye, EyeOff } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface AuthDialogProps {
   open: boolean;
@@ -17,6 +18,8 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [churches, setChurches] = useState<Array<{ id: string; name: string }>>([]);
+  const [churchesLoading, setChurchesLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,13 +30,37 @@ export function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
 
-  // Mock church data - in real app, fetch from database
-  const churches = [
-    { id: '1', name: 'First Baptist Church' },
-    { id: '2', name: 'Grace Community Church' },
-    { id: '3', name: 'St. Mary\'s Catholic Church' },
-    { id: '4', name: 'Hope Fellowship' }
-  ];
+  // Fetch churches from Supabase
+  useEffect(() => {
+    const fetchChurches = async () => {
+      setChurchesLoading(true);
+      try {
+        const { data, error } = await (supabase as any)
+          .from('Churches')
+          .select('id, name')
+          .order('name');
+        
+        if (error) {
+          console.error('Error fetching churches:', error);
+          toast({
+            title: 'Error',
+            description: 'Failed to load churches. Please try again.',
+            variant: 'destructive'
+          });
+        } else {
+          setChurches(data || []);
+        }
+      } catch (error) {
+        console.error('Error fetching churches:', error);
+      } finally {
+        setChurchesLoading(false);
+      }
+    };
+
+    if (open && mode === 'signup') {
+      fetchChurches();
+    }
+  }, [open, mode, toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
