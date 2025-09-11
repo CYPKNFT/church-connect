@@ -32,12 +32,12 @@ export default function Landing() {
               <div className="flex flex-col sm:flex-row gap-4 animate-slide-up">
                 <Button 
                   size="lg" 
-                  className="bg-primary hover:bg-primary-hover text-white font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift" 
+                  className="bg-accent hover:bg-accent/90 text-foreground font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift" 
                   asChild
                 >
                   <Link to="/post">
                     <Plus className="w-5 h-5 mr-3" />
-                    Post a Need Now
+                    Post a Need
                   </Link>
                 </Button>
                 <Button 
@@ -81,85 +81,85 @@ export default function Landing() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/80 backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                  <Car className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                  <Car className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Transportation</CardTitle>
+                <CardTitle className="text-xl font-bold text-white">Transportation</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed">
                   Provide rides to appointments, church services, or grocery runs for those in need.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/80 backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                  <ShoppingCart className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                  <ShoppingCart className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Groceries & Errands</CardTitle>
+                <CardTitle className="text-xl font-bold text-white">Groceries & Errands</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed">
                   Help with shopping, pharmacy visits, and essential errands for busy families.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/80 backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                  <Wrench className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                  <Wrench className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Home Repairs</CardTitle>
+                <CardTitle className="text-xl font-bold text-white">Home Repairs</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed">
                   Share your skills to fix household issues, from simple repairs to bigger projects.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/80 backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                  <ChefHat className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                  <ChefHat className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Meals & Hospitality</CardTitle>
+                <CardTitle className="text-xl font-bold text-white">Meals & Hospitality</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed">
                   Organize meal trains for new parents, illness recovery, or times of need.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/80 backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                  <Baby className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                  <Baby className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Childcare Support</CardTitle>
+                <CardTitle className="text-xl font-bold text-white">Childcare Support</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed">
                   Offer babysitting, school pickups, or playdates to support busy parents.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/80 backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                  <HandHeart className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                  <HandHeart className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Prayer & Encouragement</CardTitle>
+                <CardTitle className="text-xl font-bold text-white">Prayer & Encouragement</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed">
                   Provide spiritual support, prayer, and encouragement during difficult times.
                 </p>
               </CardContent>
@@ -249,7 +249,7 @@ export default function Landing() {
       </section>
 
       {/* Quick Start Guides Section */}
-      <section className="py-20 lg:py-32 bg-background relative">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-accent/5 to-primary/5 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">

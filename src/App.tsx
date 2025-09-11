@@ -10,6 +10,9 @@ import Landing from "./pages/Landing";
 import BrowseNeeds from "./pages/BrowseNeeds";
 import PostNeed from "./pages/PostNeed";
 import About from "./pages/About";
+import HowItWorks from "./pages/HowItWorks";
+import Community from "./pages/Community";
+import Churches from "./pages/Churches";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -46,7 +49,9 @@ const App = () => (
               {/* Alternative URLs for better UX */}
               <Route path="/find-help" element={<BrowseNeeds />} />
               <Route path="/volunteer" element={<BrowseNeeds />} />
-              <Route path="/how-it-works" element={<About />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/churches" element={<Churches />} />
               <Route path="/support" element={<Help />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
