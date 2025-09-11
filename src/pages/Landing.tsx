@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus } from "lucide-react";
+import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { Footer } from "@/components/Footer";
 
 export default function Landing() {
   return (
@@ -247,6 +248,90 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Quick Start Guides Section */}
+      <section className="py-20 lg:py-32 bg-background relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
+              <BookOpen className="w-4 h-4" />
+              <span>Quick Start Guides</span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
+              Everything You Need to <span className="bg-accent-gradient bg-clip-text text-transparent">Get Started</span>
+            </h2>
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Step-by-step guides to help you make the most of ChurchConnect
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
+            <Link to="/guides?tab=getting-started">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                    <Users className="w-8 h-8 text-accent" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-center">Getting Started Guide</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-center leading-relaxed">
+                    Learn how to set up your profile and start connecting with your church community
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link to="/guides?tab=volunteers">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                    <Heart className="w-8 h-8 text-accent" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-center">Best Practices for Volunteers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-center leading-relaxed">
+                    Tips for being an effective and trusted volunteer in your community
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link to="/guides?tab=safety">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                    <Shield className="w-8 h-8 text-accent" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-center">Safety Guidelines</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-center leading-relaxed">
+                    Important safety tips for both those requesting and offering help
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link to="/guides?tab=communication">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                    <MessageSquare className="w-8 h-8 text-accent" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-center">Communication Etiquette</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground text-center leading-relaxed">
+                    How to communicate effectively and respectfully through the platform
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 lg:py-32 bg-warm-gradient relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
@@ -286,6 +371,8 @@ export default function Landing() {
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }
