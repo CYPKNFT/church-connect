@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriangle, Star } from "lucide-react";
+import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriangle, Star, HelpCircle } from "lucide-react";
 
 export default function Guides() {
   return (
@@ -23,266 +23,464 @@ export default function Guides() {
 
         {/* Tabs */}
         <Tabs defaultValue="getting-started" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8">
             <TabsTrigger value="getting-started" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
               Getting Started
             </TabsTrigger>
-            <TabsTrigger value="volunteers" className="flex items-center gap-2">
-              <Heart className="w-4 h-4" />
-              Volunteers
-            </TabsTrigger>
             <TabsTrigger value="safety" className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
-              Safety
+              Safety & Trust
             </TabsTrigger>
             <TabsTrigger value="communication" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />
               Communication
+            </TabsTrigger>
+            <TabsTrigger value="volunteers" className="flex items-center gap-2">
+              <Heart className="w-4 h-4" />
+              Serving Well
+            </TabsTrigger>
+            <TabsTrigger value="troubleshooting" className="flex items-center gap-2">
+              <HelpCircle className="w-4 h-4" />
+              Troubleshooting
             </TabsTrigger>
           </TabsList>
 
           {/* Getting Started Guide */}
           <TabsContent value="getting-started">
             <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl">
-                    <Users className="w-6 h-6 text-accent" />
-                    Getting Started Guide
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-lg text-muted-foreground">
-                    Learn how to set up your profile and start connecting with your church community
-                  </p>
-                  
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Step 1: Create Your Profile</h4>
-                        <p className="text-muted-foreground">Sign up with your email and join your church community. Add a profile photo and brief bio to help others recognize you.</p>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Heart className="w-5 h-5 text-accent" />
+                      For Volunteers (Helpers)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div>
+                          <h5 className="font-medium">Profile Setup</h5>
+                          <p className="text-sm text-muted-foreground">Create a complete profile with photo and skills</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div>
+                          <h5 className="font-medium">Finding Needs</h5>
+                          <p className="text-sm text-muted-foreground">Browse and respond to community requests</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div>
+                          <h5 className="font-medium">First Serve</h5>
+                          <p className="text-sm text-muted-foreground">Tips for your first volunteer experience</p>
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Step 2: Explore Your Options</h4>
-                        <p className="text-muted-foreground">Browse current needs in your community or post your own request for help. Every need matters, big or small.</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <CheckCircle className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Step 3: Connect & Serve</h4>
-                        <p className="text-muted-foreground">Respond to needs or have others respond to yours. Build meaningful relationships through acts of service.</p>
-                      </div>
-                    </div>
-                  </div>
+                  </CardContent>
+                </Card>
 
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">Quick Tips</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>• Be specific when posting needs - details help volunteers prepare</li>
-                      <li>• Include timeframes and any special requirements</li>
-                      <li>• Don't hesitate to ask for help - your church family wants to support you</li>
-                      <li>• Say thank you and share how the help made a difference</li>
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Users className="w-5 h-5 text-accent" />
+                      For Neighbors (Receivers)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div>
+                          <h5 className="font-medium">Posting with Dignity</h5>
+                          <p className="text-sm text-muted-foreground">How to ask for help respectfully and clearly</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div>
+                          <h5 className="font-medium">Privacy Options</h5>
+                          <p className="text-sm text-muted-foreground">Control who sees your requests</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                        <div>
+                          <h5 className="font-medium">Responding to Help</h5>
+                          <p className="text-sm text-muted-foreground">How to coordinate with volunteers effectively</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
+                <h4 className="font-semibold text-primary mb-2">Universal Quick Tips</h4>
+                <ul className="space-y-2 text-muted-foreground grid md:grid-cols-2 gap-2">
+                  <li>• Be specific when posting needs - details help volunteers prepare</li>
+                  <li>• Include timeframes and any special requirements</li>
+                  <li>• Don't hesitate to ask for help - your church family wants to support you</li>
+                  <li>• Say thank you and share how the help made a difference</li>
+                  <li>• Trust your instincts and prioritize safety</li>
+                  <li>• Communicate clearly and respond promptly</li>
+                </ul>
+              </div>
             </div>
           </TabsContent>
 
-          {/* Best Practices for Volunteers */}
+          {/* Serving Well for Volunteers */}
           <TabsContent value="volunteers">
             <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl">
                     <Heart className="w-6 h-6 text-accent" />
-                    Best Practices for Volunteers
+                    Serving Well - For Volunteers
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <p className="text-lg text-muted-foreground">
-                    Tips for being an effective and trusted volunteer in your community
+                    How to be an excellent volunteer who serves with excellence and joy
                   </p>
                   
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Star className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Be Reliable</h4>
-                        <p className="text-muted-foreground">Only commit to what you can follow through on. If plans change, communicate as early as possible.</p>
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Reliability & Commitment</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Only commit to what you can follow through on</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Communicate changes as early as possible</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Arrive on time and prepared</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Star className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Communicate Clearly</h4>
-                        <p className="text-muted-foreground">Ask clarifying questions, confirm details, and keep the requester updated on your availability.</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Star className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Respect Boundaries</h4>
-                        <p className="text-muted-foreground">Follow the family's preferences, respect their home and privacy, and maintain appropriate boundaries.</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Star className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Serve with Joy</h4>
-                        <p className="text-muted-foreground">Approach each opportunity with a positive attitude and genuine desire to help, not obligation.</p>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">Volunteer Ethics</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>• Keep personal information and family situations confidential</li>
-                      <li>• Don't take photos or share details on social media without permission</li>
-                      <li>• If you notice concerning situations, contact church leadership</li>
-                      <li>• Remember you're representing your church and faith</li>
-                    </ul>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Respecting Privacy & Dignity</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Follow the family's preferences and house rules</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Maintain appropriate boundaries</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Keep personal information confidential</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Serving with Joy</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Approach each opportunity with a positive attitude</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Serve from love, not obligation</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Remember you represent your church and faith</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Volunteer Ethics</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Maintain strict confidentiality</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">No photos or social media sharing without permission</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Report concerns to church leadership</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
 
-          {/* Safety Guidelines */}
+          {/* Safety & Trust */}
           <TabsContent value="safety">
             <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl">
-                    <Shield className="w-6 h-6 text-accent" />
-                    Safety Guidelines
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-lg text-muted-foreground">
-                    Important safety tips for both those requesting and offering help
-                  </p>
-                  
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-                      <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-red-700">Trust Your Instincts</h4>
-                        <p className="text-red-600">If something doesn't feel right, it's okay to decline or ask for church leadership involvement.</p>
-                      </div>
+              <div className="grid gap-6 md:grid-cols-3">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Shield className="w-5 h-5 text-accent" />
+                      Personal Safety
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium">Meeting New People</p>
+                      <p className="text-xs text-muted-foreground">Meet in public first, bring a friend when possible</p>
                     </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Shield className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Meet in Public First</h4>
-                        <p className="text-muted-foreground">For new connections, consider meeting at church or in public places before home visits.</p>
-                      </div>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium">Emergency Contacts</p>
+                      <p className="text-xs text-muted-foreground">Keep contacts handy, inform others of your plans</p>
                     </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Shield className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Let Others Know</h4>
-                        <p className="text-muted-foreground">Inform family or friends about your volunteer activities, especially when helping in homes.</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <Shield className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Emergency Contacts</h4>
-                        <p className="text-muted-foreground">Keep emergency contacts handy and know who to call if you need help or have concerns.</p>
-                      </div>
-                    </div>
-                  </div>
+                  </CardContent>
+                </Card>
 
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">When Working with Children</h4>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>• Parents should always be present during childcare help</li>
-                      <li>• Follow your church's child protection policies</li>
-                      <li>• Avoid one-on-one situations with children who aren't your own</li>
-                      <li>• Report any concerns to church leadership immediately</li>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Users className="w-5 h-5 text-accent" />
+                      Home & Family Guidelines
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium">Respect Boundaries</p>
+                      <p className="text-xs text-muted-foreground">Follow house rules, maintain appropriate limits</p>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium">Child Protection</p>
+                      <p className="text-xs text-muted-foreground">Parents present, follow church policies</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <BookOpen className="w-5 h-5 text-accent" />
+                      Church Leadership Support
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium">When to Involve Leaders</p>
+                      <p className="text-xs text-muted-foreground">Concerns, conflicts, or complex situations</p>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium">How to Get Support</p>
+                      <p className="text-xs text-muted-foreground">Contact church staff or use support channels</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-red-700 mb-2">Trust Your Instincts</h4>
+                    <p className="text-red-600 mb-3">If something doesn't feel right, it's okay to decline or ask for church leadership involvement.</p>
+                    <ul className="space-y-1 text-red-600 text-sm">
+                      <li>• You are never obligated to help if you feel unsafe</li>
+                      <li>• Church leaders are there to support and guide you</li>
+                      <li>• Report any concerning behavior immediately</li>
                     </ul>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </TabsContent>
 
-          {/* Communication Etiquette */}
+          {/* Communication & Etiquette */}
           <TabsContent value="communication">
             <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl">
                     <MessageSquare className="w-6 h-6 text-accent" />
-                    Communication Etiquette
+                    Communication & Etiquette
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <p className="text-lg text-muted-foreground">
-                    How to communicate effectively and respectfully through the platform
+                    How to communicate effectively and build positive relationships
                   </p>
                   
-                  <div className="grid gap-4">
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <MessageSquare className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Be Clear and Specific</h4>
-                        <p className="text-muted-foreground">Provide clear details about what you need or what you're offering. Include timeframes, locations, and any special requirements.</p>
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Clear, Respectful Messaging</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Be specific about needs, times, and locations</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Use kind, encouraging language</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Ask clarifying questions when needed</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <MessageSquare className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Respond Promptly</h4>
-                        <p className="text-muted-foreground">Try to respond to messages within 24 hours, even if just to acknowledge receipt and provide a timeline for follow-up.</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <MessageSquare className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Use Encouraging Language</h4>
-                        <p className="text-muted-foreground">Approach all interactions with grace, kindness, and encouragement. Remember we're all part of the same church family.</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg">
-                      <MessageSquare className="w-5 h-5 text-accent mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold text-foreground">Express Gratitude</h4>
-                        <p className="text-muted-foreground">Always thank volunteers for their time and help, and share how their service made a difference.</p>
+
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Response Times & Expectations</h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Respond within 24 hours when possible</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Acknowledge messages even if you can't help</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3 p-3 bg-accent/5 rounded-lg">
+                          <CheckCircle className="w-4 h-4 text-accent mt-1" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">Communicate changes as soon as possible</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">Sample Messages</h4>
-                    <div className="space-y-3 text-muted-foreground">
-                      <div className="p-3 bg-white rounded border-l-4 border-accent">
-                        <p className="font-medium text-foreground">Offering Help:</p>
-                        <p>"Hi! I saw your request for meal delivery. I'd be happy to bring dinner on Tuesday around 6 PM. Do you have any dietary restrictions I should know about?"</p>
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-3">Encouraging Language & Gratitude</h4>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                        <h5 className="font-medium text-primary mb-2">Sample: Offering Help</h5>
+                        <p className="text-sm text-muted-foreground italic">
+                          "Hi! I saw your request for meal delivery. I'd be happy to bring dinner on Tuesday around 6 PM. Do you have any dietary restrictions I should know about?"
+                        </p>
                       </div>
-                      <div className="p-3 bg-white rounded border-l-4 border-accent">
-                        <p className="font-medium text-foreground">Requesting Help:</p>
-                        <p>"We could use help with yard work this Saturday morning (9 AM - 12 PM). We have tools available, just need a few strong hands to help with leaves. Coffee and donuts provided!"</p>
+                      <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                        <h5 className="font-medium text-primary mb-2">Sample: Requesting Help</h5>
+                        <p className="text-sm text-muted-foreground italic">
+                          "We could use help with yard work this Saturday morning (9 AM - 12 PM). We have tools available, just need a few strong hands! Coffee and donuts provided."
+                        </p>
                       </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Troubleshooting & FAQs */}
+          <TabsContent value="troubleshooting">
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-2xl">
+                    <HelpCircle className="w-6 h-6 text-accent" />
+                    Troubleshooting & FAQs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <p className="text-lg text-muted-foreground">
+                    Common questions and solutions for using ChurchConnect effectively
+                  </p>
+                  
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Common Issues</h4>
+                      <div className="space-y-4">
+                        <div className="p-4 border rounded-lg">
+                          <h5 className="font-medium text-foreground mb-2">What if help doesn't arrive?</h5>
+                          <p className="text-sm text-muted-foreground">
+                            Contact the volunteer first, then reach out to church leadership if needed. Always have a backup plan for urgent needs.
+                          </p>
+                        </div>
+                        <div className="p-4 border rounded-lg">
+                          <h5 className="font-medium text-foreground mb-2">How to decline help politely?</h5>
+                          <p className="text-sm text-muted-foreground">
+                            "Thank you so much for offering! We actually found another solution, but I really appreciate your willingness to help."
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">When to Escalate</h4>
+                      <div className="space-y-4">
+                        <div className="p-4 border rounded-lg">
+                          <h5 className="font-medium text-foreground mb-2">Concerning behavior</h5>
+                          <p className="text-sm text-muted-foreground">
+                            If you notice inappropriate behavior, safety concerns, or boundary violations, contact church leadership immediately.
+                          </p>
+                        </div>
+                        <div className="p-4 border rounded-lg">
+                          <h5 className="font-medium text-foreground mb-2">Escalation paths</h5>
+                          <p className="text-sm text-muted-foreground">
+                            Church staff → Pastor → Support team. Use the contact support feature for technical issues.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-accent/5 border border-accent/20 rounded-lg p-6">
+                    <h4 className="font-semibold text-accent mb-3">Still Need Help?</h4>
+                    <p className="text-muted-foreground mb-4">
+                      Can't find the answer you're looking for? Our support team and church leadership are here to help.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button asChild>
+                        <a href="/profile">Contact Support</a>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <a href="/safety-trust">View Safety Guidelines</a>
+                      </Button>
                     </div>
                   </div>
                 </CardContent>

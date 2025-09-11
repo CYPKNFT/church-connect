@@ -42,7 +42,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold mb-4">Trust Pages</h3>
             <div className="space-y-2">
-              <Link to="/guides?tab=safety" className="block text-gray-300 hover:text-accent transition-colors">Safety & Trust</Link>
+              <Link to="/safety-trust" className="block text-gray-300 hover:text-accent transition-colors">Safety & Trust</Link>
               <Link to="/guides?tab=communication" className="block text-gray-300 hover:text-accent transition-colors">Community Guidelines</Link>
               <Link to="/privacy" className="block text-gray-300 hover:text-accent transition-colors">Privacy Policy</Link>
               <Link to="/terms" className="block text-gray-300 hover:text-accent transition-colors">Terms of Service</Link>
@@ -77,7 +77,7 @@ export function Footer() {
                 <p className="text-gray-300 mb-3">Get updates and stories from our community</p>
                 <div className="flex gap-2">
                   <Input 
-                    placeholder="Your email address" 
+                    placeholder="Your email" 
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
                   />
                   <Button className="bg-accent hover:bg-accent/80">Subscribe</Button>

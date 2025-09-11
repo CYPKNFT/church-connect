@@ -16,6 +16,7 @@ import Dashboard from "./pages/Dashboard";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
 import Guides from "./pages/Guides";
+import SafetyTrust from "./pages/SafetyTrust";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,7 +41,8 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/help" element={<Help />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/guides" element={<Guides />} />
+          <Route path="/guides" element={<Guides />} />
+          <Route path="/safety-trust" element={<SafetyTrust />} />
               {/* Alternative URLs for better UX */}
               <Route path="/find-help" element={<BrowseNeeds />} />
               <Route path="/volunteer" element={<BrowseNeeds />} />
