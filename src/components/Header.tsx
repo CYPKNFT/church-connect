@@ -24,64 +24,62 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-2">
-            <Home className="w-4 h-4" />
-            Home
+          <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">
+            About
           </Link>
-          <Link to="/browse" className="text-foreground hover:text-primary transition-colors font-medium">
-            Find Help
+          <Link to="/how-it-works" className="text-foreground hover:text-primary transition-colors font-medium">
+            How It Works
+          </Link>
+          <Link to="/community" className="text-foreground hover:text-primary transition-colors font-medium">
+            Community
+          </Link>
+          <Link to="/churches" className="text-foreground hover:text-primary transition-colors font-medium">
+            Churches
+          </Link>
+          <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
+            Support
           </Link>
           {user && (
             <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
               Dashboard
             </Link>
           )}
-          <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">
-            How It Works
-          </Link>
         </nav>
 
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-3">
+          <Button 
+            className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+            size="sm" 
+            onClick={() => {
+              if (!user) {
+                setShowAuthDialog(true);
+              } else {
+                navigate('/post');
+              }
+            }}
+          >
+            <Plus className="w-4 h-4 mr-1" />
+            Post a Need
+          </Button>
           {user ? (
-            <>
+            <div className="flex items-center gap-3">
+              <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">
+                Profile
+              </Link>
               <Button 
-                className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+                variant="outline" 
                 size="sm" 
-                onClick={() => navigate('/post')}
+                onClick={() => signOut()}
+                className="border-primary/20 hover:border-primary/40 hover:bg-primary/5"
               >
-                <Plus className="w-4 h-4 mr-1" />
-                Post Need
+                Sign Out
               </Button>
-              <div className="flex items-center gap-3">
-                <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">
-                  Profile
-                </Link>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => signOut()}
-                  className="border-primary/20 hover:border-primary/40 hover:bg-primary/5"
-                >
-                  Sign Out
-                </Button>
-              </div>
-            </>
+            </div>
           ) : (
             <>
-              <Button 
-                className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
-                size="sm" 
-                onClick={() => {
-                  if (!user) {
-                    setShowAuthDialog(true);
-                  } else {
-                    navigate('/post');
-                  }
-                }}
-              >
-                <Plus className="w-4 h-4 mr-1" />
-                Post Need
+              <Button variant="secondary" size="sm" asChild>
+                <Link to="/register">Join Free</Link>
               </Button>
               <Button 
                 variant="outline" 
@@ -90,9 +88,6 @@ export function Header() {
                 asChild
               >
                 <Link to="/login">Sign In</Link>
-              </Button>
-              <Button variant="secondary" size="sm" asChild>
-                <Link to="/register">Join Free</Link>
               </Button>
             </>
           )}
@@ -114,19 +109,39 @@ export function Header() {
         <div className="md:hidden border-t border-border bg-background">
           <div className="container mx-auto px-4 py-4 space-y-4">
             <Link 
-              to="/" 
-              className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Home className="w-4 h-4" />
-              Home
-            </Link>
-            <Link 
-              to="/browse" 
+              to="/about" 
               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
-              Find Help
+              About
+            </Link>
+            <Link 
+              to="/how-it-works" 
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              How It Works
+            </Link>
+            <Link 
+              to="/community" 
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Community
+            </Link>
+            <Link 
+              to="/churches" 
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Churches
+            </Link>
+            <Link 
+              to="/support" 
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Support
             </Link>
             {user && (
               <Link 
@@ -137,13 +152,6 @@ export function Header() {
                 Dashboard
               </Link>
             )}
-            <Link 
-              to="/about" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              How It Works
-            </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               <Button 
                 className="bg-primary hover:bg-primary-hover text-white shadow-md" 
@@ -158,7 +166,7 @@ export function Header() {
                 }}
               >
                 <Plus className="w-4 h-4 mr-1" />
-                Post Need
+                Post a Need
               </Button>
               {user ? (
                 <>
@@ -178,11 +186,11 @@ export function Header() {
                 </>
               ) : (
                 <>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
-                  </Button>
                   <Button variant="secondary" size="sm" asChild>
                     <Link to="/register" onClick={() => setIsMenuOpen(false)}>Join Free</Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
                   </Button>
                 </>
               )}
