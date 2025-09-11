@@ -32,7 +32,7 @@ export default function About() {
                 <span>Our Purpose</span>
               </div>
               <h2 className="text-5xl lg:text-6xl font-bold mb-12 text-white">Our Mission</h2>
-              <p className="text-2xl lg:text-3xl leading-relaxed max-w-5xl mx-auto text-gray-200">
+              <p className="text-2xl lg:text-3xl leading-relaxed max-w-5xl mx-auto text-gray-100">
                 To create a transformative digital platform where church communities can easily connect, 
                 share their needs, and offer help to one another—fostering deeper relationships 
                 and demonstrating Christ's love through practical, life-changing service.
