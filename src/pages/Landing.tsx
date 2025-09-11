@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield } from "lucide-react";
+import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield, Target } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
 
@@ -35,18 +35,21 @@ export default function Landing() {
                   className="bg-accent hover:bg-accent/90 text-foreground font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift" 
                   asChild
                 >
-                  <Link to="/post">
+                  <Link to="/register">
                     <Plus className="w-5 h-5 mr-3" />
-                    Post a Need
+                    Join Church
                   </Link>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect" 
+                  className="border-2 border-primary/60 bg-primary/20 text-white backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect hover:bg-primary/30 inline-flex items-center gap-2" 
                   asChild
                 >
-                  <Link to="/browse">Browse & Help</Link>
+                  <Link to="/browse">
+                    <Target className="w-5 h-5" />
+                    Browse & Help
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -81,86 +84,128 @@ export default function Landing() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                  <Car className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <Car className="w-8 h-8 text-accent" />
                 </div>
-                <CardTitle className="text-xl font-bold text-white">Transportation</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground">Transportation</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   Provide rides to appointments, church services, or grocery runs for those in need.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                  <ShoppingCart className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <ShoppingCart className="w-8 h-8 text-accent" />
                 </div>
-                <CardTitle className="text-xl font-bold text-white">Groceries & Errands</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground">Groceries & Errands</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   Help with shopping, pharmacy visits, and essential errands for busy families.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                  <Wrench className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <Wrench className="w-8 h-8 text-accent" />
                 </div>
-                <CardTitle className="text-xl font-bold text-white">Home Repairs</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground">Home Repairs</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   Share your skills to fix household issues, from simple repairs to bigger projects.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                  <ChefHat className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <ChefHat className="w-8 h-8 text-accent" />
                 </div>
-                <CardTitle className="text-xl font-bold text-white">Meals & Hospitality</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground">Meals & Hospitality</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   Organize meal trains for new parents, illness recovery, or times of need.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                  <Baby className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <Baby className="w-8 h-8 text-accent" />
                 </div>
-                <CardTitle className="text-xl font-bold text-white">Childcare Support</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground">Childcare Support</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   Offer babysitting, school pickups, or playdates to support busy parents.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-primary text-white backdrop-blur-sm group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
               <CardHeader className="pb-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                  <HandHeart className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <HandHeart className="w-8 h-8 text-accent" />
                 </div>
-                <CardTitle className="text-xl font-bold text-white">Prayer & Encouragement</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground">Prayer & Encouragement</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-white/90 text-lg leading-relaxed">
-                  Provide spiritual support, prayer, and encouragement during difficult times.
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Provide spiritual support, prayer, and encouragement during different times.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <Users className="w-8 h-8 text-accent" />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground">Social Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Provide companionship, organize social events, and combat loneliness in the community.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <Calendar className="w-8 h-8 text-accent" />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground">Life Transitions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Support during major life changes like moving, job loss, or family transitions.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm border border-accent/20 group">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/30 transition-colors">
+                  <MessageSquare className="w-8 h-8 text-accent" />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground">Digital Assistance</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Help with technology, online forms, video calls, and digital literacy needs.
                 </p>
               </CardContent>
             </Card>
@@ -266,10 +311,10 @@ export default function Landing() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
             <Link to="/guides?tab=getting-started">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-primary/5 backdrop-blur-sm border border-primary/20 group cursor-pointer">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                    <Users className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-colors">
+                    <Users className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl font-bold text-center">Getting Started Guide</CardTitle>
                 </CardHeader>
@@ -282,10 +327,10 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=volunteers">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-primary/5 backdrop-blur-sm border border-primary/20 group cursor-pointer">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                    <Heart className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-colors">
+                    <Heart className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl font-bold text-center">Best Practices for Volunteers</CardTitle>
                 </CardHeader>
@@ -298,10 +343,10 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=safety">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-primary/5 backdrop-blur-sm border border-primary/20 group cursor-pointer">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                    <Shield className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-colors">
+                    <Shield className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl font-bold text-center">Safety Guidelines</CardTitle>
                 </CardHeader>
@@ -314,10 +359,10 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=communication">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift glass-effect bg-primary/5 backdrop-blur-sm border border-primary/20 group cursor-pointer">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
-                    <MessageSquare className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/30 transition-colors">
+                    <MessageSquare className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl font-bold text-center">Communication Etiquette</CardTitle>
                 </CardHeader>

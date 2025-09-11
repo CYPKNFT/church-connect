@@ -22,7 +22,7 @@ export default function About() {
 
         {/* Mission Section */}
         <section className="mb-32 animate-fade-in">
-          <div className="relative bg-warm-gradient rounded-3xl p-16 lg:p-24 text-white overflow-hidden">
+          <div className="relative bg-warm-gradient rounded-3xl p-16 lg:p-24 text-white overflow-hidden border-2 border-accent/30">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/95 to-primary/85"></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
@@ -56,12 +56,12 @@ export default function About() {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border border-accent/30 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm group text-center p-8 hover:bg-accent/15 transition-all duration-300">
               <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                <div className="w-24 h-24 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/30 transition-all duration-300 group-hover:scale-110">
                   <Heart className="w-12 h-12 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Love in Action</CardTitle>
+                <CardTitle className="text-2xl font-bold mb-4 text-accent">Love in Action</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg leading-relaxed">
@@ -70,12 +70,12 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border border-accent/30 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm group text-center p-8 hover:bg-accent/15 transition-all duration-300">
               <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                <div className="w-24 h-24 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/30 transition-all duration-300 group-hover:scale-110">
                   <Users className="w-12 h-12 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Strong Community</CardTitle>
+                <CardTitle className="text-2xl font-bold mb-4 text-accent">Strong Community</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg leading-relaxed">
@@ -84,12 +84,12 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border border-accent/30 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm group text-center p-8 hover:bg-accent/15 transition-all duration-300">
               <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                <div className="w-24 h-24 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/30 transition-all duration-300 group-hover:scale-110">
                   <Shield className="w-12 h-12 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Trust & Safety</CardTitle>
+                <CardTitle className="text-2xl font-bold mb-4 text-accent">Trust & Safety</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg leading-relaxed">
@@ -98,12 +98,12 @@ export default function About() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border border-accent/30 shadow-card hover:shadow-accent hover-lift glass-effect bg-accent/10 backdrop-blur-sm group text-center p-8 hover:bg-accent/15 transition-all duration-300">
               <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                <div className="w-24 h-24 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/30 transition-all duration-300 group-hover:scale-110">
                   <Target className="w-12 h-12 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Purposeful Service</CardTitle>
+                <CardTitle className="text-2xl font-bold mb-4 text-accent">Purposeful Service</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg leading-relaxed">
@@ -144,7 +144,7 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-primary/20 to-accent/10 rounded-3xl p-16 border border-accent/20 backdrop-blur-sm relative overflow-hidden">
+              <div className="bg-gradient-to-br from-primary/20 to-accent/10 rounded-3xl p-16 backdrop-blur-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-2xl"></div>
                 <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
                 <div className="text-center space-y-10 relative z-10">
@@ -183,9 +183,9 @@ export default function About() {
               </div>
               
               <div className="grid md:grid-cols-3 gap-8 mb-20">
-                <Card className="border-0 shadow-card bg-white text-center p-12">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white text-center p-12 group transition-all duration-300">
                   <CardContent>
-                    <div className="text-6xl font-bold text-accent mb-4">12,000+</div>
+                    <div className="text-6xl font-bold text-accent mb-4 group-hover:scale-110 transition-transform duration-300">12,000+</div>
                     <h3 className="text-2xl font-semibold text-foreground mb-4">Needs Fulfilled</h3>
                     <p className="text-lg text-muted-foreground">
                       Acts of service completed through our platform, touching thousands of lives
@@ -193,9 +193,9 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card bg-white text-center p-12">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white text-center p-12 group transition-all duration-300">
                   <CardContent>
-                    <div className="text-6xl font-bold text-accent mb-4">500+</div>
+                    <div className="text-6xl font-bold text-accent mb-4 group-hover:scale-110 transition-transform duration-300">500+</div>
                     <h3 className="text-2xl font-semibold text-foreground mb-4">Church Partners</h3>
                     <p className="text-lg text-muted-foreground">
                       Churches using ChurchConnect to strengthen their communities nationwide
@@ -203,9 +203,9 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card bg-white text-center p-12">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white text-center p-12 group transition-all duration-300">
                   <CardContent>
-                    <div className="text-6xl font-bold text-accent mb-4">50,000+</div>
+                    <div className="text-6xl font-bold text-accent mb-4 group-hover:scale-110 transition-transform duration-300">50,000+</div>
                     <h3 className="text-2xl font-semibold text-foreground mb-4">Active Members</h3>
                     <p className="text-lg text-muted-foreground">
                       Church members actively serving and supporting one another daily
@@ -225,7 +225,7 @@ export default function About() {
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group transition-all duration-300 group-hover:scale-105">
                   <CardContent className="p-8">
                     <div className="mb-6">
                       <div className="text-accent text-4xl mb-4">"</div>
@@ -245,7 +245,7 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group transition-all duration-300 group-hover:scale-105">
                   <CardContent className="p-8">
                     <div className="mb-6">
                       <div className="text-accent text-4xl mb-4">"</div>
@@ -265,7 +265,7 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group transition-all duration-300 group-hover:scale-105">
                   <CardContent className="p-8">
                     <div className="mb-6">
                       <div className="text-accent text-4xl mb-4">"</div>
