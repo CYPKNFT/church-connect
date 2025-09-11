@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart, Plus } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -19,40 +21,76 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
+          <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-2">
+            <Home className="w-4 h-4" />
+            Home
+          </Link>
           <Link to="/browse" className="text-foreground hover:text-primary transition-colors font-medium">
             Find Help
           </Link>
+          {user && (
+            <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
+              Dashboard
+            </Link>
+          )}
           <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">
             How It Works
-          </Link>
-          <Link to="/help" className="text-foreground hover:text-primary transition-colors font-medium">
-            Support
           </Link>
         </nav>
 
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="border-primary/20 hover:border-primary/40 hover:bg-primary/5" 
-            asChild
-          >
-            <Link to="/login">Sign In</Link>
-          </Button>
-          <Button 
-            className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
-            size="sm" 
-            asChild
-          >
-            <Link to="/post">
-              <Plus className="w-4 h-4 mr-2" />
-              Post a Need
-            </Link>
-          </Button>
-          <Button variant="secondary" size="sm" asChild>
-            <Link to="/register">Join Free</Link>
-          </Button>
+          {user ? (
+            <>
+              <Button 
+                className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+                size="sm" 
+                asChild
+              >
+                <Link to="/post">
+                  <Plus className="w-4 h-4 mr-1" />
+                  Post Need
+                </Link>
+              </Button>
+              <div className="flex items-center gap-3">
+                <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">
+                  Profile
+                </Link>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => signOut()}
+                  className="border-primary/20 hover:border-primary/40 hover:bg-primary/5"
+                >
+                  Sign Out
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <Button 
+                className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+                size="sm" 
+                asChild
+              >
+                <Link to="/post">
+                  <Plus className="w-4 h-4 mr-1" />
+                  Post Need
+                </Link>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-primary/20 hover:border-primary/40 hover:bg-primary/5" 
+                asChild
+              >
+                <Link to="/login">Sign In</Link>
+              </Button>
+              <Button variant="secondary" size="sm" asChild>
+                <Link to="/register">Join Free</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -71,25 +109,35 @@ export function Header() {
         <div className="md:hidden border-t border-border bg-background">
           <div className="container mx-auto px-4 py-4 space-y-4">
             <Link 
+              to="/" 
+              className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Home className="w-4 h-4" />
+              Home
+            </Link>
+            <Link 
               to="/browse" 
               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
               Find Help
             </Link>
+            {user && (
+              <Link 
+                to="/dashboard" 
+                className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+            )}
             <Link 
               to="/about" 
               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
               How It Works
-            </Link>
-            <Link 
-              to="/help" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Support
             </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               <Button 
@@ -98,16 +146,36 @@ export function Header() {
                 asChild
               >
                 <Link to="/post" onClick={() => setIsMenuOpen(false)}>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Post a Need
+                  <Plus className="w-4 h-4 mr-1" />
+                  Post Need
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
-              </Button>
-              <Button variant="secondary" size="sm" asChild>
-                <Link to="/register" onClick={() => setIsMenuOpen(false)}>Join Free</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/profile" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => {
+                      signOut();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+                  </Button>
+                  <Button variant="secondary" size="sm" asChild>
+                    <Link to="/register" onClick={() => setIsMenuOpen(false)}>Join Free</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

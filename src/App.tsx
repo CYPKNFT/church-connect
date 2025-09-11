@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Help from "./pages/Help";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/help" element={<Help />} />
+            <Route path="/profile" element={<Profile />} />
             {/* Alternative URLs for better UX */}
             <Route path="/find-help" element={<BrowseNeeds />} />
             <Route path="/volunteer" element={<BrowseNeeds />} />

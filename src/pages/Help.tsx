@@ -157,74 +157,18 @@ export default function Help() {
                 Still Need Help?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Our support team is here to help you make the most of ChurchConnect
+                Sign in to send us a message directly from your profile
               </p>
               
-              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <Card className="border-0 bg-white/10 backdrop-blur-sm">
-                  <CardContent className="p-6 text-center">
-                    <Mail className="w-8 h-8 text-accent mx-auto mb-4" />
-                    <h3 className="font-semibold text-white mb-2">Email Support</h3>
-                    <p className="text-white/80 mb-4">Get detailed help via email</p>
-                    <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                      support@churchconnect.org
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 bg-white/10 backdrop-blur-sm">
-                  <CardContent className="p-6 text-center">
-                    <Phone className="w-8 h-8 text-accent mx-auto mb-4" />
-                    <h3 className="font-semibold text-white mb-2">Phone Support</h3>
-                    <p className="text-white/80 mb-4">Speak with our team directly</p>
-                    <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                      (555) 123-HELP
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
+              <Button 
+                variant="outline" 
+                className="border-white/30 text-white hover:bg-white/10" 
+                asChild
+              >
+                <a href="/login">Sign In to Contact Support</a>
+              </Button>
             </div>
           </div>
-        </section>
-
-        {/* Contact Form */}
-        <section className="mt-16">
-          <Card className="border-0 shadow-card bg-white max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-center text-2xl">Send us a Message</CardTitle>
-            </CardHeader>
-            <CardContent className="p-8">
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input id="name" placeholder="Enter your name" className="mt-2" />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" placeholder="Enter your email" className="mt-2" />
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" placeholder="What can we help you with?" className="mt-2" />
-                </div>
-                <div>
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea 
-                    id="message" 
-                    placeholder="Describe your question or issue in detail..." 
-                    rows={5}
-                    className="mt-2 resize-none"
-                  />
-                </div>
-                <Button className="w-full bg-accent hover:bg-accent-hover" size="lg">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Send Message
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </section>
       </div>
     </div>
