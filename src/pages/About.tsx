@@ -56,7 +56,7 @@ export default function About() {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-1 border-yellow-100 shadow-card hover:shadow-accent hover-lift bg-yellow-50/80 backdrop-blur-sm group text-center p-8">
+            <Card className="border-1 border-yellow-100 shadow-card hover:shadow-accent hover-lift bg-yellow-20/80 backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Heart className="w-12 h-12 text-accent" />
