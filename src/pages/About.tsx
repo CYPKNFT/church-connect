@@ -41,78 +41,92 @@ export default function About() {
           </div>
         </section>
 
-        {/* Values Section */}
-        <section className="mb-32 animate-slide-up">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-8">
-              <Heart className="w-5 h-5" />
-              <span>What Drives Us</span>
-            </div>
-            <h2 className="text-5xl lg:text-6xl font-bold text-foreground mb-8">
-              Our <span className="bg-accent-gradient bg-clip-text text-transparent">Core Values</span>
-            </h2>
-            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto">
-              The principles that guide everything we do in building stronger, more connected communities
-            </p>
+{/* Values Section */}
+<section className="mb-32 animate-slide-up relative">
+  {/* Background Elements */}
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-accent/30 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-primary/20 to-accent/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-2xl"></div>
+  </div>
+
+  <div className="relative z-10">
+    <div className="text-center mb-20">
+      <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-8 py-4 text-accent font-semibold mb-8 shadow-lg hover:bg-white/15 transition-all duration-300">
+        <Heart className="w-6 h-6" />
+        <span className="text-lg">What Drives Us</span>
+      </div>
+      <h2 className="text-5xl lg:text-6xl font-bold text-foreground mb-8">
+        Our <span className="bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent animate-gradient">Core Values</span>
+      </h2>
+      <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+        The principles that guide everything we do in building stronger, more connected communities
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* Love in Action Card */}
+      <div className="group relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+        <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 group">
+          <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-accent/20">
+            <Heart className="w-10 h-10 text-accent" />
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-1 border-yellow-100 shadow-card hover:shadow-accent hover-lift bg-yellow-10/80 backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Heart className="w-12 h-12 text-accent" />
-                </div>
-                <CardTitle className="text-2xl font-bold mb-4">Love in Action</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Demonstrating Christ's love through practical acts of service, genuine kindness, and unconditional care for one another.
-                </p>
-              </CardContent>
-            </Card>
+          <h3 className="text-2xl font-bold mb-6 text-foreground">Love in Action</h3>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Demonstrating Christ's love through practical acts of service, genuine kindness, and unconditional care for one another.
+          </p>
+          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </div>
 
-            <Card className="border-1 border-yellow-100 shadow-card hover:shadow-accent hover-lift bg-yellow-50/80 backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Users className="w-12 h-12 text-accent" />
-                </div>
-                <CardTitle className="text-2xl font-bold mb-4">Strong Community</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Building bridges between church members, creating lasting relationships, and fostering a true sense of belonging and family.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-1 border-yellow-100 shadow-card hover:shadow-accent hover-lift bg-yellow-50/80 backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Shield className="w-12 h-12 text-accent" />
-                </div>
-                <CardTitle className="text-2xl font-bold mb-4">Trust & Safety</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Creating a secure, verified environment where people feel comfortable sharing their needs and offering their gifts.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-1 border-yellow-100 shadow-card hover:shadow-accent hover-lift bg-yellow-50/80 backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Target className="w-12 h-12 text-accent" />
-                </div>
-                <CardTitle className="text-2xl font-bold mb-4">Purposeful Service</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  Empowering every church member to discover meaningful ways to serve others and use their unique gifts for Kingdom impact.
-                </p>
-              </CardContent>
-            </Card>
+      {/* Strong Community Card */}
+      <div className="group relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+        <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 group">
+          <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-primary/20">
+            <Users className="w-10 h-10 text-primary" />
           </div>
-        </section>
+          <h3 className="text-2xl font-bold mb-6 text-foreground">Strong Community</h3>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Building bridges between church members, creating lasting relationships, and fostering a true sense of belonging and family.
+          </p>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </div>
+
+      {/* Trust & Safety Card */}
+      <div className="group relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+        <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 group">
+          <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-green-500/20">
+            <Shield className="w-10 h-10 text-green-500" />
+          </div>
+          <h3 className="text-2xl font-bold mb-6 text-foreground">Trust & Safety</h3>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Creating a secure, verified environment where people feel comfortable sharing their needs and offering their gifts.
+          </p>
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </div>
+
+      {/* Purposeful Service Card */}
+      <div className="group relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+        <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group">
+          <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
+            <Target className="w-10 h-10 text-purple-500" />
+          </div>
+          <h3 className="text-2xl font-bold mb-6 text-foreground">Purposeful Service</h3>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Empowering every church member to discover meaningful ways to serve others and use their unique gifts for Kingdom impact.
+          </p>
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* Story Section */}
         <section className="mb-32 animate-scale-in">
