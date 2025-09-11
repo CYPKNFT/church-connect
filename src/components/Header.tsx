@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Heart, Plus, ChevronDown, Search, Video, HelpCircle, TrendingUp, BarChart3, Newspaper, Users, BookOpen, MessageSquare, Phone } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthDialog } from "./AuthDialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,199 +23,22 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {/* Find Help */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
-              Find Help <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-background border border-border shadow-lg">
-              <DropdownMenuItem asChild>
-                <Link to="/browse" className="flex items-center gap-2 cursor-pointer">
-                  <Search className="w-4 h-4" />
-                  Browse Needs
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/browse/categories" className="flex items-center gap-2 cursor-pointer">
-                  <BarChart3 className="w-4 h-4" />
-                  By Category
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/browse/search" className="flex items-center gap-2 cursor-pointer">
-                  <Search className="w-4 h-4" />
-                  Search & Filters
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Offer Help */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
-              Offer Help <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-background border border-border shadow-lg">
-              <DropdownMenuItem asChild>
-                <Link to="/volunteer" className="flex items-center gap-2 cursor-pointer">
-                  <Heart className="w-4 h-4" />
-                  Volunteer Opportunities
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/guides?tab=getting-started" className="flex items-center gap-2 cursor-pointer">
-                  <BookOpen className="w-4 h-4" />
-                  Volunteer Quick Start
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/safety-trust" className="flex items-center gap-2 cursor-pointer">
-                  <Users className="w-4 h-4" />
-                  Safety for Helpers
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* How It Works */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
-              How It Works <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-background border border-border shadow-lg">
-              <DropdownMenuItem asChild>
-                <Link to="/about" className="flex items-center gap-2 cursor-pointer">
-                  <BarChart3 className="w-4 h-4" />
-                  3-Step Process
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/explainer" className="flex items-center gap-2 cursor-pointer">
-                  <Video className="w-4 h-4" />
-                  Explainer Video
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/faq" className="flex items-center gap-2 cursor-pointer">
-                  <HelpCircle className="w-4 h-4" />
-                  FAQ
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Impact */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
-              Impact <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-background border border-border shadow-lg">
-              <DropdownMenuItem asChild>
-                <Link to="/stories" className="flex items-center gap-2 cursor-pointer">
-                  <Heart className="w-4 h-4" />
-                  Stories & Testimonials
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/metrics" className="flex items-center gap-2 cursor-pointer">
-                  <TrendingUp className="w-4 h-4" />
-                  Metrics & Reports
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/press" className="flex items-center gap-2 cursor-pointer">
-                  <Newspaper className="w-4 h-4" />
-                  Press & Media
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* For Churches */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
-              For Churches <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-background border border-border shadow-lg">
-              <DropdownMenuItem asChild>
-                <Link to="/invite-church" className="flex items-center gap-2 cursor-pointer">
-                  <Users className="w-4 h-4" />
-                  Invite Your Church
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/leader-resources" className="flex items-center gap-2 cursor-pointer">
-                  <BookOpen className="w-4 h-4" />
-                  Leader Resources
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/case-studies" className="flex items-center gap-2 cursor-pointer">
-                  <BarChart3 className="w-4 h-4" />
-                  Case Studies
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Support */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
-              Support <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-background border border-border shadow-lg">
-              <DropdownMenuItem asChild>
-                <Link to="/help" className="flex items-center gap-2 cursor-pointer">
-                  <HelpCircle className="w-4 h-4" />
-                  Help Center
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/guides" className="flex items-center gap-2 cursor-pointer">
-                  <BookOpen className="w-4 h-4" />
-                  Getting Started
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/safety-trust" className="flex items-center gap-2 cursor-pointer">
-                  <Users className="w-4 h-4" />
-                  Safety & Trust
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/guides?tab=communication" className="flex items-center gap-2 cursor-pointer">
-                  <MessageSquare className="w-4 h-4" />
-                  Communication
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/guides?tab=serving-well" className="flex items-center gap-2 cursor-pointer">
-                  <Heart className="w-4 h-4" />
-                  Serving Well
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/guides?tab=troubleshooting" className="flex items-center gap-2 cursor-pointer">
-                  <HelpCircle className="w-4 h-4" />
-                  Troubleshooting
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/contact" className="flex items-center gap-2 cursor-pointer">
-                  <Phone className="w-4 h-4" />
-                  Contact Support
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Dashboard (only for authenticated users) */}
+        <nav className="hidden md:flex items-center space-x-8">
+          <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-2">
+            <Home className="w-4 h-4" />
+            Home
+          </Link>
+          <Link to="/browse" className="text-foreground hover:text-primary transition-colors font-medium">
+            Find Help
+          </Link>
           {user && (
             <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
               Dashboard
             </Link>
           )}
+          <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">
+            How It Works
+          </Link>
         </nav>
 
         {/* Desktop CTA Buttons */}
@@ -297,46 +114,19 @@ export function Header() {
         <div className="md:hidden border-t border-border bg-background">
           <div className="container mx-auto px-4 py-4 space-y-4">
             <Link 
+              to="/" 
+              className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Home className="w-4 h-4" />
+              Home
+            </Link>
+            <Link 
               to="/browse" 
               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
               onClick={() => setIsMenuOpen(false)}
             >
               Find Help
-            </Link>
-            <Link 
-              to="/volunteer" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Offer Help
-            </Link>
-            <Link 
-              to="/about" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              How It Works
-            </Link>
-            <Link 
-              to="/stories" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Impact
-            </Link>
-            <Link 
-              to="/invite-church" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              For Churches
-            </Link>
-            <Link 
-              to="/help" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Support
             </Link>
             {user && (
               <Link 
@@ -347,6 +137,13 @@ export function Header() {
                 Dashboard
               </Link>
             )}
+            <Link 
+              to="/about" 
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              How It Works
+            </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               <Button 
                 className="bg-primary hover:bg-primary-hover text-white shadow-md" 
