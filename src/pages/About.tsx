@@ -22,41 +22,21 @@ export default function About() {
 
         {/* Mission Section */}
         <section className="mb-32 animate-fade-in">
-          <div className="relative bg-primary/10 backdrop-blur-xl rounded-3xl p-16 lg:p-24 overflow-hidden border border-primary/20">
-            {/* Glass effect background layers */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-tl from-blue-500/5 via-transparent to-primary/5"></div>
-            
-            {/* Floating glass orbs */}
-            <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
-            <div className="absolute top-20 left-20 w-24 h-24 bg-blue-400/10 rounded-full blur-xl"></div>
-            <div className="absolute bottom-20 right-32 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 left-10 w-20 h-20 bg-blue-300/10 rounded-full blur-lg"></div>
-            
+          <div className="relative bg-warm-gradient rounded-3xl p-16 lg:p-24 text-white overflow-hidden border border-primary/30">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/95 to-primary/85"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
             <div className="relative z-10 text-center">
-              <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-full px-6 py-3 text-primary font-medium mb-8 shadow-lg">
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 font-medium mb-8">
                 <Target className="w-5 h-5" />
                 <span>Our Purpose</span>
               </div>
-              
-              <h2 className="text-5xl lg:text-6xl font-bold mb-12 text-primary">
-                Our Mission
-              </h2>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 lg:p-12 border border-white/20 shadow-xl max-w-6xl mx-auto">
-                <p className="text-2xl lg:text-3xl leading-relaxed text-foreground/90 font-medium">
-                  To create a transformative digital platform where church communities can easily connect, 
-                  share their needs, and offer help to one another—fostering deeper relationships 
-                  and demonstrating Christ's love through practical, life-changing service.
-                </p>
-              </div>
-              
-              {/* Decorative glass elements */}
-              <div className="flex justify-center gap-4 mt-12">
-                <div className="w-3 h-3 bg-primary/30 rounded-full"></div>
-                <div className="w-3 h-3 bg-primary/40 rounded-full"></div>
-                <div className="w-3 h-3 bg-primary/50 rounded-full"></div>
-              </div>
+              <h2 className="text-5xl lg:text-6xl font-bold mb-12">Our Mission</h2>
+              <p className="text-2xl lg:text-3xl leading-relaxed max-w-5xl mx-auto">
+                To create a transformative digital platform where church communities can easily connect, 
+                share their needs, and offer help to one another—fostering deeper relationships 
+                and demonstrating Christ's love through practical, life-changing service.
+              </p>
             </div>
           </div>
         </section>
