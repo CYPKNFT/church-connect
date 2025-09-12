@@ -9,7 +9,7 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
 @layer base {
   :root {
     /* Core Colors */
-    --background: 0 0% 100%;
+    --background: 48 20% 96%;
     --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
@@ -68,10 +68,10 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
     --gradient-primary: linear-gradient(135deg, hsl(215 85% 35%) 0%, hsl(215 70% 45%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(215 85% 35%) 0%, hsl(215 70% 45%) 50%, hsl(45 90% 55%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(45 90% 55%) 0%, hsl(35 85% 60%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(48 20% 96%) 0%, hsl(45 15% 92%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 40% 99%) 100%);
     --gradient-mesh: radial-gradient(ellipse at top, hsl(215 85% 35% / 0.1) 0%, transparent 70%);
-    --gradient-yellow-blue: linear-gradient(135deg, hsl(55 95% 65%) 0%, hsl(45 90% 60%) 25%, hsl(220 85% 60%) 75%, hsl(215 85% 50%) 100%);
+    --gradient-cream: linear-gradient(135deg, hsl(48 20% 96%) 0%, hsl(45 15% 92%) 100%);
     
     /* Enhanced Shadow System */
     --shadow-xs: 0 1px 2px hsl(215 25% 15% / 0.05);
