@@ -389,70 +389,48 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[800px] rounded-3xl">
-              <div className="grid md:grid-cols-2 gap-8 pr-4">
-                {filteredNeeds.map((need, index) => {
+            <ScrollArea className="h-[800px] rounded-2xl">
+              <div className="grid md:grid-cols-2 gap-6 pr-4">
+                {filteredNeeds.map((need) => {
                   const IconComponent = need.icon;
                   return (
-                    <Card 
-                      key={need.id} 
-                      className={`border-0 shadow-card hover:shadow-2xl hover-lift bg-white/95 backdrop-blur-sm group transition-all duration-500 rounded-3xl overflow-hidden ${
-                        need.featured ? 'ring-2 ring-accent/30' : ''
-                      }`}
-                      style={{
-                        animationDelay: `${index * 100}ms`
-                      }}
-                    >
-                      {need.featured && (
-                        <div className="bg-gradient-to-r from-accent to-primary p-3 text-center">
-                          <span className="text-white font-bold flex items-center justify-center gap-2">
-                            <Star className="w-4 h-4" />
-                            Featured Need
-                          </span>
-                        </div>
-                      )}
-                      <CardContent className="p-8">
-                        <div className="flex items-start gap-6">
-                          <div className="w-20 h-20 bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                            <IconComponent className="w-10 h-10 text-accent" />
+                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-accent" />
                           </div>
                           <div className="flex-1">
-                            <div className="flex items-start justify-between mb-4">
-                              <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                                {need.title}
-                              </h3>
-                              <Badge variant={getUrgencyColor(need.urgency) as any} className="text-sm font-semibold">
+                            <div className="flex items-start justify-between mb-3">
+                              <h3 className="text-lg font-bold text-foreground">{need.title}</h3>
+                              <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs">
                                 {need.urgency}
                               </Badge>
                             </div>
-                            <p className="text-lg text-muted-foreground leading-relaxed mb-6">{need.description}</p>
-                            <div className="grid grid-cols-2 gap-3 text-sm text-muted-foreground mb-6">
-                              <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4" />
+                            <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{need.description}</p>
+                            <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
                                 {need.location}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Clock className="w-4 h-4" />
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
                                 {need.timePosted}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4" />
+                              <div className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
                                 {need.church}
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <MessageSquare className="w-4 h-4" />
-                                {need.responses} responses
                               </div>
                             </div>
                             <div className="flex gap-3">
-                              <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white flex-1" asChild>
+                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white" asChild>
                                 <Link to="/register">
-                                  <Heart className="w-5 h-5 mr-2" />
+                                  <Heart className="w-4 h-4 mr-2" />
                                   Join to Help
                                 </Link>
                               </Button>
-                              <Button variant="outline" className="border-2 hover:bg-muted/50">
-                                <MessageSquare className="w-5 h-5" />
+                              <Button variant="outline" size="sm">
+                                Learn More
                               </Button>
                             </div>
                           </div>
@@ -474,54 +452,27 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[800px] rounded-3xl">
-              <div className="grid md:grid-cols-2 gap-8 pr-4">
-                {successStories.map((story, index) => {
-                  const CategoryIcon = getCategoryIcon(story.category);
+            <ScrollArea className="h-[800px] rounded-2xl">
+              <div className="grid md:grid-cols-2 gap-6 pr-4">
+                {successStories.map((story) => {
                   return (
-                    <Card 
-                      key={story.id} 
-                      className="border-0 shadow-card hover:shadow-2xl hover-lift bg-white/95 backdrop-blur-sm group transition-all duration-500 rounded-3xl overflow-hidden"
-                      style={{
-                        animationDelay: `${index * 100}ms`
-                      }}
-                    >
-                      <CardContent className="p-8">
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="w-16 h-16 bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl flex items-center justify-center">
-                            <CategoryIcon className="w-8 h-8 text-accent" />
-                          </div>
-                          <div className="flex-1">
-                            <Badge variant="secondary" className="mb-2 bg-accent/10 text-accent border-accent/20">
-                              {story.category}
-                            </Badge>
-                            <div className="flex items-center gap-2">
-                              {[...Array(story.rating)].map((_, i) => (
-                                <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                              ))}
-                            </div>
-                          </div>
+                    <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-2 mb-4">
+                          {[...Array(story.rating)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                          ))}
                         </div>
-                        
-                        <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic relative">
-                          <span className="text-4xl text-accent/30 absolute -top-2 -left-2">"</span>
-                          {story.content}
-                          <span className="text-4xl text-accent/30 absolute -bottom-6 -right-2">"</span>
+                        <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
+                          "{story.content}"
                         </blockquote>
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full flex items-center justify-center">
-                              <span className="text-accent font-bold text-lg">{story.avatar}</span>
-                            </div>
-                            <div>
-                              <p className="font-bold text-foreground text-lg">{story.author}</p>
-                              <p className="text-sm text-muted-foreground">{story.church}</p>
-                            </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                            <span className="text-accent font-bold text-xs">{story.avatar}</span>
                           </div>
-                          <div className="text-right">
-                            <p className="text-sm font-semibold text-accent">{story.impact}</p>
-                            <p className="text-xs text-muted-foreground">{story.timeframe}</p>
+                          <div>
+                            <p className="font-semibold text-foreground text-sm">{story.author}</p>
+                            <p className="text-xs text-muted-foreground">{story.church}</p>
                           </div>
                         </div>
                       </CardContent>
@@ -541,61 +492,40 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[800px] rounded-3xl">
-              <div className="grid md:grid-cols-2 gap-8 pr-4">
-                {upcomingEvents.map((event, index) => (
-                  <Card 
-                    key={event.id} 
-                    className={`border-0 shadow-card hover:shadow-2xl hover-lift bg-white/95 backdrop-blur-sm group transition-all duration-500 rounded-3xl overflow-hidden ${
-                      event.featured ? 'ring-2 ring-accent/30' : ''
-                    }`}
-                    style={{
-                      animationDelay: `${index * 100}ms`
-                    }}
-                  >
-                    {event.featured && (
-                      <div className="bg-gradient-to-r from-primary to-accent p-3 text-center">
-                        <span className="text-white font-bold flex items-center justify-center gap-2">
-                          <Sparkles className="w-4 h-4" />
-                          Featured Event
-                        </span>
-                      </div>
-                    )}
+            <ScrollArea className="h-[800px] rounded-2xl">
+              <div className="grid md:grid-cols-2 gap-6 pr-4">
+                {upcomingEvents.map((event) => (
+                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
                     <CardHeader className="pb-4">
                       <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary border-primary/20">
-                            {event.category}
-                          </Badge>
-                          <CardTitle className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                            {event.title}
-                          </CardTitle>
+                        <div>
+                          <Badge variant="secondary" className="mb-3">{event.category}</Badge>
+                          <CardTitle className="text-xl font-bold mb-2">{event.title}</CardTitle>
                         </div>
-                        <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Calendar className="w-8 h-8 text-primary" />
+                        <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                          <Calendar className="w-6 h-6 text-accent" />
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">{event.description}</p>
-                      <div className="space-y-3 text-sm text-muted-foreground mb-6">
-                        <div className="flex items-center gap-3">
-                          <Calendar className="w-4 h-4 text-accent" />
-                          <span className="font-medium">{event.date} at {event.time}</span>
+                      <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{event.description}</p>
+                      <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-3 h-3" />
+                          {event.date} at {event.time}
                         </div>
-                        <div className="flex items-center gap-3">
-                          <MapPin className="w-4 h-4 text-accent" />
-                          <span>{event.location}</span>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-3 h-3" />
+                          {event.location}
                         </div>
-                        <div className="flex items-center gap-3">
-                          <Users className="w-4 h-4 text-accent" />
-                          <span><strong>{event.attendees}</strong> attending • {event.coordinator}</span>
+                        <div className="flex items-center gap-2">
+                          <Users className="w-3 h-3" />
+                          {event.attendees} attending • {event.church}
                         </div>
                       </div>
-                      <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white text-lg py-6 rounded-2xl" asChild>
+                      <Button size="sm" className="w-full bg-primary hover:bg-primary-hover text-white" asChild>
                         <Link to="/register">
-                          <Heart className="w-5 h-5 mr-2" />
-                          Join This Event
+                          Join Event
                         </Link>
                       </Button>
                     </CardContent>
