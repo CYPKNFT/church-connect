@@ -313,7 +313,7 @@ export default function Community() {
 
       <div className="container mx-auto px-4 -mt-16 relative z-20">
         {/* Enhanced Search Section */}
-        <div className="bg-muted/50 backdrop-blur-xl rounded-3xl p-8 mb-16 shadow-lg border border-muted-dark/30">
+        <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 mb-16 shadow-2xl border border-white/20">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-3">Explore Community Impact</h2>
             <p className="text-xl text-muted-foreground">Search through real needs, inspiring stories, and upcoming opportunities</p>
@@ -347,7 +347,7 @@ export default function Community() {
 
         {/* Enhanced Tabs System */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-16 bg-muted/60 backdrop-blur-sm border-2 border-muted-dark/30 rounded-3xl p-3 h-20">
+          <TabsList className="grid w-full grid-cols-3 mb-16 bg-white/80 backdrop-blur-sm border-2 border-accent/20 rounded-3xl p-3 h-20">
             <TabsTrigger 
               value="needs" 
               className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white text-xl font-bold py-6 transition-all duration-300 hover:scale-105"
@@ -394,7 +394,7 @@ export default function Community() {
                 {filteredNeeds.map((need) => {
                   const IconComponent = need.icon;
                   return (
-                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-muted/30 backdrop-blur-sm group">
+                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
                       <CardContent className="p-6">
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
@@ -456,7 +456,7 @@ export default function Community() {
               <div className="grid md:grid-cols-2 gap-6 pr-4">
                 {successStories.map((story) => {
                   return (
-                    <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-muted/30 backdrop-blur-sm group">
+                    <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
                       <CardContent className="p-6">
                         <div className="flex items-center gap-2 mb-4">
                           {[...Array(story.rating)].map((_, i) => (
@@ -495,7 +495,7 @@ export default function Community() {
             <ScrollArea className="max-h-[800px] rounded-2xl">
               <div className="grid md:grid-cols-2 gap-6 pr-4">
                 {upcomingEvents.map((event) => (
-                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-muted/30 backdrop-blur-sm group">
+                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
                     <CardHeader className="pb-4">
                       <div className="flex items-start justify-between">
                         <div>
