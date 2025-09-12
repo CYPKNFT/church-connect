@@ -83,8 +83,12 @@ export function Header() {
             </div>
           ) : (
             <>
-              <Button variant="secondary" size="sm" asChild>
-                <Link to="/register">Join Free</Link>
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                onClick={() => setShowAuthDialog(true)}
+              >
+                Join Free
               </Button>
               <Button 
                 variant="outline" 
@@ -200,8 +204,15 @@ export function Header() {
                 </>
               ) : (
                 <>
-                  <Button variant="secondary" size="sm" asChild>
-                    <Link to="/register" onClick={() => setIsMenuOpen(false)}>Join Free</Link>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    onClick={() => {
+                      setShowAuthDialog(true);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Join Free
                   </Button>
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
