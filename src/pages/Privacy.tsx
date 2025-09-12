@@ -23,7 +23,7 @@ export default function Privacy() {
         </div>
 
         <ScrollArea className="h-[70vh]">
-          <Card className="shadow-card border-0 bg-white/95 backdrop-blur-sm mr-4">
+          <Card className="shadow-xl border border-white/20 bg-white/10 backdrop-blur-xl mr-4">
             <CardContent className="p-8">
               <div className="space-y-8">
                 

@@ -99,6 +99,7 @@ export default {
 				'gradient-subtle': 'var(--gradient-subtle)',
 				'gradient-card': 'var(--gradient-card)',
 				'gradient-mesh': 'var(--gradient-mesh)',
+				'gradient-yellow-blue': 'var(--gradient-yellow-blue)',
 				'warm-gradient': 'var(--gradient-primary)',
 				'hero-gradient': 'var(--gradient-hero)',
 				'accent-gradient': 'var(--gradient-accent)',
