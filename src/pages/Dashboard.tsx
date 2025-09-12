@@ -178,12 +178,10 @@ export default function Dashboard() {
   ];
 
   const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: true },
-    { icon: Heart, label: "My Needs" },
-    { icon: Users, label: "Volunteering" },
-    { icon: BookOpen, label: "Browse" },
-    { icon: UserCheck, label: "Profile" },
-    { icon: Settings, label: "Settings" },
+    { icon: LayoutDashboard, label: "Dashboard", active: true, path: "/dashboard" },
+    { icon: Heart, label: "My Needs", path: "/my-needs" },
+    { icon: Users, label: "Volunteering", path: "/volunteering" },
+    { icon: BookOpen, label: "Browse", path: "/browse" },
   ];
 
   return (
@@ -205,8 +203,9 @@ export default function Dashboard() {
           
           <nav className="p-4 space-y-2">
             {sidebarItems.map((item, index) => (
-              <button
+              <Link
                 key={index}
+                to={item.path}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-primary/5 ${
                   item.active 
                     ? 'bg-primary/10 text-primary border border-primary/20' 
@@ -215,7 +214,7 @@ export default function Dashboard() {
               >
                 <item.icon className="w-5 h-5" />
                 <span className="font-medium">{item.label}</span>
-              </button>
+              </Link>
             ))}
           </nav>
         </div>
@@ -358,16 +357,17 @@ export default function Dashboard() {
                           {need.responses}
                         </span>
                       </div>
-                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white">
-                        View <ChevronRight className="w-3 h-3 ml-1" />
+                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white" asChild>
+                        <Link to="/my-needs">
+                          View <ChevronRight className="w-3 h-3 ml-1" />
+                        </Link>
                       </Button>
                     </div>
                   </div>
                 ))}
                 <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
-                  <Link to="/post">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Post New Need
+                  <Link to="/my-needs">
+                    View All My Needs <ChevronRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
               </CardContent>
@@ -417,16 +417,17 @@ export default function Dashboard() {
                       <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
                         {volunteer.category}
                       </span>
-                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-accent group-hover:text-white">
-                        {volunteer.status === "Confirmed" ? "Details" : "Confirm"}
+                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-accent group-hover:text-white" asChild>
+                        <Link to="/volunteering">
+                          {volunteer.status === "Confirmed" ? "Details" : "Confirm"}
+                        </Link>
                       </Button>
                     </div>
                   </div>
                 ))}
                 <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
-                  <Link to="/browse">
-                    <Search className="w-4 h-4 mr-2" />
-                    Find More Ways to Help
+                  <Link to="/volunteering">
+                    View All My Volunteering <ChevronRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
               </CardContent>
