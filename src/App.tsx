@@ -20,6 +20,7 @@ import Dashboard from "./pages/Dashboard";
 import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import Guides from "./pages/Guides";
 import SafetyTrust from "./pages/SafetyTrust";
 import Terms from "./pages/Terms";
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="/my-church" element={<MyChurch />} />
               <Route path="/help" element={<Help />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
           <Route path="/guides" element={<Guides />} />
           <Route path="/safety-trust" element={<SafetyTrust />} />
           <Route path="/terms" element={<Terms />} />

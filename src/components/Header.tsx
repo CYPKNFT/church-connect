@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart, Plus, Home } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthDialog } from "./AuthDialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,14 +48,9 @@ export function Header() {
             Support
           </Link>
           {user && (
-            <>
-              <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
-                Dashboard
-              </Link>
-              <Link to="/my-church" className="text-foreground hover:text-primary transition-colors font-medium">
-                My Church
-              </Link>
-            </>
+            <Link to="/my-church" className="text-foreground hover:text-primary transition-colors font-medium">
+              My Church
+            </Link>
           )}
         </nav>
 
@@ -69,19 +71,42 @@ export function Header() {
             Post a Need
           </Button>
           {user ? (
-            <div className="flex items-center gap-3">
-              <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">
-                Profile
-              </Link>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => signOut()}
-                className="border-primary/20 hover:border-primary/40 hover:bg-primary/5"
-              >
-                Sign Out
-              </Button>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40 hover:bg-primary/5">
+                  <User className="w-4 h-4 mr-2" />
+                  Profile
+                  <ChevronDown className="w-4 h-4 ml-2" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg">
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="flex items-center cursor-pointer">
+                    <Home className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="flex items-center cursor-pointer">
+                    <User className="w-4 h-4 mr-2" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/settings" className="flex items-center cursor-pointer">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={() => signOut()}
+                  className="cursor-pointer text-destructive focus:text-destructive"
+                >
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <>
               <Button 
@@ -160,22 +185,13 @@ export function Header() {
               Support
             </Link>
             {user && (
-              <>
-                <Link 
-                  to="/dashboard" 
-                  className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
-                <Link 
-                  to="/my-church" 
-                  className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  My Church
-                </Link>
-              </>
+              <Link 
+                to="/my-church" 
+                className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                My Church
+              </Link>
             )}
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               <Button 
@@ -196,7 +212,22 @@ export function Header() {
               {user ? (
                 <>
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/profile" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+                    <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                      <Home className="w-4 h-4 mr-2" />
+                      Dashboard
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
+                      <User className="w-4 h-4 mr-2" />
+                      Profile
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/settings" onClick={() => setIsMenuOpen(false)}>
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </Link>
                   </Button>
                   <Button 
                     variant="outline" 
@@ -205,6 +236,7 @@ export function Header() {
                       signOut();
                       setIsMenuOpen(false);
                     }}
+                    className="text-destructive hover:text-destructive"
                   >
                     Sign Out
                   </Button>
