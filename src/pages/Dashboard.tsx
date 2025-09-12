@@ -307,7 +307,7 @@ export default function Dashboard() {
           {/* Top Section: My Activities & Achievements */}
           <div className="grid lg:grid-cols-3 gap-6 mb-8">
             {/* My Needs - Enhanced */}
-            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl flex flex-col">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-3 text-xl">
@@ -321,51 +321,53 @@ export default function Dashboard() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {userNeeds.slice(0, 2).map((need) => (
-                  <div key={need.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{need.title}</h3>
-                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{need.description}</p>
+              <CardContent className="space-y-4 flex-1 flex flex-col">
+                <div className="flex-1 space-y-4">
+                  {userNeeds.slice(0, 2).map((need) => (
+                    <div key={need.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{need.title}</h3>
+                          <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{need.description}</p>
+                        </div>
+                        <Badge 
+                          variant={need.status === "Active" ? "default" : need.status === "In Progress" ? "secondary" : "outline"}
+                          className="rounded-full text-xs px-2 py-1 ml-2"
+                        >
+                          {need.status}
+                        </Badge>
                       </div>
-                      <Badge 
-                        variant={need.status === "Active" ? "default" : need.status === "In Progress" ? "secondary" : "outline"}
-                        className="rounded-full text-xs px-2 py-1 ml-2"
-                      >
-                        {need.status}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {need.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Timer className="w-3 h-3" />
-                        {need.estimatedTime}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-primary font-medium flex items-center gap-1">
-                          <Users className="w-3 h-3" />
-                          {need.volunteers}
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {need.location}
                         </span>
-                        <span className="text-xs text-accent font-medium flex items-center gap-1">
-                          <MessageSquare className="w-3 h-3" />
-                          {need.responses}
+                        <span className="flex items-center gap-1">
+                          <Timer className="w-3 h-3" />
+                          {need.estimatedTime}
                         </span>
                       </div>
-                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white" asChild>
-                        <Link to="/my-needs">
-                          View <ChevronRight className="w-3 h-3 ml-1" />
-                        </Link>
-                      </Button>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-primary font-medium flex items-center gap-1">
+                            <Users className="w-3 h-3" />
+                            {need.volunteers}
+                          </span>
+                          <span className="text-xs text-accent font-medium flex items-center gap-1">
+                            <MessageSquare className="w-3 h-3" />
+                            {need.responses}
+                          </span>
+                        </div>
+                        <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white" asChild>
+                          <Link to="/my-needs">
+                            View <ChevronRight className="w-3 h-3 ml-1" />
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
+                  ))}
+                </div>
+                <Button variant="outline" className="w-full rounded-xl text-sm mt-auto" asChild>
                   <Link to="/my-needs">
                     View All My Needs <ChevronRight className="w-4 h-4 ml-2" />
                   </Link>
@@ -374,7 +376,7 @@ export default function Dashboard() {
             </Card>
 
             {/* My Volunteering - Enhanced */}
-            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl flex flex-col">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-3 text-xl">
@@ -388,44 +390,46 @@ export default function Dashboard() {
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {userVolunteering.slice(0, 2).map((volunteer) => (
-                  <div key={volunteer.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{volunteer.title}</h3>
-                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{volunteer.description}</p>
+              <CardContent className="space-y-4 flex-1 flex flex-col">
+                <div className="flex-1 space-y-4">
+                  {userVolunteering.slice(0, 2).map((volunteer) => (
+                    <div key={volunteer.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{volunteer.title}</h3>
+                          <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{volunteer.description}</p>
+                        </div>
+                        <Badge 
+                          variant={volunteer.status === "Confirmed" ? "default" : "secondary"}
+                          className="rounded-full text-xs px-2 py-1 ml-2"
+                        >
+                          {volunteer.status}
+                        </Badge>
                       </div>
-                      <Badge 
-                        variant={volunteer.status === "Confirmed" ? "default" : "secondary"}
-                        className="rounded-full text-xs px-2 py-1 ml-2"
-                      >
-                        {volunteer.status}
-                      </Badge>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                        <span className="flex items-center gap-1 font-medium">
+                          <Users className="w-3 h-3" />
+                          {volunteer.requester}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {volunteer.date}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
+                          {volunteer.category}
+                        </span>
+                        <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-accent group-hover:text-white" asChild>
+                          <Link to="/volunteering">
+                            {volunteer.status === "Confirmed" ? "Details" : "Confirm"}
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
-                      <span className="flex items-center gap-1 font-medium">
-                        <Users className="w-3 h-3" />
-                        {volunteer.requester}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {volunteer.date}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
-                        {volunteer.category}
-                      </span>
-                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-accent group-hover:text-white" asChild>
-                        <Link to="/volunteering">
-                          {volunteer.status === "Confirmed" ? "Details" : "Confirm"}
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
+                  ))}
+                </div>
+                <Button variant="outline" className="w-full rounded-xl text-sm mt-auto" asChild>
                   <Link to="/volunteering">
                     View All My Volunteering <ChevronRight className="w-4 h-4 ml-2" />
                   </Link>
@@ -434,7 +438,7 @@ export default function Dashboard() {
             </Card>
 
             {/* Achievements & Progress */}
-            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl flex flex-col">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <div className="w-8 h-8 bg-amber-500/10 rounded-xl flex items-center justify-center">
@@ -443,22 +447,24 @@ export default function Dashboard() {
                   Achievements
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {achievements.map((achievement, index) => (
-                  <div key={index} className="p-4 bg-transparent border border-border rounded-xl">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-semibold text-sm text-foreground">{achievement.label}</h4>
-                      <span className="text-xs text-muted-foreground">
-                        {achievement.current}/{achievement.target}
-                      </span>
+              <CardContent className="space-y-4 flex-1 flex flex-col">
+                <div className="flex-1 space-y-4">
+                  {achievements.map((achievement, index) => (
+                    <div key={index} className="p-4 bg-transparent border border-border rounded-xl">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-semibold text-sm text-foreground">{achievement.label}</h4>
+                        <span className="text-xs text-muted-foreground">
+                          {achievement.current}/{achievement.target}
+                        </span>
+                      </div>
+                      <Progress value={achievement.progress} className="h-2 mb-2" />
+                      <p className="text-xs text-muted-foreground">
+                        {achievement.progress}% complete
+                      </p>
                     </div>
-                    <Progress value={achievement.progress} className="h-2 mb-2" />
-                    <p className="text-xs text-muted-foreground">
-                      {achievement.progress}% complete
-                    </p>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full rounded-xl text-sm">
+                  ))}
+                </div>
+                <Button variant="outline" className="w-full rounded-xl text-sm mt-auto">
                   <Target className="w-4 h-4 mr-2" />
                   View All Achievements
                 </Button>
