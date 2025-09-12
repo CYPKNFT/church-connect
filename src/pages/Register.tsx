@@ -149,12 +149,12 @@ export default function Register() {
       }
 
       toast({
-        title: "Success!",
-        description: "Your church has been registered successfully. Please check your email to verify your account.",
+        title: "Registration Submitted!",
+        description: "Your church registration has been submitted for review. You'll be notified once it's approved.",
       });
 
-      // Redirect to login page
-      navigate('/login');
+      // Redirect to pending approval page
+      navigate('/pending-approval');
 
     } catch (error: any) {
       console.error('Registration error:', error);
