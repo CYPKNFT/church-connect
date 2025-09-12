@@ -1,4 +1,5 @@
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,10 +12,10 @@ import { Link } from "react-router-dom";
 
 export default function Settings() {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const { toast } = useToast();
   const [notifications, setNotifications] = useState(true);
   const [emailUpdates, setEmailUpdates] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
 
   if (!user) {
     return (
@@ -40,6 +41,14 @@ export default function Settings() {
     toast({
       title: "Settings Saved",
       description: "Your preferences have been updated successfully.",
+    });
+  };
+
+  const handleThemeToggle = (checked: boolean) => {
+    toggleTheme();
+    toast({
+      title: "Theme Updated",
+      description: `Switched to ${checked ? 'dark' : 'light'} mode.`,
     });
   };
 
@@ -140,8 +149,8 @@ export default function Settings() {
                 </div>
               </div>
               <Switch
-                checked={darkMode}
-                onCheckedChange={setDarkMode}
+                checked={theme === 'dark'}
+                onCheckedChange={handleThemeToggle}
               />
             </div>
           </CardContent>
