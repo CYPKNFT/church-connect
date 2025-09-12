@@ -323,7 +323,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {userNeeds.slice(0, 2).map((need) => (
-                  <div key={need.id} className="p-4 bg-gradient-to-r from-gray-50/80 to-gray-50/40 rounded-xl hover:shadow-gentle transition-all duration-200 group">
+                  <div key={need.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{need.title}</h3>
@@ -390,7 +390,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {userVolunteering.slice(0, 2).map((volunteer) => (
-                  <div key={volunteer.id} className="p-4 bg-gradient-to-r from-emerald-50/80 to-emerald-50/40 rounded-xl hover:shadow-gentle transition-all duration-200 group">
+                  <div key={volunteer.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{volunteer.title}</h3>
@@ -445,7 +445,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {achievements.map((achievement, index) => (
-                  <div key={index} className="p-4 bg-gradient-to-r from-amber-50/80 to-amber-50/40 rounded-xl">
+                  <div key={index} className="p-4 bg-transparent border border-border rounded-xl">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-semibold text-sm text-foreground">{achievement.label}</h4>
                       <span className="text-xs text-muted-foreground">
@@ -496,7 +496,7 @@ export default function Dashboard() {
             <CardContent>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {communityNeeds.map((need) => (
-                  <div key={need.id} className="p-5 bg-gradient-to-br from-blue-50/50 to-indigo-50/30 rounded-xl hover:shadow-gentle transition-all duration-200 border border-blue-100/50">
+                  <div key={need.id} className="p-5 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200">
                     <div className="flex items-start justify-between mb-3">
                       <Badge 
                         variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"}
@@ -527,7 +527,7 @@ export default function Dashboard() {
                     
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                        <span className="text-xs font-medium text-emerald-600 bg-transparent border border-emerald-600/20 px-2 py-1 rounded-full">
                           {need.volunteers}/{need.needed} volunteers
                         </span>
                         <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
@@ -564,10 +564,10 @@ export default function Dashboard() {
                 {recentActivity.map((activity) => {
                   const Icon = activity.icon;
                   const colorClass = {
-                    emerald: "bg-emerald-50/80 hover:bg-emerald-50",
-                    rose: "bg-rose-50/80 hover:bg-rose-50", 
-                    amber: "bg-amber-50/80 hover:bg-amber-50",
-                    blue: "bg-blue-50/80 hover:bg-blue-50"
+                    emerald: "bg-transparent border border-emerald-600/20 hover:bg-emerald-50/10",
+                    rose: "bg-transparent border border-rose-600/20 hover:bg-rose-50/10", 
+                    amber: "bg-transparent border border-amber-600/20 hover:bg-amber-50/10",
+                    blue: "bg-transparent border border-blue-600/20 hover:bg-blue-50/10"
                   }[activity.color];
                   
                   const iconColorClass = {
