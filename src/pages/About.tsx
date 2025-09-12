@@ -22,17 +22,14 @@ export default function About() {
 
         {/* Mission Section */}
         <section className="mb-32 animate-fade-in">
-          <div className="relative bg-warm-gradient rounded-[3.5rem] p-16 lg:p-24 text-white overflow-hidden border-2 border-blue-400/80">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/95 to-primary/85"></div>
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+          <div className="relative bg-card rounded-[3.5rem] p-16 lg:p-24 overflow-hidden border border-border">
             <div className="relative z-10 text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 font-medium mb-8">
+              <div className="inline-flex items-center gap-2 bg-muted/50 border border-border rounded-full px-6 py-3 text-muted-foreground font-medium mb-8">
                 <Target className="w-5 h-5" />
                 <span>Our Purpose</span>
               </div>
-              <h2 className="text-5xl lg:text-6xl font-bold mb-12 text-white">Our Mission</h2>
-              <p className="text-2xl lg:text-3xl leading-relaxed max-w-5xl mx-auto text-gray-100">
+              <h2 className="text-5xl lg:text-6xl font-bold mb-12 text-accent">Our Mission</h2>
+              <p className="text-2xl lg:text-3xl leading-relaxed max-w-5xl mx-auto text-muted-foreground">
                 To create a transformative digital platform where church communities can easily connect, 
                 share their needs, and offer help to one another—fostering deeper relationships 
                 and demonstrating Christ's love through practical, life-changing service.

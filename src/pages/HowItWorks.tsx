@@ -232,13 +232,10 @@ export default function HowItWorks() {
 
         {/* CTA Section */}
         <section className="text-center animate-fade-in">
-          <div className="relative bg-warm-gradient rounded-3xl p-16 lg:p-24 text-white overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/95 to-primary/85"></div>
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+          <div className="relative bg-card rounded-3xl p-16 lg:p-24 overflow-hidden border border-border">
             <div className="relative z-10">
-              <h2 className="text-5xl lg:text-6xl font-bold mb-8">Ready to Get Started?</h2>
-              <p className="text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto leading-relaxed">
+              <h2 className="text-5xl lg:text-6xl font-bold mb-8 text-accent">Ready to Get Started?</h2>
+              <p className="text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto leading-relaxed text-muted-foreground">
                 Join your church community today and start building meaningful connections through service.
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
