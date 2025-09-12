@@ -7,24 +7,25 @@ export default function Privacy() {
   const lastUpdated = "January 15, 2025";
 
   return (
-    <div className="min-h-screen bg-subtle-gradient py-12 px-4">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-12">
-          <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Lock className="w-10 h-10 text-primary" />
+    <div className="min-h-screen bg-gradient-cream py-20 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-accent/20 text-accent-dark text-sm font-medium mb-8">
+            Privacy & Security
           </div>
-          <h1 className="text-4xl font-bold text-foreground mb-4">Privacy Policy</h1>
-          <p className="text-xl text-muted-foreground">
+          <h1 className="text-5xl font-bold text-foreground mb-6">
+            Privacy <span className="text-accent">Policy</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             How we protect and handle your personal information
           </p>
-          <p className="text-sm text-muted-foreground mt-2">
+          <p className="text-sm text-muted-foreground mt-4">
             Last updated: {lastUpdated}
           </p>
         </div>
 
-        <ScrollArea className="h-[70vh]">
-          <Card className="shadow-xl border border-white/20 bg-white/10 backdrop-blur-xl mr-4">
-            <CardContent className="p-8">
+        <Card className="bg-white/90 backdrop-blur-sm shadow-xl border-0 rounded-2xl">
+          <CardContent className="p-12">
               <div className="space-y-8">
                 
                 {/* Introduction */}
@@ -395,7 +396,6 @@ export default function Privacy() {
               </div>
             </CardContent>
           </Card>
-        </ScrollArea>
       </div>
     </div>
   );
