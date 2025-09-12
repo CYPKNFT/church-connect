@@ -5,7 +5,7 @@ import { Heart, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-[#0A2540] text-white">
+    <footer className="bg-footer-bg text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Column 1: Branding & Mission */}
