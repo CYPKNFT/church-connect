@@ -47,6 +47,80 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Process any pending church registration after user logs in
+  useEffect(() => {
+    if (!user) return;
+    const raw = localStorage.getItem('pending_church_registration');
+    if (!raw) return;
+
+    const process = async () => {
+      try {
+        const pending = JSON.parse(raw);
+        // Avoid duplicate if church already exists for this admin
+        const { data: existing } = await supabase
+          .from('Churches')
+          .select('id')
+          .eq('admin_user_id', user.id)
+          .limit(1)
+          .maybeSingle();
+
+        if (existing) {
+          localStorage.removeItem('pending_church_registration');
+          return;
+        }
+
+        const church = pending?.church || {};
+        const admin = pending?.admin || {};
+
+        const { data: created, error: churchError } = await supabase
+          .from('Churches')
+          .insert({
+            name: church.name,
+            address: church.address,
+            address_line2: church.address_line2 ?? '',
+            city: church.city,
+            state: church.state,
+            postal_code: church.postal_code,
+            admin_user_id: user.id,
+            admin_email: church.admin_email,
+            member_count: church.member_count ?? 1
+          })
+          .select('id')
+          .single();
+
+        if (churchError) {
+          console.error('Pending church creation error:', churchError);
+          return;
+        }
+
+        // Update member profile details created by trigger (best-effort)
+        if (created?.id) {
+          const { error: memberUpdateError } = await supabase
+            .from('members')
+            .update({
+              name: admin.name ?? null,
+              email: admin.email ?? null,
+              phone: admin.phone ?? null,
+              bio: admin.bio ?? null
+            })
+            .eq('church_id', created.id)
+            .eq('user_id', user.id);
+
+          if (memberUpdateError) {
+            console.warn('Member update warning:', memberUpdateError);
+          }
+        }
+
+        localStorage.removeItem('pending_church_registration');
+      } catch (e) {
+        console.error('Failed processing pending church registration:', e);
+      }
+    };
+
+    // Defer to avoid running inside auth callback
+    setTimeout(process, 0);
+  }, [user]);
+
   const signUp = async (email: string, password: string, userData: { name: string; church_id: string; }) => {
     const redirectUrl = `${window.location.origin}/`;
     
@@ -62,28 +136,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     });
 
-    // If signup successful and user confirmed, create member record
-    if (data.user && !error) {
-      setTimeout(async () => {
-        try {
-          const { error: memberError } = await (supabase as any)
-            .from('members')
-            .insert({
-              user_id: data.user.id,
-              church_id: userData.church_id,
-              name: userData.name,
-              email: email,
-              approved: false
-            });
-          
-          if (memberError) {
-            console.error('Error creating member record:', memberError);
-          }
-        } catch (err) {
-          console.error('Database not ready yet, member creation will happen later');
-        }
-      }, 0);
-    }
+    // Sign up successful; church/member creation handled post-login via pending registration
     
     return { error };
   };

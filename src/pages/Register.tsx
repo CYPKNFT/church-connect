@@ -100,53 +100,38 @@ export default function Register() {
         return;
       }
 
-      // Create church record
-      const { data: churchData, error: churchError } = await supabase
-        .from('Churches')
-        .insert({
+      // Store pending church registration to complete after email verification
+      const pending = {
+        church: {
           name: formData.churchName,
           address: formData.address,
           address_line2: '',
           city: formData.city,
           state: formData.state,
           postal_code: formData.zipCode,
-          admin_user_id: authData.user.id,
           admin_email: formData.email,
           member_count: 1
-        })
-        .select()
-        .single();
+        },
+        admin: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone || null,
+          bio: formData.description || null
+        },
+        createdAt: new Date().toISOString()
+      };
 
-      if (churchError) {
-        console.error('Church creation error:', churchError);
-        toast({
-          title: "Church Registration Error",
-          description: "Failed to register your church. Please try again.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
+      localStorage.setItem('pending_church_registration', JSON.stringify(pending));
 
-      // Create admin member record
-      if (churchData) {
-        const { error: memberError } = await supabase
-          .from('members')
-          .insert({
-            user_id: authData.user.id,
-            church_id: churchData.id,
-            name: `${formData.firstName} ${formData.lastName}`,
-            email: formData.email,
-            phone: formData.phone || null,
-            role: 'admin',
-            approved: true,
-            bio: formData.description || null
-          });
+      toast({
+        title: "Confirm your email to continue",
+        description: "We sent you a confirmation link. After you verify and log in, we'll finish creating your church automatically.",
+      });
 
-        if (memberError) {
-          console.error('Member creation error:', memberError);
-        }
-      }
+      // Redirect to pending approval page while we wait for confirmation
+      navigate('/pending-approval');
+
+      return;
 
       toast({
         title: "Registration Submitted!",
