@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
 import { Church, Users, BookOpen, Shield, BarChart3, Settings, Download, Video, MessageSquare, CheckCircle, Crown, Award } from "lucide-react";
@@ -99,26 +100,26 @@ export default function Churches() {
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">
-          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-            <CardContent className="p-8 text-center">
+          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group h-full">
+            <CardContent className="p-8 text-center h-full flex flex-col">
               <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                 <Crown className="w-10 h-10 text-accent" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4">Church Administrator Login</h3>
-              <p className="text-muted-foreground mb-6">Access your church's dashboard, manage members, and view community impact reports.</p>
+              <p className="text-muted-foreground mb-6 flex-grow">Access your church's dashboard, manage members, and view community impact reports.</p>
               <Button className="bg-primary hover:bg-primary-hover text-white w-full" asChild>
                 <Link to="/login">Admin Sign In</Link>
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-            <CardContent className="p-8 text-center">
+          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group h-full">
+            <CardContent className="p-8 text-center h-full flex flex-col">
               <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                 <Church className="w-10 h-10 text-accent" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4">Register Your Church</h3>
-              <p className="text-muted-foreground mb-6">Get started with ChurchConnect and bring your congregation together in new ways.</p>
+              <p className="text-muted-foreground mb-6 flex-grow">Get started with ChurchConnect and bring your congregation together in new ways.</p>
               <Button className="bg-accent hover:bg-accent/90 text-foreground w-full" asChild>
                 <Link to="/register">Register Church</Link>
               </Button>
@@ -126,28 +127,28 @@ export default function Churches() {
           </Card>
         </div>
 
-        {/* Tabs Navigation */}
+        {/* Tabs Navigation - Modern Glassmorphic Design */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-12 bg-white/50 backdrop-blur-sm border border-accent/20 rounded-2xl p-2">
+          <TabsList className="grid w-full grid-cols-3 mb-12 bg-white/20 backdrop-blur-xl border-2 border-white/30 rounded-3xl p-3 shadow-2xl">
             <TabsTrigger 
               value="overview" 
-              className="rounded-xl data-[state=active]:bg-accent data-[state=active]:text-foreground text-lg font-semibold py-4"
+              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/90 data-[state=active]:to-accent/90 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 text-lg font-bold py-6 transition-all duration-500 hover:scale-105 hover:bg-white/10"
             >
-              <Church className="w-5 h-5 mr-2" />
+              <Church className="w-6 h-6 mr-3" />
               Overview
             </TabsTrigger>
             <TabsTrigger 
               value="resources" 
-              className="rounded-xl data-[state=active]:bg-accent data-[state=active]:text-foreground text-lg font-semibold py-4"
+              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/90 data-[state=active]:to-primary/90 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 text-lg font-bold py-6 transition-all duration-500 hover:scale-105 hover:bg-white/10"
             >
-              <BookOpen className="w-5 h-5 mr-2" />
+              <BookOpen className="w-6 h-6 mr-3" />
               Resources
             </TabsTrigger>
             <TabsTrigger 
               value="case-studies" 
-              className="rounded-xl data-[state=active]:bg-accent data-[state=active]:text-foreground text-lg font-semibold py-4"
+              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/90 data-[state=active]:to-accent/90 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 text-lg font-bold py-6 transition-all duration-500 hover:scale-105 hover:bg-white/10"
             >
-              <Award className="w-5 h-5 mr-2" />
+              <Award className="w-6 h-6 mr-3" />
               Success Stories
             </TabsTrigger>
           </TabsList>
@@ -286,33 +287,35 @@ export default function Churches() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
-              {resources.map((resource) => {
-                const IconComponent = resource.icon;
-                return (
-                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start gap-4">
-                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                          <IconComponent className="w-8 h-8 text-accent" />
+            <ScrollArea className="max-h-[800px] rounded-3xl">
+              <div className="grid md:grid-cols-2 gap-8 pr-4">
+                {resources.map((resource) => {
+                  const IconComponent = resource.icon;
+                  return (
+                    <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                      <CardHeader className="pb-4">
+                        <div className="flex items-start gap-4">
+                          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-8 h-8 text-accent" />
+                          </div>
+                          <div className="flex-1">
+                            <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
+                            <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
-                          <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
-                      <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download Resource
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
+                        <Button className="w-full bg-primary hover:bg-primary-hover text-white">
+                          <Download className="w-4 h-4 mr-2" />
+                          Download Resource
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </ScrollArea>
           </TabsContent>
 
           {/* Case Studies Tab */}
@@ -324,7 +327,8 @@ export default function Churches() {
               </p>
             </div>
             
-            <div className="space-y-8">
+            <ScrollArea className="max-h-[800px] rounded-3xl">
+              <div className="space-y-8 pr-4">
               {caseStudies.map((study) => (
                 <Card key={study.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
                   <CardContent className="p-8">
@@ -363,7 +367,8 @@ export default function Churches() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+              </div>
+            </ScrollArea>
           </TabsContent>
         </Tabs>
 

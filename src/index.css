@@ -172,6 +172,10 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
