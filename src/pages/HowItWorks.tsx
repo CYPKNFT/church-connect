@@ -5,7 +5,7 @@ import { Plus, Search, Heart, Users, Shield, MessageSquare, CheckCircle, User, C
 
 export default function HowItWorks() {
   return (
-    <div className="min-h-screen bg-subtle-gradient">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-24">
         {/* Hero Section */}
         <div className="text-center mb-32 animate-fade-in">
@@ -34,7 +34,7 @@ export default function HowItWorks() {
 
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Step 1 */}
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-12">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12">
               <CardHeader className="pb-8">
                 <div className="w-32 h-32 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <div className="text-center">
@@ -66,7 +66,7 @@ export default function HowItWorks() {
             </Card>
 
             {/* Step 2 */}
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-12">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12">
               <CardHeader className="pb-8">
                 <div className="w-32 h-32 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <div className="text-center">
@@ -101,7 +101,7 @@ export default function HowItWorks() {
             </Card>
 
             {/* Step 3 */}
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-12">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12">
               <CardHeader className="pb-8">
                 <div className="w-32 h-32 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <div className="text-center">
@@ -172,7 +172,7 @@ export default function HowItWorks() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Shield className="w-12 h-12 text-accent" />
@@ -186,7 +186,7 @@ export default function HowItWorks() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <MessageSquare className="w-12 h-12 text-accent" />
@@ -200,7 +200,7 @@ export default function HowItWorks() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Users className="w-12 h-12 text-accent" />
@@ -214,7 +214,7 @@ export default function HowItWorks() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Church className="w-12 h-12 text-accent" />

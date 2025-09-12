@@ -3,7 +3,7 @@ import { Heart, Users, Shield, Target, Sparkles } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-subtle-gradient">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-24">
         {/* Hero Section */}
         <div className="text-center mb-32 animate-fade-in">
@@ -68,7 +68,7 @@ export default function About() {
               {/* Love in Action Card */}
               <div className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 group">
                   <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-accent/20">
                     <Heart className="w-10 h-10 text-accent" />
                   </div>
@@ -83,7 +83,7 @@ export default function About() {
               {/* Strong Community Card */}
               <div className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 group">
                   <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-primary/20">
                     <Users className="w-10 h-10 text-primary" />
                   </div>
@@ -98,7 +98,7 @@ export default function About() {
               {/* Trust & Safety Card */}
               <div className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 group">
                   <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-green-500/20">
                     <Shield className="w-10 h-10 text-green-500" />
                   </div>
@@ -113,7 +113,7 @@ export default function About() {
               {/* Purposeful Service Card */}
               <div className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 text-center hover:bg-white/15 transition-all duration-500 shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group">
                   <div className="w-20 h-120 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
                     <Target className="w-10 h-10 text-purple-500" />
                   </div>
@@ -197,7 +197,7 @@ export default function About() {
               </div>
               
               <div className="grid md:grid-cols-3 gap-8 mb-20">
-                <Card className="border-0 shadow-card bg-white text-center p-12">
+                <Card className="border-0 shadow-card bg-card text-center p-12">
                   <CardContent>
                     <div className="text-6xl font-bold text-accent mb-4">12,000+</div>
                     <h3 className="text-2xl font-semibold text-foreground mb-4">Needs Fulfilled</h3>
@@ -207,7 +207,7 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card bg-white text-center p-12">
+                <Card className="border-0 shadow-card bg-card text-center p-12">
                   <CardContent>
                     <div className="text-6xl font-bold text-accent mb-4">500+</div>
                     <h3 className="text-2xl font-semibold text-foreground mb-4">Church Partners</h3>
@@ -217,7 +217,7 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card bg-white text-center p-12">
+                <Card className="border-0 shadow-card bg-card text-center p-12">
                   <CardContent>
                     <div className="text-6xl font-bold text-accent mb-4">50,000+</div>
                     <h3 className="text-2xl font-semibold text-foreground mb-4">Active Members</h3>
@@ -239,7 +239,7 @@ export default function About() {
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
                   <CardContent className="p-8">
                     <div className="mb-6">
                       <div className="text-accent text-4xl mb-4">"</div>
@@ -259,7 +259,7 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
                   <CardContent className="p-8">
                     <div className="mb-6">
                       <div className="text-accent text-4xl mb-4">"</div>
@@ -279,7 +279,7 @@ export default function About() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
                   <CardContent className="p-8">
                     <div className="mb-6">
                       <div className="text-accent text-4xl mb-4">"</div>
