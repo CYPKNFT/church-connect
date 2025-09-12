@@ -185,11 +185,11 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
+    <div className="min-h-screen bg-background">
       <div className="flex">
         {/* Clean Left Sidebar */}
-        <div className="w-64 bg-white shadow-gentle border-r border-border/50 min-h-screen">
-          <div className="p-6 border-b border-border/50">
+        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
+          <div className="p-6 border-b border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
@@ -242,7 +242,7 @@ export default function Dashboard() {
 
             {/* Pastel Metric Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-              <Card className="border-0 shadow-card bg-gradient-to-br from-rose-50 to-pink-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -257,7 +257,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-0 shadow-card bg-gradient-to-br from-amber-50 to-orange-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -272,7 +272,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-0 shadow-card bg-gradient-to-br from-emerald-50 to-green-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -287,7 +287,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-0 shadow-card bg-gradient-to-br from-blue-50 to-indigo-100 hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -307,7 +307,7 @@ export default function Dashboard() {
           {/* Top Section: My Activities & Achievements */}
           <div className="grid lg:grid-cols-3 gap-6 mb-8">
             {/* My Needs - Enhanced */}
-            <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-3 text-xl">
@@ -374,7 +374,7 @@ export default function Dashboard() {
             </Card>
 
             {/* My Volunteering - Enhanced */}
-            <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-3 text-xl">
@@ -434,7 +434,7 @@ export default function Dashboard() {
             </Card>
 
             {/* Achievements & Progress */}
-            <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <div className="w-8 h-8 bg-amber-500/10 rounded-xl flex items-center justify-center">
@@ -467,7 +467,7 @@ export default function Dashboard() {
           </div>
 
           {/* Community Needs Section */}
-          <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl mb-8">
+          <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl mb-8">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-3 text-xl">
@@ -545,7 +545,7 @@ export default function Dashboard() {
           </Card>
 
           {/* Recent Activity - Enhanced */}
-          <Card className="border-0 shadow-card bg-white hover:shadow-gentle transition-all duration-300 rounded-2xl">
+          <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-3 text-xl">

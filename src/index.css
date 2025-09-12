@@ -133,19 +133,19 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
     --background: 220 13% 9%;
     --foreground: 210 40% 98%;
 
-    --card: 220 13% 12%;
+    --card: 220 13% 15%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 220 13% 12%;
+    --popover: 220 13% 15%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 45 90% 55%;
     --primary-foreground: 220 13% 9%;
 
-    --secondary: 220 13% 15%;
+    --secondary: 220 13% 18%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 220 13% 15%;
+    --muted: 220 13% 18%;
     --muted-foreground: 215 20% 65%;
 
     --accent: 45 90% 55%;
@@ -166,14 +166,14 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
     --border: 220 13% 20%;
     --border-light: 220 13% 25%;
     --border-dark: 220 13% 15%;
-    --input: 220 13% 15%;
+    --input: 220 13% 18%;
     --ring: 45 90% 55%;
 
-    --sidebar-background: 220 13% 9%;
+    --sidebar-background: 220 13% 12%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 45 90% 55%;
     --sidebar-primary-foreground: 220 13% 9%;
-    --sidebar-accent: 220 13% 15%;
+    --sidebar-accent: 220 13% 18%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 220 13% 20%;
     --sidebar-ring: 45 90% 55%;
