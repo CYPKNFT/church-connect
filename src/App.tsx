@@ -30,6 +30,8 @@ import PendingApproval from "./pages/PendingApproval";
 import EmailVerification from "./pages/EmailVerification";
 import MyNeeds from "./pages/MyNeeds";
 import Volunteering from "./pages/Volunteering";
+import MyNeeds2 from "./pages/MyNeeds2";
+import Volunteering2 from "./pages/Volunteering2";
 import AllChurchNeeds from "./pages/AllChurchNeeds";
 import AllChurchEvents from "./pages/AllChurchEvents";
 import AllRecentActivity from "./pages/AllRecentActivity";
@@ -57,6 +59,8 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/my-needs" element={<MyNeeds />} />
               <Route path="/volunteering" element={<Volunteering />} />
+              <Route path="/my-needs-2" element={<MyNeeds2 />} />
+              <Route path="/volunteering-2" element={<Volunteering2 />} />
               <Route path="/my-church" element={<MyChurch />} />
               <Route path="/my-church/needs" element={<AllChurchNeeds />} />
               <Route path="/my-church/events" element={<AllChurchEvents />} />
