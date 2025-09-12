@@ -22,10 +22,10 @@ export default function Terms() {
           </p>
         </div>
 
-        <Card className="shadow-card border-0 bg-white/95 backdrop-blur-sm">
-          <CardContent className="p-8">
-            <ScrollArea className="h-[70vh]">
-              <div className="space-y-8 pr-4">
+        <ScrollArea className="h-[70vh]">
+          <Card className="shadow-card border-0 bg-white/95 backdrop-blur-sm mr-4">
+            <CardContent className="p-8">
+              <div className="space-y-8">
                 
                 {/* Introduction */}
                 <section>
@@ -244,9 +244,9 @@ export default function Terms() {
                 </div>
 
               </div>
-            </ScrollArea>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </ScrollArea>
       </div>
     </div>
   );
