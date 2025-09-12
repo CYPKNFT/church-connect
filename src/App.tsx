@@ -20,6 +20,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import MyNeeds from "./pages/MyNeeds";
 import Volunteering from "./pages/Volunteering";
+import BrowseDashboard from "./pages/BrowseDashboard";
 import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
@@ -72,6 +73,7 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
               {/* Alternative URLs for better UX */}
               <Route path="/browse" element={<Community />} />
+              <Route path="/browse-dashboard" element={<BrowseDashboard />} />
               <Route path="/find-help" element={<Community />} />
               <Route path="/volunteer" element={<Community />} />
               <Route path="/how-it-works" element={<HowItWorks />} />
