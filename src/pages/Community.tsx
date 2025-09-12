@@ -92,6 +92,84 @@ export default function Community() {
       church: "Grace Community",
       responses: 4,
       featured: false
+    },
+    {
+      id: 7,
+      title: "Computer Repair for Student",
+      description: "High school senior's laptop crashed right before college applications are due. Need tech support to recover files and get system working.",
+      category: "Technology",
+      location: "North Side",
+      urgency: "Immediate",
+      timePosted: "1 hour ago",
+      icon: Wrench,
+      church: "New Hope Chapel",
+      responses: 0,
+      featured: true
+    },
+    {
+      id: 8,
+      title: "Moving Assistance for Elderly",
+      description: "Brother Thomas needs help moving to assisted living. Looking for strong hands to pack and transport belongings with care and dignity.",
+      category: "Moving",
+      location: "Central District",
+      urgency: "This Week",
+      timePosted: "5 hours ago",
+      icon: Users,
+      church: "Valley Church",
+      responses: 2,
+      featured: false
+    },
+    {
+      id: 9,
+      title: "Food Drive Collection",
+      description: "Organizing monthly food drive for local shelter. Need volunteers to collect, sort, and deliver non-perishable items to families in need.",
+      category: "Food Drive",
+      location: "Community Center",
+      urgency: "Flexible",
+      timePosted: "1 day ago",
+      icon: ShoppingCart,
+      church: "Trinity Baptist",
+      responses: 6,
+      featured: true
+    },
+    {
+      id: 10,
+      title: "Pet Care During Hospitalization",
+      description: "Sister Mary's beloved dog needs temporary care while she recovers from surgery. Looking for dog-loving volunteer for 2-3 weeks.",
+      category: "Pet Care",
+      location: "East Side",
+      urgency: "This Week",
+      timePosted: "8 hours ago",
+      icon: Heart,
+      church: "St. Matthews",
+      responses: 3,
+      featured: false
+    },
+    {
+      id: 11,
+      title: "Tutoring for Struggling Student",
+      description: "Young mother needs math tutoring help for her 8th-grade son who's falling behind. Looking for patient volunteer with teaching experience.",
+      category: "Education",
+      location: "School District",
+      urgency: "Flexible",
+      timePosted: "2 days ago",
+      icon: Star,
+      church: "Faith Community",
+      responses: 1,
+      featured: false
+    },
+    {
+      id: 12,
+      title: "Emergency Heating Repair",
+      description: "Family's heating system failed during cold snap. Need skilled HVAC volunteer or funding assistance to restore warmth to home with young children.",
+      category: "Emergency Repair",
+      location: "Riverside",
+      urgency: "Immediate",
+      timePosted: "30 minutes ago",
+      icon: Wrench,
+      church: "Riverside Fellowship",
+      responses: 0,
+      featured: true
     }
   ];
 
@@ -161,6 +239,72 @@ export default function Community() {
       impact: "New ministry launched",
       timeframe: "1 year ago",
       category: "Ministry Birth"
+    },
+    {
+      id: 7,
+      content: "The platform helped me find my life partner! We met while volunteering at a community kitchen and have been serving together ever since our wedding.",
+      author: "Rachel and James Carter",
+      church: "Crossroads Church",
+      rating: 5,
+      avatar: "RC",
+      impact: "Marriage & ministry",
+      timeframe: "8 months ago",
+      category: "Life Change"
+    },
+    {
+      id: 8,
+      content: "After losing my job, the community rallied around my family. From groceries to job leads, ChurchConnect showed me what true fellowship looks like.",
+      author: "Kevin Washington",
+      church: "Hope Baptist",
+      rating: 5,
+      avatar: "KW",
+      impact: "Complete life restoration",
+      timeframe: "4 months ago",
+      category: "Critical Support"
+    },
+    {
+      id: 9,
+      content: "Our youth group organized 20 service projects this year through the platform. These kids are learning what it means to be the hands and feet of Jesus.",
+      author: "Pastor Emily Rodriguez",
+      church: "New Generation Church",
+      rating: 5,
+      avatar: "ER",
+      impact: "20 youth projects",
+      timeframe: "This year",
+      category: "Active Volunteer"
+    },
+    {
+      id: 10,
+      content: "When my house flooded, strangers became family. ChurchConnect connected me with 30+ volunteers who restored my home and my faith in humanity.",
+      author: "Gloria Martinez",
+      church: "Community Bible",
+      rating: 5,
+      avatar: "GM",
+      impact: "Home completely restored",
+      timeframe: "6 months ago",
+      category: "Disaster Relief"
+    },
+    {
+      id: 11,
+      content: "The medical transportation ministry that started here now serves 5 hospitals. One platform connection grew into a life-saving network.",
+      author: "Dr. Robert Kim",
+      church: "Medical Missions",
+      rating: 5,
+      avatar: "RK",
+      impact: "Multi-hospital network",
+      timeframe: "2 years ago",
+      category: "Ministry Birth"
+    },
+    {
+      id: 12,
+      content: "Being a single dad was overwhelming until ChurchConnect connected me with other fathers. We now have a thriving support group for single parents.",
+      author: "Marcus Johnson",
+      church: "Family First Church",
+      rating: 5,
+      avatar: "MJ",
+      impact: "Support group launched",
+      timeframe: "1 year ago",
+      category: "Life Change"
     }
   ];
 
@@ -242,10 +386,88 @@ export default function Community() {
       category: "Environment",
       featured: true,
       coordinator: "Green Ministry"
+    },
+    {
+      id: 7,
+      title: "Mother's Day Appreciation Brunch",
+      description: "Honor the mothers in our community with a special appreciation brunch. Celebrate their incredible impact on our families and churches.",
+      date: "May 5, 2024",
+      time: "10:00 AM - 1:00 PM",
+      location: "Community Fellowship Hall",
+      church: "Women's Ministry Coalition",
+      attendees: 124,
+      category: "Celebration",
+      featured: true,
+      coordinator: "Women's Leadership"
+    },
+    {
+      id: 8,
+      title: "Youth Leadership Summit",
+      description: "Empower next generation leaders with workshops on faith, service, and community impact. Ages 13-18 welcome from all churches.",
+      date: "May 12, 2024",
+      time: "9:00 AM - 4:00 PM",
+      location: "Regional Conference Center",
+      church: "Youth Pastor Alliance",
+      attendees: 89,
+      category: "Youth",
+      featured: false,
+      coordinator: "Youth Pastors"
+    },
+    {
+      id: 9,
+      title: "Community Garden Planting",
+      description: "Plant and maintain a community garden that will provide fresh produce for local food pantries throughout the growing season.",
+      date: "May 18, 2024",
+      time: "8:00 AM - 12:00 PM",
+      location: "Riverside Park",
+      church: "Creation Care Ministry",
+      attendees: 67,
+      category: "Environment",
+      featured: false,
+      coordinator: "Garden Committee"
+    },
+    {
+      id: 10,
+      title: "Multi-Church Worship Night",
+      description: "Unite in worship as multiple congregations come together for an evening of praise, prayer, and community fellowship.",
+      date: "May 25, 2024",
+      time: "7:00 PM - 9:00 PM",
+      location: "Central Amphitheater",
+      church: "Worship Leaders Network",
+      attendees: 312,
+      category: "Worship",
+      featured: true,
+      coordinator: "Music Ministers"
+    },
+    {
+      id: 11,
+      title: "Senior Citizens Technology Fair",
+      description: "Help seniors learn to use tablets, smartphones, and online services. Volunteer tech support and patient one-on-one assistance.",
+      date: "June 1, 2024",
+      time: "1:00 PM - 4:00 PM",
+      location: "Senior Center",
+      church: "Tech Ministry Team",
+      attendees: 45,
+      category: "Technology",
+      featured: false,
+      coordinator: "Tech Volunteers"
+    },
+    {
+      id: 12,
+      title: "Father's Day Blessing Ceremony",
+      description: "Special ceremony to honor and bless the fathers in our community. Prayer, encouragement, and celebration of fatherhood.",
+      date: "June 16, 2024",
+      time: "11:00 AM - 1:00 PM",
+      location: "Memorial Park Pavilion",
+      church: "Men's Ministry Alliance",
+      attendees: 156,
+      category: "Celebration",
+      featured: true,
+      coordinator: "Men's Leadership"
     }
   ];
 
-  const categories = ["All", "Groceries", "Transportation", "Home Repair", "Meals", "Childcare", "Home & Garden"];
+  const categories = ["All", "Groceries", "Transportation", "Home Repair", "Meals", "Childcare", "Home & Garden", "Technology", "Moving", "Food Drive", "Pet Care", "Education", "Emergency Repair"];
 
   const filteredNeeds = communityNeeds.filter(need => {
     const matchesSearch = searchQuery === "" || 
