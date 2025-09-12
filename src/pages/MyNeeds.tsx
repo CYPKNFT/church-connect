@@ -143,7 +143,7 @@ export default function MyNeeds() {
 
   return (
     <DashboardLayout>
-      <div className="p-8">
+      <div className="px-4 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
