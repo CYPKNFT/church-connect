@@ -8,6 +8,7 @@ import { AuthDialog } from "./AuthDialog";
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
@@ -86,7 +87,10 @@ export function Header() {
               <Button 
                 variant="secondary" 
                 size="sm" 
-                onClick={() => setShowAuthDialog(true)}
+                onClick={() => {
+                  setAuthMode("signup");
+                  setShowAuthDialog(true);
+                }}
               >
                 Join Free
               </Button>
@@ -94,9 +98,12 @@ export function Header() {
                 variant="outline" 
                 size="sm" 
                 className="border-primary/20 hover:border-primary/40 hover:bg-primary/5" 
-                asChild
+                onClick={() => {
+                  setAuthMode("signin");
+                  setShowAuthDialog(true);
+                }}
               >
-                <Link to="/login">Sign In</Link>
+                Sign In
               </Button>
             </>
           )}
@@ -208,14 +215,23 @@ export function Header() {
                     variant="secondary" 
                     size="sm" 
                     onClick={() => {
+                      setAuthMode("signup");
                       setShowAuthDialog(true);
                       setIsMenuOpen(false);
                     }}
                   >
                     Join Free
                   </Button>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => {
+                      setAuthMode("signin");
+                      setShowAuthDialog(true);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign In
                   </Button>
                 </>
               )}
@@ -228,6 +244,7 @@ export function Header() {
         open={showAuthDialog}
         onOpenChange={setShowAuthDialog}
         redirectTo="/dashboard"
+        initialMode={authMode}
       />
     </header>
   );

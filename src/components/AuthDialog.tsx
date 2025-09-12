@@ -14,13 +14,14 @@ interface AuthDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   redirectTo?: string;
+  initialMode?: "signin" | "signup";
 }
 
-export function AuthDialog({ open, onOpenChange, redirectTo }: AuthDialogProps) {
+export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "signin" }: AuthDialogProps) {
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup">(initialMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -29,12 +30,13 @@ export function AuthDialog({ open, onOpenChange, redirectTo }: AuthDialogProps) 
   const [showPassword, setShowPassword] = useState(false);
   const [churches, setChurches] = useState<Array<{id: string, name: string, city: string, state: string}>>([]);
 
-  // Fetch churches when dialog opens in signup mode
+  // Reset mode when dialog opens
   useEffect(() => {
-    if (open && mode === "signup") {
+    if (open) {
+      setMode(initialMode);
       fetchChurches();
     }
-  }, [open, mode]);
+  }, [open, initialMode]);
 
   const fetchChurches = async () => {
     try {
