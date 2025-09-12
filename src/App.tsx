@@ -27,6 +27,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import PendingApproval from "./pages/PendingApproval";
+import EmailVerification from "./pages/EmailVerification";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/email-verification" element={<EmailVerification />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/my-church" element={<MyChurch />} />
               <Route path="/help" element={<Help />} />

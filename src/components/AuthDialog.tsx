@@ -89,15 +89,21 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
           variant: "destructive",
         });
       } else {
-        toast({
-          title: "Success",
-          description: mode === "signin" ? "Signed in successfully!" : "Account created successfully!",
-        });
-        onOpenChange(false);
-        
-        // Redirect if specified
-        if (redirectTo) {
-          navigate(redirectTo);
+        if (mode === "signin") {
+          toast({
+            title: "Success",
+            description: "Signed in successfully!",
+          });
+          onOpenChange(false);
+          
+          // Redirect if specified
+          if (redirectTo) {
+            navigate(redirectTo);
+          }
+        } else {
+          // For signup, redirect to email verification page
+          onOpenChange(false);
+          navigate(`/email-verification?email=${encodeURIComponent(email)}`);
         }
         
         // Reset form
