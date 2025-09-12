@@ -135,7 +135,7 @@ export default function MyChurch() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-purple-600/90 to-orange-500/90" />
@@ -190,7 +190,7 @@ export default function MyChurch() {
 
       {/* Search Section */}
       <div className="container mx-auto px-4 -mt-12 relative z-10">
-        <Card className="border-0 shadow-elegant bg-white/95 backdrop-blur-sm rounded-3xl p-8">
+        <Card className="border-0 shadow-elegant bg-card backdrop-blur-sm rounded-3xl p-8">
           <CardHeader className="text-center pb-6">
             <CardTitle className="text-2xl font-bold text-foreground">
               Explore Community Impact
@@ -216,7 +216,7 @@ export default function MyChurch() {
                 <SelectTrigger className="w-full md:w-48 h-14 rounded-2xl border-2">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-2 shadow-elegant rounded-xl">
+                <SelectContent className="bg-card border-2 shadow-elegant rounded-xl">
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>
                       {category}
@@ -250,7 +250,7 @@ export default function MyChurch() {
                 {filteredNeeds.map((need) => {
                   const IconComponent = need.icon;
                   return (
-                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                       <CardContent className="p-8">
                         <div className="flex items-start gap-6">
                           <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
@@ -317,7 +317,7 @@ export default function MyChurch() {
               <ScrollArea className="h-[300px] pr-4">
                 <div className="space-y-4">
                   {churchEvents.map((event) => (
-                    <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm">
+                    <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm">
                       <CardContent className="p-6">
                         <Badge variant="secondary" className="mb-3">{event.category}</Badge>
                         <h3 className="text-lg font-bold text-foreground mb-2">{event.title}</h3>
@@ -357,7 +357,7 @@ export default function MyChurch() {
               <ScrollArea className="h-[300px] pr-4">
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
-                    <Card key={activity.id} className="border-0 shadow-card bg-white/90 backdrop-blur-sm">
+                    <Card key={activity.id} className="border-0 shadow-card bg-card backdrop-blur-sm">
                       <CardContent className="p-4">
                         <div className="flex items-start gap-3">
                           <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">

@@ -90,7 +90,7 @@ export default function Churches() {
   ];
 
   return (
-    <div className="min-h-screen bg-subtle-gradient">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-24">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in">
@@ -108,7 +108,7 @@ export default function Churches() {
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">
-          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group h-full">
+          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group h-full">
             <CardContent className="p-8 text-center h-full flex flex-col">
               <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                 <Crown className="w-10 h-10 text-accent" />
@@ -121,7 +121,7 @@ export default function Churches() {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group h-full">
+          <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group h-full">
             <CardContent className="p-8 text-center h-full flex flex-col">
               <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                 <Church className="w-10 h-10 text-accent" />
@@ -145,7 +145,7 @@ export default function Churches() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Users className="w-12 h-12 text-accent" />
@@ -159,7 +159,7 @@ export default function Churches() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Shield className="w-12 h-12 text-accent" />
@@ -173,7 +173,7 @@ export default function Churches() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <BarChart3 className="w-12 h-12 text-accent" />
@@ -187,7 +187,7 @@ export default function Churches() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
               <CardHeader className="pb-6">
                 <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <Settings className="w-12 h-12 text-accent" />
@@ -274,7 +274,7 @@ export default function Churches() {
               {resources.map((resource) => {
                 const IconComponent = resource.icon;
                 return (
-                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                     <CardHeader className="pb-4">
                       <div className="flex items-start gap-4">
                         <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
@@ -312,7 +312,7 @@ export default function Churches() {
           <ScrollArea className="max-h-[800px] rounded-3xl">
             <div className="space-y-8 pr-4">
             {leadershipStories.map((story) => (
-              <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+              <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                 <CardContent className="p-8">
                   <div className="grid lg:grid-cols-3 gap-8 items-center">
                     <div className="lg:col-span-2">
