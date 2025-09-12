@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Dashboard2 from "./pages/Dashboard2";
+import Dashboard3 from "./pages/Dashboard3";
 import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
@@ -59,6 +60,7 @@ const App = () => (
               <Route path="/email-verification" element={<EmailVerification />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard2" element={<Dashboard2 />} />
+              <Route path="/dashboard3" element={<Dashboard3 />} />
               <Route path="/my-needs" element={<MyNeeds />} />
               <Route path="/volunteering" element={<Volunteering />} />
               <Route path="/my-church" element={<MyChurch />} />
