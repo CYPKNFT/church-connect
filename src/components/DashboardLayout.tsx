@@ -22,8 +22,6 @@ const sidebarItems = [
   { icon: Heart, label: "My Needs", path: "/my-needs" },
   { icon: Users, label: "Volunteering", path: "/volunteering" },
   { icon: BookOpen, label: "Browse", path: "/browse" },
-  { icon: Heart, label: "My Needs 2", path: "/my-needs-2" },
-  { icon: Users, label: "Volunteering 2", path: "/volunteering-2" },
 ];
 
 function DashboardSidebar() {
