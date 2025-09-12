@@ -29,7 +29,7 @@ function DashboardSidebar() {
   const currentPath = location.pathname;
 
   return (
-    <Sidebar className="w-64" collapsible="icon">
+    <Sidebar className="border-r border-border/50 bg-white">
       <SidebarContent>
         {/* Header */}
         <div className="p-6 border-b border-border/50">
@@ -47,26 +47,23 @@ function DashboardSidebar() {
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="p-4 space-y-2">
+            <div className="p-4 space-y-2">
               {sidebarItems.map((item) => (
-                <SidebarMenuItem key={item.path}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={currentPath === item.path}
+                <div key={item.path}>
+                  <Link
+                    to={item.path}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-primary/5 ${
                       currentPath === item.path
                         ? 'bg-primary/10 text-primary border border-primary/20' 
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    <Link to={item.path}>
-                      <item.icon className="w-5 h-5" />
-                      <span className="font-medium">{item.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                    <item.icon className="w-5 h-5" />
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                </div>
               ))}
-            </SidebarMenu>
+            </div>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
@@ -76,19 +73,21 @@ function DashboardSidebar() {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <SidebarProvider>
-      <div className="min-h-screen w-full flex bg-gradient-to-br from-emerald-50 to-green-100">
-        <DashboardSidebar />
-        <div className="flex-1 flex flex-col">
-          {/* Global Sidebar Trigger */}
-          <header className="h-12 flex items-center border-b border-border/20 bg-white/50 backdrop-blur-sm">
-            <SidebarTrigger className="ml-4" />
-          </header>
-          <main className="flex-1">
-            {children}
-          </main>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
+      <SidebarProvider>
+        <div className="flex min-h-screen w-full">
+          <DashboardSidebar />
+          <div className="flex-1 flex flex-col">
+            {/* Global Sidebar Trigger */}
+            <header className="h-12 flex items-center border-b border-border/20 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
+              <SidebarTrigger className="ml-4" />
+            </header>
+            <main className="flex-1 overflow-auto">
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
-    </SidebarProvider>
+      </SidebarProvider>
+    </div>
   );
 }
