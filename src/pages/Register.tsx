@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Eye, EyeOff, Heart, Users } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Eye, EyeOff, Crown, Church } from "lucide-react";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +20,15 @@ export default function Register() {
     confirmPassword: "",
     churchName: "",
     address: "",
-    skills: ""
+    city: "",
+    state: "",
+    zipCode: "",
+    website: "",
+    denomination: "",
+    membershipSize: "",
+    position: "",
+    yearsInMinistry: "",
+    description: ""
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,14 +43,14 @@ export default function Register() {
         <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
           <CardHeader className="text-center space-y-4">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-              <Users className="w-8 h-8 text-primary" />
+              <Crown className="w-8 h-8 text-primary" />
             </div>
             <div>
               <CardTitle className="text-3xl font-bold text-foreground">
-                Join Our Community
+                Register Your Church
               </CardTitle>
               <p className="text-muted-foreground mt-2">
-                Connect with your church family and start making a difference
+                Join ChurchConnect as a church administrator and empower your community
               </p>
             </div>
           </CardHeader>
@@ -136,33 +145,154 @@ export default function Register() {
 
                 <div className="space-y-2">
                   <Label htmlFor="address" className="text-sm font-medium">
-                    General Area/Neighborhood
+                    Street Address *
                   </Label>
                   <Input
                     id="address"
-                    placeholder="Downtown, Oak Park, etc."
+                    placeholder="123 Main Street"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     className="h-11"
+                    required
                   />
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="city" className="text-sm font-medium">
+                      City *
+                    </Label>
+                    <Input
+                      id="city"
+                      placeholder="Dallas"
+                      value={formData.city}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                      className="h-11"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="state" className="text-sm font-medium">
+                      State *
+                    </Label>
+                    <Input
+                      id="state"
+                      placeholder="TX"
+                      value={formData.state}
+                      onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                      className="h-11"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="zipCode" className="text-sm font-medium">
+                      ZIP Code *
+                    </Label>
+                    <Input
+                      id="zipCode"
+                      placeholder="75201"
+                      value={formData.zipCode}
+                      onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
+                      className="h-11"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="website" className="text-sm font-medium">
+                      Church Website
+                    </Label>
+                    <Input
+                      id="website"
+                      placeholder="https://www.yourchurch.org"
+                      value={formData.website}
+                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                      className="h-11"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="denomination" className="text-sm font-medium">
+                      Denomination
+                    </Label>
+                    <Input
+                      id="denomination"
+                      placeholder="Baptist, Methodist, Presbyterian, etc."
+                      value={formData.denomination}
+                      onChange={(e) => setFormData({ ...formData, denomination: e.target.value })}
+                      className="h-11"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="membershipSize" className="text-sm font-medium">
+                    Approximate Membership Size *
+                  </Label>
+                  <Select value={formData.membershipSize} onValueChange={(value) => setFormData({ ...formData, membershipSize: value })}>
+                    <SelectTrigger className="h-11">
+                      <SelectValue placeholder="Select membership size" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="under-100">Under 100 members</SelectItem>
+                      <SelectItem value="100-500">100-500 members</SelectItem>
+                      <SelectItem value="500-1000">500-1,000 members</SelectItem>
+                      <SelectItem value="1000-2500">1,000-2,500 members</SelectItem>
+                      <SelectItem value="over-2500">Over 2,500 members</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
-              {/* Skills & Availability */}
+              {/* Leadership Information */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground border-b border-border pb-2">
-                  How Can You Help?
+                  Leadership Information
                 </h3>
                 
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="position" className="text-sm font-medium">
+                      Your Position/Title *
+                    </Label>
+                    <Input
+                      id="position"
+                      placeholder="Senior Pastor, Lead Pastor, Executive Pastor, etc."
+                      value={formData.position}
+                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                      className="h-11"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="yearsInMinistry" className="text-sm font-medium">
+                      Years in Ministry
+                    </Label>
+                    <Input
+                      id="yearsInMinistry"
+                      type="number"
+                      placeholder="15"
+                      value={formData.yearsInMinistry}
+                      onChange={(e) => setFormData({ ...formData, yearsInMinistry: e.target.value })}
+                      className="h-11"
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
-                  <Label htmlFor="skills" className="text-sm font-medium">
-                    Skills & Interests (Optional)
+                  <Label htmlFor="description" className="text-sm font-medium">
+                    About Your Church (Optional)
                   </Label>
                   <Textarea
-                    id="skills"
-                    placeholder="e.g., Cooking, handyman work, transportation, babysitting, gardening..."
-                    value={formData.skills}
-                    onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
+                    id="description"
+                    placeholder="Brief description of your church's mission, community outreach, or special programs..."
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="min-h-[80px] resize-none"
                   />
                 </div>
@@ -237,7 +367,7 @@ export default function Register() {
                 size="lg" 
                 className="w-full h-12"
               >
-                Join Community
+                Register Church
               </Button>
             </form>
 
@@ -257,7 +387,7 @@ export default function Register() {
 
         <div className="mt-6 text-center">
           <p className="text-white/80 text-sm">
-            By joining, you agree to our community guidelines of love, respect, and service.
+            By registering your church, you agree to our community guidelines and platform terms of service.
           </p>
         </div>
       </div>
