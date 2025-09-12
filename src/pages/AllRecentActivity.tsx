@@ -175,9 +175,40 @@ export default function AllRecentActivity() {
             </Link>
           </div>
           <h1 className="text-4xl font-bold mb-4">All Recent Activity</h1>
-          <p className="text-xl text-white/90">
+          <p className="text-xl text-white/90 mb-8">
             Complete timeline of community engagement and service activities
           </p>
+
+          {/* Community Impact Summary in Hero */}
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-8">
+            <h3 className="text-2xl font-bold mb-6">Community Impact Summary</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">
+                  {allActivity.filter(a => a.category === "Help Offered").length}
+                </div>
+                <div className="text-white/80">Times Helped</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">
+                  {allActivity.filter(a => a.category === "Task Completed").length}
+                </div>
+                <div className="text-white/80">Tasks Completed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">
+                  {allActivity.filter(a => a.category === "Event Organized").length}
+                </div>
+                <div className="text-white/80">Events Organized</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">
+                  {new Set(allActivity.map(a => a.member)).size}
+                </div>
+                <div className="text-white/80">Active Members</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -226,57 +257,105 @@ export default function AllRecentActivity() {
           </Badge>
         </div>
 
-        {/* Activity Timeline */}
-        <div className="space-y-4">
-          {filteredActivity.map((activity, index) => {
-            const IconComponent = activity.icon;
-            return (
-              <Card key={activity.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    {/* Timeline Indicator */}
-                    <div className="relative">
-                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                        <IconComponent className="w-6 h-6 text-accent" />
-                      </div>
-                      {index < filteredActivity.length - 1 && (
-                        <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-gradient-to-b from-accent/30 to-transparent" />
-                      )}
-                    </div>
-                    
-                    {/* Activity Content */}
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <p className="text-lg text-foreground">
-                            <span className="font-semibold text-accent">{activity.member}</span>{" "}
-                            <span className="text-muted-foreground">{activity.action}</span>{" "}
-                            <span className="font-medium">{activity.need}</span>
-                          </p>
-                        </div>
-                        <Badge variant={getActivityColor(activity.category) as any} className="ml-4">
-                          {activity.category}
-                        </Badge>
-                      </div>
-                      
-                      <div className="flex items-center gap-4 text-sm">
-                        <div className={`flex items-center gap-1 ${getTimeColor(activity.time)}`}>
-                          <Clock className="w-3 h-3" />
-                          {activity.time}
-                        </div>
-                        {activity.category === "Help Offered" && (
-                          <div className="flex items-center gap-1 text-green-600">
-                            <Star className="w-3 h-3 fill-current" />
-                            <span className="text-xs">Community Hero</span>
+        {/* Activity Timeline with Winding Path */}
+        <div className="relative">
+          {/* Winding Timeline Background */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ zIndex: 1 }}
+          >
+            <defs>
+              <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.3" />
+                <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.1" />
+              </linearGradient>
+            </defs>
+            {filteredActivity.map((_, index) => {
+              if (index === filteredActivity.length - 1) return null;
+              
+              const startY = (index * 140) + 100; // Card height + margin
+              const endY = ((index + 1) * 140) + 100;
+              const midY = (startY + endY) / 2;
+              
+              // Create winding effect
+              const amplitude = 60; // How far the curve extends horizontally
+              const direction = index % 2 === 0 ? 1 : -1; // Alternate left/right
+              const controlX = 100 + (amplitude * direction);
+              
+              return (
+                <path
+                  key={`timeline-${index}`}
+                  d={`M 100 ${startY + 40} Q ${controlX} ${midY} 100 ${endY + 40}`}
+                  stroke="url(#timelineGradient)"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeDasharray="8,4"
+                  className="animate-pulse"
+                />
+              );
+            })}
+          </svg>
+
+          {/* Activity Cards */}
+          <div className="relative space-y-6" style={{ zIndex: 2 }}>
+            {filteredActivity.map((activity, index) => {
+              const IconComponent = activity.icon;
+              return (
+                <div 
+                  key={activity.id} 
+                  className={`animate-fade-in`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group relative">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4">
+                        {/* Timeline Indicator */}
+                        <div className="relative">
+                          <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full flex items-center justify-center group-hover:from-accent/30 group-hover:to-primary/30 transition-all duration-300 border-2 border-white shadow-lg">
+                            <IconComponent className="w-6 h-6 text-accent" />
                           </div>
-                        )}
+                          {/* Pulse animation for recent activities */}
+                          {activity.time.includes("days ago") && (
+                            <div className="absolute inset-0 w-12 h-12 bg-accent/20 rounded-full animate-ping" />
+                          )}
+                        </div>
+                        
+                        {/* Activity Content */}
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="text-lg text-foreground">
+                                <span className="font-semibold text-accent">{activity.member}</span>{" "}
+                                <span className="text-muted-foreground">{activity.action}</span>{" "}
+                                <span className="font-medium">{activity.need}</span>
+                              </p>
+                            </div>
+                            <Badge variant={getActivityColor(activity.category) as any} className="ml-4">
+                              {activity.category}
+                            </Badge>
+                          </div>
+                          
+                          <div className="flex items-center gap-4 text-sm">
+                            <div className={`flex items-center gap-1 ${getTimeColor(activity.time)}`}>
+                              <Clock className="w-3 h-3" />
+                              {activity.time}
+                            </div>
+                            {activity.category === "Help Offered" && (
+                              <div className="flex items-center gap-1 text-yellow-600">
+                                <Star className="w-3 h-3 fill-current" />
+                                <span className="text-xs">Community Hero</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {filteredActivity.length === 0 && (
@@ -287,41 +366,6 @@ export default function AllRecentActivity() {
             <h3 className="text-xl font-semibold mb-2">No activity found</h3>
             <p className="text-muted-foreground">Try adjusting your search criteria</p>
           </div>
-        )}
-
-        {/* Stats Summary */}
-        {filteredActivity.length > 0 && (
-          <Card className="mt-8 border-0 shadow-elegant bg-gradient-primary text-white">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold mb-4">Community Impact Summary</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold">
-                    {allActivity.filter(a => a.category === "Help Offered").length}
-                  </div>
-                  <div className="text-sm text-white/80">Times Helped</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">
-                    {allActivity.filter(a => a.category === "Task Completed").length}
-                  </div>
-                  <div className="text-sm text-white/80">Tasks Completed</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">
-                    {allActivity.filter(a => a.category === "Event Organized").length}
-                  </div>
-                  <div className="text-sm text-white/80">Events Organized</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">
-                    {new Set(allActivity.map(a => a.member)).size}
-                  </div>
-                  <div className="text-sm text-white/80">Active Members</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         )}
       </div>
     </div>
