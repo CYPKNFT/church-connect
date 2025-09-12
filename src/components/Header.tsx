@@ -216,7 +216,7 @@ export function Header() {
       <AuthDialog
         open={showAuthDialog}
         onOpenChange={setShowAuthDialog}
-        redirectTo="/post"
+        redirectTo="/dashboard"
       />
     </header>
   );
