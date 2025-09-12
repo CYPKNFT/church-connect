@@ -198,122 +198,52 @@ export default function AllChurchEvents() {
           </Badge>
         </div>
 
-        {/* Events Grid with Chronological Timeline */}
-        <div className="relative">
-          {/* Winding Timeline Background */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ zIndex: 1 }}
-          >
-            <defs>
-              <linearGradient id="eventTimelineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.3" />
-                <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-            {filteredEvents.map((_, index) => {
-              if (index === filteredEvents.length - 1) return null;
-              
-              // Calculate positions based on grid layout
-              const currentRow = Math.floor(index / 3);
-              const nextRow = Math.floor((index + 1) / 3);
-              const currentCol = index % 3;
-              const nextCol = (index + 1) % 3;
-              
-              // Only draw lines between consecutive events
-              if (nextRow === currentRow) {
-                // Same row - horizontal line
-                const y = (currentRow * 400) + 200; // Approximate card height
-                const startX = (currentCol * 300) + 150;
-                const endX = (nextCol * 300) + 150;
-                
-                return (
-                  <path
-                    key={`event-timeline-${index}`}
-                    d={`M ${startX + 100} ${y} Q ${(startX + endX) / 2} ${y - 30} ${endX - 100} ${y}`}
-                    stroke="url(#eventTimelineGradient)"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeDasharray="6,3"
-                    className="animate-pulse"
-                  />
-                );
-              } else {
-                // Different row - vertical curve
-                const startY = (currentRow * 400) + 350;
-                const endY = (nextRow * 400) + 50;
-                const startX = (currentCol * 300) + 150;
-                const endX = (nextCol * 300) + 150;
-                
-                return (
-                  <path
-                    key={`event-timeline-${index}`}
-                    d={`M ${startX} ${startY} Q ${(startX + endX) / 2 + 50} ${(startY + endY) / 2} ${endX} ${endY}`}
-                    stroke="url(#eventTimelineGradient)"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeDasharray="6,3"
-                    className="animate-pulse"
-                  />
-                );
-              }
-            })}
-          </svg>
-
-          {/* Events Grid */}
-          <div className="relative grid md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ zIndex: 2 }}>
-            {filteredEvents.map((event, index) => {
-              const IconComponent = event.icon;
-              return (
-                <div 
-                  key={event.id}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group h-full relative">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-xl flex items-center justify-center group-hover:from-accent/30 group-hover:to-primary/30 transition-all duration-300 border-2 border-white shadow-lg">
-                          <IconComponent className="w-6 h-6 text-accent" />
-                        </div>
-                        <Badge variant={getCategoryColor(event.category) as any}>
-                          {event.category}
-                        </Badge>
-                      </div>
-                      
-                      <h3 className="text-xl font-bold text-foreground mb-3">{event.title}</h3>
-                      <p className="text-muted-foreground text-sm mb-4 flex-1">{event.description}</p>
-                      
-                      <div className="space-y-2 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          {event.date} at {event.time}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" />
-                          {event.location}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4" />
-                          {event.attendees} attending
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                          Join Event
-                        </Button>
-                        <p className="text-xs text-muted-foreground text-center">
-                          Organized by {event.organizer}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
+        {/* Events Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEvents.map((event) => {
+            const IconComponent = event.icon;
+            return (
+              <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group h-full">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                      <IconComponent className="w-6 h-6 text-accent" />
+                    </div>
+                    <Badge variant={getCategoryColor(event.category) as any}>
+                      {event.category}
+                    </Badge>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-foreground mb-3">{event.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-4 flex-1">{event.description}</p>
+                  
+                  <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" />
+                      {event.date} at {event.time}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" />
+                      {event.location}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4" />
+                      {event.attendees} attending
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Button className="w-full bg-primary hover:bg-primary-hover text-white">
+                      Join Event
+                    </Button>
+                    <p className="text-xs text-muted-foreground text-center">
+                      Organized by {event.organizer}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {filteredEvents.length === 0 && (
