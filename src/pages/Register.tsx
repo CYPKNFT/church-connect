@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,10 +7,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, EyeOff, Crown, Church } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -31,10 +36,136 @@ export default function Register() {
     description: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual registration logic
-    console.log("Registration attempt:", formData);
+    setIsLoading(true);
+
+    try {
+      // Validate password match
+      if (formData.password !== formData.confirmPassword) {
+        toast({
+          title: "Error",
+          description: "Passwords do not match.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Validate required fields
+      if (!formData.firstName || !formData.lastName || !formData.email || 
+          !formData.churchName || !formData.address || !formData.city || 
+          !formData.state || !formData.zipCode || !formData.membershipSize || 
+          !formData.position || !formData.password) {
+        toast({
+          title: "Error",
+          description: "Please fill in all required fields.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Create user account first
+      const redirectUrl = `${window.location.origin}/`;
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          emailRedirectTo: redirectUrl,
+          data: {
+            name: `${formData.firstName} ${formData.lastName}`,
+            position: formData.position
+          }
+        }
+      });
+
+      if (authError) {
+        toast({
+          title: "Authentication Error",
+          description: authError.message,
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (!authData.user) {
+        toast({
+          title: "Error",
+          description: "Failed to create user account.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Create church record
+      const { data: churchData, error: churchError } = await supabase
+        .from('Churches')
+        .insert({
+          name: formData.churchName,
+          address: formData.address,
+          address_line2: '',
+          city: formData.city,
+          state: formData.state,
+          postal_code: formData.zipCode,
+          admin_user_id: authData.user.id,
+          admin_email: formData.email,
+          member_count: 1
+        })
+        .select()
+        .single();
+
+      if (churchError) {
+        console.error('Church creation error:', churchError);
+        toast({
+          title: "Church Registration Error",
+          description: "Failed to register your church. Please try again.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Create admin member record
+      if (churchData) {
+        const { error: memberError } = await supabase
+          .from('members')
+          .insert({
+            user_id: authData.user.id,
+            church_id: churchData.id,
+            name: `${formData.firstName} ${formData.lastName}`,
+            email: formData.email,
+            phone: formData.phone || null,
+            role: 'admin',
+            approved: true,
+            bio: formData.description || null
+          });
+
+        if (memberError) {
+          console.error('Member creation error:', memberError);
+        }
+      }
+
+      toast({
+        title: "Success!",
+        description: "Your church has been registered successfully. Please check your email to verify your account.",
+      });
+
+      // Redirect to login page
+      navigate('/login');
+
+    } catch (error: any) {
+      console.error('Registration error:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -366,8 +497,9 @@ export default function Register() {
                 variant="hero" 
                 size="lg" 
                 className="w-full h-12"
+                disabled={isLoading}
               >
-                Register Church
+                {isLoading ? "Registering..." : "Register Church"}
               </Button>
             </form>
 
