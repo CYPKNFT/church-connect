@@ -203,6 +203,30 @@ export type Database = {
         Args: { ch: string }
         Returns: boolean
       }
+      list_churches_member: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          city: string
+          id: string
+          is_verified: boolean
+          member_count: number
+          name: string
+          slug: string
+          state: string
+        }[]
+      }
+      list_churches_public: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          city: string
+          id: string
+          is_verified: boolean
+          member_count: number
+          name: string
+          slug: string
+          state: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
