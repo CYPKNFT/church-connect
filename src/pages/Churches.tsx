@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
 import { Church, Users, BookOpen, Shield, BarChart3, Settings, Download, Video, MessageSquare, CheckCircle, Crown, Award } from "lucide-react";
 
 export default function Churches() {
-  const [activeTab, setActiveTab] = useState("overview");
 
   const resources = [
     {
@@ -45,39 +42,50 @@ export default function Churches() {
     }
   ];
 
-  const caseStudies = [
+  const leadershipStories = [
     {
       id: 1,
+      pastor: "Pastor Michael Roberts",
+      title: "Senior Pastor",
       church: "Grace Community Church",
       location: "Austin, TX",
-      members: 850,
-      needsFulfilled: 240,
-      monthsActive: 18,
-      testimonial: "ChurchConnect has transformed how our congregation connects and serves. We've seen a 300% increase in community service participation.",
-      pastor: "Pastor Michael Roberts",
-      highlight: "300% increase in service participation"
+      yearsInMinistry: 15,
+      testimonial: "As a church leader, ChurchConnect has revolutionized our approach to community ministry. The administrative tools have freed up countless hours, allowing our staff to focus on pastoral care. We've seen unprecedented engagement from our congregation.",
+      impact: "300% increase in volunteer participation",
+      keyMetric: "240 families served monthly"
     },
     {
       id: 2,
-      church: "First Baptist Church",
-      location: "Denver, CO",
-      members: 1200,
-      needsFulfilled: 420,
-      monthsActive: 24,
-      testimonial: "The platform has helped us identify and mobilize volunteers in ways we never could before. Our elderly care ministry has flourished.",
       pastor: "Pastor Sarah Johnson",
-      highlight: "Elder care ministry flourishing"
+      title: "Lead Pastor",
+      church: "First Baptist Church", 
+      location: "Denver, CO",
+      yearsInMinistry: 22,
+      testimonial: "From an administrative perspective, ChurchConnect has been transformational. The reporting features help me present clear ministry impact to our board. Our deacon team now has data-driven insights to guide our outreach decisions.",
+      impact: "Elder care ministry expanded by 400%",
+      keyMetric: "1,200 members actively engaged"
     },
     {
       id: 3,
+      pastor: "Rev. David Chen",
+      title: "Executive Pastor",
       church: "Community Fellowship",
-      location: "Nashville, TN",
-      members: 650,
-      needsFulfilled: 180,
-      monthsActive: 12,
-      testimonial: "We've built stronger relationships and reached more families in need than ever before. It's been a blessing to our community.",
-      pastor: "Pastor David Chen",
-      highlight: "Reaching more families in need"
+      location: "Nashville, TN", 
+      yearsInMinistry: 18,
+      testimonial: "The platform has given our pastoral team visibility into needs we never knew existed in our congregation. The safety features and member verification give us confidence as church leaders that we're maintaining a secure environment.",
+      impact: "Strengthened pastoral care reach",
+      keyMetric: "180 pastoral visits coordinated"
+    },
+    {
+      id: 4,
+      pastor: "Pastor Maria Gonzalez",
+      title: "Associate Pastor",
+      church: "New Hope Community",
+      location: "Phoenix, AZ",
+      yearsInMinistry: 12,
+      testimonial: "As someone responsible for coordinating our ministries, ChurchConnect has streamlined everything. Our leadership team can now track ministry effectiveness and allocate resources more strategically. The impact reporting helps with our annual planning.",
+      impact: "Ministry coordination improved by 250%",
+      keyMetric: "500+ ministry touchpoints monthly"
     }
   ];
 
@@ -127,250 +135,222 @@ export default function Churches() {
           </Card>
         </div>
 
-        {/* Tabs Navigation - Modern Glassmorphic Design */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-12 bg-white/20 backdrop-blur-xl border-2 border-white/30 rounded-3xl p-3 shadow-2xl">
-            <TabsTrigger 
-              value="overview" 
-              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/90 data-[state=active]:to-accent/90 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 text-lg font-bold py-6 transition-all duration-500 hover:scale-105 hover:bg-white/10"
-            >
-              <Church className="w-6 h-6 mr-3" />
-              Overview
-            </TabsTrigger>
-            <TabsTrigger 
-              value="resources" 
-              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent/90 data-[state=active]:to-primary/90 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 text-lg font-bold py-6 transition-all duration-500 hover:scale-105 hover:bg-white/10"
-            >
-              <BookOpen className="w-6 h-6 mr-3" />
-              Resources
-            </TabsTrigger>
-            <TabsTrigger 
-              value="case-studies" 
-              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/90 data-[state=active]:to-accent/90 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-white/20 text-lg font-bold py-6 transition-all duration-500 hover:scale-105 hover:bg-white/10"
-            >
-              <Award className="w-6 h-6 mr-3" />
-              Success Stories
-            </TabsTrigger>
-          </TabsList>
+        {/* Overview Section */}
+        <section className="space-y-16 mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-foreground mb-6">Why Churches Choose ChurchConnect</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              See how ChurchConnect strengthens church communities and increases member engagement
+            </p>
+          </div>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+              <CardHeader className="pb-6">
+                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <Users className="w-12 h-12 text-accent" />
+                </div>
+                <CardTitle className="text-2xl font-bold mb-4">Increase Engagement</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Churches report 300% increase in volunteer participation within the first year.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+              <CardHeader className="pb-6">
+                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <Shield className="w-12 h-12 text-accent" />
+                </div>
+                <CardTitle className="text-2xl font-bold mb-4">Built-in Safety</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Church-verified members and comprehensive safety guidelines protect your community.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+              <CardHeader className="pb-6">
+                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <BarChart3 className="w-12 h-12 text-accent" />
+                </div>
+                <CardTitle className="text-2xl font-bold mb-4">Track Impact</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Detailed analytics help you measure and share your church's community impact.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
+              <CardHeader className="pb-6">
+                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <Settings className="w-12 h-12 text-accent" />
+                </div>
+                <CardTitle className="text-2xl font-bold mb-4">Easy Management</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Simple admin tools make it easy to manage your church community and volunteer programs.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Benefits Section */}
+          <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-12 lg:p-16">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-6">Why Churches Choose ChurchConnect</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                See how ChurchConnect strengthens church communities and increases member engagement
-              </p>
+              <h3 className="text-3xl font-bold text-foreground mb-6">Complete Solution for Church Leaders</h3>
+              <p className="text-xl text-muted-foreground">Everything you need to launch and manage a thriving community connection program</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
-                <CardHeader className="pb-6">
-                  <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                    <Users className="w-12 h-12 text-accent" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold mb-4">Increase Engagement</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
-                    Churches report 300% increase in volunteer participation within the first year.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
-                <CardHeader className="pb-6">
-                  <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                    <Shield className="w-12 h-12 text-accent" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold mb-4">Built-in Safety</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
-                    Church-verified members and comprehensive safety guidelines protect your community.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
-                <CardHeader className="pb-6">
-                  <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                    <BarChart3 className="w-12 h-12 text-accent" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold mb-4">Track Impact</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
-                    Detailed analytics help you measure and share your church's community impact.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group text-center p-8">
-                <CardHeader className="pb-6">
-                  <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                    <Settings className="w-12 h-12 text-accent" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold mb-4">Easy Management</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
-                    Simple admin tools make it easy to manage your church community and volunteer programs.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Benefits Section */}
-            <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-12 lg:p-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold text-foreground mb-6">Complete Solution for Church Leaders</h3>
-                <p className="text-xl text-muted-foreground">Everything you need to launch and manage a thriving community connection program</p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-2">Member Verification System</h4>
-                      <p className="text-muted-foreground">Ensure only verified church members can access your community platform.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-2">Admin Dashboard</h4>
-                      <p className="text-muted-foreground">Monitor activity, manage users, and track community impact from one central location.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-2">Training & Support</h4>
-                      <p className="text-muted-foreground">Comprehensive training materials and ongoing support for your staff and volunteers.</p>
-                    </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Member Verification System</h4>
+                    <p className="text-muted-foreground">Ensure only verified church members can access your community platform.</p>
                   </div>
                 </div>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-2">Custom Branding</h4>
-                      <p className="text-muted-foreground">Customize the platform with your church's branding and messaging.</p>
-                    </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Admin Dashboard</h4>
+                    <p className="text-muted-foreground">Monitor activity, manage users, and track community impact from one central location.</p>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-2">Impact Reporting</h4>
-                      <p className="text-muted-foreground">Generate reports to share with your congregation and leadership about community impact.</p>
-                    </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Training & Support</h4>
+                    <p className="text-muted-foreground">Comprehensive training materials and ongoing support for your staff and volunteers.</p>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-2">Ministry Integration</h4>
-                      <p className="text-muted-foreground">Seamlessly integrate with existing ministries and volunteer programs.</p>
-                    </div>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Custom Branding</h4>
+                    <p className="text-muted-foreground">Customize the platform with your church's branding and messaging.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Impact Reporting</h4>
+                    <p className="text-muted-foreground">Generate reports to share with your congregation and leadership about community impact.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Ministry Integration</h4>
+                    <p className="text-muted-foreground">Seamlessly integrate with existing ministries and volunteer programs.</p>
                   </div>
                 </div>
               </div>
             </div>
-          </TabsContent>
+          </div>
+        </section>
 
-          {/* Resources Tab */}
-          <TabsContent value="resources" className="space-y-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Church Leader Resources</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Everything you need to successfully launch and manage ChurchConnect in your community
-              </p>
-            </div>
-            
-            <ScrollArea className="max-h-[800px] rounded-3xl">
-              <div className="grid md:grid-cols-2 gap-8 pr-4">
-                {resources.map((resource) => {
-                  const IconComponent = resource.icon;
-                  return (
-                    <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start gap-4">
-                          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                            <IconComponent className="w-8 h-8 text-accent" />
-                          </div>
-                          <div className="flex-1">
-                            <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
-                            <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
-                          </div>
+        {/* Resources Section */}
+        <section className="space-y-8 mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Church Leader Resources</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Everything you need to successfully launch and manage ChurchConnect in your community
+            </p>
+          </div>
+          
+          <ScrollArea className="max-h-[800px] rounded-3xl">
+            <div className="grid md:grid-cols-2 gap-8 pr-4">
+              {resources.map((resource) => {
+                const IconComponent = resource.icon;
+                return (
+                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start gap-4">
+                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                          <IconComponent className="w-8 h-8 text-accent" />
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
-                        <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                          <Download className="w-4 h-4 mr-2" />
-                          Download Resource
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </ScrollArea>
-          </TabsContent>
-
-          {/* Case Studies Tab */}
-          <TabsContent value="case-studies" className="space-y-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Success Stories</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                See how churches across the country are using ChurchConnect to strengthen their communities
-              </p>
-            </div>
-            
-            <ScrollArea className="max-h-[800px] rounded-3xl">
-              <div className="space-y-8 pr-4">
-              {caseStudies.map((study) => (
-                <Card key={study.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                  <CardContent className="p-8">
-                    <div className="grid lg:grid-cols-3 gap-8 items-center">
-                      <div className="lg:col-span-2">
-                        <div className="flex items-start gap-4 mb-6">
-                          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                            <Church className="w-8 h-8 text-accent" />
-                          </div>
-                          <div>
-                            <h3 className="text-2xl font-bold text-foreground mb-2">{study.church}</h3>
-                            <p className="text-muted-foreground mb-2">{study.location}</p>
-                            <Badge variant="secondary">{study.highlight}</Badge>
-                          </div>
+                        <div className="flex-1">
+                          <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
+                          <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
                         </div>
-                        <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
-                          "{study.testimonial}"
-                        </blockquote>
-                        <p className="font-semibold text-foreground">— {study.pastor}</p>
                       </div>
-                      <div className="space-y-6">
-                        <div className="text-center">
-                          <div className="text-4xl font-bold text-accent mb-2">{study.members.toLocaleString()}</div>
-                          <p className="text-sm text-muted-foreground">Church Members</p>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
+                      <Button className="w-full bg-primary hover:bg-primary-hover text-white">
+                        <Download className="w-4 h-4 mr-2" />
+                        Download Resource
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </ScrollArea>
+        </section>
+
+        {/* Leadership Stories Section */}
+        <section className="space-y-8 mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Leadership Testimonials</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Hear directly from pastors and church leaders about how ChurchConnect has transformed their ministry
+            </p>
+          </div>
+          
+          <ScrollArea className="max-h-[800px] rounded-3xl">
+            <div className="space-y-8 pr-4">
+            {leadershipStories.map((story) => (
+              <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                <CardContent className="p-8">
+                  <div className="grid lg:grid-cols-3 gap-8 items-center">
+                    <div className="lg:col-span-2">
+                      <div className="flex items-start gap-4 mb-6">
+                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                          <Church className="w-8 h-8 text-accent" />
                         </div>
-                        <div className="text-center">
-                          <div className="text-4xl font-bold text-accent mb-2">{study.needsFulfilled}</div>
-                          <p className="text-sm text-muted-foreground">Needs Fulfilled</p>
+                        <div>
+                          <h3 className="text-2xl font-bold text-foreground mb-1">{story.pastor}</h3>
+                          <p className="text-accent font-medium mb-2">{story.title}</p>
+                          <p className="text-muted-foreground mb-2">{story.church}, {story.location}</p>
+                          <Badge variant="secondary">{story.yearsInMinistry} years in ministry</Badge>
                         </div>
-                        <div className="text-center">
-                          <div className="text-4xl font-bold text-accent mb-2">{study.monthsActive}</div>
-                          <p className="text-sm text-muted-foreground">Months Active</p>
-                        </div>
+                      </div>
+                      <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
+                        "{story.testimonial}"
+                      </blockquote>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <span className="bg-accent/10 px-3 py-1 rounded-full">{story.impact}</span>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-              </div>
-            </ScrollArea>
-          </TabsContent>
-        </Tabs>
+                    <div className="space-y-6">
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-accent mb-2">{story.yearsInMinistry}</div>
+                        <p className="text-sm text-muted-foreground">Years in Ministry</p>
+                      </div>
+                      <div className="text-center border-t pt-4">
+                        <p className="text-sm font-medium text-foreground mb-1">Key Achievement</p>
+                        <p className="text-sm text-muted-foreground">{story.keyMetric}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            </div>
+          </ScrollArea>
+        </section>
 
         {/* CTA Section */}
         <section className="text-center mt-20 animate-fade-in">
