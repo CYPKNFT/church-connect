@@ -19,7 +19,7 @@ export type Database = {
           address: string | null
           address_line2: string | null
           admin_email: string | null
-          admin_user_id: string | null
+          admin_user_id: string
           city: string | null
           created_at: string
           id: string
@@ -34,7 +34,7 @@ export type Database = {
           address?: string | null
           address_line2?: string | null
           admin_email?: string | null
-          admin_user_id?: string | null
+          admin_user_id: string
           city?: string | null
           created_at?: string
           id?: string
@@ -49,7 +49,7 @@ export type Database = {
           address?: string | null
           address_line2?: string | null
           admin_email?: string | null
-          admin_user_id?: string | null
+          admin_user_id?: string
           city?: string | null
           created_at?: string
           id?: string
@@ -199,8 +199,16 @@ export type Database = {
         Args: { ch: string }
         Returns: boolean
       }
+      is_church_creator: {
+        Args: { ch: string }
+        Returns: boolean
+      }
       is_church_member: {
         Args: { ch: string }
+        Returns: boolean
+      }
+      is_platform_admin: {
+        Args: Record<PropertyKey, never>
         Returns: boolean
       }
       list_churches_member: {
