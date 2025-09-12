@@ -24,9 +24,8 @@ export default function Terms() {
           </p>
         </div>
 
-        <ScrollArea className="h-[70vh]">
-          <Card className="bg-white/90 backdrop-blur-sm shadow-xl border-0 rounded-2xl mr-4">
-            <CardContent className="p-8">
+        <Card className="bg-white/90 backdrop-blur-sm shadow-xl border-0 rounded-2xl">
+          <CardContent className="p-12">
               <div className="space-y-8">
                 
                 {/* Introduction */}
@@ -248,7 +247,6 @@ export default function Terms() {
               </div>
             </CardContent>
           </Card>
-        </ScrollArea>
       </div>
     </div>
   );
