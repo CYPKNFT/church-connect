@@ -135,102 +135,101 @@ export default function MyChurch() {
   };
 
   return (
-    <div className="min-h-screen bg-subtle-gradient">
-      <div className="container mx-auto px-4 py-24">
-        {/* Church Header */}
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-6">
-            <Heart className="w-5 h-5" />
-            <span>My Church Community</span>
-          </div>
-          <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
-            {churchName}
-          </h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            Member since {memberSince} • Connected to serve and support our church family
-          </p>
-          <div className="flex justify-center gap-4">
-            <Button className="bg-primary hover:bg-primary-hover text-white" asChild>
-              <Link to="/post">
-                <Heart className="w-4 h-4 mr-2" />
-                Post a Need
-              </Link>
-            </Button>
-            <Button variant="outline">
-              <Bell className="w-4 h-4 mr-2" />
-              Notifications
-            </Button>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-purple-600/90 to-orange-500/90" />
+        <div className="relative">
+          <div className="container mx-auto px-4 py-24 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white font-medium mb-8 backdrop-blur-sm">
+              <Heart className="w-5 h-5" />
+              <span>My Church Community</span>
+            </div>
+            
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              {churchName}
+            </h1>
+            <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
+              Member since {memberSince} • Connected to serve and support our church family
+            </p>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <Card className="border-0 shadow-card bg-white/90 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Heart className="w-6 h-6 text-accent" />
+            {/* Stats Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">3</h3>
+                <p className="text-white/80 text-sm">Active Needs</p>
               </div>
-              <h3 className="text-2xl font-bold text-foreground">{filteredNeeds.length}</h3>
-              <p className="text-muted-foreground">Active Needs</p>
-            </CardContent>
-          </Card>
-          <Card className="border-0 shadow-card bg-white/90 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <UserCheck className="w-6 h-6 text-accent" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <UserCheck className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">7</h3>
+                <p className="text-white/80 text-sm">Times Helped</p>
               </div>
-              <h3 className="text-2xl font-bold text-foreground">7</h3>
-              <p className="text-muted-foreground">Times Helped</p>
-            </CardContent>
-          </Card>
-          <Card className="border-0 shadow-card bg-white/90 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Calendar className="w-6 h-6 text-accent" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Calendar className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">2</h3>
+                <p className="text-white/80 text-sm">Upcoming Events</p>
               </div>
-              <h3 className="text-2xl font-bold text-foreground">{churchEvents.length}</h3>
-              <p className="text-muted-foreground">Upcoming Events</p>
-            </CardContent>
-          </Card>
-          <Card className="border-0 shadow-card bg-white/90 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Users className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground">156</h3>
-              <p className="text-muted-foreground">Church Members</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Search and Filter */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 mb-12 border border-accent/20">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                <Input
-                  placeholder="Search church needs..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-12"
-                />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">156</h3>
+                <p className="text-white/80 text-sm">Church Members</p>
               </div>
             </div>
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48 h-12">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map(category => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
         </div>
+      </div>
+
+      {/* Search Section */}
+      <div className="container mx-auto px-4 -mt-12 relative z-10">
+        <Card className="border-0 shadow-elegant bg-white/95 backdrop-blur-sm rounded-3xl p-8">
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-2xl font-bold text-foreground">
+              Explore Community Impact
+            </CardTitle>
+            <p className="text-muted-foreground">
+              Search through real needs, inspiring stories, and upcoming opportunities
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                  <Input
+                    placeholder="Search church needs..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 h-14 text-lg rounded-2xl border-2"
+                  />
+                </div>
+              </div>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-full md:w-48 h-14 rounded-2xl border-2">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent className="bg-white border-2 shadow-elegant rounded-xl">
+                  {categories.map(category => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="container mx-auto px-4 py-16">
 
         {/* Three Column Layout */}
         <div className="grid lg:grid-cols-3 gap-8">
