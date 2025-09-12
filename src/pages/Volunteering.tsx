@@ -6,6 +6,7 @@ import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquar
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function Volunteering() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -169,7 +170,7 @@ export default function Volunteering() {
   const averageRating = userVolunteering.filter(v => v.rating).reduce((sum, v) => sum + (v.rating || 0), 0) / userVolunteering.filter(v => v.rating).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
+    <DashboardLayout>
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -408,17 +409,7 @@ export default function Volunteering() {
             ))
           )}
         </div>
-
-        {/* Back to Dashboard */}
-        <div className="mt-8 text-center">
-          <Button variant="outline" asChild className="rounded-xl">
-            <Link to="/dashboard">
-              <ChevronRight className="w-4 h-4 mr-2 rotate-180" />
-              Back to Dashboard
-            </Link>
-          </Button>
-        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
