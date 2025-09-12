@@ -389,7 +389,7 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[800px] rounded-2xl">
+            <ScrollArea className="max-h-[800px] rounded-2xl">
               <div className="grid md:grid-cols-2 gap-6 pr-4">
                 {filteredNeeds.map((need) => {
                   const IconComponent = need.icon;
@@ -452,7 +452,7 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[800px] rounded-2xl">
+            <ScrollArea className="max-h-[800px] rounded-2xl">
               <div className="grid md:grid-cols-2 gap-6 pr-4">
                 {successStories.map((story) => {
                   return (
@@ -492,7 +492,7 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[800px] rounded-2xl">
+            <ScrollArea className="max-h-[800px] rounded-2xl">
               <div className="grid md:grid-cols-2 gap-6 pr-4">
                 {upcomingEvents.map((event) => (
                   <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
