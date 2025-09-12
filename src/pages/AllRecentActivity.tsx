@@ -165,74 +165,81 @@ export default function AllRecentActivity() {
     <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
       <div className="bg-gradient-primary text-white">
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex items-center gap-4 mb-6">
-            <Link to="/my-church">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to My Church
-              </Button>
-            </Link>
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <Link to="/my-church">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to My Church
+                </Button>
+              </Link>
+            </div>
+            <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+              {allActivity.length} Total Activities
+            </Badge>
           </div>
-          <h1 className="text-4xl font-bold mb-4">All Recent Activity</h1>
-          <p className="text-xl text-white/90 mb-8">
-            Complete timeline of community engagement and service activities
-          </p>
-
-          {/* Community Impact Summary in Hero */}
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-8">
-            <h3 className="text-2xl font-bold mb-6">Community Impact Summary</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">
-                  {allActivity.filter(a => a.category === "Help Offered").length}
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-6">
+            <div>
+              <h1 className="text-3xl lg:text-4xl font-bold mb-2">All Recent Activity</h1>
+              <p className="text-lg text-white/90">
+                Complete timeline of community engagement and service activities
+              </p>
+            </div>
+            
+            {/* Compact Community Impact Summary */}
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 lg:p-6">
+              <h3 className="text-lg font-bold mb-4 text-center">Community Impact</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold">
+                    {allActivity.filter(a => a.category === "Help Offered").length}
+                  </div>
+                  <div className="text-xs text-white/80">Times Helped</div>
                 </div>
-                <div className="text-white/80">Times Helped</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">
-                  {allActivity.filter(a => a.category === "Task Completed").length}
+                <div className="text-center">
+                  <div className="text-2xl font-bold">
+                    {allActivity.filter(a => a.category === "Task Completed").length}
+                  </div>
+                  <div className="text-xs text-white/80">Tasks Completed</div>
                 </div>
-                <div className="text-white/80">Tasks Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">
-                  {allActivity.filter(a => a.category === "Event Organized").length}
+                <div className="text-center">
+                  <div className="text-2xl font-bold">
+                    {allActivity.filter(a => a.category === "Event Organized").length}
+                  </div>
+                  <div className="text-xs text-white/80">Events Organized</div>
                 </div>
-                <div className="text-white/80">Events Organized</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">
-                  {new Set(allActivity.map(a => a.member)).size}
+                <div className="text-center">
+                  <div className="text-2xl font-bold">
+                    {new Set(allActivity.map(a => a.member)).size}
+                  </div>
+                  <div className="text-xs text-white/80">Active Members</div>
                 </div>
-                <div className="text-white/80">Active Members</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Search and Filter */}
-        <Card className="mb-8 border-0 shadow-elegant">
-          <CardHeader>
-            <CardTitle>Search & Filter Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col md:flex-row gap-4">
+      <div className="container mx-auto px-4 py-6">
+        {/* Search and Filter - More Compact */}
+        <Card className="mb-6 border-0 shadow-elegant">
+          <CardContent className="p-4">
+            <div className="flex flex-col md:flex-row gap-3">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                   <Input
                     placeholder="Search by member name or activity..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 h-12"
+                    className="pl-10 h-10"
                   />
                 </div>
               </div>
               <Select value={selectedType} onValueChange={setSelectedType}>
-                <SelectTrigger className="w-full md:w-48 h-12">
+                <SelectTrigger className="w-full md:w-48 h-10">
                   <SelectValue placeholder="All Types" />
                 </SelectTrigger>
                 <SelectContent>
@@ -247,14 +254,11 @@ export default function AllRecentActivity() {
           </CardContent>
         </Card>
 
-        {/* Results Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
+        {/* Results Header - More Compact */}
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold">
             {filteredActivity.length} Activit{filteredActivity.length !== 1 ? 'ies' : 'y'} Found
           </h2>
-          <Badge variant="secondary" className="text-sm">
-            {allActivity.length} Total Activities
-          </Badge>
         </div>
 
         {/* Activity Timeline with Winding Path */}
@@ -274,8 +278,8 @@ export default function AllRecentActivity() {
             {filteredActivity.map((_, index) => {
               if (index === filteredActivity.length - 1) return null;
               
-              const startY = (index * 140) + 100; // Card height + margin
-              const endY = ((index + 1) * 140) + 100;
+              const startY = (index * 120) + 80; // Reduced spacing
+              const endY = ((index + 1) * 120) + 80;
               const midY = (startY + endY) / 2;
               
               // Create winding effect
@@ -286,7 +290,7 @@ export default function AllRecentActivity() {
               return (
                 <path
                   key={`timeline-${index}`}
-                  d={`M 100 ${startY + 40} Q ${controlX} ${midY} 100 ${endY + 40}`}
+                  d={`M 100 ${startY + 30} Q ${controlX} ${midY} 100 ${endY + 30}`}
                   stroke="url(#timelineGradient)"
                   strokeWidth="4"
                   fill="none"
@@ -298,7 +302,7 @@ export default function AllRecentActivity() {
           </svg>
 
           {/* Activity Cards */}
-          <div className="relative space-y-6" style={{ zIndex: 2 }}>
+          <div className="relative space-y-4" style={{ zIndex: 2 }}>
             {filteredActivity.map((activity, index) => {
               const IconComponent = activity.icon;
               return (
@@ -308,7 +312,7 @@ export default function AllRecentActivity() {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group relative">
-                    <CardContent className="p-6">
+                    <CardContent className="p-5">
                       <div className="flex items-start gap-4">
                         {/* Timeline Indicator */}
                         <div className="relative">
