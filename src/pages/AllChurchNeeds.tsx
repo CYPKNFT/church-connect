@@ -131,7 +131,7 @@ export default function AllChurchNeeds() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-gradient-primary text-white">
         <div className="container mx-auto px-4 py-12">
@@ -152,7 +152,7 @@ export default function AllChurchNeeds() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Search and Filter */}
-        <Card className="mb-8 border-0 shadow-elegant">
+        <Card className="mb-8 border-0 shadow-elegant bg-card">
           <CardHeader>
             <CardTitle>Search & Filter Needs</CardTitle>
           </CardHeader>
@@ -200,7 +200,7 @@ export default function AllChurchNeeds() {
           {filteredNeeds.map((need) => {
             const IconComponent = need.icon;
             return (
-              <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group">
+              <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-6">
                     <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">

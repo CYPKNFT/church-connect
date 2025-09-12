@@ -134,7 +134,7 @@ export default function AllChurchEvents() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-gradient-primary text-white">
         <div className="container mx-auto px-4 py-12">
@@ -155,7 +155,7 @@ export default function AllChurchEvents() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Search and Filter */}
-        <Card className="mb-8 border-0 shadow-elegant">
+        <Card className="mb-8 border-0 shadow-elegant bg-card">
           <CardHeader>
             <CardTitle>Search & Filter Events</CardTitle>
           </CardHeader>
@@ -203,7 +203,7 @@ export default function AllChurchEvents() {
           {filteredEvents.map((event) => {
             const IconComponent = event.icon;
             return (
-              <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group h-full">
+              <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group h-full">
                 <CardContent className="p-6 flex flex-col h-full">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">

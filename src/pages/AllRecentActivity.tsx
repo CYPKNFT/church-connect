@@ -162,7 +162,7 @@ export default function AllRecentActivity() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-gradient-primary text-white">
         <div className="container mx-auto px-4 py-8">
@@ -224,7 +224,7 @@ export default function AllRecentActivity() {
 
       <div className="container mx-auto px-4 py-6">
         {/* Search and Filter - More Compact */}
-        <Card className="mb-6 border-0 shadow-elegant">
+        <Card className="mb-6 border-0 shadow-elegant bg-card">
           <CardContent className="p-4">
             <div className="flex flex-col md:flex-row gap-3">
               <div className="flex-1">
@@ -311,7 +311,7 @@ export default function AllRecentActivity() {
                   className={`animate-fade-in`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/95 backdrop-blur-sm group relative">
+                  <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group relative">
                     <CardContent className="p-5">
                       <div className="flex items-start gap-4">
                         {/* Timeline Indicator */}
