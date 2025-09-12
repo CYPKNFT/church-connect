@@ -25,6 +25,7 @@ import SafetyTrust from "./pages/SafetyTrust";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
+import PendingApproval from "./pages/PendingApproval";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +62,7 @@ const App = () => (
               <Route path="/community" element={<Community />} />
               <Route path="/churches" element={<Churches />} />
               <Route path="/support" element={<Help />} />
+              <Route path="/pending-approval" element={<PendingApproval />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
