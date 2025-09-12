@@ -237,7 +237,12 @@ export default function MyChurch() {
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-3xl font-bold text-foreground">Church Family Needs</h2>
-              <Badge variant="secondary" className="text-sm">{filteredNeeds.length} Active</Badge>
+              <div className="flex items-center gap-4">
+                <Badge variant="secondary" className="text-sm">{filteredNeeds.length} Active</Badge>
+                <Link to="/my-church/needs">
+                  <Button variant="outline" size="sm">See All</Button>
+                </Link>
+              </div>
             </div>
             
             <ScrollArea className="h-[700px] pr-4">
@@ -303,7 +308,12 @@ export default function MyChurch() {
           <div className="space-y-8">
             {/* Church Events */}
             <div>
-              <h2 className="text-2xl font-bold text-foreground mb-6">Church Events</h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-foreground">Church Events</h2>
+                <Link to="/my-church/events">
+                  <Button variant="outline" size="sm">See All</Button>
+                </Link>
+              </div>
               <ScrollArea className="h-[300px] pr-4">
                 <div className="space-y-4">
                   {churchEvents.map((event) => (
@@ -338,7 +348,12 @@ export default function MyChurch() {
 
             {/* Recent Activity */}
             <div>
-              <h2 className="text-2xl font-bold text-foreground mb-6">Recent Activity</h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-foreground">Recent Activity</h2>
+                <Link to="/my-church/activity">
+                  <Button variant="outline" size="sm">See All</Button>
+                </Link>
+              </div>
               <ScrollArea className="h-[300px] pr-4">
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (

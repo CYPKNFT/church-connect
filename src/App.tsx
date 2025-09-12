@@ -30,6 +30,9 @@ import PendingApproval from "./pages/PendingApproval";
 import EmailVerification from "./pages/EmailVerification";
 import MyNeeds from "./pages/MyNeeds";
 import Volunteering from "./pages/Volunteering";
+import AllChurchNeeds from "./pages/AllChurchNeeds";
+import AllChurchEvents from "./pages/AllChurchEvents";
+import AllRecentActivity from "./pages/AllRecentActivity";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +58,9 @@ const App = () => (
               <Route path="/my-needs" element={<MyNeeds />} />
               <Route path="/volunteering" element={<Volunteering />} />
               <Route path="/my-church" element={<MyChurch />} />
+              <Route path="/my-church/needs" element={<AllChurchNeeds />} />
+              <Route path="/my-church/events" element={<AllChurchEvents />} />
+              <Route path="/my-church/activity" element={<AllRecentActivity />} />
               <Route path="/help" element={<Help />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<Settings />} />
