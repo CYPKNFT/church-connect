@@ -16,31 +16,42 @@ export default function EmailVerification() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // Check if this is a confirmation callback
-  const hasConfirmationParams = searchParams.has('access_token') || searchParams.has('token_hash');
+  // Detect confirmation parameters from either query string or hash fragment
+  const getHasConfirmationParams = () => {
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
+    const hashParams = new URLSearchParams(hash.startsWith('#') ? hash.slice(1) : hash);
+    return (
+      searchParams.has('access_token') ||
+      searchParams.has('token_hash') ||
+      hashParams.has('access_token') ||
+      hashParams.has('token_hash') ||
+      hashParams.get('type') === 'signup'
+    );
+  };
 
   useEffect(() => {
-    // If user is already verified and we're not handling a confirmation, redirect
+    // SEO title
+    document.title = isVerified ? 'Email Verified | ChurchConnect' : 'Verify Your Email | ChurchConnect';
+
+    const hasConfirmationParams = getHasConfirmationParams();
+
+    // If user is already verified and we're not handling a confirmation, go to dashboard
     if (user && user.email_confirmed_at && !hasConfirmationParams) {
-      navigate('/dashboard');
-      return;
+      // Don't auto-redirect per UX; let them choose
     }
 
     // Get email from URL params or current user
     const emailFromParams = searchParams.get('email');
     const userEmail = user?.email;
     
-    if (emailFromParams) {
-      setEmail(emailFromParams);
-    } else if (userEmail) {
-      setEmail(userEmail);
-    }
+    if (emailFromParams) setEmail(emailFromParams);
+    else if (userEmail) setEmail(userEmail);
 
-    // Handle email confirmation callback
+    // Handle email confirmation callback (from hash or query)
     if (hasConfirmationParams) {
-      handleEmailConfirmation();
+      setIsVerified(true);
     }
-  }, [user, searchParams, navigate, hasConfirmationParams]);
+  }, [user, searchParams, isVerified]);
 
   const handleEmailConfirmation = async () => {
     try {
@@ -115,11 +126,16 @@ export default function EmailVerification() {
             <div className="mx-auto mb-4 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
               <CheckCircle className="w-6 h-6 text-green-600" />
             </div>
-            <CardTitle className="text-2xl text-green-700">Email Verified!</CardTitle>
+            <CardTitle className="text-2xl text-green-700">Verification successful</CardTitle>
             <CardDescription>
-              Your email has been successfully verified. You'll be redirected to your dashboard shortly.
+              Your email has been verified. For security, please sign in to continue.
             </CardDescription>
           </CardHeader>
+          <CardContent>
+            <Button asChild className="w-full">
+              <Link to="/login">Sign In</Link>
+            </Button>
+          </CardContent>
         </Card>
       </div>
     );
