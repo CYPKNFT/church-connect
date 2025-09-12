@@ -277,7 +277,7 @@ export default function Community() {
   };
 
   return (
-    <div className="min-h-screen bg-muted">
+    <div className="min-h-screen bg-muted pb-16">
       {/* Hero Section with Enhanced Design */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary opacity-90"></div>
@@ -537,7 +537,7 @@ export default function Community() {
         </Tabs>
 
         {/* Enhanced Call to Action */}
-        <div className="bg-gradient-to-br from-accent/15 via-primary/10 to-accent/15 rounded-3xl p-16 text-center mt-12 mb-16 border border-accent/20 backdrop-blur-sm">
+        <div className="bg-gradient-to-br from-accent/15 via-primary/10 to-accent/15 rounded-3xl p-16 text-center mt-12 mb-0 border border-accent/20 backdrop-blur-sm">
           <div className="w-24 h-24 bg-gradient-to-br from-accent to-primary rounded-3xl flex items-center justify-center mx-auto mb-8">
             <Heart className="w-12 h-12 text-white" />
           </div>
