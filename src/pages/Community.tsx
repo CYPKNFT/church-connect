@@ -618,113 +618,58 @@ export default function Community() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6">
-              <ScrollArea className="max-h-[800px] rounded-2xl">
-                <div className="space-y-6 pr-4">
-                  {leftNeeds.map((need) => {
-                    const IconComponent = need.icon;
-                    return (
-                      <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                        <CardContent className="p-6">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                              <IconComponent className="w-6 h-6 text-accent" />
+            <ScrollArea className="max-h-[800px] rounded-2xl">
+              <div className="grid md:grid-cols-2 gap-6 pr-4">
+                {filteredNeeds.map((need) => {
+                  const IconComponent = need.icon;
+                  return (
+                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-accent" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-3">
+                              <h3 className="text-lg font-bold text-foreground">{need.title}</h3>
+                              <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs">
+                                {need.urgency}
+                              </Badge>
                             </div>
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-lg font-bold text-foreground">{need.title}</h3>
-                                <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs">
-                                  {need.urgency}
-                                </Badge>
+                            <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{need.description}</p>
+                            <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                {need.location}
                               </div>
-                              <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{need.description}</p>
-                              <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                                <div className="flex items-center gap-1">
-                                  <MapPin className="w-3 h-3" />
-                                  {need.location}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Clock className="w-3 h-3" />
-                                  {need.timePosted}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Users className="w-3 h-3" />
-                                  {need.church}
-                                </div>
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {need.timePosted}
                               </div>
-                              <div className="flex gap-3">
-                                <Button size="sm" className="bg-primary hover:bg-primary-hover text-white" asChild>
-                                  <Link to="/register">
-                                    <Heart className="w-4 h-4 mr-2" />
-                                    Join to Help
-                                  </Link>
-                                </Button>
-                                <Button variant="outline" size="sm">
-                                  Learn More
-                                </Button>
+                              <div className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
+                                {need.church}
                               </div>
+                            </div>
+                            <div className="flex gap-3">
+                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white" asChild>
+                                <Link to="/register">
+                                  <Heart className="w-4 h-4 mr-2" />
+                                  Join to Help
+                                </Link>
+                              </Button>
+                              <Button variant="outline" size="sm">
+                                Learn More
+                              </Button>
                             </div>
                           </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </ScrollArea>
-
-              <ScrollArea className="max-h-[800px] rounded-2xl">
-                <div className="space-y-6 pr-4">
-                  {rightNeeds.map((need) => {
-                    const IconComponent = need.icon;
-                    return (
-                      <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                        <CardContent className="p-6">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                              <IconComponent className="w-6 h-6 text-accent" />
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-lg font-bold text-foreground">{need.title}</h3>
-                                <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs">
-                                  {need.urgency}
-                                </Badge>
-                              </div>
-                              <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{need.description}</p>
-                              <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                                <div className="flex items-center gap-1">
-                                  <MapPin className="w-3 h-3" />
-                                  {need.location}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Clock className="w-3 h-3" />
-                                  {need.timePosted}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Users className="w-3 h-3" />
-                                  {need.church}
-                                </div>
-                              </div>
-                              <div className="flex gap-3">
-                                <Button size="sm" className="bg-primary hover:bg-primary-hover text-white" asChild>
-                                  <Link to="/register">
-                                    <Heart className="w-4 h-4 mr-2" />
-                                    Join to Help
-                                  </Link>
-                                </Button>
-                                <Button variant="outline" size="sm">
-                                  Learn More
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </ScrollArea>
-            </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </ScrollArea>
           </TabsContent>
 
           {/* Success Stories Tab - Two Column Layout */}
@@ -736,63 +681,33 @@ export default function Community() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6">
-              <ScrollArea className="max-h-[800px] rounded-2xl">
-                <div className="space-y-6 pr-4">
-                  {leftStories.map((story) => (
-                    <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                          {[...Array(story.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                          ))}
+            <ScrollArea className="max-h-[800px] rounded-2xl">
+              <div className="grid md:grid-cols-2 gap-6 pr-4">
+                {successStories.map((story) => (
+                  <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        {[...Array(story.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                        ))}
+                      </div>
+                      <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
+                        "{story.content}"
+                      </blockquote>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                          <span className="text-accent font-bold text-xs">{story.avatar}</span>
                         </div>
-                        <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
-                          "{story.content}"
-                        </blockquote>
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
-                            <span className="text-accent font-bold text-xs">{story.avatar}</span>
-                          </div>
-                          <div>
-                            <p className="font-semibold text-foreground text-sm">{story.author}</p>
-                            <p className="text-xs text-muted-foreground">{story.church}</p>
-                          </div>
+                        <div>
+                          <p className="font-semibold text-foreground text-sm">{story.author}</p>
+                          <p className="text-xs text-muted-foreground">{story.church}</p>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollArea>
-
-              <ScrollArea className="max-h-[800px] rounded-2xl">
-                <div className="space-y-6 pr-4">
-                  {rightStories.map((story) => (
-                    <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                          {[...Array(story.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                          ))}
-                        </div>
-                        <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
-                          "{story.content}"
-                        </blockquote>
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
-                            <span className="text-accent font-bold text-xs">{story.avatar}</span>
-                          </div>
-                          <div>
-                            <p className="font-semibold text-foreground text-sm">{story.author}</p>
-                            <p className="text-xs text-muted-foreground">{story.church}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollArea>
-            </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ScrollArea>
           </TabsContent>
 
           {/* Events Tab - Two Column Layout */}
@@ -804,91 +719,47 @@ export default function Community() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6">
-              <ScrollArea className="max-h-[800px] rounded-2xl">
-                <div className="space-y-6 pr-4">
-                  {leftEvents.map((event) => (
-                    <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <Badge variant="secondary" className="mb-3">{event.category}</Badge>
-                            <CardTitle className="text-xl font-bold mb-2">{event.title}</CardTitle>
-                          </div>
-                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                            <Calendar className="w-6 h-6 text-accent" />
-                          </div>
+            <ScrollArea className="max-h-[800px] rounded-2xl">
+              <div className="grid md:grid-cols-2 gap-6 pr-4">
+                {upcomingEvents.map((event) => (
+                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <Badge variant="secondary" className="mb-3">{event.category}</Badge>
+                          <CardTitle className="text-xl font-bold mb-2">{event.title}</CardTitle>
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{event.description}</p>
-                        <div className="space-y-2 text-xs text-muted-foreground mb-4">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-3 h-3" />
-                            {event.date} at {event.time}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="w-3 h-3" />
-                            {event.location}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users className="w-3 h-3" />
-                            {event.attendees} attending • {event.church}
-                          </div>
+                        <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                          <Calendar className="w-6 h-6 text-accent" />
                         </div>
-                        <Button size="sm" className="w-full bg-primary hover:bg-primary-hover text-white" asChild>
-                          <Link to="/register">
-                            Join Event
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollArea>
-
-              <ScrollArea className="max-h-[800px] rounded-2xl">
-                <div className="space-y-6 pr-4">
-                  {rightEvents.map((event) => (
-                    <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <Badge variant="secondary" className="mb-3">{event.category}</Badge>
-                            <CardTitle className="text-xl font-bold mb-2">{event.title}</CardTitle>
-                          </div>
-                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                            <Calendar className="w-6 h-6 text-accent" />
-                          </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{event.description}</p>
+                      <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-3 h-3" />
+                          {event.date} at {event.time}
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{event.description}</p>
-                        <div className="space-y-2 text-xs text-muted-foreground mb-4">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-3 h-3" />
-                            {event.date} at {event.time}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="w-3 h-3" />
-                            {event.location}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users className="w-3 h-3" />
-                            {event.attendees} attending • {event.church}
-                          </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-3 h-3" />
+                          {event.location}
                         </div>
-                        <Button size="sm" className="w-full bg-primary hover:bg-primary-hover text-white" asChild>
-                          <Link to="/register">
-                            Join Event
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollArea>
-            </div>
+                        <div className="flex items-center gap-2">
+                          <Users className="w-3 h-3" />
+                          {event.attendees} attending • {event.church}
+                        </div>
+                      </div>
+                      <Button size="sm" className="w-full bg-primary hover:bg-primary-hover text-white" asChild>
+                        <Link to="/register">
+                          Join Event
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ScrollArea>
           </TabsContent>
         </Tabs>
 
