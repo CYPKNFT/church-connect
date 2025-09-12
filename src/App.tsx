@@ -18,8 +18,8 @@ import Churches from "./pages/Churches";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Dashboard2 from "./pages/Dashboard2";
-import Dashboard3 from "./pages/Dashboard3";
+import MyNeeds from "./pages/MyNeeds";
+import Volunteering from "./pages/Volunteering";
 import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
@@ -31,8 +31,6 @@ import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import PendingApproval from "./pages/PendingApproval";
 import EmailVerification from "./pages/EmailVerification";
-import MyNeeds from "./pages/MyNeeds";
-import Volunteering from "./pages/Volunteering";
 import AllChurchNeeds from "./pages/AllChurchNeeds";
 import AllChurchEvents from "./pages/AllChurchEvents";
 import AllRecentActivity from "./pages/AllRecentActivity";
@@ -59,8 +57,6 @@ const App = () => (
               <Route path="/register" element={<Register />} />
               <Route path="/email-verification" element={<EmailVerification />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/dashboard2" element={<Dashboard2 />} />
-              <Route path="/dashboard3" element={<Dashboard3 />} />
               <Route path="/my-needs" element={<MyNeeds />} />
               <Route path="/volunteering" element={<Volunteering />} />
               <Route path="/my-church" element={<MyChurch />} />
