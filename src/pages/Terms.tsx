@@ -7,7 +7,7 @@ export default function Terms() {
   const lastUpdated = "January 15, 2025";
 
   return (
-    <div className="min-h-screen bg-subtle-gradient py-12 px-4">
+    <div className="min-h-screen bg-gradient-yellow-blue py-12 px-4">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
