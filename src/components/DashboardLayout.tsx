@@ -73,13 +73,13 @@ function DashboardSidebar() {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100 pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
       <SidebarProvider>
         <div className="flex min-h-screen w-full">
           <DashboardSidebar />
           <div className="flex-1 flex flex-col">
             {/* Global Sidebar Trigger */}
-            <header className="h-12 flex items-center border-b border-border/20 bg-white/50 backdrop-blur-sm sticky top-16 z-10">
+            <header className="h-12 flex items-center border-b border-border/20 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
               <SidebarTrigger className="ml-4" />
             </header>
             <main className="flex-1 overflow-auto">
