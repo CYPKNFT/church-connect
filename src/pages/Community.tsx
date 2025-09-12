@@ -2,96 +2,143 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Baby, HandHeart } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus } from "lucide-react";
 
 export default function Community() {
-  const [activeTab, setActiveTab] = useState("tasks");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const tasks = [
     {
       id: 1,
-      title: "Need help with grocery shopping",
-      description: "Looking for someone to help with weekly grocery run. I'm recovering from surgery and can't lift heavy items.",
+      title: "Help with grocery shopping",
+      description: "Weekly grocery assistance needed for elderly church member recovering from surgery.",
       category: "Groceries",
       location: "Downtown Area",
-      urgency: "Medium",
+      urgency: "This Week",
       timePosted: "2 hours ago",
       icon: ShoppingCart,
-      churchMember: "Sarah M.",
-      church: "Grace Community Church"
+      church: "Local Churches"
     },
     {
       id: 2,
-      title: "Ride needed to doctor's appointment",
-      description: "Need transportation to medical appointment on Friday afternoon. My car is in the shop.",
+      title: "Transportation needed",
+      description: "Ride needed to medical appointment for church member without transportation.",
       category: "Transportation",
       location: "Westside",
-      urgency: "High",
+      urgency: "Immediate",
       timePosted: "4 hours ago",
       icon: Car,
-      churchMember: "Robert T.",
-      church: "First Baptist Church"
+      church: "Local Churches"
     },
     {
       id: 3,
-      title: "Help with home repairs",
-      description: "Looking for someone handy to help fix a leaky faucet and replace a light fixture.",
-      category: "Home Repairs",
+      title: "Home repairs assistance",
+      description: "Handy person needed to help fix leaky faucet and replace light fixture.",
+      category: "Home Repair",
       location: "Northside",
-      urgency: "Low",
+      urgency: "Flexible",
       timePosted: "1 day ago",
       icon: Wrench,
-      churchMember: "Linda K.",
-      church: "Community Fellowship"
+      church: "Local Churches"
     },
     {
       id: 4,
-      title: "Meal train for new parents",
-      description: "Organizing meals for the Johnson family who just welcomed their new baby.",
+      title: "Meal train coordination",
+      description: "Organizing meals for new parents who just welcomed their baby.",
       category: "Meals",
       location: "Eastside",
-      urgency: "Medium",
+      urgency: "This Week",
       timePosted: "6 hours ago",
       icon: ChefHat,
-      churchMember: "Mark D.",
-      church: "Riverside Church"
+      church: "Local Churches"
+    },
+    {
+      id: 5,
+      title: "Yard cleanup help",
+      description: "Storm cleanup assistance needed for elderly neighbor's property.",
+      category: "Home & Garden",
+      location: "Pine Ridge",
+      urgency: "Flexible",
+      timePosted: "2 days ago",
+      icon: Wrench,
+      church: "Local Churches"
+    },
+    {
+      id: 6,
+      title: "Childcare support",
+      description: "Childcare needed during medical appointments for single parent.",
+      category: "Childcare",
+      location: "Westside",
+      urgency: "This Week",
+      timePosted: "3 days ago",
+      icon: Heart,
+      church: "Local Churches"
     }
   ];
+
+  const categories = ["All", "Groceries", "Transportation", "Home Repair", "Meals", "Childcare", "Home & Garden"];
+  
+  const filteredTasks = tasks.filter(task => {
+    const matchesSearch = searchQuery === "" || 
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || task.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   const testimonials = [
     {
       id: 1,
-      content: "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved.",
-      author: "Sarah Miller",
+      content: "ChurchConnect helped us coordinate meal delivery for our family during a difficult time. The support from multiple churches was overwhelming.",
+      author: "Sarah M.",
       church: "Grace Community Church",
       rating: 5,
       avatar: "SM"
     },
     {
       id: 2,
-      content: "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood.",
-      author: "Mike Johnson",
+      content: "I've been able to help five families this month through the platform. It's amazing how technology connects us to serve others.",
+      author: "Mike J.",
       church: "First Baptist Church",
       rating: 5,
       avatar: "MJ"
     },
     {
       id: 3,
-      content: "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares.",
-      author: "Linda Chen",
+      content: "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our community cares.",
+      author: "Linda C.",
       church: "Community Fellowship",
       rating: 5,
       avatar: "LC"
     },
     {
       id: 4,
-      content: "The ride-sharing feature has been a blessing for our elderly members. It's brought our community closer together.",
+      content: "The platform has connected churches across our city. We're serving more families than ever before.",
       author: "Pastor David",
-      church: "Hillside Baptist",
+      church: "Multiple Churches",
       rating: 5,
       avatar: "PD"
+    },
+    {
+      id: 5,
+      content: "From grocery shopping to home repairs, I've found meaningful ways to serve using ChurchConnect.",
+      author: "Robert T.",
+      church: "Riverside Church",
+      rating: 5,
+      avatar: "RT"
+    },
+    {
+      id: 6,
+      content: "The response time is incredible. Within hours, someone was there to help with my emergency repair.",
+      author: "Jennifer W.",
+      church: "Hillside Baptist",
+      rating: 5,
+      avatar: "JW"
     }
   ];
 
@@ -133,9 +180,9 @@ export default function Community() {
 
   const getUrgencyColor = (urgency: string) => {
     switch (urgency) {
-      case "High": return "destructive";
-      case "Medium": return "default";
-      case "Low": return "secondary";
+      case "Immediate": return "destructive";
+      case "This Week": return "default";
+      case "Flexible": return "secondary";
       default: return "default";
     }
   };
@@ -150,190 +197,199 @@ export default function Community() {
             <span>Community Hub</span>
           </div>
           <h1 className="text-5xl lg:text-7xl font-bold text-foreground mb-8 leading-tight">
-            Your Church <span className="bg-accent-gradient bg-clip-text text-transparent">Community</span>
+            Church <span className="bg-accent-gradient bg-clip-text text-transparent">Communities</span> Unite
           </h1>
           <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Connect with your church family, discover opportunities to serve, and see the impact of God's love in action.
+            Discover how churches across the country are connecting to serve, support, and strengthen their communities.
           </p>
+          <div className="mt-8">
+            <Button size="lg" className="bg-primary hover:bg-primary-hover text-white mr-4" asChild>
+              <Link to="/register">
+                <UserPlus className="w-5 h-5 mr-2" />
+                Join the Movement
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/how-it-works">Learn How It Works</Link>
+            </Button>
+          </div>
         </div>
 
-        {/* Tabs Navigation */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-12 bg-white/50 backdrop-blur-sm border border-accent/20 rounded-2xl p-2">
-            <TabsTrigger 
-              value="tasks" 
-              className="rounded-xl data-[state=active]:bg-accent data-[state=active]:text-foreground text-lg font-semibold py-4"
-            >
-              <Heart className="w-5 h-5 mr-2" />
-              Active Needs
-            </TabsTrigger>
-            <TabsTrigger 
-              value="testimonials" 
-              className="rounded-xl data-[state=active]:bg-accent data-[state=active]:text-foreground text-lg font-semibold py-4"
-            >
-              <Star className="w-5 h-5 mr-2" />
-              Testimonials
-            </TabsTrigger>
-            <TabsTrigger 
-              value="events" 
-              className="rounded-xl data-[state=active]:bg-accent data-[state=active]:text-foreground text-lg font-semibold py-4"
-            >
-              <Calendar className="w-5 h-5 mr-2" />
-              Events
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Active Needs Tab */}
-          <TabsContent value="tasks" className="space-y-8">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-2">Current Community Needs</h2>
-                <p className="text-lg text-muted-foreground">Ways you can help your church family today</p>
+        {/* Search and Filter */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 mb-12 border border-accent/20">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                <Input
+                  placeholder="Search community needs..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 h-12"
+                />
               </div>
-              <Button className="bg-accent hover:bg-accent/90 text-foreground" asChild>
-                <Link to="/post">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Post a Need
-                </Link>
-              </Button>
+            </div>
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-full md:w-48 h-12">
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map(category => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Left Column - Active Needs */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold text-foreground">Active Community Needs</h2>
+              <Badge variant="secondary" className="text-sm">{filteredTasks.length} Available</Badge>
             </div>
             
-            <div className="grid gap-6">
-              {tasks.map((task) => {
-                const IconComponent = task.icon;
-                return (
-                  <Card key={task.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                    <CardContent className="p-8">
-                      <div className="flex items-start gap-6">
-                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                          <IconComponent className="w-8 h-8 text-accent" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-start justify-between mb-4">
-                            <div>
-                              <h3 className="text-2xl font-bold text-foreground mb-2">{task.title}</h3>
-                              <p className="text-lg text-muted-foreground leading-relaxed mb-4">{task.description}</p>
-                            </div>
-                            <Badge variant={getUrgencyColor(task.urgency) as any}>
-                              {task.urgency} Priority
-                            </Badge>
+            <ScrollArea className="h-[800px] pr-4">
+              <div className="space-y-4">
+                {filteredTasks.map((task) => {
+                  const IconComponent = task.icon;
+                  return (
+                    <Card key={task.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-accent" />
                           </div>
-                          <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4" />
-                              {task.location}
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-3">
+                              <h3 className="text-lg font-bold text-foreground">{task.title}</h3>
+                              <Badge variant={getUrgencyColor(task.urgency) as any} className="text-xs">
+                                {task.urgency}
+                              </Badge>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4" />
-                              {task.timePosted}
+                            <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{task.description}</p>
+                            <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                {task.location}
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {task.timePosted}
+                              </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <Users className="w-4 h-4" />
-                              {task.churchMember} • {task.church}
-                            </div>
-                          </div>
-                          <div className="flex gap-3">
-                            <Button className="bg-primary hover:bg-primary-hover text-white">
-                              <MessageSquare className="w-4 h-4 mr-2" />
-                              Offer Help
-                            </Button>
-                            <Button variant="outline">
-                              Learn More
+                            <Button size="sm" className="bg-primary hover:bg-primary-hover text-white" asChild>
+                              <Link to="/register">
+                                <Heart className="w-4 h-4 mr-2" />
+                                Join to Help
+                              </Link>
                             </Button>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </TabsContent>
-
-          {/* Testimonials Tab */}
-          <TabsContent value="testimonials" className="space-y-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Stories of Impact</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Real testimonies from church members whose lives have been touched through ChurchConnect
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                  <CardContent className="p-8">
-                    <div className="flex items-center gap-2 mb-6">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
-                      "{testimonial.content}"
-                    </blockquote>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
-                        <span className="text-accent font-bold">{testimonial.avatar}</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground">{testimonial.author}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.church}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* Events Tab */}
-          <TabsContent value="events" className="space-y-8">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-2">Upcoming Community Events</h2>
-                <p className="text-lg text-muted-foreground">Join your church community in service and fellowship</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
+            </ScrollArea>
+          </div>
+
+          {/* Right Column - Events & Testimonials */}
+          <div className="space-y-8">
+            {/* Events Section */}
+            <div>
+              <h2 className="text-3xl font-bold text-foreground mb-6">Community Events</h2>
+              <ScrollArea className="h-[350px] pr-4">
+                <div className="space-y-4">
+                  {events.map((event) => (
+                    <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center">
+                            <Calendar className="w-6 h-6 text-accent" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-lg font-bold text-foreground mb-2">{event.title}</h3>
+                            <p className="text-muted-foreground text-sm mb-3">{event.description}</p>
+                            <div className="space-y-1 text-xs text-muted-foreground">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                {event.date} at {event.time}
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                {event.location}
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
+                                {event.attendees} attending
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
-            
-            <div className="grid lg:grid-cols-2 gap-8">
-              {events.map((event) => (
-                <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm group">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <Badge variant="secondary" className="mb-4">{event.category}</Badge>
-                        <CardTitle className="text-2xl font-bold mb-2">{event.title}</CardTitle>
-                      </div>
-                      <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                        <Calendar className="w-8 h-8 text-accent" />
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed mb-6">{event.description}</p>
-                    <div className="space-y-3 text-sm text-muted-foreground mb-6">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        {event.date} at {event.time}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        {event.location}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        {event.attendees} attending • {event.church}
-                      </div>
-                    </div>
-                    <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                      Join Event
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+
+            {/* Testimonials Section */}
+            <div>
+              <h2 className="text-3xl font-bold text-foreground mb-6">Success Stories</h2>
+              <ScrollArea className="h-[400px] pr-4">
+                <div className="space-y-4">
+                  {testimonials.map((testimonial) => (
+                    <Card key={testimonial.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-white/90 backdrop-blur-sm">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-2 mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                          ))}
+                        </div>
+                        <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
+                          "{testimonial.content}"
+                        </blockquote>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                            <span className="text-accent font-bold text-xs">{testimonial.avatar}</span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-foreground text-sm">{testimonial.author}</p>
+                            <p className="text-xs text-muted-foreground">{testimonial.church}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </ScrollArea>
             </div>
-          </TabsContent>
-        </Tabs>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl p-12 text-center mt-16">
+          <Heart className="w-16 h-16 text-accent mx-auto mb-6" />
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            Ready to Connect Your Church?
+          </h2>
+          <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
+            Join thousands of churches across the country using ChurchConnect to serve their communities better.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-accent hover:bg-accent-hover text-lg px-8 py-6" asChild>
+              <Link to="/register">Get Started Free</Link>
+            </Button>
+            <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-2" asChild>
+              <Link to="/churches">Find Churches Near You</Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

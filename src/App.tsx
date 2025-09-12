@@ -16,6 +16,7 @@ import Churches from "./pages/Churches";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
 import Guides from "./pages/Guides";
@@ -36,19 +37,20 @@ const App = () => (
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path="/browse" element={<BrowseNeeds />} />
               <Route path="/post" element={<PostNeed />} />
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/my-church" element={<MyChurch />} />
               <Route path="/help" element={<Help />} />
               <Route path="/profile" element={<Profile />} />
           <Route path="/guides" element={<Guides />} />
           <Route path="/safety-trust" element={<SafetyTrust />} />
               {/* Alternative URLs for better UX */}
-              <Route path="/find-help" element={<BrowseNeeds />} />
-              <Route path="/volunteer" element={<BrowseNeeds />} />
+              <Route path="/browse" element={<Community />} />
+              <Route path="/find-help" element={<Community />} />
+              <Route path="/volunteer" element={<Community />} />
               <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/community" element={<Community />} />
               <Route path="/churches" element={<Churches />} />

@@ -40,9 +40,14 @@ export function Header() {
             Support
           </Link>
           {user && (
-            <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
-              Dashboard
-            </Link>
+            <>
+              <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
+                Dashboard
+              </Link>
+              <Link to="/my-church" className="text-foreground hover:text-primary transition-colors font-medium">
+                My Church
+              </Link>
+            </>
           )}
         </nav>
 
@@ -144,13 +149,22 @@ export function Header() {
               Support
             </Link>
             {user && (
-              <Link 
-                to="/dashboard" 
-                className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link 
+                  to="/dashboard" 
+                  className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <Link 
+                  to="/my-church" 
+                  className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Church
+                </Link>
+              </>
             )}
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               <Button 
