@@ -498,3 +498,32 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
     transform: rotate(360deg);
   }
 }
+
+/* Custom scrollbar styles */
+.scrollbar-smooth {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+}
+
+.scrollbar-smooth:hover {
+  scrollbar-color: hsl(var(--accent) / 0.6) transparent;
+}
+
+.scrollbar-smooth::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-smooth::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.scrollbar-smooth::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.scrollbar-smooth:hover::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent) / 0.6);
+}

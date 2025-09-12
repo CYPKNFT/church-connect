@@ -218,6 +218,18 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
           </Button>
         </form>
 
+        {mode === "signin" && (
+          <div className="text-center text-sm mb-4">
+            <button
+              type="button"
+              onClick={() => {/* TODO: Add forgot password functionality */}}
+              className="text-primary hover:underline font-medium"
+            >
+              Forgot your password?
+            </button>
+          </div>
+        )}
+
         <div className="text-center text-sm">
           {mode === "signin" ? (
             <p>

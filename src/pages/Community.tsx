@@ -527,7 +527,7 @@ export default function Community() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-xl px-10 py-6 rounded-2xl shadow-2xl" asChild>
-                <Link to="/register">
+                <Link to="/join-movement">
                   <UserPlus className="w-6 h-6 mr-3" />
                   Join the Movement
                 </Link>
@@ -618,8 +618,8 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="max-h-[800px] rounded-2xl">
-              <div className="grid md:grid-cols-2 gap-6 pr-4">
+            <div className="max-h-[800px] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
+              <div className="grid md:grid-cols-3 gap-6 pr-4">
                 {filteredNeeds.map((need) => {
                   const IconComponent = need.icon;
                   return (
@@ -669,7 +669,7 @@ export default function Community() {
                   );
                 })}
               </div>
-            </ScrollArea>
+            </div>
           </TabsContent>
 
           {/* Success Stories Tab - Two Column Layout */}
@@ -681,8 +681,8 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="h-[70vh] md:h-[75vh] rounded-2xl">
-              <div className="grid md:grid-cols-2 gap-6 pr-4">
+            <div className="h-[70vh] md:h-[75vh] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
+              <div className="grid md:grid-cols-3 gap-6 pr-4">
                 {successStories.map((story) => (
                   <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                     <CardContent className="p-6">
@@ -707,7 +707,7 @@ export default function Community() {
                   </Card>
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           </TabsContent>
 
           {/* Events Tab - Two Column Layout */}
@@ -719,8 +719,8 @@ export default function Community() {
               </p>
             </div>
             
-            <ScrollArea className="max-h-[800px] rounded-2xl">
-              <div className="grid md:grid-cols-2 gap-6 pr-4">
+            <div className="max-h-[800px] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
+              <div className="grid md:grid-cols-3 gap-6 pr-4">
                 {upcomingEvents.map((event) => (
                   <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                     <CardHeader className="pb-4">
@@ -759,7 +759,7 @@ export default function Community() {
                   </Card>
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           </TabsContent>
         </Tabs>
 

@@ -35,6 +35,7 @@ import EmailVerification from "./pages/EmailVerification";
 import AllChurchNeeds from "./pages/AllChurchNeeds";
 import AllChurchEvents from "./pages/AllChurchEvents";
 import AllRecentActivity from "./pages/AllRecentActivity";
+import JoinMovement from "./pages/JoinMovement";
 
 const queryClient = new QueryClient();
 
@@ -70,7 +71,8 @@ const App = () => (
           <Route path="/guides" element={<Guides />} />
           <Route path="/safety-trust" element={<SafetyTrust />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/join-movement" element={<JoinMovement />} />
               {/* Alternative URLs for better UX */}
               <Route path="/browse" element={<BrowseDashboard />} />
               <Route path="/browse-dashboard" element={<BrowseDashboard />} />

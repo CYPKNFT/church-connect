@@ -309,8 +309,8 @@ export default function Churches() {
             </p>
           </div>
           
-          <ScrollArea className="max-h-[800px] rounded-3xl">
-            <div className="space-y-8 pr-4">
+          <ScrollArea className="max-h-[800px] rounded-3xl group">
+            <div className="space-y-8 pr-4 group-hover:pr-2 transition-all duration-300">
             {leadershipStories.map((story) => (
               <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                 <CardContent className="p-8">
