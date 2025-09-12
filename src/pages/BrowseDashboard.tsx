@@ -118,7 +118,7 @@ export default function BrowseDashboard() {
     { icon: LayoutDashboard, label: "Dashboard", active: false, path: "/dashboard" },
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", active: true, path: "/browse-dashboard" },
+    { icon: BookOpen, label: "Browse", active: true, path: "/browse" },
   ];
 
   return (

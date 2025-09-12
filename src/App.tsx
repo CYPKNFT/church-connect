@@ -72,7 +72,7 @@ const App = () => (
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
               {/* Alternative URLs for better UX */}
-              <Route path="/browse" element={<Community />} />
+              <Route path="/browse" element={<BrowseDashboard />} />
               <Route path="/browse-dashboard" element={<BrowseDashboard />} />
               <Route path="/find-help" element={<Community />} />
               <Route path="/volunteer" element={<Community />} />
