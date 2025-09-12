@@ -235,6 +235,24 @@ export type Database = {
           state: string
         }[]
       }
+      member_directory: {
+        Args: { ch: string }
+        Returns: {
+          church_id: string
+          email: string
+          id: string
+          name: string
+        }[]
+      }
+      member_directory_for_my_churches: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          church_id: string
+          email: string
+          id: string
+          name: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
