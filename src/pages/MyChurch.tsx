@@ -218,7 +218,7 @@ export default function MyChurch() {
                 </SelectTrigger>
                 <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
                   {categories.map(category => (
-                    <SelectItem key={category} value={category}>
+                    <SelectItem key={category} value={category} className="text-center">
                       {category}
                     </SelectItem>
                   ))}

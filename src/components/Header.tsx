@@ -67,7 +67,6 @@ export function Header() {
               }
             }}
           >
-            <Plus className="w-4 h-4 mr-1" />
             Post a Need
           </Button>
           {user ? (
@@ -206,7 +205,6 @@ export function Header() {
                   }
                 }}
               >
-                <Plus className="w-4 h-4 mr-1" />
                 Post a Need
               </Button>
               {user ? (
