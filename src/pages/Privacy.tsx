@@ -7,7 +7,7 @@ export default function Privacy() {
   const lastUpdated = "January 15, 2025";
 
   return (
-    <div className="min-h-screen bg-gradient-cream py-20 px-4">
+    <div className="min-h-screen bg-background py-20 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-accent/20 text-accent-dark text-sm font-medium mb-8">
@@ -24,7 +24,7 @@ export default function Privacy() {
           </p>
         </div>
 
-        <Card className="bg-white/90 backdrop-blur-sm shadow-xl border-0 rounded-2xl">
+        <Card className="bg-card/95 backdrop-blur-sm shadow-xl border rounded-2xl">
           <CardContent className="p-12">
               <div className="space-y-8">
                 
