@@ -52,12 +52,6 @@ export default function Help() {
       path: "/guides?tab=getting-started"
     },
     {
-      icon: Heart,
-      title: "Best Practices for Volunteers",
-      description: "Tips for being an effective and trusted volunteer in your community",
-      path: "/guides?tab=volunteers"
-    },
-    {
       icon: Shield,
       title: "Safety Guidelines",
       description: "Important safety tips for both those requesting and offering help",
@@ -68,6 +62,12 @@ export default function Help() {
       title: "Communication Etiquette",
       description: "How to communicate effectively and respectfully through the platform",
       path: "/guides?tab=communication"
+    },
+    {
+      icon: Heart,
+      title: "Best Practices for Volunteers",
+      description: "Tips for being an effective and trusted volunteer in your community",
+      path: "/guides?tab=volunteers"
     }
   ];
 

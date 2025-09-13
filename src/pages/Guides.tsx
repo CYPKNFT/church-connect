@@ -5,8 +5,12 @@ import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriang
 import { useSearchParams } from "react-router-dom";
 
 export default function Guides() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get('tab') || 'getting-started';
+
+  const handleTabChange = (value: string) => {
+    setSearchParams({ tab: value });
+  };
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-16">
@@ -25,7 +29,7 @@ export default function Guides() {
         </div>
 
         {/* Tabs */}
-        <Tabs value={activeTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card border">
             <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Users className="w-4 h-4" />
