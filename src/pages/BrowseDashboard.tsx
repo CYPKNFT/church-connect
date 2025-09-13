@@ -18,7 +18,7 @@ export default function BrowseDashboard() {
   const [selectedUrgency, setSelectedUrgency] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [churchName, setChurchName] = useState("Grace Community Church");
-  const itemsPerPage = 7;
+  const itemsPerPage = 6;
 
   // Church-specific needs data
   const churchNeeds = [
@@ -87,6 +87,72 @@ export default function BrowseDashboard() {
       estimatedTime: "2-3 hours",
       postedBy: "Mike Williams",
       postedAt: "2 days ago"
+    },
+    {
+      id: "7",
+      title: "Technology training for seniors",
+      description: "Our senior group wants to learn how to use smartphones and tablets to stay connected with family. We need patient volunteers to teach basic functions like texting, video calls, and email.",
+      category: "Other",
+      urgency: "Flexible" as const,
+      location: "Church fellowship hall",
+      estimatedTime: "2 hours weekly",
+      postedBy: "Dorothy Stevens",
+      postedAt: "5 days ago"
+    },
+    {
+      id: "8",
+      title: "Moving assistance for college student",
+      description: "Emma is starting her junior year and needs help moving her belongings from her dorm to a new apartment. She's on a tight budget and would really appreciate some strong backs and helpful hands.",
+      category: "Transportation",
+      urgency: "This Week" as const,
+      location: "University area",
+      estimatedTime: "3-4 hours",
+      postedBy: "Emma Wilson",
+      postedAt: "1 day ago"
+    },
+    {
+      id: "9",
+      title: "Prayer and visitation for hospital patient",
+      description: "Brother James is recovering from surgery and feeling isolated. He would love visits from church members and prayers for his healing. Hospital allows visitors from 2-8 PM daily.",
+      category: "Prayer Support",
+      urgency: "This Week" as const,
+      location: "Regional Medical Center",
+      estimatedTime: "30-60 minutes",
+      postedBy: "Pastor David",
+      postedAt: "3 hours ago"
+    },
+    {
+      id: "10",
+      title: "Furniture donation pickup needed",
+      description: "The Martinez family is donating furniture to help a family in need, but they need someone with a truck to pick it up and deliver it. Items include a couch, dining table, and dresser.",
+      category: "Transportation",
+      urgency: "Flexible" as const,
+      location: "Riverside subdivision",
+      estimatedTime: "2-3 hours",
+      postedBy: "Carlos Martinez",
+      postedAt: "2 days ago"
+    },
+    {
+      id: "11",
+      title: "Computer repair for church office",
+      description: "Our church office computer is running very slowly and keeps freezing. We think it might have a virus or need a cleanup. Anyone with IT skills would be a huge blessing!",
+      category: "Other",
+      urgency: "This Week" as const,
+      location: "Church office",
+      estimatedTime: "1-2 hours",
+      postedBy: "Church Admin",
+      postedAt: "1 day ago"
+    },
+    {
+      id: "12",
+      title: "Elderly companion for grocery shopping",
+      description: "Mrs. Foster is 82 and gets anxious shopping alone since her husband passed. She would love a friendly companion to help her with weekly grocery trips and provide moral support.",
+      category: "Groceries",
+      urgency: "Flexible" as const,
+      location: "Westfield Shopping Center",
+      estimatedTime: "1.5-2 hours",
+      postedBy: "Ruth Foster",
+      postedAt: "4 days ago"
     }
   ];
 
