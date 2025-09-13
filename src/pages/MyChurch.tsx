@@ -213,7 +213,7 @@ export default function MyChurch() {
                 </div>
               </div>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl relative [&>span]:absolute [&>span]:left-1/2 [&>span]:-translate-x-1/2 [&>span]:w-full [&>span]:text-center">
+                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl relative [&>span]:absolute [&>span]:left-1/2 [&>span]:-translate-x-1/2 [&>span]:w-full [&>span]:text-center [&>svg]:absolute [&>svg]:right-3">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">

@@ -47,11 +47,6 @@ export function Header() {
           <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
             Support
           </Link>
-          {user && (
-            <Link to="/my-church" className="text-foreground hover:text-primary transition-colors font-medium">
-              My Church
-            </Link>
-          )}
         </nav>
 
         {/* Desktop CTA Buttons */}
@@ -79,6 +74,12 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg">
+                <DropdownMenuItem asChild>
+                  <Link to="/my-church" className="flex items-center cursor-pointer">
+                    <Heart className="w-4 h-4 mr-2" />
+                    My Church
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard" className="flex items-center cursor-pointer">
                     <Home className="w-4 h-4 mr-2" />
@@ -183,15 +184,6 @@ export function Header() {
             >
               Support
             </Link>
-            {user && (
-              <Link 
-                to="/my-church" 
-                className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                My Church
-              </Link>
-            )}
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               <Button 
                 className="bg-primary hover:bg-primary-hover text-white shadow-md" 
@@ -209,6 +201,12 @@ export function Header() {
               </Button>
               {user ? (
                 <>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/my-church" onClick={() => setIsMenuOpen(false)}>
+                      <Heart className="w-4 h-4 mr-2" />
+                      My Church
+                    </Link>
+                  </Button>
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
                       <Home className="w-4 h-4 mr-2" />
