@@ -169,7 +169,7 @@ export default function Landing() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 lg:py-32 bg-white relative">
+      <section className="py-20 lg:py-32 bg-background relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
@@ -185,7 +185,7 @@ export default function Landing() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
               <CardContent className="p-8">
                 <div className="mb-6">
                   <div className="text-accent text-4xl mb-4">"</div>
@@ -205,7 +205,7 @@ export default function Landing() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
               <CardContent className="p-8">
                 <div className="mb-6">
                   <div className="text-accent text-4xl mb-4">"</div>
@@ -225,7 +225,7 @@ export default function Landing() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
               <CardContent className="p-8">
                 <div className="mb-6">
                   <div className="text-accent text-4xl mb-4">"</div>
@@ -266,7 +266,7 @@ export default function Landing() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
             <Link to="/guides?tab=getting-started">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <Users className="w-8 h-8 text-accent" />
@@ -282,7 +282,7 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=volunteers">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <Heart className="w-8 h-8 text-accent" />
@@ -298,7 +298,7 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=safety">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <Shield className="w-8 h-8 text-accent" />
@@ -314,7 +314,7 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=communication">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-white group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <MessageSquare className="w-8 h-8 text-accent" />
