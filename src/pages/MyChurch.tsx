@@ -140,7 +140,7 @@ export default function MyChurch() {
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-purple-600/90 to-orange-500/90" />
         <div className="relative">
-          <div className="container mx-auto px-4 py-16 text-center">
+          <div className="container mx-auto px-4 py-16 text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
               <Heart className="w-4 h-4" />
               <span>My Church Community</span>
