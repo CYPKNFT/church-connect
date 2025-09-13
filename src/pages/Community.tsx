@@ -560,14 +560,12 @@ export default function Community() {
               </div>
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48 h-10 rounded-xl border-2 text-center">
-                <div className="flex-1 text-center">
-                  <SelectValue placeholder="All Categories" />
-                </div>
+              <SelectTrigger className="w-full md:w-48 h-10 rounded-xl border-2">
+                <SelectValue placeholder="All Categories" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
                 {categories.map(category => (
-                  <SelectItem key={category} value={category} className="text-center">
+                  <SelectItem key={category} value={category}>
                     {category}
                   </SelectItem>
                 ))}

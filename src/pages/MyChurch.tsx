@@ -190,17 +190,17 @@ export default function MyChurch() {
 
       {/* Search Section */}
       <div className="container mx-auto px-4 -mt-8 relative z-10">
-        <Card className="border-0 shadow-elegant bg-card backdrop-blur-sm rounded-2xl p-6">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-xl font-bold text-foreground">
+        <Card className="border-0 shadow-elegant bg-card backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-border">
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-2xl font-bold text-foreground mb-2">
               Explore Community Impact
             </CardTitle>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground">
               Search through real needs, inspiring stories, and upcoming opportunities
             </p>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col md:flex-row gap-3">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -208,19 +208,17 @@ export default function MyChurch() {
                     placeholder="Search church needs..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-10 rounded-xl border-2"
+                    className="pl-10 h-10 rounded-xl border-2 focus:border-accent"
                   />
                 </div>
               </div>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl border-2 text-center">
-                  <div className="flex-1 text-center">
-                    <SelectValue placeholder="All Categories" />
-                  </div>
+                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl border-2">
+                  <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
-                <SelectContent className="bg-card border-2 shadow-elegant rounded-xl">
+                <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
                   {categories.map(category => (
-                    <SelectItem key={category} value={category} className="text-center">
+                    <SelectItem key={category} value={category}>
                       {category}
                     </SelectItem>
                   ))}
