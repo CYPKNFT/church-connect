@@ -195,8 +195,8 @@ export default function Dashboard() {
                 <Heart className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h2 className="font-bold text-foreground">CommunityConnect</h2>
-                <p className="text-xs text-muted-foreground">Dashboard</p>
+                <h2 className="font-bold text-foreground">Grace Community Church</h2>
+                <p className="text-xs text-muted-foreground">Member Dashboard</p>
               </div>
             </div>
           </div>
