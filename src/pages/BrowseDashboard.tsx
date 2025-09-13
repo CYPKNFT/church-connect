@@ -330,21 +330,9 @@ export default function BrowseDashboard() {
                   Found {filteredNeeds.length} way{filteredNeeds.length !== 1 ? 's' : ''} to serve your church family
                 </p>
               </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {paginatedNeeds.map(need => (
-                <NeedCard
-                  key={need.id}
-                  {...need}
-                  onVolunteer={handleVolunteer}
-                />
-              ))}
-            </div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="mt-8 flex justify-center">
+              
+              {/* Pagination moved to header */}
+              {totalPages > 1 && (
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
@@ -372,8 +360,18 @@ export default function BrowseDashboard() {
                     </PaginationItem>
                   </PaginationContent>
                 </Pagination>
-              </div>
-            )}
+              )}
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paginatedNeeds.map(need => (
+                <NeedCard
+                  key={need.id}
+                  {...need}
+                  onVolunteer={handleVolunteer}
+                />
+              ))}
+            </div>
           </div>
 
           {filteredNeeds.length === 0 && (
