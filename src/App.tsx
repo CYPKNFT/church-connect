@@ -38,6 +38,7 @@ import AllRecentActivity from "./pages/AllRecentActivity";
 import JoinMovement from "./pages/JoinMovement";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { AuthEventRouter } from "@/components/AuthEventRouter";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <AuthEventRouter />
         <div className="min-h-screen bg-background flex flex-col">
           <Header />
           <main className="flex-1">
