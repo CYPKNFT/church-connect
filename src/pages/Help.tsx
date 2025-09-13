@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { HelpCircle, MessageSquare, Shield, Users, Heart, Search, Mail, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Help() {
+  const navigate = useNavigate();
   const faqs = [
     {
       question: "How do I post a need for help?",
@@ -46,22 +48,26 @@ export default function Help() {
     {
       icon: Users,
       title: "Getting Started Guide",
-      description: "Learn how to set up your profile and start connecting with your church community"
+      description: "Learn how to set up your profile and start connecting with your church community",
+      path: "/guides?tab=getting-started"
     },
     {
       icon: Heart,
       title: "Best Practices for Volunteers",
-      description: "Tips for being an effective and trusted volunteer in your community"
+      description: "Tips for being an effective and trusted volunteer in your community",
+      path: "/guides?tab=volunteers"
     },
     {
       icon: Shield,
       title: "Safety Guidelines",
-      description: "Important safety tips for both those requesting and offering help"
+      description: "Important safety tips for both those requesting and offering help",
+      path: "/guides?tab=safety"
     },
     {
       icon: MessageSquare,
       title: "Communication Etiquette",
-      description: "How to communicate effectively and respectfully through the platform"
+      description: "How to communicate effectively and respectfully through the platform",
+      path: "/guides?tab=communication"
     }
   ];
 
@@ -102,7 +108,11 @@ export default function Help() {
             {guides.map((guide, index) => {
               const Icon = guide.icon;
               return (
-                <Card key={index} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
+                <Card 
+                  key={index} 
+                  className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer"
+                  onClick={() => navigate(guide.path)}
+                >
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
                       <Icon className="w-8 h-8 text-accent" />

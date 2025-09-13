@@ -5,7 +5,7 @@ import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriang
 
 export default function Guides() {
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-16">
         {/* Header */}
         <div className="text-center mb-12">
