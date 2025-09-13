@@ -36,6 +36,8 @@ import AllChurchNeeds from "./pages/AllChurchNeeds";
 import AllChurchEvents from "./pages/AllChurchEvents";
 import AllRecentActivity from "./pages/AllRecentActivity";
 import JoinMovement from "./pages/JoinMovement";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +59,8 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/email-verification" element={<EmailVerification />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/my-needs" element={<MyNeeds />} />
