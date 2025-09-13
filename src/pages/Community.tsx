@@ -555,12 +555,12 @@ export default function Community() {
                   placeholder="Search community activities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-10 rounded-xl border-2 focus:border-accent"
+                  className="pl-10 h-10 rounded-xl"
                 />
               </div>
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48 h-10 rounded-xl border-2">
+              <SelectTrigger className="w-full md:w-48 h-10 rounded-xl">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
