@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, LayoutDashboard, BookOpen } from "lucide-react";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, LayoutDashboard, BookOpen, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -10,6 +11,8 @@ export default function MyNeeds() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
 
   const userNeeds = [
     {
@@ -91,7 +94,7 @@ export default function MyNeeds() {
       id: "6",
       title: "Moving help for apartment relocation",
       description: "Moving to a smaller apartment next month and need help packing and loading boxes. Mostly books and household items.",
-      status: "Archived",
+      status: "Completed",
       volunteers: 4,
       posted: "2 weeks ago",
       category: "Moving",
@@ -105,7 +108,7 @@ export default function MyNeeds() {
   ];
 
   const categories = ["All", "Groceries", "Home & Garden", "Pet Care", "Technology", "Transportation", "Moving"];
-  const statuses = ["All", "Active", "In Progress", "Fulfilled", "Archived"];
+  const statuses = ["All", "Active", "In Progress", "Fulfilled", "Completed"];
 
   const filteredNeeds = userNeeds.filter(need => {
     const matchesSearch = need.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -116,12 +119,17 @@ export default function MyNeeds() {
     return matchesSearch && matchesStatus && matchesCategory;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedNeeds = filteredNeeds.slice(startIndex, startIndex + itemsPerPage);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Active": return "bg-green-100 text-green-700 border-green-200";
       case "In Progress": return "bg-blue-100 text-blue-700 border-blue-200";
       case "Fulfilled": return "bg-emerald-100 text-emerald-700 border-emerald-200";
-      case "Archived": return "bg-gray-100 text-gray-700 border-gray-200";
+      case "Completed": return "bg-gray-100 text-gray-700 border-gray-200";
       default: return "bg-gray-100 text-gray-700 border-gray-200";
     }
   };
@@ -323,8 +331,8 @@ export default function MyNeeds() {
                     </Button>
                   </CardContent>
                 </Card>
-              ) : (
-                filteredNeeds.map((need) => (
+                ) : (
+                paginatedNeeds.map((need) => (
                   <Card key={need.id} className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
@@ -375,10 +383,12 @@ export default function MyNeeds() {
                         </div>
 
                         <div className="flex flex-col gap-2 ml-4">
-                          <Button variant="outline" size="sm" className="rounded-xl">
-                            <Edit className="w-4 h-4 mr-2" />
-                            Edit
-                          </Button>
+                          {need.status === "Active" && (
+                            <Button variant="outline" size="sm" className="rounded-xl">
+                              <Edit className="w-4 h-4 mr-2" />
+                              Edit
+                            </Button>
+                          )}
                           <Button variant="ghost" size="sm" className="rounded-xl">
                             <MessageSquare className="w-4 h-4 mr-2" />
                             Messages
@@ -395,7 +405,50 @@ export default function MyNeeds() {
                   </Card>
                 ))
               )}
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="mt-8 flex justify-center">
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
+                          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                          className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        <PaginationItem key={page}>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(page)}
+                            isActive={currentPage === page}
+                            className="cursor-pointer"
+                          >
+                            {page}
+                          </PaginationLink>
+                        </PaginationItem>
+                      ))}
+                      <PaginationItem>
+                        <PaginationNext 
+                          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                          className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </div>
+              )}
             </div>
+
+            {/* Report Button */}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="fixed bottom-6 right-6 rounded-full shadow-lg bg-background hover:bg-muted border-2"
+            >
+              <AlertTriangle className="w-4 h-4 mr-2" />
+              Report Issue
+            </Button>
           </div>
         </div>
       </div>

@@ -4,15 +4,21 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { NeedCard } from "@/components/NeedCard";
 import { Heart, Clock, Users, Plus, LayoutDashboard, BookOpen, UserCheck, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function BrowseDashboard() {
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedUrgency, setSelectedUrgency] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [churchName, setChurchName] = useState("Grace Community Church");
+  const itemsPerPage = 7;
 
   // Church-specific needs data
   const churchNeeds = [
@@ -89,6 +95,11 @@ export default function BrowseDashboard() {
 
   const [filteredNeeds, setFilteredNeeds] = useState(churchNeeds);
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedNeeds = filteredNeeds.slice(startIndex, startIndex + itemsPerPage);
+
   const handleVolunteer = (needId: string) => {
     alert(`Thanks for volunteering to help with need ${needId}! In a real app, this would open a communication interface.`);
   };
@@ -112,6 +123,7 @@ export default function BrowseDashboard() {
     }
 
     setFilteredNeeds(filtered);
+    setCurrentPage(1); // Reset to first page when filtering
   };
 
   const sidebarItems = [
@@ -133,7 +145,7 @@ export default function BrowseDashboard() {
               </div>
               <div>
                 <h2 className="font-bold text-foreground">ChurchConnect</h2>
-                <p className="text-xs text-muted-foreground">Browse Needs</p>
+                <p className="text-xs text-muted-foreground">{churchName}</p>
               </div>
             </div>
           </div>
@@ -163,10 +175,10 @@ export default function BrowseDashboard() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-4xl font-bold text-foreground mb-2">
-                  Browse Church Needs
+                  Browse {churchName} Needs
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Discover ways to serve your church family and community
+                  Discover ways to serve {churchName} family and community
                 </p>
               </div>
               <Button asChild className="bg-primary hover:bg-primary-hover shadow-accent rounded-xl px-6">
@@ -321,7 +333,7 @@ export default function BrowseDashboard() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredNeeds.map(need => (
+              {paginatedNeeds.map(need => (
                 <NeedCard
                   key={need.id}
                   {...need}
@@ -329,6 +341,39 @@ export default function BrowseDashboard() {
                 />
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8 flex justify-center">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      />
+                    </PaginationItem>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(page)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            )}
           </div>
 
           {filteredNeeds.length === 0 && (
