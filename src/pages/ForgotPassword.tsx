@@ -25,17 +25,39 @@ export default function ForgotPassword() {
         redirectTo,
       });
 
-      if (error) throw error;
+      if (error) {
+        const msg = String(error.message || "");
+        const isRedirectError =
+          msg.toLowerCase().includes("redirect") ||
+          msg.toLowerCase().includes("url") ||
+          msg.toLowerCase().includes("allowed");
+
+        if (isRedirectError) {
+          toast({
+            title: "Action needed in Supabase",
+            description: `Add this URL to Auth > URL Configuration > Redirect URLs: ${redirectTo}`,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Couldn't send reset email",
+            description: error.message ?? "Please try again or contact support.",
+            variant: "destructive",
+          });
+        }
+        return;
+      }
 
       toast({
-        title: "Password reset email sent",
-        description: "Check your inbox for a secure link to reset your password.",
+        title: "If the email exists, we sent a link",
+        description: "Check your inbox (and spam) for a secure reset link.",
       });
       // Optionally navigate to a confirmation page later; for now stay here
     } catch (err: any) {
+      const msg = err?.message ?? "Please try again or contact support.";
       toast({
         title: "Couldn't send reset email",
-        description: err.message ?? "Please try again or contact support.",
+        description: msg,
         variant: "destructive",
       });
     } finally {
