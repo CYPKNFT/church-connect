@@ -2,8 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriangle, Star, HelpCircle, Phone, Mail, Wrench, Clock, AlertCircle, RefreshCw } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 export default function Guides() {
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab') || 'getting-started';
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-16">
@@ -22,7 +25,7 @@ export default function Guides() {
         </div>
 
         {/* Tabs */}
-        <Tabs defaultValue="getting-started" className="w-full">
+        <Tabs value={activeTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card border">
             <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Users className="w-4 h-4" />
