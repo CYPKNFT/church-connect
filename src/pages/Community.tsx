@@ -508,14 +508,14 @@ export default function Community() {
   return (
     <div className="min-h-screen bg-background pb-16">
       {/* Hero Section with Enhanced Design */}
-      <section className="relative py-12 overflow-hidden">
+      <section className="relative py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary opacity-90"></div>
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/10 rounded-full blur-2xl translate-y-20 -translate-x-10"></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-2 text-white font-medium mb-4 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
               <Sparkles className="w-4 h-4" />
               <span>Community Connection Hub</span>
             </div>
@@ -540,7 +540,7 @@ export default function Community() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 -mt-8 relative z-20">
+      <div className="container mx-auto px-4 -mt-12 relative z-20">
         {/* Enhanced Search Section */}
         <div className="bg-card backdrop-blur-xl rounded-2xl p-6 mb-12 shadow-2xl border border-border">
           <div className="text-center mb-6">

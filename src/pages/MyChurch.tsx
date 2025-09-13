@@ -140,16 +140,16 @@ export default function MyChurch() {
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-purple-600/90 to-orange-500/90" />
         <div className="relative">
-          <div className="container mx-auto px-4 py-12 text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white font-medium mb-4 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-16 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
               <Heart className="w-4 h-4" />
               <span>My Church Community</span>
             </div>
             
-            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
               {churchName}
             </h1>
-            <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-4xl mx-auto leading-relaxed">
               Member since {memberSince} • Connected to serve and support our church family
             </p>
 
@@ -189,7 +189,7 @@ export default function MyChurch() {
       </div>
 
       {/* Search Section */}
-      <div className="container mx-auto px-4 -mt-8 relative z-10">
+      <div className="container mx-auto px-4 -mt-12 relative z-10">
         <Card className="border-0 shadow-elegant bg-card backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-border">
           <CardHeader className="text-center pb-6">
             <CardTitle className="text-2xl font-bold text-foreground mb-2">
