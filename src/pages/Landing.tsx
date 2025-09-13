@@ -9,8 +9,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-hero-gradient overflow-hidden min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
+      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 overflow-hidden min-h-screen flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/20"></div>
         <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 text-center lg:text-left animate-fade-in">
@@ -65,7 +65,7 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 lg:py-32 bg-subtle-gradient relative">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/20 to-background relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
@@ -249,7 +249,7 @@ export default function Landing() {
       </section>
 
       {/* Quick Start Guides Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-accent/5 to-primary/5 relative">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-muted/10 via-background to-muted/5 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
@@ -333,8 +333,8 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-warm-gradient relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 text-accent font-medium mb-8">
