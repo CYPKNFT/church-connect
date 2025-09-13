@@ -20,7 +20,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-hero-gradient flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <Card className="shadow-card border-0 backdrop-blur-sm bg-card">
           <CardHeader className="text-center space-y-4">
