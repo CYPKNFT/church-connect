@@ -22,16 +22,13 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-hero-gradient flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
+        <Card className="shadow-card border-0 backdrop-blur-sm bg-card">
           <CardHeader className="text-center space-y-4">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-              <Heart className="w-8 h-8 text-primary" />
+            <div className="w-16 h-16 bg-yellow-gradient rounded-full flex items-center justify-center mx-auto">
+              <Heart className="w-8 h-8 text-white" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-foreground">
-                Welcome Back
-              </CardTitle>
-              <p className="text-muted-foreground mt-2">
+              <p className="text-muted-foreground">
                 Sign in to continue serving your community
               </p>
             </div>
@@ -40,24 +37,18 @@ export default function Login() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
-                  Email Address
-                </Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="your.email@church.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="h-12"
+                  className="h-12 bg-muted border-muted text-foreground placeholder:text-muted-foreground"
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium">
-                  Password
-                </Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -65,7 +56,7 @@ export default function Login() {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="h-12 pr-12"
+                    className="h-12 pr-12 bg-muted border-muted text-foreground placeholder:text-muted-foreground"
                     required
                   />
                   <button
@@ -82,10 +73,10 @@ export default function Login() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center justify-start text-sm">
                 <Link 
                   to="/forgot-password" 
-                  className="text-primary hover:text-primary-hover font-medium"
+                  className="text-accent hover:text-accent-hover font-medium"
                 >
                   Forgot password?
                 </Link>
@@ -93,9 +84,7 @@ export default function Login() {
 
               <Button 
                 type="submit" 
-                variant="hero" 
-                size="lg" 
-                className="w-full h-12"
+                className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-medium"
               >
                 Sign In
               </Button>
@@ -106,7 +95,7 @@ export default function Login() {
                 Don't have an account?{" "}
                 <Link 
                   to="/register" 
-                  className="text-primary hover:text-primary-hover font-medium"
+                  className="text-accent hover:text-accent-hover font-medium"
                 >
                   Join our community
                 </Link>
