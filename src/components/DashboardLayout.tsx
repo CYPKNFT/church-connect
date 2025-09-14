@@ -13,6 +13,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useMembership } from "@/hooks/useMembership";
+import { FeedbackDialog } from "@/components/FeedbackDialog";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -63,6 +64,11 @@ function DashboardSidebar() {
             </div>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Feedback */}
+        <div className="mt-auto p-4 border-t border-sidebar-border/50">
+          <FeedbackDialog />
+        </div>
       </SidebarContent>
     </Sidebar>
   );

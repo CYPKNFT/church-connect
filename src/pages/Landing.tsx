@@ -26,8 +26,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 overflow-hidden min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/20"></div>
+      <section className="relative bg-gradient-to-br from-primary via-primary-dark to-primary-hover dark:from-slate-900 dark:via-slate-800 dark:to-gray-900 overflow-hidden min-h-screen flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-background/40 to-background/20 dark:from-black/40 dark:to-black/20"></div>
         <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 text-center lg:text-left animate-fade-in">
@@ -36,12 +36,12 @@ export default function Landing() {
                   <Heart className="w-4 h-4" />
                   <span>Building Stronger Communities</span>
                 </div>
-                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
+                <h1 className="text-5xl lg:text-7xl font-bold text-primary-foreground dark:text-white leading-tight">
                   Need Help?
                   <br />
                   <span className="bg-accent-gradient bg-clip-text text-transparent">Want to Help?</span>
                 </h1>
-                <p className="text-xl lg:text-2xl text-white/90 leading-relaxed max-w-2xl">
+                <p className="text-xl lg:text-2xl text-primary-foreground/90 dark:text-white/90 leading-relaxed max-w-2xl">
                   Connect with your community in minutes. Post what you need or volunteer to help others. 
                   Real neighbors helping real neighbors.
                 </p>
@@ -58,7 +58,7 @@ export default function Landing() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect"
+                  className="border-2 border-primary-foreground/30 dark:border-white/30 text-primary-foreground dark:text-white hover:bg-primary-foreground/10 dark:hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect"
                   onClick={() => handleProtectedNavigation("/browse")}
                 >
                   Browse & Help
