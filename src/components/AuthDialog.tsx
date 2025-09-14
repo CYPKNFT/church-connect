@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
+import { ForgotPasswordDialog } from "./ForgotPasswordDialog";
 
 interface AuthDialogProps {
   open: boolean;
@@ -29,6 +30,7 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [churches, setChurches] = useState<Array<{id: string, name: string, city: string, state: string}>>([]);
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
   // Reset mode when dialog opens
   useEffect(() => {
@@ -222,7 +224,7 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
           <div className="text-center text-sm mb-4">
             <button
               type="button"
-              onClick={() => {/* TODO: Add forgot password functionality */}}
+              onClick={() => setForgotPasswordOpen(true)}
               className="text-primary hover:underline font-medium"
             >
               Forgot your password?
@@ -256,6 +258,11 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
           )}
         </div>
       </DialogContent>
+      
+      <ForgotPasswordDialog 
+        open={forgotPasswordOpen} 
+        onOpenChange={setForgotPasswordOpen}
+      />
     </Dialog>
   );
 }
