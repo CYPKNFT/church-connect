@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface AuthContextType {
   user: User | null;
@@ -26,6 +27,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -150,7 +153,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signOut = async () => {
+    // Check if user is on a protected page that requires membership
+    const protectedPaths = [
+      '/dashboard',
+      '/my-needs',
+      '/volunteering', 
+      '/my-church',
+      '/profile',
+      '/settings',
+      '/post'
+    ];
+    
+    const currentPath = location.pathname;
+    const isOnProtectedPage = protectedPaths.some(path => 
+      currentPath === path || currentPath.startsWith(path + '/')
+    );
+
     await supabase.auth.signOut();
+    
+    // Redirect to home if on a protected page
+    if (isOnProtectedPage) {
+      navigate('/');
+    }
   };
 
   return (
