@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface MembershipData {
   memberId: string | null;
   memberName: string | null;
+  displayName: string | null;
   churchId: string | null;
   churchName: string | null;
   loading: boolean;
@@ -16,6 +17,7 @@ export function useMembership(): MembershipData {
   const [state, setState] = useState<MembershipData>({
     memberId: null,
     memberName: null,
+    displayName: null,
     churchId: null,
     churchName: null,
     loading: true,
@@ -55,10 +57,25 @@ export function useMembership(): MembershipData {
           churchName = church?.name ?? null;
         }
 
+        // Derive a friendly display name
+        const rawMemberName = (member?.name ?? "").trim() || null;
+        let displayName: string | null = rawMemberName;
+        if (displayName && churchName && displayName.toLowerCase().includes((churchName ?? "").toLowerCase())) {
+          // Looks like the church name leaked into the member name; ignore it
+          displayName = null;
+        }
+        const meta: any = user?.user_metadata ?? {};
+        const metaFull = meta.full_name || meta.name || (meta.first_name && meta.last_name ? `${meta.first_name} ${meta.last_name}` : null);
+        if (!displayName) {
+          const emailName = user?.email ? user.email.split("@")[0] : null;
+          displayName = metaFull || emailName || null;
+        }
+
         if (isMounted) {
           setState({
             memberId: member?.id ?? null,
             memberName: member?.name ?? null,
+            displayName,
             churchId: member?.church_id ?? null,
             churchName,
             loading: false,
