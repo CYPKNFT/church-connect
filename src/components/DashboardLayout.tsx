@@ -12,6 +12,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useMembership } from "@/hooks/useMembership";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -27,6 +28,7 @@ const sidebarItems = [
 function DashboardSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { churchName } = useMembership();
 
   return (
     <Sidebar className="border-r border-border/50 bg-white">
@@ -34,7 +36,7 @@ function DashboardSidebar() {
         {/* Header */}
         <div className="p-6 border-b border-border/50">
           <div className="text-center">
-            <h2 className="font-bold text-foreground">Kernan Baptist Church</h2>
+            <h2 className="font-bold text-foreground">{churchName ?? "My Church"}</h2>
             <p className="text-xs text-muted-foreground">Member Dashboard</p>
           </div>
         </div>

@@ -8,12 +8,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell } from "lucide-react";
+import { useMembership } from "@/hooks/useMembership";
 
 export default function MyChurch() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const { churchName: churchFromDB, memberName } = useMembership();
 
   useEffect(() => {
     if (!user) {
@@ -25,8 +27,8 @@ export default function MyChurch() {
     return null;
   }
 
-  // Church-specific data - in real app this would come from database
-  const churchName = "Grace Community Church";
+  // Church-specific data - fetched from database via hook
+  const churchName = churchFromDB ?? "My Church";
   const memberSince = "2022";
   
   const churchNeeds = [

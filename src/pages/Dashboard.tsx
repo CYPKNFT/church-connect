@@ -5,9 +5,11 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useMembership } from "@/hooks/useMembership";
 
 export default function Dashboard() {
   const [selectedFilter, setSelectedFilter] = useState("All");
+  const { memberName, churchName } = useMembership();
   
   const userNeeds = [
     {
@@ -190,14 +192,9 @@ export default function Dashboard() {
         {/* Clean Left Sidebar */}
         <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
           <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h2 className="font-bold text-foreground">Grace Community Church</h2>
-                <p className="text-xs text-muted-foreground">Member Dashboard</p>
-              </div>
+            <div className="text-center">
+              <h2 className="font-bold text-foreground">{churchName ?? "My Church"}</h2>
+              <p className="text-xs text-muted-foreground">Member Dashboard</p>
             </div>
           </div>
           
@@ -229,7 +226,7 @@ export default function Dashboard() {
                   Dashboard
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Welcome back, Sarah! Here's your community impact overview
+                  Welcome back, {memberName ?? "Friend"}! Here's your community impact overview
                 </p>
               </div>
               <Button asChild className="bg-primary hover:bg-primary-hover shadow-accent rounded-xl px-6">
