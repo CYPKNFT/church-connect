@@ -7,7 +7,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, userData: { name: string; church_id: string; }) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, userData: { name: string; church_id: string; bio?: string; phone?: string; }) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
@@ -31,12 +31,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   useEffect(() => {
-    // Set up auth state listener FIRST
+  // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+        
+        // Handle member creation for new signups
+        if (event === 'SIGNED_IN' && session?.user) {
+          setTimeout(() => {
+            handleMemberCreation(session.user);
+          }, 0);
+        }
       }
     );
 
@@ -124,7 +131,47 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setTimeout(process, 0);
   }, [user]);
 
-  const signUp = async (email: string, password: string, userData: { name: string; church_id: string; }) => {
+  // Handle member creation for member signups
+  const handleMemberCreation = async (user: User) => {
+    try {
+      // Check if member record already exists
+      const { data: existingMember } = await supabase
+        .from('members')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (existingMember) {
+        return; // Member already exists
+      }
+
+      // Get user metadata
+      const userData = user.user_metadata || {};
+      
+      // Only create member if church_id exists (this is a member signup, not church admin)
+      if (userData.church_id) {
+        const { error: memberError } = await supabase
+          .from('members')
+          .insert({
+            user_id: user.id,
+            church_id: userData.church_id,
+            name: userData.name || null,
+            email: user.email || null,
+            phone: userData.phone || null,
+            bio: userData.bio || null,
+            approved: false // Requires church admin approval
+          });
+
+        if (memberError) {
+          console.error('Member creation error:', memberError);
+        }
+      }
+    } catch (error) {
+      console.error('Handle member creation error:', error);
+    }
+  };
+
+  const signUp = async (email: string, password: string, userData: { name: string; church_id: string; bio?: string; phone?: string; }) => {
     const redirectUrl = `${window.location.origin}/email-verification`;
     
     const { data, error } = await supabase.auth.signUp({
@@ -134,13 +181,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         emailRedirectTo: redirectUrl,
         data: {
           name: userData.name,
-          church_id: userData.church_id
+          church_id: userData.church_id,
+          bio: userData.bio,
+          phone: userData.phone
         }
       }
     });
 
-    // Sign up successful; church/member creation handled post-login via pending registration
-    
     return { error };
   };
 

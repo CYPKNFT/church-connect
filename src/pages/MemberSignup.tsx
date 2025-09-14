@@ -88,7 +88,9 @@ export default function MemberSignup() {
       // Sign up the user
       const result = await signUp(formData.email, formData.password, {
         name: formData.name,
-        church_id: formData.church_id
+        church_id: formData.church_id,
+        bio: formData.bio,
+        phone: formData.phone
       });
 
       if (result.error) {
