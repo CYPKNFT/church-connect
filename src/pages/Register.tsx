@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, EyeOff, Crown, Church } from "lucide-react";
+import { Eye, EyeOff, Crown, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -157,7 +157,17 @@ export default function Register() {
     <div className="min-h-screen bg-hero-gradient py-12 px-4">
       <div className="container mx-auto max-w-2xl">
         <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
-          <CardHeader className="text-center space-y-4">
+          <CardHeader className="text-center space-y-4 relative">
+            {/* Compact member signup option in top right */}
+            <div className="absolute top-4 right-4">
+              <Link to="/member-signup">
+                <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-primary">
+                  <Users className="w-3 h-3 mr-1" />
+                  Just joining?
+                </Button>
+              </Link>
+            </div>
+            
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
               <Crown className="w-8 h-8 text-primary" />
             </div>
