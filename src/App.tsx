@@ -45,59 +45,59 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <AuthProvider>
-        <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <AuthEventRouter />
-        <div className="min-h-screen bg-background flex flex-col">
-          <Header />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/post" element={<PostNeed />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/email-verification" element={<EmailVerification />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/my-needs" element={<MyNeeds />} />
-              <Route path="/volunteering" element={<Volunteering />} />
-              <Route path="/my-church" element={<MyChurch />} />
-              <Route path="/my-church/needs" element={<AllChurchNeeds />} />
-              <Route path="/my-church/events" element={<AllChurchEvents />} />
-              <Route path="/my-church/activity" element={<AllRecentActivity />} />
-              <Route path="/help" element={<Help />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
-          <Route path="/guides" element={<Guides />} />
-          <Route path="/safety-trust" element={<SafetyTrust />} />
-          <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/join-movement" element={<JoinMovement />} />
-              {/* Alternative URLs for better UX */}
-              <Route path="/browse" element={<BrowseDashboard />} />
-              <Route path="/browse-dashboard" element={<BrowseDashboard />} />
-              <Route path="/find-help" element={<Community />} />
-              <Route path="/volunteer" element={<Community />} />
-              <Route path="/how-it-works" element={<HowItWorks />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/churches" element={<Churches />} />
-              <Route path="/support" element={<Help />} />
-              <Route path="/pending-approval" element={<PendingApproval />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-        </BrowserRouter>
-        </TooltipProvider>
-      </AuthProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <ScrollToTop />
+            <AuthEventRouter />
+            <div className="min-h-screen bg-background flex flex-col">
+              <Header />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/post" element={<PostNeed />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/email-verification" element={<EmailVerification />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/my-needs" element={<MyNeeds />} />
+                  <Route path="/volunteering" element={<Volunteering />} />
+                  <Route path="/my-church" element={<MyChurch />} />
+                  <Route path="/my-church/needs" element={<AllChurchNeeds />} />
+                  <Route path="/my-church/events" element={<AllChurchEvents />} />
+                  <Route path="/my-church/activity" element={<AllRecentActivity />} />
+                  <Route path="/help" element={<Help />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/guides" element={<Guides />} />
+                  <Route path="/safety-trust" element={<SafetyTrust />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/join-movement" element={<JoinMovement />} />
+                  {/* Alternative URLs for better UX */}
+                  <Route path="/browse" element={<BrowseDashboard />} />
+                  <Route path="/browse-dashboard" element={<BrowseDashboard />} />
+                  <Route path="/find-help" element={<Community />} />
+                  <Route path="/volunteer" element={<Community />} />
+                  <Route path="/how-it-works" element={<HowItWorks />} />
+                  <Route path="/community" element={<Community />} />
+                  <Route path="/churches" element={<Churches />} />
+                  <Route path="/support" element={<Help />} />
+                  <Route path="/pending-approval" element={<PendingApproval />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </TooltipProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </ThemeProvider>
   </QueryClientProvider>
 );
