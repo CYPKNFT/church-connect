@@ -118,27 +118,18 @@ export default function MemberSignup() {
   return (
     <div className="min-h-screen bg-hero-gradient py-12 px-4">
       <div className="container mx-auto max-w-2xl">
-        {/* Church Leader CTA */}
-        <div className="mb-6 text-center">
-          <Card className="bg-primary/5 border-primary/20">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-center gap-3 mb-3">
-                <Crown className="w-5 h-5 text-primary" />
-                <p className="text-sm font-medium text-foreground">
-                  Are you a church leader?
-                </p>
-              </div>
+        <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
+          <CardHeader className="text-center space-y-4 relative">
+            {/* Compact church leader option in top right */}
+            <div className="absolute top-4 right-4">
               <Link to="/register">
-                <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Register Your Church Instead
+                <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-primary">
+                  <Crown className="w-3 h-3 mr-1" />
+                  Church Leader?
                 </Button>
               </Link>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
-          <CardHeader className="text-center space-y-4">
+            </div>
+            
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
               <Users className="w-8 h-8 text-primary" />
             </div>

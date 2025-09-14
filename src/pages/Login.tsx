@@ -125,7 +125,7 @@ export default function Login() {
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center space-y-3">
               <p className="text-muted-foreground">
                 Don't have an account?{" "}
                 <Link 
@@ -133,6 +133,16 @@ export default function Login() {
                   className="text-accent hover:text-accent-hover font-medium"
                 >
                   Join our community
+                </Link>
+              </p>
+              
+              <p className="text-muted-foreground text-sm">
+                Church leader?{" "}
+                <Link 
+                  to="/register" 
+                  className="text-accent hover:text-accent-hover font-medium"
+                >
+                  Register your church
                 </Link>
               </p>
             </div>
