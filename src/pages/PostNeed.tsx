@@ -191,7 +191,7 @@ export default function PostNeed() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading...</p>
@@ -202,12 +202,12 @@ export default function PostNeed() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-16">
+      <div className="min-h-screen bg-background py-16">
         <div className="container mx-auto px-4 max-w-2xl">
-          <Card className="border-0 shadow-xl bg-white">
+          <Card className="border-0 shadow-xl bg-card">
             <CardContent className="p-12 text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-10 h-10 text-green-600" />
+              <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
               </div>
               <h1 className="text-3xl font-bold text-foreground mb-4">
                 Your Need is Now Live! 🎉
@@ -251,7 +251,7 @@ export default function PostNeed() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
+    <div className="min-h-screen bg-background py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
@@ -268,7 +268,7 @@ export default function PostNeed() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
-          <Card className="border-0 shadow-xl bg-white">
+          <Card className="border-0 shadow-xl bg-card">
             <CardHeader className="pb-6">
               <CardTitle className="flex items-center gap-3 text-2xl">
                 <div className="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center">
@@ -309,7 +309,7 @@ export default function PostNeed() {
           </Card>
 
           {/* Category Selection */}
-          <Card className="border-0 shadow-xl bg-white">
+          <Card className="border-0 shadow-xl bg-card">
             <CardHeader className="pb-6">
               <CardTitle className="flex items-center gap-3 text-2xl">
                 <div className="w-8 h-8 bg-accent/10 rounded-xl flex items-center justify-center">
@@ -328,7 +328,7 @@ export default function PostNeed() {
                     className={`p-6 rounded-xl border-2 text-left transition-all hover:shadow-md ${
                       formData.category === category.value 
                         ? 'border-primary bg-primary/5 shadow-md' 
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-border hover:border-muted-foreground/30'
                     }`}
                   >
                     <div className="flex items-start gap-4">
@@ -347,7 +347,7 @@ export default function PostNeed() {
           </Card>
 
           {/* Urgency */}
-          <Card className="border-0 shadow-xl bg-white">
+          <Card className="border-0 shadow-xl bg-card">
             <CardHeader className="pb-6">
               <CardTitle className="flex items-center gap-3 text-2xl">
                 <div className="w-8 h-8 bg-orange/10 rounded-xl flex items-center justify-center">
@@ -366,7 +366,7 @@ export default function PostNeed() {
                     className={`p-6 rounded-xl border-2 text-left transition-all hover:shadow-md ${
                       formData.urgency === level.value 
                         ? 'border-primary bg-primary/5 shadow-md' 
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-border hover:border-muted-foreground/30'
                     }`}
                   >
                     <div className="space-y-3">
@@ -380,7 +380,7 @@ export default function PostNeed() {
           </Card>
 
           {/* Additional Details */}
-          <Card className="border-0 shadow-xl bg-white">
+          <Card className="border-0 shadow-xl bg-card">
             <CardHeader className="pb-6">
               <CardTitle className="flex items-center gap-3 text-2xl">
                 <div className="w-8 h-8 bg-green/10 rounded-xl flex items-center justify-center">
