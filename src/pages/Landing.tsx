@@ -1,11 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { useAuth } from "@/contexts/AuthContext";
+import { useState } from "react";
+import { AuthDialog } from "@/components/AuthDialog";
 
 
 export default function Landing() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [redirectTo, setRedirectTo] = useState<string>("");
+
+  const handleProtectedNavigation = (path: string) => {
+    if (user) {
+      navigate(path);
+    } else {
+      setRedirectTo(path);
+      setAuthDialogOpen(true);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -32,21 +49,19 @@ export default function Landing() {
               <div className="flex flex-col sm:flex-row gap-4 animate-slide-up">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent/90 text-foreground font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift" 
-                  asChild
+                  className="bg-accent hover:bg-accent/90 text-foreground font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift"
+                  onClick={() => handleProtectedNavigation("/post")}
                 >
-                  <Link to="/post">
-                    <Plus className="w-5 h-5 mr-3" />
-                    Post a Need
-                  </Link>
+                  <Plus className="w-5 h-5 mr-3" />
+                  Post a Need
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect" 
-                  asChild
+                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect"
+                  onClick={() => handleProtectedNavigation("/browse")}
                 >
-                  <Link to="/browse">Browse & Help</Link>
+                  Browse & Help
                 </Button>
               </div>
             </div>
@@ -351,26 +366,30 @@ export default function Landing() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
               <Button 
                 size="lg" 
-                className="bg-white hover:bg-white/90 text-primary font-bold px-12 py-6 text-xl rounded-2xl shadow-xl hover-lift" 
-                asChild
+                className="bg-white hover:bg-white/90 text-primary font-bold px-12 py-6 text-xl rounded-2xl shadow-xl hover-lift"
+                onClick={() => handleProtectedNavigation("/post")}
               >
-                <Link to="/post">
-                  <Plus className="w-5 h-5 mr-3" />
-                  Post Your Need
-                </Link>
+                <Plus className="w-5 h-5 mr-3" />
+                Post Your Need
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl" 
-                asChild
+                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl"
+                onClick={() => handleProtectedNavigation("/browse")}
               >
-                <Link to="/browse">Find Ways to Help</Link>
+                Find Ways to Help
               </Button>
             </div>
           </div>
         </div>
       </section>
+
+      <AuthDialog 
+        open={authDialogOpen} 
+        onOpenChange={setAuthDialogOpen}
+        redirectTo={redirectTo}
+      />
     </div>
   );
 }
