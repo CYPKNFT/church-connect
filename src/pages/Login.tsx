@@ -1,22 +1,55 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Heart } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { ForgotPasswordDialog } from "@/components/ForgotPasswordDialog";
 
 export default function Login() {
+  const { signIn } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual login logic
-    console.log("Login attempt:", formData);
+    setIsLoading(true);
+
+    try {
+      const result = await signIn(formData.email, formData.password);
+      
+      if (result.error) {
+        toast({
+          title: "Sign In Failed",
+          description: result.error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Welcome back!",
+          description: "You've been signed in successfully.",
+        });
+        navigate("/dashboard");
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -74,19 +107,21 @@ export default function Login() {
               </div>
 
               <div className="flex items-center justify-start text-sm">
-                <Link 
-                  to="/forgot-password" 
+                <button
+                  type="button"
+                  onClick={() => setForgotPasswordOpen(true)}
                   className="text-accent hover:text-accent-hover font-medium"
                 >
                   Forgot password?
-                </Link>
+                </button>
               </div>
 
               <Button 
                 type="submit" 
+                disabled={isLoading}
                 className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-medium"
               >
-                Sign In
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
@@ -105,11 +140,16 @@ export default function Login() {
         </Card>
 
         <div className="mt-6 text-center">
-          <p className="text-white/80 text-sm">
+          <p className="text-muted-foreground text-sm">
             By signing in, you agree to our community guidelines of love, respect, and service.
           </p>
         </div>
       </div>
+      
+      <ForgotPasswordDialog 
+        open={forgotPasswordOpen} 
+        onOpenChange={setForgotPasswordOpen}
+      />
     </div>
   );
 }
