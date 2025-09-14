@@ -59,15 +59,11 @@ export function useMembership(): MembershipData {
 
         // Get display name from user metadata first, then fallback to member name
         const meta: any = user?.user_metadata ?? {};
-        const metaFull = meta.full_name || meta.name || (meta.first_name && meta.last_name ? `${meta.first_name} ${meta.last_name}` : null);
-        const emailName = user?.email ? user.email.split("@")[0] : null;
-        const rawMemberName = (member?.name ?? "").trim() || null;
-        
-        // Prefer user metadata over member name, ignore if member name is just the church name
-        let displayName: string | null = metaFull || emailName || null;
-        if (!displayName && rawMemberName && (!churchName || !rawMemberName.toLowerCase().includes(churchName.toLowerCase()))) {
-          displayName = rawMemberName;
-        }
+        const displayName: string | null =
+          meta.full_name ||
+          meta.name ||
+          (meta.first_name && meta.last_name ? `${meta.first_name} ${meta.last_name}` : null) ||
+          (user?.email ? user.email.split("@")[0] : null);
 
         if (isMounted) {
           setState({
