@@ -63,14 +63,14 @@ export default function About() {
         
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Love in Action Card */}
-              <div className="group relative">
+              <div className="group relative h-[420px]">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 group h-full flex flex-col">
                   <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-accent/20">
                     <Heart className="w-10 h-10 text-accent" />
                   </div>
                   <h3 className="text-2xl font-bold mb-6 text-foreground">Love in Action</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                     Demonstrating Christ's love through practical acts of service, genuine kindness, and unconditional care for one another.
                   </p>
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -78,14 +78,14 @@ export default function About() {
               </div>
         
               {/* Strong Community Card */}
-              <div className="group relative">
+              <div className="group relative h-[420px]">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 group h-full flex flex-col">
                   <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-primary/20">
                     <Users className="w-10 h-10 text-primary" />
                   </div>
                   <h3 className="text-2xl font-bold mb-6 text-foreground">Strong Community</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                     Building bridges between church members, creating lasting relationships, and fostering a true sense of belonging and family.
                   </p>
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -93,14 +93,14 @@ export default function About() {
               </div>
         
               {/* Trust & Safety Card */}
-              <div className="group relative">
+              <div className="group relative h-[420px]">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 group h-full flex flex-col">
                   <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-green-500/20">
                     <Shield className="w-10 h-10 text-green-500" />
                   </div>
                   <h3 className="text-2xl font-bold mb-6 text-foreground">Trust & Safety</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed min-h-[120px] flex items-center">
+                  <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                     Creating a secure, verified environment where people feel comfortable sharing their needs and offering their gifts.
                   </p>
                   <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -108,14 +108,14 @@ export default function About() {
               </div>
         
               {/* Purposeful Service Card */}
-              <div className="group relative">
+              <div className="group relative h-[420px]">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group">
+                <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group h-full flex flex-col">
                   <div className="w-20 h-120 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
                     <Target className="w-10 h-10 text-purple-500" />
                   </div>
                   <h3 className="text-2xl font-bold mb-6 text-foreground">Purposeful Service</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                     Empowering every church member to discover meaningful ways to serve others and use their unique gifts for Kingdom impact.
                   </p>
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
