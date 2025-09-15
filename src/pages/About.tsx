@@ -111,7 +111,7 @@ export default function About() {
               <div className="group relative h-[420px]">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group h-full flex flex-col">
-                  <div className="w-20 h-120 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
                     <Target className="w-10 h-10 text-purple-500" />
                   </div>
                   <h3 className="text-2xl font-bold mb-6 text-foreground">Purposeful Service</h3>
