@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, LayoutDashboard, Users, BookOpen, MessageSquare } from "lucide-react";
+import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -20,7 +20,7 @@ interface DashboardLayoutProps {
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: Heart, label: "My Needs", path: "/my-needs" },
+  { icon: Cross, label: "My Needs", path: "/my-needs" },
   { icon: Users, label: "Volunteering", path: "/volunteering" },
   { icon: BookOpen, label: "Browse", path: "/browse" },
   { icon: MessageSquare, label: "Feedback", path: "/feedback" },
