@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart, Home, Settings, ChevronDown } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthDialog } from "./AuthDialog";
 import {
@@ -51,15 +51,19 @@ export function Header() {
 
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          {user && (
-            <Button 
-              className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
-              size="sm" 
-              onClick={() => navigate('/post')}
-            >
-              Post a Need
-            </Button>
-          )}
+          <Button 
+            className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+            size="sm" 
+            onClick={() => {
+              if (!user) {
+                setShowAuthDialog(true);
+              } else {
+                navigate('/post');
+              }
+            }}
+          >
+            Post a Need
+          </Button>
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -181,18 +185,20 @@ export function Header() {
               Support
             </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
-              {user && (
-                <Button 
-                  className="bg-primary hover:bg-primary-hover text-white shadow-md" 
-                  size="sm" 
-                  onClick={() => {
-                    setIsMenuOpen(false);
+              <Button 
+                className="bg-primary hover:bg-primary-hover text-white shadow-md" 
+                size="sm" 
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  if (!user) {
+                    setShowAuthDialog(true);
+                  } else {
                     navigate('/post');
-                  }}
-                >
-                  Post a Need
-                </Button>
-              )}
+                  }
+                }}
+              >
+                Post a Need
+              </Button>
               {user ? (
                 <>
                   <Button variant="outline" size="sm" asChild>
