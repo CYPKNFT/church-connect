@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer } from "lucide-react";
+import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMembership } from "@/hooks/useMembership";
@@ -184,7 +184,9 @@ export default function Dashboard() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
+    { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
+    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   return (

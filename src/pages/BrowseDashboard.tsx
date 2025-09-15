@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { NeedCard } from "@/components/NeedCard";
-import { Heart, Clock, Users, Plus, LayoutDashboard, BookOpen, UserCheck, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target } from "lucide-react";
+import { Heart, Clock, Users, Plus, LayoutDashboard, BookOpen, UserCheck, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -197,7 +197,9 @@ export default function BrowseDashboard() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", active: true, path: "/browse" },
+    { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
+    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   return (

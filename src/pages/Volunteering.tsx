@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award, LayoutDashboard, Heart, BookOpen } from "lucide-react";
+import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award, LayoutDashboard, Heart, BookOpen, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -168,7 +168,9 @@ export default function Volunteering() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", active: true, path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
+    { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
+    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   return (

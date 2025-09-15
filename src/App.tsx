@@ -39,7 +39,9 @@ import AllRecentActivity from "./pages/AllRecentActivity";
 import JoinMovement from "./pages/JoinMovement";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import FeedbackFail from "./pages/FeedbackFail";
 import Feedback from "./pages/Feedback";
+import Template from "./pages/Template";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 
 const queryClient = new QueryClient();
@@ -75,6 +77,8 @@ const App = () => (
                   <Route path="/my-church/events" element={<AllChurchEvents />} />
                   <Route path="/my-church/activity" element={<AllRecentActivity />} />
                   <Route path="/feedback" element={<Feedback />} />
+                  <Route path="/feedback-fail" element={<FeedbackFail />} />
+                  <Route path="/template" element={<Template />} />
                   <Route path="/help" element={<Help />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/settings" element={<Settings />} />

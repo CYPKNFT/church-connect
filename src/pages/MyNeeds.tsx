@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, LayoutDashboard, BookOpen, AlertTriangle } from "lucide-react";
+import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, LayoutDashboard, BookOpen, AlertTriangle, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -148,7 +148,9 @@ export default function MyNeeds() {
     { icon: Heart, label: "My Needs", active: true, path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
+    { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
+    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   return (
