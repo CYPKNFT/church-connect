@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Heart, LayoutDashboard, Users, BookOpen, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { FeedbackDialog } from "@/components/FeedbackDialog";
 import {
   Sidebar,
   SidebarContent,
@@ -78,8 +80,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <DashboardSidebar />
           <div className="flex-1 flex flex-col">
             {/* Global Sidebar Trigger */}
-            <header className="h-12 flex items-center border-b border-border/20 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
+            <header className="h-12 flex items-center justify-between border-b border-border/20 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
               <SidebarTrigger className="ml-4" />
+              <div className="mr-4">
+                <FeedbackDialog />
+              </div>
             </header>
             <main className="flex-1 overflow-auto">
               {children}
