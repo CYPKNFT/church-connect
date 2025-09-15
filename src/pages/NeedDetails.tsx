@@ -218,125 +218,15 @@ export default function NeedDetails() {
       {/* Main Content */}
       <div className="space-y-6">
         {/* Title and Status */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-          <div className="space-y-3">
-            <h1 className="text-2xl font-bold text-foreground">{needData.title}</h1>
-            <div className="flex flex-wrap gap-2">
-              <Badge className={statusColors[needData.status]}>
-                {needData.status}
-              </Badge>
-              <Badge className={urgencyColors[needData.urgency]}>
-                {needData.urgency}
-              </Badge>
-            </div>
-          </div>
-          
+        <div className="space-y-3">
+          <h1 className="text-2xl font-bold text-foreground">{needData.title}</h1>
           <div className="flex flex-wrap gap-2">
-            <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Edit Need Details</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="title">Title</Label>
-                    <Input
-                      id="title"
-                      value={editForm.title}
-                      onChange={(e) => setEditForm(prev => ({ ...prev, title: e.target.value }))}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="description">Description</Label>
-                    <Textarea
-                      id="description"
-                      value={editForm.description}
-                      onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="urgency">Urgency</Label>
-                    <Select
-                      value={editForm.urgency}
-                      onValueChange={(value) => setEditForm(prev => ({ ...prev, urgency: value as any }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Immediate">Immediate</SelectItem>
-                        <SelectItem value="This Week">This Week</SelectItem>
-                        <SelectItem value="Flexible">Flexible</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button onClick={handleEdit}>
-                      Save Changes
-                    </Button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-
-            <Dialog open={messagesDialogOpen} onOpenChange={setMessagesDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="default" size="sm">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Messages
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-lg">
-                <DialogHeader>
-                  <DialogTitle>Messages</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div className="max-h-64 overflow-y-auto space-y-3">
-                    {messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`flex ${message.isRequester ? 'justify-end' : 'justify-start'}`}
-                      >
-                        <div className={`max-w-xs rounded-lg p-3 ${
-                          message.isRequester 
-                            ? 'bg-primary text-primary-foreground' 
-                            : 'bg-muted'
-                        }`}>
-                          <div className="text-sm font-medium">{message.sender}</div>
-                          <div className="text-sm">{message.content}</div>
-                          <div className="text-xs opacity-70 mt-1">{message.timestamp}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
-                    <Input
-                      placeholder="Type your message..."
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                    />
-                    <Button size="sm" onClick={handleSendMessage}>
-                      <Send className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-
-            <Button variant="outline" size="sm" onClick={handleArchive}>
-              <Archive className="w-4 h-4 mr-2" />
-              Archive
-            </Button>
+            <Badge className={statusColors[needData.status]}>
+              {needData.status}
+            </Badge>
+            <Badge className={urgencyColors[needData.urgency]}>
+              {needData.urgency}
+            </Badge>
           </div>
         </div>
 
