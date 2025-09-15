@@ -78,7 +78,7 @@ const App = () => (
                   <Route path="/my-church/activity" element={<AllRecentActivity />} />
                   <Route path="/feedback" element={<Feedback />} />
                   <Route path="/template" element={<Template />} />
-                  <Route path="/need/:id" element={<NeedDetails />} />
+                  <Route path="/needs_details/:id" element={<NeedDetails />} />
                   <Route path="/help" element={<Help />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/settings" element={<Settings />} />

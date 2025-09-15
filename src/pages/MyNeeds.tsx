@@ -4,10 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, LayoutDashboard, BookOpen, AlertTriangle, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function MyNeeds() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
@@ -334,18 +335,28 @@ export default function MyNeeds() {
                 </Card>
                 ) : (
                 paginatedNeeds.map((need) => (
-                  <Card key={need.id} className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                  <Card 
+                    key={need.id} 
+                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
+                    onClick={() => navigate(`/needs_details/${need.id}`)}
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-xl font-semibold text-foreground">{need.title}</h3>
-                            <Badge className={`${getStatusColor(need.status)} rounded-full text-xs px-3 py-1`}>
-                              {need.status}
-                            </Badge>
-                            <Badge className={`${getUrgencyColor(need.urgency)} rounded-full text-xs px-3 py-1`}>
-                              {need.urgency}
-                            </Badge>
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-3">
+                              <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">{need.title}</h3>
+                              <Badge className={`${getStatusColor(need.status)} rounded-full text-xs px-3 py-1`}>
+                                {need.status}
+                              </Badge>
+                              <Badge className={`${getUrgencyColor(need.urgency)} rounded-full text-xs px-3 py-1`}>
+                                {need.urgency}
+                              </Badge>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                              <span>Manage</span>
+                              <ChevronRight className="w-4 h-4" />
+                            </div>
                           </div>
                           <p className="text-muted-foreground mb-4 leading-relaxed">{need.description}</p>
                           
@@ -369,20 +380,19 @@ export default function MyNeeds() {
                           </div>
 
                           <div className="flex items-center gap-6 text-sm">
-                            <span className="flex items-center gap-2 text-primary font-medium">
+                            <span className="flex items-center gap-2 text-foreground font-medium">
                               <Users className="w-4 h-4" />
                               {need.volunteers} volunteers
                             </span>
-                            <span className="flex items-center gap-2 text-accent font-medium">
+                            <span className="flex items-center gap-2 text-foreground font-medium">
                               <MessageSquare className="w-4 h-4" />
                               {need.responses} responses
                             </span>
-                            <span className="text-muted-foreground">
+                            <span className="text-muted-foreground ml-auto">
                               Last updated {need.lastUpdated}
                             </span>
                           </div>
                         </div>
-
                       </div>
                     </CardContent>
                   </Card>
