@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, User, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface NeedCardProps {
   id: string;
@@ -34,6 +35,12 @@ export function NeedCard({
   postedAt,
   onVolunteer
 }: NeedCardProps) {
+  const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    navigate(`/need/${id}`);
+  };
+
   return (
     <Card className="shadow-gentle hover:shadow-card transition-all duration-200 border-border h-full flex flex-col">
       <CardHeader className="pb-3">
@@ -50,7 +57,12 @@ export function NeedCard({
             {postedAt}
           </div>
         </div>
-        <CardTitle className="text-lg leading-tight line-clamp-2">{title}</CardTitle>
+        <CardTitle 
+          className="text-lg leading-tight line-clamp-2 cursor-pointer hover:text-primary transition-colors"
+          onClick={handleViewDetails}
+        >
+          {title}
+        </CardTitle>
       </CardHeader>
       
       <CardContent className="space-y-3 flex-1">
@@ -74,11 +86,19 @@ export function NeedCard({
         </div>
       </CardContent>
       
-      <CardFooter>
+      <CardFooter className="gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="flex-1"
+          onClick={handleViewDetails}
+        >
+          View Details
+        </Button>
         <Button 
           variant="hero" 
           size="sm" 
-          className="w-full"
+          className="flex-1"
           onClick={() => onVolunteer(id)}
         >
           I Can Help
