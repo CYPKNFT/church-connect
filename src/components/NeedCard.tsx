@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, User, MapPin } from "lucide-react";
+import { Clock, User, MapPin, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface NeedCardProps {
@@ -42,7 +42,10 @@ export function NeedCard({
   };
 
   return (
-    <Card className="shadow-gentle hover:shadow-card transition-all duration-200 border-border h-full flex flex-col">
+    <Card 
+      className="shadow-gentle hover:shadow-card transition-all duration-200 border-border h-full flex flex-col cursor-pointer group"
+      onClick={handleViewDetails}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
@@ -57,10 +60,7 @@ export function NeedCard({
             {postedAt}
           </div>
         </div>
-        <CardTitle 
-          className="text-lg leading-tight line-clamp-2 cursor-pointer hover:text-primary transition-colors"
-          onClick={handleViewDetails}
-        >
+        <CardTitle className="text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
           {title}
         </CardTitle>
       </CardHeader>
@@ -86,23 +86,21 @@ export function NeedCard({
         </div>
       </CardContent>
       
-      <CardFooter className="gap-2">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="flex-1"
-          onClick={handleViewDetails}
-        >
-          View Details
-        </Button>
-        <Button 
-          variant="hero" 
-          size="sm" 
-          className="flex-1"
-          onClick={() => onVolunteer(id)}
-        >
-          I Can Help
-        </Button>
+      <CardFooter className="pt-3">
+        <div className="flex items-center justify-between w-full">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="text-muted-foreground hover:text-primary"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleViewDetails();
+            }}
+          >
+            View Details
+            <ChevronRight className="w-4 h-4 ml-1" />
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );
