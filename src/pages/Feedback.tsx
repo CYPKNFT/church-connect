@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { MessageSquare, Star, Bug, Lightbulb, Heart, Building, Users, LayoutDashboard, BookOpen, FileText } from "lucide-react";
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { MessageSquare, Star, Bug, Lightbulb, Heart, Building, Users, LayoutDashboard, BookOpen, FileText, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AppFeedbackForm } from "@/components/AppFeedbackForm";
@@ -14,6 +13,7 @@ type FeedbackType = "app" | "church" | null;
 export default function Feedback() {
   const [activeForm, setActiveForm] = useState<FeedbackType>(null);
   const [churchName, setChurchName] = useState("Grace Community Church");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const handleBack = () => setActiveForm(null);
 
@@ -37,18 +37,33 @@ export default function Feedback() {
   return (
     <div className="min-h-screen bg-background">
       <div className="flex">
-        {/* Clean Left Sidebar */}
-        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
+        {/* Collapsible Left Sidebar */}
+        <div className={`${sidebarCollapsed ? 'w-16' : 'w-64'} bg-card shadow-gentle border-r border-border min-h-screen transition-all duration-300`}>
+          <div className="p-6 border-b border-border relative">
+            <div className={`flex items-center gap-3 ${sidebarCollapsed ? 'justify-center' : ''}`}>
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <h2 className="font-bold text-foreground">ChurchConnect</h2>
-                <p className="text-xs text-muted-foreground">{churchName}</p>
-              </div>
+              {!sidebarCollapsed && (
+                <div>
+                  <h2 className="font-bold text-foreground">ChurchConnect</h2>
+                  <p className="text-xs text-muted-foreground">{churchName}</p>
+                </div>
+              )}
             </div>
+            {/* Toggle Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className={`absolute ${sidebarCollapsed ? 'top-4 left-1/2 -translate-x-1/2' : 'top-4 right-2'} p-2 h-8 w-8`}
+            >
+              {sidebarCollapsed ? (
+                <PanelLeftOpen className="w-4 h-4" />
+              ) : (
+                <PanelLeftClose className="w-4 h-4" />
+              )}
+            </Button>
           </div>
           
           <nav className="p-4 space-y-2">
@@ -60,10 +75,11 @@ export default function Feedback() {
                   item.active 
                     ? 'bg-primary/10 text-primary border border-primary/20' 
                     : 'text-muted-foreground hover:text-foreground'
-                }`}
+                } ${sidebarCollapsed ? 'justify-center' : ''}`}
+                title={sidebarCollapsed ? item.label : undefined}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
+                {!sidebarCollapsed && <span className="font-medium">{item.label}</span>}
               </Link>
             ))}
           </nav>
@@ -148,7 +164,7 @@ export default function Feedback() {
                       <span className="text-sm font-medium text-indigo-700">Facilities</span>
                     </div>
                   </div>
-                  <Button className="w-full" size="lg" variant="outline">
+                  <Button className="w-full" size="lg">
                     Give Church Feedback
                   </Button>
                 </CardContent>

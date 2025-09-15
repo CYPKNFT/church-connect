@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { NeedCard } from "@/components/NeedCard";
-import { Heart, Clock, Users, Plus, LayoutDashboard, BookOpen, UserCheck, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target, FileText } from "lucide-react";
+import { Heart, Clock, Users, Plus, LayoutDashboard, BookOpen, UserCheck, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target, FileText, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -18,6 +18,7 @@ export default function BrowseDashboard() {
   const [selectedUrgency, setSelectedUrgency] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [churchName, setChurchName] = useState("Grace Community Church");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const itemsPerPage = 6;
 
   // Church-specific needs data
