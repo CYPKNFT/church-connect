@@ -209,7 +209,7 @@ export default function NeedDetails() {
     <div className="container mx-auto p-6 max-w-4xl">
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
+        <Button variant="ghost" size="sm" onClick={() => navigate("/my-needs")}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
@@ -262,11 +262,11 @@ export default function NeedDetails() {
 
           <Card>
             <CardContent className="pt-6 space-y-3">
-              <div className="flex items-center gap-2 text-sm text-accent-foreground">
+              <div className="flex items-center gap-2 text-sm text-foreground">
                 <Users className="w-4 h-4" />
                 <span>{needData.volunteerCount} volunteers</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-accent-foreground">
+              <div className="flex items-center gap-2 text-sm text-foreground">
                 <MessageSquare className="w-4 h-4" />
                 <span>{needData.responseCount} responses</span>
               </div>
