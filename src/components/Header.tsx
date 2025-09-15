@@ -51,19 +51,15 @@ export function Header() {
 
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          <Button 
-            className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
-            size="sm" 
-            onClick={() => {
-              if (!user) {
-                setShowAuthDialog(true);
-              } else {
-                navigate('/post');
-              }
-            }}
-          >
-            Post a Need
-          </Button>
+          {user && (
+            <Button 
+              className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+              size="sm" 
+              onClick={() => navigate('/post')}
+            >
+              Post a Need
+            </Button>
+          )}
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -185,20 +181,18 @@ export function Header() {
               Support
             </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
-              <Button 
-                className="bg-primary hover:bg-primary-hover text-white shadow-md" 
-                size="sm" 
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  if (!user) {
-                    setShowAuthDialog(true);
-                  } else {
+              {user && (
+                <Button 
+                  className="bg-primary hover:bg-primary-hover text-white shadow-md" 
+                  size="sm" 
+                  onClick={() => {
+                    setIsMenuOpen(false);
                     navigate('/post');
-                  }
-                }}
-              >
-                Post a Need
-              </Button>
+                  }}
+                >
+                  Post a Need
+                </Button>
+              )}
               {user ? (
                 <>
                   <Button variant="outline" size="sm" asChild>
