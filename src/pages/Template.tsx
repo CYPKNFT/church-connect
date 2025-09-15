@@ -20,7 +20,6 @@ export default function Template() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
-    { icon: FileText, label: "Template", active: true, path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
   ];
 
