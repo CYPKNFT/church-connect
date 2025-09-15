@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown, MessageSquare } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { AuthDialog } from "./AuthDialog";
 import {
@@ -63,6 +63,12 @@ export function Header() {
             }}
           >
             Post a Need
+          </Button>
+          <Button variant="outline" size="sm" asChild className="border-primary/20 hover:border-primary/40 hover:bg-primary/5">
+            <Link to="/feedback">
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Feedback
+            </Link>
           </Button>
           {user ? (
             <DropdownMenu>
@@ -198,6 +204,12 @@ export function Header() {
                 }}
               >
                 Post a Need
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/feedback" onClick={() => setIsMenuOpen(false)}>
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Feedback
+                </Link>
               </Button>
               {user ? (
                 <>
