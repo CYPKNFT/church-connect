@@ -197,6 +197,7 @@ export default function BrowseDashboard() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", active: true, path: "/browse" },
+    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
   ];
 
   return (

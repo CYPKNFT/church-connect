@@ -168,6 +168,7 @@ export default function Volunteering() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", active: true, path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
+    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
   ];
 
   return (

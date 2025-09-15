@@ -184,6 +184,7 @@ export default function Dashboard() {
     { icon: Heart, label: "My Needs", path: "/my-needs" },
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
+    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
   ];
 
   return (
