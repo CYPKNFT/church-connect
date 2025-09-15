@@ -383,24 +383,6 @@ export default function MyNeeds() {
                           </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 ml-4">
-                          {need.status === "Active" && (
-                            <Button variant="outline" size="sm" className="rounded-xl">
-                              <Edit className="w-4 h-4 mr-2" />
-                              Edit
-                            </Button>
-                          )}
-                          <Button variant="ghost" size="sm" className="rounded-xl">
-                            <MessageSquare className="w-4 h-4 mr-2" />
-                            Messages
-                          </Button>
-                          {need.status === "Active" && (
-                            <Button variant="ghost" size="sm" className="rounded-xl text-muted-foreground">
-                              <Archive className="w-4 h-4 mr-2" />
-                              Archive
-                            </Button>
-                          )}
-                        </div>
                       </div>
                     </CardContent>
                   </Card>
