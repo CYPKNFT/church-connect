@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, LayoutDashboard, Users, BookOpen } from "lucide-react";
+import { Heart, LayoutDashboard, Users, BookOpen, MessageSquare } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useMembership } from "@/hooks/useMembership";
-import { FeedbackDialog } from "@/components/FeedbackDialog";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -24,6 +23,7 @@ const sidebarItems = [
   { icon: Heart, label: "My Needs", path: "/my-needs" },
   { icon: Users, label: "Volunteering", path: "/volunteering" },
   { icon: BookOpen, label: "Browse", path: "/browse" },
+  { icon: MessageSquare, label: "Feedback", path: "/feedback" },
 ];
 
 function DashboardSidebar() {
@@ -65,10 +65,6 @@ function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Feedback */}
-        <div className="mt-auto p-4 border-t border-sidebar-border/50">
-          <FeedbackDialog />
-        </div>
       </SidebarContent>
     </Sidebar>
   );
