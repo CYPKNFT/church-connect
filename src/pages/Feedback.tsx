@@ -24,7 +24,6 @@ export default function Feedback() {
     { icon: BookOpen, label: "Browse", path: "/browse" },
     { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", active: true, path: "/feedback" },
-    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   if (activeForm === "app") {

@@ -21,7 +21,7 @@ export default function Template() {
     { icon: Users, label: "Volunteering", path: "/volunteering" },
     { icon: BookOpen, label: "Browse", path: "/browse" },
     { icon: FileText, label: "Template", active: true, path: "/template" },
-    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
+    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
   ];
 
   return (

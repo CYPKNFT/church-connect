@@ -199,7 +199,6 @@ export default function BrowseDashboard() {
     { icon: BookOpen, label: "Browse", active: true, path: "/browse" },
     { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   return (

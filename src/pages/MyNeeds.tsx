@@ -150,7 +150,6 @@ export default function MyNeeds() {
     { icon: BookOpen, label: "Browse", path: "/browse" },
     { icon: FileText, label: "Template", path: "/template" },
     { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-    { icon: MessageSquare, label: "Feedback FAIL", path: "/feedback-fail" },
   ];
 
   return (
