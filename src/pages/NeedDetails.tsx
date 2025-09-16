@@ -583,17 +583,17 @@ export default function NeedDetails() {
               <Button 
                 variant="outline" 
                 size="sm"
-                className="hover:bg-accent hover:text-accent-foreground hover:border-accent"
+                className="hover:bg-accent hover:text-accent-foreground hover:border-accent group"
                 onClick={() => setViewReviewDialogOpen(true)}
               >
                 <div className="flex items-center gap-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star 
                       key={star}
-                      className={`w-4 h-4 ${
+                      className={`w-4 h-4 transition-colors ${
                         star <= needData.review!.rating 
-                          ? "fill-foreground text-foreground" 
-                          : "text-muted-foreground/40"
+                          ? "fill-accent text-accent group-hover:fill-accent-foreground group-hover:text-accent-foreground" 
+                          : "text-muted-foreground/40 group-hover:text-accent-foreground/40"
                       }`} 
                     />
                   ))}
