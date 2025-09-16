@@ -19,13 +19,26 @@ export function useUserSettings() {
     email_updates: true,
     dark_mode: false,
   });
-  const [loading, setLoading] = useState(true);
-
+  const [loading, setLoading] = useState(false);
+  const [pending, setPending] = useState<Partial<UserSettings> | null>(null);
   useEffect(() => {
-    if (memberId) {
-      fetchSettings();
+    if (memberId && pending) {
+      (async () => {
+        try {
+          await (supabase as any)
+            .from('user_settings')
+            .upsert({
+              member_id: memberId,
+              ...settings,
+              updated_at: new Date().toISOString(),
+            });
+          setPending(null);
+        } catch (e) {
+          console.error('Error syncing pending settings:', e);
+        }
+      })();
     }
-  }, [memberId]);
+  }, [memberId, pending, settings]);
 
   const fetchSettings = async () => {
     if (!memberId) return;
@@ -77,11 +90,16 @@ export function useUserSettings() {
   };
 
   const updateSettings = async (newSettings: Partial<UserSettings>) => {
-    if (!memberId) return;
+    const updatedSettings = { ...settings, ...newSettings };
+    // Optimistic UI update first
+    setSettings(updatedSettings);
+
+    if (!memberId) {
+      setPending((prev) => ({ ...(prev || {}), ...newSettings }));
+      return updatedSettings;
+    }
 
     try {
-      const updatedSettings = { ...settings, ...newSettings };
-      
       const { error } = await (supabase as any)
         .from('user_settings')
         .upsert({
@@ -92,11 +110,9 @@ export function useUserSettings() {
 
       if (error) throw error;
 
-      setSettings(updatedSettings);
-      
       toast({
         title: "Settings Updated",
-        description: "Your preferences have been saved successfully.",
+        description: "Your preferences have been saved.",
       });
 
       return updatedSettings;

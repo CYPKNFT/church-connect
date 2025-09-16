@@ -117,7 +117,6 @@ export default function Settings() {
               <Switch
                 checked={settings.push_notifications}
                 onCheckedChange={handleNotificationsChange}
-                disabled={settingsLoading}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -130,7 +129,6 @@ export default function Settings() {
               <Switch
                 checked={settings.email_updates}
                 onCheckedChange={handleEmailUpdatesChange}
-                disabled={settingsLoading}
               />
             </div>
           </CardContent>
@@ -155,7 +153,6 @@ export default function Settings() {
               <Switch
                 checked={settings.dark_mode}
                 onCheckedChange={handleThemeToggle}
-                disabled={settingsLoading}
               />
             </div>
           </CardContent>
