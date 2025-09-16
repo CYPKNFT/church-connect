@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AuthDialog } from "@/components/AuthDialog";
 import { User, Users, Crown, Heart, Shield, Building, UserPlus, CheckCircle, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function JoinMovement() {
   const [selectedRole, setSelectedRole] = useState<"admin" | "member" | null>(null);
@@ -149,17 +150,21 @@ export default function JoinMovement() {
 
         {/* Security Notice */}
         <div className="max-w-4xl mx-auto mt-16">
-          <Card className="border-0 shadow-xl bg-white/90 dark:bg-card backdrop-blur-sm">
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Safe & Verified Community</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                All church administrators are verified before approval. Members are connected only within their verified church communities, ensuring a safe and trusted environment for everyone.
-              </p>
-            </CardContent>
-          </Card>
+          <Link to="/safety-trust" className="block w-full">
+            <Card className="border-0 shadow-xl bg-white/90 dark:bg-card backdrop-blur-sm w-full cursor-pointer transition-transform hover:-translate-y-1">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Safe & Verified Community</h3>
+                <div className="text-lg text-muted-foreground leading-relaxed space-y-2">
+                  <div>All church administrators are verified before approval.</div>
+                  <div>Members are connected only within their verified church communities.</div>
+                  <div>Ensuring a safe and trusted environment for everyone.</div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </div>
 
