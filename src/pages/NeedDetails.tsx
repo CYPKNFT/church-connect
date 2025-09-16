@@ -439,6 +439,20 @@ export default function NeedDetails() {
   };
 
   const handleSubmitReview = () => {
+    // Update the needData with the submitted review
+    const submittedReview = {
+      rating: reviewForm.rating,
+      feedback: reviewForm.feedback,
+      wouldRecommend: reviewForm.wouldRecommend,
+      categories: reviewForm.categories,
+      submittedAt: "Just now"
+    };
+
+    setNeedData(prev => ({
+      ...prev,
+      review: submittedReview
+    }));
+
     toast({
       title: "Review submitted!",
       description: `Thank you for your feedback about ${needData.acceptedVolunteer?.name}. Your review helps build a stronger community.`
@@ -455,6 +469,7 @@ export default function NeedDetails() {
         quality: 0
       }
     });
+  };
   };
 
   const getStatusDisplay = () => {
