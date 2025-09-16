@@ -47,7 +47,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
           {/* Sidebar */}
           <div 
             className={`
-              bg-gray-900 border-r border-gray-700 transition-all duration-300 ease-in-out
+              bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out
               ${isCollapsed ? 'w-16' : 'w-64'}
             `}
           >
@@ -56,18 +56,18 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div className="flex items-center gap-3">
                 {!isCollapsed && (
                   <>
-                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-white fill-white" />
+                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
                     </div>
                     <div>
-                      <h2 className="font-semibold text-white">ChurchConnect</h2>
-                      <p className="text-sm text-gray-400">{churchName ?? "Grace Community Church"}</p>
+                      <h2 className="font-semibold text-sidebar-foreground">ChurchConnect</h2>
+                      <p className="text-sm text-sidebar-foreground/70">{churchName ?? "Grace Community Church"}</p>
                     </div>
                   </>
                 )}
                 {isCollapsed && (
-                  <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center mx-auto">
-                    <Cross className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mx-auto">
+                    <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
                   </div>
                 )}
               </div>
@@ -83,8 +83,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     className={`
                       w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                       ${isActive
-                        ? 'bg-orange-500/90 text-white' 
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                        : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                       }
                       ${isCollapsed ? 'justify-center' : ''}
                     `}
@@ -119,13 +119,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
             {/* Header with Collapse Button */}
-            <header className="h-12 flex items-center justify-between border-b border-border bg-card/80 dark:bg-card/60 backdrop-blur-sm sticky top-0 z-10 px-4">
+            <header className="h-12 flex items-center justify-between border-b border-sidebar-border bg-sidebar/80 backdrop-blur-sm sticky top-0 z-10 px-4">
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={toggleSidebar}
-                  className="hover:bg-primary/5 transition-colors duration-200"
+                  className="hover:bg-sidebar-accent transition-colors duration-200 text-sidebar-foreground"
                 >
                   {isCollapsed ? (
                     <PanelLeftOpen className="w-4 h-4" />
