@@ -191,9 +191,9 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout>
-      <div className="p-8">{/* Main Content */}
-          {/* Header */}
-          <div className="mb-8">
+      <div className="p-8">
+        {/* Header */}
+        <div className="mb-8">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-4xl font-bold text-foreground mb-2">
