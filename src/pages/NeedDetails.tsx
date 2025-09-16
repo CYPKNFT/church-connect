@@ -853,54 +853,64 @@ export default function NeedDetails() {
                       {acceptedVolunteers.map((volunteer) => (
                         <div 
                           key={volunteer.id} 
-                          className="relative p-4 border border-green-300 bg-green-100/70 rounded-lg transition-all duration-200"
+                          className="relative p-6 border border-green-300/60 bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
                         >
                           <div className="flex items-start justify-between">
-                            <div className="flex items-start gap-3">
-                              <Avatar className="h-12 w-12">
-                                <AvatarImage src={volunteer.avatar} />
-                                <AvatarFallback className="bg-primary/10">
-                                  {volunteer.name.split(' ').map(n => n[0]).join('')}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div className="space-y-2 flex-1">
-                                <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="font-medium text-foreground">{volunteer.name}</span>
+                            <div className="flex items-start gap-4">
+                              <div className="relative">
+                                <Avatar className="h-14 w-14 ring-2 ring-green-200/50">
+                                  <AvatarImage src={volunteer.avatar} />
+                                  <AvatarFallback className="bg-green-100 text-green-700 font-semibold">
+                                    {volunteer.name.split(' ').map(n => n[0]).join('')}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                                  <CheckCircle className="w-3 h-3 text-white" />
+                                </div>
+                              </div>
+                              <div className="space-y-3 flex-1">
+                                <div className="flex items-center gap-3 flex-wrap">
+                                  <span className="font-semibold text-lg text-foreground">{volunteer.name}</span>
                                   {volunteer.isVerified && (
-                                    <div className="flex items-center gap-1 text-xs text-blue-600">
+                                    <div className="flex items-center gap-1 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
                                       <CheckCircle className="w-3 h-3" />
                                       Verified
                                     </div>
                                   )}
-                                  <Badge variant="default" className="capitalize">
-                                    {volunteer.status}
+                                  <Badge className="bg-green-500 hover:bg-green-600 text-white border-0 font-medium px-3 py-1">
+                                    ✓ Accepted
                                   </Badge>
                                 </div>
-                                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                  <div className="flex items-center gap-1">
+                                <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                                  <div className="flex items-center gap-1.5">
                                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                                    <span>{volunteer.rating}</span>
+                                    <span className="font-medium">{volunteer.rating}</span>
                                   </div>
-                                  <span>•</span>
-                                  <span>{volunteer.helpedCount} people helped</span>
-                                  <span>•</span>
-                                  <span>Applied {volunteer.appliedAt}</span>
+                                  <div className="flex items-center gap-1.5">
+                                    <User className="w-4 h-4" />
+                                    <span>{volunteer.helpedCount} people helped</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    <Clock className="w-4 h-4" />
+                                    <span>Applied {volunteer.appliedAt}</span>
+                                  </div>
                                 </div>
                                 {volunteer.message && (
-                                  <div className="text-sm bg-green-100/80 border border-green-200 p-3 rounded-md max-w-md">
-                                    "{volunteer.message}"
+                                  <div className="text-sm bg-white/60 border border-green-200/60 p-4 rounded-lg max-w-md shadow-sm">
+                                    <div className="text-xs text-green-600 font-medium mb-1">Message from volunteer:</div>
+                                    <div className="text-gray-700 italic">"{volunteer.message}"</div>
                                   </div>
                                 )}
                               </div>
                             </div>
-                            <div className="flex items-center gap-2 ml-4">
+                            <div className="flex items-center gap-3 ml-4">
                               <Sheet>
                                 <SheetTrigger asChild>
-                                  <Button variant="outline" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-500">
-                                    <MessageSquare className="w-4 h-4 mr-1" />
-                                    Message
-                                  </Button>
-                                </SheetTrigger>
+                                  <Button className="bg-amber-500 hover:bg-amber-600 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+                                     <MessageSquare className="w-4 h-4 mr-2" />
+                                     Message
+                                   </Button>
+                                 </SheetTrigger>
                                 <SheetContent className="flex flex-col h-full">
                                   <SheetHeader>
                                     <SheetTitle>Messages with {volunteer.name}</SheetTitle>
@@ -941,8 +951,8 @@ export default function NeedDetails() {
                                   </div>
                                 </SheetContent>
                               </Sheet>
-                              <Button variant="ghost" size="sm">
-                                <User className="w-4 h-4 mr-1" />
+                              <Button variant="ghost" className="text-gray-600 hover:text-gray-800 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all duration-200">
+                                <User className="w-4 h-4 mr-2" />
                                 Profile
                               </Button>
                             </div>
