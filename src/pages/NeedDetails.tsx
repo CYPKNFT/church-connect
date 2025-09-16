@@ -470,7 +470,6 @@ export default function NeedDetails() {
       }
     });
   };
-  };
 
   const getStatusDisplay = () => {
     switch (needData.status) {
