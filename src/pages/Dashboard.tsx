@@ -6,7 +6,6 @@ import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMembership } from "@/hooks/useMembership";
-import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function Dashboard() {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -190,10 +189,39 @@ export default function Dashboard() {
   ];
 
   return (
-    <DashboardLayout>
-      <div className="p-8">
-        {/* Header */}
-        <div className="mb-8">
+    <div className="min-h-screen bg-background">
+      <div className="flex">
+        {/* Clean Left Sidebar */}
+        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
+          <div className="p-6 border-b border-border">
+            <div className="text-center">
+              <h2 className="font-bold text-foreground">{churchName ?? "My Church"}</h2>
+              <p className="text-xs text-muted-foreground">Member Dashboard</p>
+            </div>
+          </div>
+          
+          <nav className="p-4 space-y-2">
+            {sidebarItems.map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-primary/5 ${
+                  item.active 
+                    ? 'bg-primary/10 text-primary border border-primary/20' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 p-8">
+          {/* Header */}
+          <div className="mb-8">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-4xl font-bold text-foreground mb-2">
@@ -574,6 +602,5 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
-    </DashboardLayout>
   );
 }

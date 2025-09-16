@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { NeedCard } from "@/components/NeedCard";
 import { Search, Filter, Heart } from "lucide-react";
-import { DashboardLayout } from "@/components/DashboardLayout";
 
 // Enhanced mock data with more realistic and compelling needs
 const mockNeeds = [
@@ -112,158 +111,156 @@ export default function BrowseNeeds() {
   };
 
   return (
-    <DashboardLayout>
-      <div className="min-h-screen bg-subtle-gradient">
-        {/* Hero Section */}
-        <section className="bg-warm-gradient py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/70"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-8 animate-fade-in">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 font-medium mb-8">
-                <Heart className="w-5 h-5" />
-                <span>Make a Difference</span>
+    <div className="min-h-screen bg-subtle-gradient">
+      {/* Hero Section */}
+      <section className="bg-warm-gradient py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/70"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-6 py-3 text-white/90 font-medium mb-8">
+              <Heart className="w-5 h-5" />
+              <span>Make a Difference</span>
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+              Community Needs
+            </h1>
+            <p className="text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+              Every act of service, no matter how small, creates ripples of God's love throughout our community
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 py-16">
+
+        {/* Search and Filter Section */}
+        <div className="bg-white rounded-3xl p-12 mb-16 shadow-card animate-slide-up -mt-12 relative z-20">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Find Your Perfect Service Opportunity</h2>
+            <p className="text-xl text-muted-foreground">Use filters to find needs that match your availability and skills</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="md:col-span-2">
+              <Label htmlFor="search" className="text-lg font-semibold mb-3 block">Search Needs</Label>
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                <Input
+                  id="search"
+                  placeholder="Search by keywords, location, or type of help..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 h-12 text-lg bg-muted/50 border-2 focus:border-accent"
+                />
               </div>
-              <h1 className="text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-                Community Needs
-              </h1>
-              <p className="text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-                Every act of service, no matter how small, creates ripples of God's love throughout our community
+            </div>
+            
+            <div>
+              <Label className="text-lg font-semibold mb-3 block">Category</Label>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="h-12 text-lg bg-muted/50 border-2">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map(category => (
+                    <SelectItem key={category} value={category} className="text-lg">
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label className="text-lg font-semibold mb-3 block">Urgency</Label>
+              <Select value={selectedUrgency} onValueChange={setSelectedUrgency}>
+                <SelectTrigger className="h-12 text-lg bg-muted/50 border-2">
+                  <SelectValue placeholder="All Urgency" />
+                </SelectTrigger>
+                <SelectContent>
+                  {urgencyLevels.map(urgency => (
+                    <SelectItem key={urgency} value={urgency} className="text-lg">
+                      {urgency}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <Button onClick={handleSearch} size="lg" className="mt-8 w-full md:w-auto bg-accent hover:bg-accent-hover">
+            <Filter className="w-5 h-5 mr-2" />
+            Apply Filters
+          </Button>
+        </div>
+
+        {/* Results Section */}
+        <section className="mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-foreground mb-2">Available Opportunities</h2>
+              <p className="text-lg text-muted-foreground">
+                Found {filteredNeeds.length} way{filteredNeeds.length !== 1 ? 's' : ''} to serve your community
               </p>
             </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredNeeds.map(need => (
+              <NeedCard
+                key={need.id}
+                {...need}
+                onVolunteer={handleVolunteer}
+              />
+            ))}
           </div>
         </section>
 
-        <div className="container mx-auto px-4 py-16">
-
-          {/* Search and Filter Section */}
-          <div className="bg-white rounded-3xl p-12 mb-16 shadow-card animate-slide-up -mt-12 relative z-20">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Find Your Perfect Service Opportunity</h2>
-              <p className="text-xl text-muted-foreground">Use filters to find needs that match your availability and skills</p>
+        {filteredNeeds.length === 0 && (
+          <div className="text-center py-20 bg-white rounded-3xl shadow-card">
+            <div className="w-24 h-24 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-8">
+              <Search className="w-12 h-12 text-muted-foreground" />
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="md:col-span-2">
-                <Label htmlFor="search" className="text-lg font-semibold mb-3 block">Search Needs</Label>
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                  <Input
-                    id="search"
-                    placeholder="Search by keywords, location, or type of help..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 h-12 text-lg bg-muted/50 border-2 focus:border-accent"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <Label className="text-lg font-semibold mb-3 block">Category</Label>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="h-12 text-lg bg-muted/50 border-2">
-                    <SelectValue placeholder="All Categories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map(category => (
-                      <SelectItem key={category} value={category} className="text-lg">
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label className="text-lg font-semibold mb-3 block">Urgency</Label>
-                <Select value={selectedUrgency} onValueChange={setSelectedUrgency}>
-                  <SelectTrigger className="h-12 text-lg bg-muted/50 border-2">
-                    <SelectValue placeholder="All Urgency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {urgencyLevels.map(urgency => (
-                      <SelectItem key={urgency} value={urgency} className="text-lg">
-                        {urgency}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            
-            <Button onClick={handleSearch} size="lg" className="mt-8 w-full md:w-auto bg-accent hover:bg-accent-hover">
+            <h3 className="text-3xl font-bold text-foreground mb-6">
+              No opportunities match your search
+            </h3>
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+              Try adjusting your search criteria or clearing the filters to discover more ways to serve your community.
+            </p>
+            <Button size="lg" className="bg-accent hover:bg-accent-hover" onClick={() => {
+              setSearchQuery("");
+              setSelectedCategory("All");
+              setSelectedUrgency("All");
+              setFilteredNeeds(mockNeeds);
+            }}>
               <Filter className="w-5 h-5 mr-2" />
-              Apply Filters
+              Clear All Filters
             </Button>
           </div>
+        )}
 
-          {/* Results Section */}
-          <section className="mb-16">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-2">Available Opportunities</h2>
-                <p className="text-lg text-muted-foreground">
-                  Found {filteredNeeds.length} way{filteredNeeds.length !== 1 ? 's' : ''} to serve your community
-                </p>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredNeeds.map(need => (
-                <NeedCard
-                  key={need.id}
-                  {...need}
-                  onVolunteer={handleVolunteer}
-                />
-              ))}
-            </div>
-          </section>
-
-          {filteredNeeds.length === 0 && (
-            <div className="text-center py-20 bg-white rounded-3xl shadow-card">
-              <div className="w-24 h-24 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-8">
-                <Search className="w-12 h-12 text-muted-foreground" />
-              </div>
-              <h3 className="text-3xl font-bold text-foreground mb-6">
-                No opportunities match your search
-              </h3>
-              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-                Try adjusting your search criteria or clearing the filters to discover more ways to serve your community.
-              </p>
-              <Button size="lg" className="bg-accent hover:bg-accent-hover" onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("All");
-                setSelectedUrgency("All");
-                setFilteredNeeds(mockNeeds);
-              }}>
-                <Filter className="w-5 h-5 mr-2" />
-                Clear All Filters
+        {/* Call to Action Section */}
+        {filteredNeeds.length > 0 && (
+          <section className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl p-12 lg:p-16 text-center">
+            <Heart className="w-16 h-16 text-accent mx-auto mb-6" />
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              Ready to Make a Difference?
+            </h2>
+            <p className="text-xl lg:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto">
+              Every volunteer makes a lasting impact. Your willingness to serve changes lives and strengthens our entire community.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-accent hover:bg-accent-hover text-lg px-8 py-6">
+                View More Opportunities
+              </Button>
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-2">
+                Learn About Volunteering
               </Button>
             </div>
-          )}
-
-          {/* Call to Action Section */}
-          {filteredNeeds.length > 0 && (
-            <section className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl p-12 lg:p-16 text-center">
-              <Heart className="w-16 h-16 text-accent mx-auto mb-6" />
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                Ready to Make a Difference?
-              </h2>
-              <p className="text-xl lg:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto">
-                Every volunteer makes a lasting impact. Your willingness to serve changes lives and strengthens our entire community.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-accent hover:bg-accent-hover text-lg px-8 py-6">
-                  View More Opportunities
-                </Button>
-                <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-2">
-                  Learn About Volunteering
-                </Button>
-              </div>
-            </section>
-          )}
-        </div>
+          </section>
+        )}
       </div>
-    </DashboardLayout>
+    </div>
   );
 }
