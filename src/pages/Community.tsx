@@ -92,84 +92,6 @@ export default function Community() {
       church: "Grace Community",
       responses: 4,
       featured: false
-    },
-    {
-      id: 7,
-      title: "Computer Repair for Student",
-      description: "High school senior's laptop crashed right before college applications are due. Need tech support to recover files and get system working.",
-      category: "Technology",
-      location: "North Side",
-      urgency: "Immediate",
-      timePosted: "1 hour ago",
-      icon: Wrench,
-      church: "New Hope Chapel",
-      responses: 0,
-      featured: true
-    },
-    {
-      id: 8,
-      title: "Moving Assistance for Elderly",
-      description: "Brother Thomas needs help moving to assisted living. Looking for strong hands to pack and transport belongings with care and dignity.",
-      category: "Moving",
-      location: "Central District",
-      urgency: "This Week",
-      timePosted: "5 hours ago",
-      icon: Users,
-      church: "Valley Church",
-      responses: 2,
-      featured: false
-    },
-    {
-      id: 9,
-      title: "Food Drive Collection",
-      description: "Organizing monthly food drive for local shelter. Need volunteers to collect, sort, and deliver non-perishable items to families in need.",
-      category: "Food Drive",
-      location: "Community Center",
-      urgency: "Flexible",
-      timePosted: "1 day ago",
-      icon: ShoppingCart,
-      church: "Trinity Baptist",
-      responses: 6,
-      featured: true
-    },
-    {
-      id: 10,
-      title: "Pet Care During Hospitalization",
-      description: "Sister Mary's beloved dog needs temporary care while she recovers from surgery. Looking for dog-loving volunteer for 2-3 weeks.",
-      category: "Pet Care",
-      location: "East Side",
-      urgency: "This Week",
-      timePosted: "8 hours ago",
-      icon: Heart,
-      church: "St. Matthews",
-      responses: 3,
-      featured: false
-    },
-    {
-      id: 11,
-      title: "Tutoring for Struggling Student",
-      description: "Young mother needs math tutoring help for her 8th-grade son who's falling behind. Looking for patient volunteer with teaching experience.",
-      category: "Education",
-      location: "School District",
-      urgency: "Flexible",
-      timePosted: "2 days ago",
-      icon: Star,
-      church: "Faith Community",
-      responses: 1,
-      featured: false
-    },
-    {
-      id: 12,
-      title: "Emergency Heating Repair",
-      description: "Family's heating system failed during cold snap. Need skilled HVAC volunteer or funding assistance to restore warmth to home with young children.",
-      category: "Emergency Repair",
-      location: "Riverside",
-      urgency: "Immediate",
-      timePosted: "30 minutes ago",
-      icon: Wrench,
-      church: "Riverside Fellowship",
-      responses: 0,
-      featured: true
     }
   ];
 
@@ -195,116 +117,6 @@ export default function Community() {
       impact: "8 families helped",
       timeframe: "This quarter",
       category: "Active Volunteer"
-    },
-    {
-      id: 3,
-      content: "As a single mom, asking for help was terrifying. ChurchConnect made it comfortable and dignified. I discovered how much our community truly cares about each other.",
-      author: "Jennifer Williams",
-      church: "Community Fellowship",
-      rating: 5,
-      avatar: "JW",
-      impact: "3 major needs met",
-      timeframe: "2 months ago",
-      category: "Life Change"
-    },
-    {
-      id: 4,
-      content: "The response time is phenomenal. Within 2 hours of posting an emergency repair need, three volunteers had responded. Our community's heart is truly beautiful.",
-      author: "Pastor David Chen",
-      church: "Riverside Church",
-      rating: 5,
-      avatar: "DC",
-      impact: "15 urgent requests",
-      timeframe: "This month",
-      category: "Emergency Response"
-    },
-    {
-      id: 5,
-      content: "ChurchConnect helped us coordinate disaster relief for 50+ families after the tornado. The platform's organization tools were a lifesaver during chaos.",
-      author: "Linda Thompson",
-      church: "Hillside Baptist",
-      rating: 5,
-      avatar: "LT",
-      impact: "50+ families served",
-      timeframe: "6 months ago",
-      category: "Disaster Relief"
-    },
-    {
-      id: 6,
-      content: "Volunteering through ChurchConnect led me to my calling in elderly care. I've now started a ministry specifically for our senior members.",
-      author: "Mark Davis",
-      church: "Unity Methodist",
-      rating: 5,
-      avatar: "MD",
-      impact: "New ministry launched",
-      timeframe: "1 year ago",
-      category: "Ministry Birth"
-    },
-    {
-      id: 7,
-      content: "The platform helped me find my life partner! We met while volunteering at a community kitchen and have been serving together ever since our wedding.",
-      author: "Rachel and James Carter",
-      church: "Crossroads Church",
-      rating: 5,
-      avatar: "RC",
-      impact: "Marriage & ministry",
-      timeframe: "8 months ago",
-      category: "Life Change"
-    },
-    {
-      id: 8,
-      content: "After losing my job, the community rallied around my family. From groceries to job leads, ChurchConnect showed me what true fellowship looks like.",
-      author: "Kevin Washington",
-      church: "Hope Baptist",
-      rating: 5,
-      avatar: "KW",
-      impact: "Complete life restoration",
-      timeframe: "4 months ago",
-      category: "Critical Support"
-    },
-    {
-      id: 9,
-      content: "Our youth group organized 20 service projects this year through the platform. These kids are learning what it means to be the hands and feet of Jesus.",
-      author: "Pastor Emily Rodriguez",
-      church: "New Generation Church",
-      rating: 5,
-      avatar: "ER",
-      impact: "20 youth projects",
-      timeframe: "This year",
-      category: "Active Volunteer"
-    },
-    {
-      id: 10,
-      content: "When my house flooded, strangers became family. ChurchConnect connected me with 30+ volunteers who restored my home and my faith in humanity.",
-      author: "Gloria Martinez",
-      church: "Community Bible",
-      rating: 5,
-      avatar: "GM",
-      impact: "Home completely restored",
-      timeframe: "6 months ago",
-      category: "Disaster Relief"
-    },
-    {
-      id: 11,
-      content: "The medical transportation ministry that started here now serves 5 hospitals. One platform connection grew into a life-saving network.",
-      author: "Dr. Robert Kim",
-      church: "Medical Missions",
-      rating: 5,
-      avatar: "RK",
-      impact: "Multi-hospital network",
-      timeframe: "2 years ago",
-      category: "Ministry Birth"
-    },
-    {
-      id: 12,
-      content: "Being a single dad was overwhelming until ChurchConnect connected me with other fathers. We now have a thriving support group for single parents.",
-      author: "Marcus Johnson",
-      church: "Family First Church",
-      rating: 5,
-      avatar: "MJ",
-      impact: "Support group launched",
-      timeframe: "1 year ago",
-      category: "Life Change"
     }
   ];
 
@@ -321,149 +133,6 @@ export default function Community() {
       category: "Service",
       featured: true,
       coordinator: "Pastor Alliance"
-    },
-    {
-      id: 2,
-      title: "Volunteer Skills Workshop",
-      description: "Learn advanced techniques for effective service, safety protocols, and building meaningful connections with those we serve.",
-      date: "March 30, 2024",
-      time: "10:00 AM - 2:00 PM",
-      location: "Grace Community Center",
-      church: "Grace Community Church",
-      attendees: 89,
-      category: "Training",
-      featured: true,
-      coordinator: "Ministry Leaders"
-    },
-    {
-      id: 3,
-      title: "Easter Hope Project",
-      description: "Create 500 Easter blessing boxes for families experiencing hardship. Include gifts, meals, and messages of hope for the resurrection season.",
-      date: "April 1, 2024",
-      time: "1:00 PM - 6:00 PM",
-      location: "First Baptist Fellowship Hall",
-      church: "Multiple Churches",
-      attendees: 156,
-      category: "Special Event",
-      featured: false,
-      coordinator: "Community Outreach"
-    },
-    {
-      id: 4,
-      title: "Tech for Seniors Initiative",
-      description: "Help elderly community members navigate smartphones, video calls, and ChurchConnect. Bridge the digital divide with patience and love.",
-      date: "April 8, 2024",
-      time: "2:00 PM - 5:00 PM",
-      location: "Community Center",
-      church: "Tech Ministry Alliance",
-      attendees: 34,
-      category: "Technology",
-      featured: false,
-      coordinator: "Youth Tech Team"
-    },
-    {
-      id: 5,
-      title: "Neighborhood Prayer Walk",
-      description: "Join believers from across denominations as we prayer walk through our community, asking God's blessing on every home and business.",
-      date: "April 15, 2024",
-      time: "6:00 PM - 8:00 PM",
-      location: "Downtown District",
-      church: "Interfaith Council",
-      attendees: 78,
-      category: "Prayer",
-      featured: false,
-      coordinator: "Prayer Warriors"
-    },
-    {
-      id: 6,
-      title: "Spring Clean Community Drive",
-      description: "Massive community cleanup focusing on streets, parks, and public spaces. Bring work gloves and a servant's heart!",
-      date: "April 22, 2024",
-      time: "9:00 AM - 3:00 PM",
-      location: "City-Wide",
-      church: "Environmental Stewards",
-      attendees: 198,
-      category: "Environment",
-      featured: true,
-      coordinator: "Green Ministry"
-    },
-    {
-      id: 7,
-      title: "Mother's Day Appreciation Brunch",
-      description: "Honor the mothers in our community with a special appreciation brunch. Celebrate their incredible impact on our families and churches.",
-      date: "May 5, 2024",
-      time: "10:00 AM - 1:00 PM",
-      location: "Community Fellowship Hall",
-      church: "Women's Ministry Coalition",
-      attendees: 124,
-      category: "Celebration",
-      featured: true,
-      coordinator: "Women's Leadership"
-    },
-    {
-      id: 8,
-      title: "Youth Leadership Summit",
-      description: "Empower next generation leaders with workshops on faith, service, and community impact. Ages 13-18 welcome from all churches.",
-      date: "May 12, 2024",
-      time: "9:00 AM - 4:00 PM",
-      location: "Regional Conference Center",
-      church: "Youth Pastor Alliance",
-      attendees: 89,
-      category: "Youth",
-      featured: false,
-      coordinator: "Youth Pastors"
-    },
-    {
-      id: 9,
-      title: "Community Garden Planting",
-      description: "Plant and maintain a community garden that will provide fresh produce for local food pantries throughout the growing season.",
-      date: "May 18, 2024",
-      time: "8:00 AM - 12:00 PM",
-      location: "Riverside Park",
-      church: "Creation Care Ministry",
-      attendees: 67,
-      category: "Environment",
-      featured: false,
-      coordinator: "Garden Committee"
-    },
-    {
-      id: 10,
-      title: "Multi-Church Worship Night",
-      description: "Unite in worship as multiple congregations come together for an evening of praise, prayer, and community fellowship.",
-      date: "May 25, 2024",
-      time: "7:00 PM - 9:00 PM",
-      location: "Central Amphitheater",
-      church: "Worship Leaders Network",
-      attendees: 312,
-      category: "Worship",
-      featured: true,
-      coordinator: "Music Ministers"
-    },
-    {
-      id: 11,
-      title: "Senior Citizens Technology Fair",
-      description: "Help seniors learn to use tablets, smartphones, and online services. Volunteer tech support and patient one-on-one assistance.",
-      date: "June 1, 2024",
-      time: "1:00 PM - 4:00 PM",
-      location: "Senior Center",
-      church: "Tech Ministry Team",
-      attendees: 45,
-      category: "Technology",
-      featured: false,
-      coordinator: "Tech Volunteers"
-    },
-    {
-      id: 12,
-      title: "Father's Day Blessing Ceremony",
-      description: "Special ceremony to honor and bless the fathers in our community. Prayer, encouragement, and celebration of fatherhood.",
-      date: "June 16, 2024",
-      time: "11:00 AM - 1:00 PM",
-      location: "Memorial Park Pavilion",
-      church: "Men's Ministry Alliance",
-      attendees: 156,
-      category: "Celebration",
-      featured: true,
-      coordinator: "Men's Leadership"
     }
   ];
 
@@ -476,34 +145,6 @@ export default function Community() {
     const matchesCategory = selectedCategory === "All" || need.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-
-  const leftNeeds = filteredNeeds.filter((_, i) => i % 2 === 0);
-  const rightNeeds = filteredNeeds.filter((_, i) => i % 2 === 1);
-  const leftStories = successStories.filter((_, i) => i % 2 === 0);
-  const rightStories = successStories.filter((_, i) => i % 2 === 1);
-  const leftEvents = upcomingEvents.filter((_, i) => i % 2 === 0);
-  const rightEvents = upcomingEvents.filter((_, i) => i % 2 === 1);
-
-  const getUrgencyColor = (urgency: string) => {
-    switch (urgency) {
-      case "Immediate": return "destructive";
-      case "This Week": return "default";
-      case "Flexible": return "secondary";
-      default: return "default";
-    }
-  };
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "Critical Support": return Heart;
-      case "Active Volunteer": return TrendingUp;
-      case "Life Change": return Sparkles;
-      case "Emergency Response": return Award;
-      case "Disaster Relief": return Users;
-      case "Ministry Birth": return Star;
-      default: return Heart;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background pb-16">
@@ -609,7 +250,7 @@ export default function Community() {
             </TabsTrigger>
           </TabsList>
 
-          {/* Active Needs Tab - Two Column Layout */}
+          {/* Active Needs Tab */}
           <TabsContent value="needs" className="space-y-8">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-foreground mb-4">Current Community Needs</h2>
@@ -618,102 +259,104 @@ export default function Community() {
               </p>
             </div>
             
-            {/* Dashboard Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+            {/* Dashboard Stats - Small Badges */}
+            <div className="flex flex-wrap gap-2 mb-8">
               {categories.slice(1).map((category) => {
                 const categoryCount = communityNeeds.filter(need => need.category === category).length;
-                const getCategoryIcon = (cat: string) => {
-                  switch (cat) {
-                    case "Transportation": return Car;
-                    case "Groceries": return ShoppingCart;
-                    case "Home Repair": return Wrench;
-                    case "Meals": return ChefHat;
-                    case "Childcare": return Users;
-                    case "Technology": return MessageSquare;
-                    case "Moving": return Users;
-                    case "Food Drive": return ShoppingCart;
-                    case "Pet Care": return Heart;
-                    case "Education": return Star;
-                    case "Emergency Repair": return Wrench;
-                    default: return Heart;
-                  }
-                };
-                const CategoryIcon = getCategoryIcon(category);
                 
                 return (
-                  <Card key={category} className="border border-accent/20 bg-gradient-to-br from-card to-accent/5 hover:shadow-accent transition-all group cursor-pointer" onClick={() => setSelectedCategory(category)}>
-                    <CardContent className="p-4 text-center">
-                      <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:bg-accent/20 transition-colors">
-                        <CategoryIcon className="w-5 h-5 text-accent" />
-                      </div>
-                      <div className="text-2xl font-bold text-foreground mb-1">{categoryCount}</div>
-                      <div className="text-xs text-muted-foreground font-medium">{category}</div>
-                    </CardContent>
-                  </Card>
+                  <Badge 
+                    key={category} 
+                    variant="secondary" 
+                    className="px-3 py-2 text-sm font-medium cursor-pointer hover:bg-secondary/80 transition-colors"
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {categoryCount} {category}
+                  </Badge>
                 );
               })}
             </div>
 
-            <div className="max-h-[600px] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
-              <div className="grid md:grid-cols-4 lg:grid-cols-6 gap-4 pr-4">
-                {filteredNeeds.slice(0, 12).map((need) => {
-                  const IconComponent = need.icon;
-                  return (
-                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                      <CardContent className="p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                            <IconComponent className="w-5 h-5 text-accent" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between mb-2">
-                              <h3 className="text-sm font-bold text-foreground truncate">{need.title}</h3>
-                              <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs ml-2 flex-shrink-0">
-                                {need.urgency === "Immediate" ? "!" : need.urgency === "This Week" ? "⏰" : "📅"}
-                              </Badge>
-                            </div>
-                            <p className="text-muted-foreground mb-3 text-xs leading-relaxed line-clamp-2">{need.description}</p>
-                            <div className="space-y-1 text-xs text-muted-foreground mb-3">
-                              <div className="flex items-center gap-1 truncate">
-                                <MapPin className="w-3 h-3 flex-shrink-0" />
-                                <span className="truncate">{need.location}</span>
-                              </div>
-                              <div className="flex items-center gap-1 truncate">
-                                <Clock className="w-3 h-3 flex-shrink-0" />
-                                <span className="truncate">{need.timePosted}</span>
-                              </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white text-xs px-2 py-1 h-6" asChild>
-                                <Link to="/register">
-                                  <Heart className="w-3 h-3 mr-1" />
-                                  Help
-                                </Link>
-                              </Button>
-                              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-6">
-                                Details
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-              {filteredNeeds.length > 12 && (
-                <div className="text-center mt-6">
-                  <Button variant="outline" className="mx-auto" asChild>
-                    <Link to="/browse">
-                      View All {filteredNeeds.length} Needs
-                    </Link>
-                  </Button>
-                </div>
-              )}
+            {/* Needs Grid - 2 rows x 3 columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {filteredNeeds.slice(0, 6).map((need) => (
+                <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-1">
+                        <Badge variant="outline" className="text-xs">
+                          {need.category}
+                        </Badge>
+                        <Badge 
+                          className={
+                            need.urgency === "Immediate" 
+                              ? "bg-destructive text-destructive-foreground" 
+                              : need.urgency === "This Week"
+                              ? "bg-accent text-accent-foreground"
+                              : "bg-secondary text-secondary-foreground"
+                          }
+                        >
+                          {need.urgency}
+                        </Badge>
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {need.timePosted}
+                      </div>
+                    </div>
+                    <CardTitle className="text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+                      {need.title}
+                    </CardTitle>
+                  </CardHeader>
+                  
+                  <CardContent className="space-y-3">
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                      {need.description}
+                    </p>
+                    
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        <span>{need.location}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        <span>2-3 hours estimated</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4" />
+                        <span>{need.church}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                  
+                  <div className="p-6 pt-0 space-y-3">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">{need.responses} responses</span>
+                      {need.featured && <Badge variant="secondary" className="text-xs">Featured</Badge>}
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        View Details
+                      </Button>
+                      <Button variant="default" size="sm" className="flex-1">
+                        I Can Help
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
             </div>
+            
+            {filteredNeeds.length > 6 && (
+              <div className="text-center pt-6">
+                <Button variant="outline" size="lg">
+                  View All Community Needs ({filteredNeeds.length})
+                </Button>
+              </div>
+            )}
           </TabsContent>
 
-          {/* Success Stories Tab - Two Column Layout */}
+          {/* Success Stories Tab */}
           <TabsContent value="stories" className="space-y-8">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
@@ -722,114 +365,68 @@ export default function Community() {
               </p>
             </div>
             
-            <div className="h-[70vh] md:h-[75vh] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
-              <div className="grid md:grid-cols-3 gap-6 pr-4">
-                {successStories.map((story) => (
-                  <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        {[...Array(story.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                        ))}
+            <div className="grid md:grid-cols-2 gap-6">
+              {successStories.map((story) => (
+                <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      {[...Array(story.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                      ))}
+                    </div>
+                    <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
+                      "{story.content}"
+                    </blockquote>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                        <span className="text-xs font-bold text-accent">{story.avatar}</span>
                       </div>
-                      <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
-                        "{story.content}"
-                      </blockquote>
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
-                          <span className="text-accent font-bold text-xs">{story.avatar}</span>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-foreground text-sm">{story.author}</p>
-                          <p className="text-xs text-muted-foreground">{story.church}</p>
-                        </div>
+                      <div>
+                        <div className="font-semibold text-sm text-foreground">{story.author}</div>
+                        <div className="text-xs text-muted-foreground">{story.church}</div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
-          {/* Events Tab - Two Column Layout */}
+          {/* Events Tab */}
           <TabsContent value="events" className="space-y-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">Upcoming Community Events</h2>
+              <h2 className="text-4xl font-bold text-foreground mb-4">Upcoming Events</h2>
               <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-                Join your church community in service, fellowship, and making a lasting impact together.
+                Join upcoming opportunities to serve and connect with your community.
               </p>
             </div>
             
-            <div className="max-h-[800px] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
-              <div className="grid md:grid-cols-3 gap-6 pr-4">
-                {upcomingEvents.map((event) => (
-                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <Badge variant="secondary" className="mb-3">{event.category}</Badge>
-                          <CardTitle className="text-xl font-bold mb-2">{event.title}</CardTitle>
-                        </div>
-                        <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                          <Calendar className="w-6 h-6 text-accent" />
-                        </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {upcomingEvents.map((event) => (
+                <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
+                  <CardContent className="p-6">
+                    <h3 className="font-bold text-lg text-foreground mb-2">{event.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        <span>{event.date} at {event.time}</span>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{event.description}</p>
-                      <div className="space-y-2 text-xs text-muted-foreground mb-4">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-3 h-3" />
-                          {event.date} at {event.time}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-3 h-3" />
-                          {event.location}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Users className="w-3 h-3" />
-                          {event.attendees} attending • {event.church}
-                        </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        <span>{event.location}</span>
                       </div>
-                      <Button size="sm" className="w-full bg-primary hover:bg-primary-hover text-white" asChild>
-                        <Link to="/register">
-                          Join Event
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4" />
+                        <span>{event.attendees} attending</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
         </Tabs>
-
-        {/* Enhanced Call to Action */}
-        <div className="bg-gradient-to-br from-accent/15 via-primary/10 to-accent/15 rounded-3xl p-16 text-center mt-12 mb-0 border border-accent/20 backdrop-blur-sm">
-          <div className="w-24 h-24 bg-gradient-to-br from-accent to-primary rounded-3xl flex items-center justify-center mx-auto mb-8">
-            <Heart className="w-12 h-12 text-white" />
-          </div>
-          <h2 className="text-5xl lg:text-6xl font-bold text-foreground mb-8">
-            Ready to <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">Transform</span> Lives?
-          </h2>
-          <p className="text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
-            Join thousands of churches and millions of volunteers creating lasting impact through the power of connected community service.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-accent to-primary hover:from-accent-hover hover:to-primary-hover text-white text-xl px-12 py-8 rounded-2xl shadow-2xl" asChild>
-              <Link to="/register">
-                <UserPlus className="w-6 h-6 mr-3" />
-                Start Making a Difference
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="border-2 border-accent/30 hover:bg-accent/5 text-xl px-12 py-8 rounded-2xl" asChild>
-              <Link to="/churches">
-                <Search className="w-6 h-6 mr-3" />
-                Find Churches Near You
-              </Link>
-            </Button>
-          </div>
-        </div>
       </div>
     </div>
   );
