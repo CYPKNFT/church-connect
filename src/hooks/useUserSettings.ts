@@ -27,13 +27,16 @@ export function useUserSettings() {
       (async () => {
         try {
           const updatedSettings = { ...settings, ...pending };
-          await supabase
-            .from('user_settings')
-            .upsert({
-              member_id: memberId,
-              ...updatedSettings,
-              updated_at: new Date().toISOString(),
-            });
+           await supabase
+             .from('user_settings')
+             .upsert(
+               {
+                 member_id: memberId,
+                 ...updatedSettings,
+                 updated_at: new Date().toISOString(),
+               },
+               { onConflict: 'member_id', ignoreDuplicates: false }
+             );
           setPending(null);
           console.log('Synced pending user settings to database');
         } catch (e) {
@@ -112,11 +115,14 @@ export function useUserSettings() {
     try {
       const { error } = await (supabase as any)
         .from('user_settings')
-        .upsert({
-          member_id: memberId,
-          ...updatedSettings,
-          updated_at: new Date().toISOString(),
-        });
+        .upsert(
+          {
+            member_id: memberId,
+            ...updatedSettings,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'member_id', ignoreDuplicates: false }
+        );
 
       if (error) throw error;
 
