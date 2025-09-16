@@ -179,6 +179,48 @@ export default function Landing() {
                 </p>
               </CardContent>
             </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                  <MessageSquare className="w-8 h-8 text-accent" />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground">Technology Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Help with computer repairs, tech setup, and digital literacy for seniors and families.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                  <Users className="w-8 h-8 text-accent" />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground">Moving & Logistics</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Assist with moving, heavy lifting, and organizational support for life transitions.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
+                  <BookOpen className="w-8 h-8 text-accent" />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground">Education & Tutoring</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Provide academic support, tutoring, and educational resources for students of all ages.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

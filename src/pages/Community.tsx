@@ -618,48 +618,80 @@ export default function Community() {
               </p>
             </div>
             
-            <div className="max-h-[800px] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
-              <div className="grid md:grid-cols-3 gap-6 pr-4">
-                {filteredNeeds.map((need) => {
+            {/* Dashboard Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+              {categories.slice(1).map((category) => {
+                const categoryCount = communityNeeds.filter(need => need.category === category).length;
+                const getCategoryIcon = (cat: string) => {
+                  switch (cat) {
+                    case "Transportation": return Car;
+                    case "Groceries": return ShoppingCart;
+                    case "Home Repair": return Wrench;
+                    case "Meals": return ChefHat;
+                    case "Childcare": return Users;
+                    case "Technology": return MessageSquare;
+                    case "Moving": return Users;
+                    case "Food Drive": return ShoppingCart;
+                    case "Pet Care": return Heart;
+                    case "Education": return Star;
+                    case "Emergency Repair": return Wrench;
+                    default: return Heart;
+                  }
+                };
+                const CategoryIcon = getCategoryIcon(category);
+                
+                return (
+                  <Card key={category} className="border border-accent/20 bg-gradient-to-br from-card to-accent/5 hover:shadow-accent transition-all group cursor-pointer" onClick={() => setSelectedCategory(category)}>
+                    <CardContent className="p-4 text-center">
+                      <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:bg-accent/20 transition-colors">
+                        <CategoryIcon className="w-5 h-5 text-accent" />
+                      </div>
+                      <div className="text-2xl font-bold text-foreground mb-1">{categoryCount}</div>
+                      <div className="text-xs text-muted-foreground font-medium">{category}</div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            <div className="max-h-[600px] overflow-y-auto overflow-x-hidden rounded-2xl scrollbar-smooth">
+              <div className="grid md:grid-cols-4 lg:grid-cols-6 gap-4 pr-4">
+                {filteredNeeds.slice(0, 12).map((need) => {
                   const IconComponent = need.icon;
                   return (
                     <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                            <IconComponent className="w-6 h-6 text-accent" />
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-5 h-5 text-accent" />
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-3">
-                              <h3 className="text-lg font-bold text-foreground">{need.title}</h3>
-                              <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs">
-                                {need.urgency}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between mb-2">
+                              <h3 className="text-sm font-bold text-foreground truncate">{need.title}</h3>
+                              <Badge variant={getUrgencyColor(need.urgency) as any} className="text-xs ml-2 flex-shrink-0">
+                                {need.urgency === "Immediate" ? "!" : need.urgency === "This Week" ? "⏰" : "📅"}
                               </Badge>
                             </div>
-                            <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{need.description}</p>
-                            <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                              <div className="flex items-center gap-1">
-                                <MapPin className="w-3 h-3" />
-                                {need.location}
+                            <p className="text-muted-foreground mb-3 text-xs leading-relaxed line-clamp-2">{need.description}</p>
+                            <div className="space-y-1 text-xs text-muted-foreground mb-3">
+                              <div className="flex items-center gap-1 truncate">
+                                <MapPin className="w-3 h-3 flex-shrink-0" />
+                                <span className="truncate">{need.location}</span>
                               </div>
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                {need.timePosted}
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Users className="w-3 h-3" />
-                                {need.church}
+                              <div className="flex items-center gap-1 truncate">
+                                <Clock className="w-3 h-3 flex-shrink-0" />
+                                <span className="truncate">{need.timePosted}</span>
                               </div>
                             </div>
-                            <div className="flex gap-3">
-                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white" asChild>
+                            <div className="flex gap-2">
+                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white text-xs px-2 py-1 h-6" asChild>
                                 <Link to="/register">
-                                  <Heart className="w-4 h-4 mr-2" />
-                                  Join to Help
+                                  <Heart className="w-3 h-3 mr-1" />
+                                  Help
                                 </Link>
                               </Button>
-                              <Button variant="outline" size="sm">
-                                Learn More
+                              <Button variant="outline" size="sm" className="text-xs px-2 py-1 h-6">
+                                Details
                               </Button>
                             </div>
                           </div>
@@ -669,6 +701,15 @@ export default function Community() {
                   );
                 })}
               </div>
+              {filteredNeeds.length > 12 && (
+                <div className="text-center mt-6">
+                  <Button variant="outline" className="mx-auto" asChild>
+                    <Link to="/browse">
+                      View All {filteredNeeds.length} Needs
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </TabsContent>
 
