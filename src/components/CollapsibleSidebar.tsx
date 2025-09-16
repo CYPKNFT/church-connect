@@ -43,53 +43,54 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background">
-        <div className="flex min-h-screen w-full">
+        <div className="flex min-h-screen w-full relative">
           {/* Sidebar */}
           <div 
             className={`
-              bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out
+              bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out relative
               ${isCollapsed ? 'w-16' : 'w-64'}
             `}
           >
             {/* Header */}
-            <div className="p-4 relative">
+            <div className="p-4">
               <div className="flex items-center gap-3">
                 {!isCollapsed && (
                   <>
                     <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
                       <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
                     </div>
-                    <div className="flex-1">
+                    <div>
                       <h2 className="font-semibold text-sidebar-foreground">ChurchConnect</h2>
                       <p className="text-sm text-sidebar-foreground/70">{churchName ?? "Grace Community Church"}</p>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={toggleSidebar}
-                      className="hover:bg-sidebar-accent transition-colors duration-200 text-sidebar-foreground p-2 h-8 w-8"
-                    >
-                      <PanelLeftClose className="w-4 h-4" />
-                    </Button>
                   </>
                 )}
                 {isCollapsed && (
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={toggleSidebar}
-                      className="hover:bg-sidebar-accent transition-colors duration-200 text-sidebar-foreground p-2 h-8 w-8"
-                    >
-                      <PanelLeftOpen className="w-4 h-4" />
-                    </Button>
+                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mx-auto">
+                    <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
                   </div>
                 )}
               </div>
             </div>
+
+            {/* Floating Collapse Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleSidebar}
+              className={`
+                absolute top-4 z-20 p-2 h-8 w-8 
+                hover:bg-sidebar-accent transition-all duration-200 text-sidebar-foreground
+                bg-sidebar border border-sidebar-border rounded-md shadow-sm
+                ${isCollapsed ? 'left-[72px]' : 'left-[272px]'}
+              `}
+            >
+              {isCollapsed ? (
+                <PanelLeftOpen className="w-4 h-4" />
+              ) : (
+                <PanelLeftClose className="w-4 h-4" />
+              )}
+            </Button>
 
             {/* Navigation */}
             <div className="px-4 space-y-1">
