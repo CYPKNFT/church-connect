@@ -853,7 +853,7 @@ export default function NeedDetails() {
                       {acceptedVolunteers.map((volunteer) => (
                         <div 
                           key={volunteer.id} 
-                          className="relative p-4 border border-green-200 bg-green-50/50 rounded-lg transition-all duration-200"
+                          className="relative p-4 border border-green-200/60 bg-green-50/30 rounded-lg transition-all duration-200"
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex items-start gap-3">
@@ -887,7 +887,7 @@ export default function NeedDetails() {
                                   <span>Applied {volunteer.appliedAt}</span>
                                 </div>
                                 {volunteer.message && (
-                                  <div className="text-sm bg-muted p-3 rounded-md max-w-md">
+                                  <div className="text-sm bg-green-50/60 border border-green-100 p-3 rounded-md max-w-md">
                                     "{volunteer.message}"
                                   </div>
                                 )}
