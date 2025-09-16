@@ -449,12 +449,12 @@ export default function NeedDetails() {
                   Message {needData.acceptedVolunteer?.name?.split(' ')[0]}
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent className="flex flex-col h-full">
                 <SheetHeader>
-                  <SheetTitle>Messages</SheetTitle>
+                  <SheetTitle>Messages with {needData.acceptedVolunteer?.name}</SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col h-full pt-4">
-                  <ScrollArea className="flex-1 pr-4">
+                <div className="flex flex-col flex-1 pt-4">
+                  <ScrollArea className="flex-1 pr-4 mb-4">
                     <div className="space-y-4">
                       {messages.map((message) => (
                         <div key={message.id} className={`flex ${message.isRequester ? 'justify-end' : 'justify-start'}`}>
@@ -467,7 +467,7 @@ export default function NeedDetails() {
                       ))}
                     </div>
                   </ScrollArea>
-                  <div className="flex gap-2 pt-4 border-t">
+                  <div className="flex gap-2 pt-4 border-t mt-auto">
                     <Input
                       placeholder="Type your message..."
                       value={newMessage}
@@ -789,10 +789,53 @@ export default function NeedDetails() {
                           </Button>
                         </>
                       )}
-                      <Button variant="ghost" size="sm">
-                        <MessageSquare className="w-4 h-4 mr-1" />
-                        Message
-                      </Button>
+                      <Sheet>
+                        <SheetTrigger asChild>
+                          <Button variant="outline" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-500">
+                            <MessageSquare className="w-4 h-4 mr-1" />
+                            Message
+                          </Button>
+                        </SheetTrigger>
+                        <SheetContent className="flex flex-col h-full">
+                          <SheetHeader>
+                            <SheetTitle>Messages with {volunteer.name}</SheetTitle>
+                            <p className="text-sm text-muted-foreground">
+                              Coordinate details for your volunteer work
+                            </p>
+                          </SheetHeader>
+                          <div className="flex flex-col flex-1 pt-4">
+                            <ScrollArea className="flex-1 pr-4 mb-4">
+                              <div className="space-y-4">
+                                <div className="flex justify-start">
+                                  <div className="max-w-[80%] rounded-lg p-3 bg-muted">
+                                    <div className="text-sm font-medium mb-1">{volunteer.name}</div>
+                                    <div className="text-sm">Thank you so much for volunteering to help me! I really appreciate it.</div>
+                                    <div className="text-xs opacity-70 mt-1">2 hours ago</div>
+                                  </div>
+                                </div>
+                                <div className="flex justify-end">
+                                  <div className="max-w-[80%] rounded-lg p-3 bg-primary text-primary-foreground">
+                                    <div className="text-sm font-medium mb-1">You</div>
+                                    <div className="text-sm">Of course! Happy to help. I'll be there at 1:45 PM to give us plenty of time.</div>
+                                    <div className="text-xs opacity-70 mt-1">1 hour ago</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </ScrollArea>
+                            <div className="flex gap-2 pt-4 border-t mt-auto">
+                              <Input
+                                placeholder="Type your message..."
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                              />
+                              <Button size="sm" onClick={handleSendMessage} className="bg-amber-500 hover:bg-amber-600">
+                                <Send className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </SheetContent>
+                      </Sheet>
                       <Button variant="ghost" size="sm">
                         <User className="w-4 h-4 mr-1" />
                         Profile
