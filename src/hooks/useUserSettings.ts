@@ -21,24 +21,34 @@ export function useUserSettings() {
   });
   const [loading, setLoading] = useState(false);
   const [pending, setPending] = useState<Partial<UserSettings> | null>(null);
+  // Sync pending changes when memberId becomes available
   useEffect(() => {
     if (memberId && pending) {
       (async () => {
         try {
-          await (supabase as any)
+          const updatedSettings = { ...settings, ...pending };
+          await supabase
             .from('user_settings')
             .upsert({
               member_id: memberId,
-              ...settings,
+              ...updatedSettings,
               updated_at: new Date().toISOString(),
             });
           setPending(null);
+          console.log('Synced pending user settings to database');
         } catch (e) {
           console.error('Error syncing pending settings:', e);
         }
       })();
     }
-  }, [memberId, pending, settings]);
+  }, [memberId, pending]);
+
+  // Fetch settings when memberId is available
+  useEffect(() => {
+    if (memberId) {
+      fetchSettings();
+    }
+  }, [memberId]);
 
   const fetchSettings = async () => {
     if (!memberId) return;
