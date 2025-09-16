@@ -42,17 +42,17 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
+      <div className="min-h-screen bg-background">
         <div className="flex min-h-screen w-full">
           {/* Sidebar */}
           <div 
             className={`
-              bg-white border-r border-border/50 transition-all duration-300 ease-in-out
+              bg-card border-r border-border transition-all duration-300 ease-in-out
               ${isCollapsed ? 'w-16' : 'w-64'}
             `}
           >
             {/* Header */}
-            <div className="p-6 border-b border-border/50">
+            <div className="p-6 border-b border-border">
               <div className="text-center">
                 {!isCollapsed && (
                   <>
@@ -114,7 +114,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
             {/* Header with Collapse Button */}
-            <header className="h-12 flex items-center justify-between border-b border-border/20 bg-white/50 backdrop-blur-sm sticky top-0 z-10 px-4">
+            <header className="h-12 flex items-center justify-between border-b border-border bg-card/80 dark:bg-card/60 backdrop-blur-sm sticky top-0 z-10 px-4">
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
