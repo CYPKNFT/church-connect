@@ -353,7 +353,7 @@ export default function Volunteering() {
                 filteredVolunteering.map((volunteer) => (
                   <Card 
                     key={volunteer.id} 
-                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer group"
+                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
                     onClick={() => navigate(`/volunteering/${volunteer.id}`)}
                   >
                     <CardContent className="p-6">
@@ -418,9 +418,9 @@ export default function Volunteering() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
-                          <span className="text-sm text-muted-foreground">Click to view details</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-amber-600 transition-colors">
+                          <span>Manage</span>
+                          <ChevronRight className="w-4 h-4" />
                         </div>
                       </div>
                     </CardContent>
