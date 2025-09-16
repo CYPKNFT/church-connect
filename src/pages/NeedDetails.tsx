@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { 
@@ -39,7 +40,9 @@ import {
   Check,
   X,
   User,
-  MoreHorizontal
+  MoreHorizontal,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -238,6 +241,7 @@ export default function NeedDetails() {
   ]);
 
   const [newMessage, setNewMessage] = useState("");
+  const [showAllVolunteers, setShowAllVolunteers] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [messagesDialogOpen, setMessagesDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -810,147 +814,395 @@ export default function NeedDetails() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center justify-between">
                 Volunteer Applications
-                <span className="text-sm font-normal text-muted-foreground">
-                  {volunteers.filter(v => v.status === "pending").length} pending • {volunteers.filter(v => v.status === "accepted").length} accepted
-                </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-normal text-muted-foreground">
+                    {volunteers.filter(v => v.status === "pending").length} pending • {volunteers.filter(v => v.status === "accepted").length} accepted
+                  </span>
+                  {needData.status === "in_progress" && volunteers.filter(v => v.status !== "accepted").length > 0 && (
+                    <Collapsible open={showAllVolunteers} onOpenChange={setShowAllVolunteers}>
+                      <CollapsibleTrigger asChild>
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                          {showAllVolunteers ? (
+                            <>
+                              <ChevronUp className="w-4 h-4 mr-1" />
+                              Hide Other Applicants
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="w-4 h-4 mr-1" />
+                              Show All Applicants ({volunteers.filter(v => v.status !== "accepted").length})
+                            </>
+                          )}
+                        </Button>
+                      </CollapsibleTrigger>
+                    </Collapsible>
+                  )}
+                </div>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {volunteers.map((volunteer) => (
-                <div 
-                  key={volunteer.id} 
-                  className={`relative p-4 border rounded-lg transition-all duration-200 ${
-                    volunteer.status === "accepted" ? "border-green-200 bg-green-50/50" :
-                    volunteer.status === "declined" ? "border-red-200 bg-red-50/50 opacity-60" :
-                    "border-border hover:border-primary/50"
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
-                      <Avatar className="h-12 w-12">
-                        <AvatarImage src={volunteer.avatar} />
-                        <AvatarFallback className="bg-primary/10">
-                          {volunteer.name.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="space-y-2 flex-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-medium text-foreground">{volunteer.name}</span>
-                          {volunteer.isVerified && (
-                            <div className="flex items-center gap-1 text-xs text-blue-600">
-                              <CheckCircle className="w-3 h-3" />
-                              Verified
-                            </div>
-                          )}
-                          <Badge 
-                            variant={volunteer.status === "accepted" ? "default" : 
-                                   volunteer.status === "declined" ? "destructive" : "outline"}
-                            className="capitalize"
-                          >
-                            {volunteer.status}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                            <span>{volunteer.rating}</span>
-                          </div>
-                          <span>•</span>
-                          <span>{volunteer.helpedCount} people helped</span>
-                          <span>•</span>
-                          <span>Applied {volunteer.appliedAt}</span>
-                        </div>
-                        {volunteer.message && (
-                          <div className="text-sm bg-muted p-3 rounded-md max-w-md">
-                            "{volunteer.message}"
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 ml-4">
-                      {volunteer.status === "pending" && needData.status === "active" && (
-                        <>
-                          <Button
-                            size="sm"
-                            onClick={() => setShowConfirmDialog({ 
-                              type: 'accept', 
-                              volunteerId: volunteer.id, 
-                              volunteerName: volunteer.name 
-                            })}
-                            className="bg-green-600 hover:bg-green-700"
-                          >
-                            <Check className="w-4 h-4 mr-1" />
-                            Accept
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setShowConfirmDialog({ 
-                              type: 'decline', 
-                              volunteerId: volunteer.id, 
-                              volunteerName: volunteer.name 
-                            })}
-                          >
-                            <X className="w-4 h-4 mr-1" />
-                            Decline
-                          </Button>
-                        </>
-                      )}
-                      <Sheet>
-                        <SheetTrigger asChild>
-                          <Button variant="outline" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-500">
-                            <MessageSquare className="w-4 h-4 mr-1" />
-                            Message
-                          </Button>
-                        </SheetTrigger>
-                        <SheetContent className="flex flex-col h-full">
-                          <SheetHeader>
-                            <SheetTitle>Messages with {volunteer.name}</SheetTitle>
-                            <p className="text-sm text-muted-foreground">
-                              Coordinate details for your volunteer work
-                            </p>
-                          </SheetHeader>
-                          <div className="flex flex-col flex-1 pt-4">
-                            <ScrollArea className="flex-1 pr-4 mb-4">
-                              <div className="space-y-4">
-                                <div className="flex justify-start">
-                                  <div className="max-w-[80%] rounded-lg p-3 bg-muted">
-                                    <div className="text-sm font-medium mb-1">{volunteer.name}</div>
-                                    <div className="text-sm">Thank you so much for volunteering to help me! I really appreciate it.</div>
-                                    <div className="text-xs opacity-70 mt-1">2 hours ago</div>
-                                  </div>
+              {(() => {
+                // For in_progress status, show accepted volunteer first, then others in collapsible
+                if (needData.status === "in_progress") {
+                  const acceptedVolunteers = volunteers.filter(v => v.status === "accepted");
+                  const otherVolunteers = volunteers.filter(v => v.status !== "accepted");
+                  
+                  return (
+                    <>
+                      {/* Always show accepted volunteers */}
+                      {acceptedVolunteers.map((volunteer) => (
+                        <div 
+                          key={volunteer.id} 
+                          className="relative p-4 border border-green-200 bg-green-50/50 rounded-lg transition-all duration-200"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex items-start gap-3">
+                              <Avatar className="h-12 w-12">
+                                <AvatarImage src={volunteer.avatar} />
+                                <AvatarFallback className="bg-primary/10">
+                                  {volunteer.name.split(' ').map(n => n[0]).join('')}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="space-y-2 flex-1">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="font-medium text-foreground">{volunteer.name}</span>
+                                  {volunteer.isVerified && (
+                                    <div className="flex items-center gap-1 text-xs text-blue-600">
+                                      <CheckCircle className="w-3 h-3" />
+                                      Verified
+                                    </div>
+                                  )}
+                                  <Badge variant="default" className="capitalize">
+                                    {volunteer.status}
+                                  </Badge>
                                 </div>
-                                <div className="flex justify-end">
-                                  <div className="max-w-[80%] rounded-lg p-3 bg-primary text-primary-foreground">
-                                    <div className="text-sm font-medium mb-1">You</div>
-                                    <div className="text-sm">Of course! Happy to help. I'll be there at 1:45 PM to give us plenty of time.</div>
-                                    <div className="text-xs opacity-70 mt-1">1 hour ago</div>
+                                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                  <div className="flex items-center gap-1">
+                                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                    <span>{volunteer.rating}</span>
                                   </div>
+                                  <span>•</span>
+                                  <span>{volunteer.helpedCount} people helped</span>
+                                  <span>•</span>
+                                  <span>Applied {volunteer.appliedAt}</span>
                                 </div>
+                                {volunteer.message && (
+                                  <div className="text-sm bg-muted p-3 rounded-md max-w-md">
+                                    "{volunteer.message}"
+                                  </div>
+                                )}
                               </div>
-                            </ScrollArea>
-                            <div className="flex gap-2 pt-4 border-t mt-auto">
-                              <Input
-                                placeholder="Type your message..."
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                              />
-                              <Button size="sm" onClick={handleSendMessage} className="bg-amber-500 hover:bg-amber-600">
-                                <Send className="w-4 h-4" />
+                            </div>
+                            <div className="flex items-center gap-2 ml-4">
+                              <Sheet>
+                                <SheetTrigger asChild>
+                                  <Button variant="outline" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-500">
+                                    <MessageSquare className="w-4 h-4 mr-1" />
+                                    Message
+                                  </Button>
+                                </SheetTrigger>
+                                <SheetContent className="flex flex-col h-full">
+                                  <SheetHeader>
+                                    <SheetTitle>Messages with {volunteer.name}</SheetTitle>
+                                    <p className="text-sm text-muted-foreground">
+                                      Coordinate details for your volunteer work
+                                    </p>
+                                  </SheetHeader>
+                                  <div className="flex flex-col flex-1 pt-4">
+                                    <ScrollArea className="flex-1 pr-4 mb-4">
+                                      <div className="space-y-4">
+                                        <div className="flex justify-start">
+                                          <div className="max-w-[80%] rounded-lg p-3 bg-muted">
+                                            <div className="text-sm font-medium mb-1">{volunteer.name}</div>
+                                            <div className="text-sm">Thank you so much for volunteering to help me! I really appreciate it.</div>
+                                            <div className="text-xs opacity-70 mt-1">2 hours ago</div>
+                                          </div>
+                                        </div>
+                                        <div className="flex justify-end">
+                                          <div className="max-w-[80%] rounded-lg p-3 bg-primary text-primary-foreground">
+                                            <div className="text-sm font-medium mb-1">You</div>
+                                            <div className="text-sm">Of course! Happy to help. I'll be there at 1:45 PM to give us plenty of time.</div>
+                                            <div className="text-xs opacity-70 mt-1">1 hour ago</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </ScrollArea>
+                                    <div className="flex gap-2 pt-4 border-t mt-auto">
+                                      <Input
+                                        placeholder="Type your message..."
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                                      />
+                                      <Button size="sm" onClick={handleSendMessage} className="bg-amber-500 hover:bg-amber-600">
+                                        <Send className="w-4 h-4" />
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </SheetContent>
+                              </Sheet>
+                              <Button variant="ghost" size="sm">
+                                <User className="w-4 h-4 mr-1" />
+                                Profile
                               </Button>
                             </div>
                           </div>
-                        </SheetContent>
-                      </Sheet>
-                      <Button variant="ghost" size="sm">
-                        <User className="w-4 h-4 mr-1" />
-                        Profile
-                      </Button>
+                        </div>
+                      ))}
+                      
+                      {/* Collapsible section for other volunteers */}
+                      {otherVolunteers.length > 0 && (
+                        <Collapsible open={showAllVolunteers} onOpenChange={setShowAllVolunteers}>
+                          <CollapsibleContent className="space-y-4">
+                            {otherVolunteers.map((volunteer) => (
+                              <div 
+                                key={volunteer.id} 
+                                className={`relative p-4 border rounded-lg transition-all duration-200 ${
+                                  volunteer.status === "declined" ? "border-red-200 bg-red-50/50 opacity-60" :
+                                  "border-border hover:border-primary/50"
+                                }`}
+                              >
+                                <div className="flex items-start justify-between">
+                                  <div className="flex items-start gap-3">
+                                    <Avatar className="h-12 w-12">
+                                      <AvatarImage src={volunteer.avatar} />
+                                      <AvatarFallback className="bg-primary/10">
+                                        {volunteer.name.split(' ').map(n => n[0]).join('')}
+                                      </AvatarFallback>
+                                    </Avatar>
+                                    <div className="space-y-2 flex-1">
+                                      <div className="flex items-center gap-2 flex-wrap">
+                                        <span className="font-medium text-foreground">{volunteer.name}</span>
+                                        {volunteer.isVerified && (
+                                          <div className="flex items-center gap-1 text-xs text-blue-600">
+                                            <CheckCircle className="w-3 h-3" />
+                                            Verified
+                                          </div>
+                                        )}
+                                        <Badge 
+                                          variant={volunteer.status === "declined" ? "destructive" : "outline"}
+                                          className="capitalize"
+                                        >
+                                          {volunteer.status}
+                                        </Badge>
+                                      </div>
+                                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                        <div className="flex items-center gap-1">
+                                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                          <span>{volunteer.rating}</span>
+                                        </div>
+                                        <span>•</span>
+                                        <span>{volunteer.helpedCount} people helped</span>
+                                        <span>•</span>
+                                        <span>Applied {volunteer.appliedAt}</span>
+                                      </div>
+                                      {volunteer.message && (
+                                        <div className="text-sm bg-muted p-3 rounded-md max-w-md">
+                                          "{volunteer.message}"
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2 ml-4">
+                                    <Sheet>
+                                      <SheetTrigger asChild>
+                                        <Button variant="outline" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-500">
+                                          <MessageSquare className="w-4 h-4 mr-1" />
+                                          Message
+                                        </Button>
+                                      </SheetTrigger>
+                                      <SheetContent className="flex flex-col h-full">
+                                        <SheetHeader>
+                                          <SheetTitle>Messages with {volunteer.name}</SheetTitle>
+                                          <p className="text-sm text-muted-foreground">
+                                            Coordinate details for your volunteer work
+                                          </p>
+                                        </SheetHeader>
+                                        <div className="flex flex-col flex-1 pt-4">
+                                          <ScrollArea className="flex-1 pr-4 mb-4">
+                                            <div className="space-y-4">
+                                              <div className="flex justify-start">
+                                                <div className="max-w-[80%] rounded-lg p-3 bg-muted">
+                                                  <div className="text-sm font-medium mb-1">{volunteer.name}</div>
+                                                  <div className="text-sm">Thank you so much for volunteering to help me! I really appreciate it.</div>
+                                                  <div className="text-xs opacity-70 mt-1">2 hours ago</div>
+                                                </div>
+                                              </div>
+                                              <div className="flex justify-end">
+                                                <div className="max-w-[80%] rounded-lg p-3 bg-primary text-primary-foreground">
+                                                  <div className="text-sm font-medium mb-1">You</div>
+                                                  <div className="text-sm">Of course! Happy to help. I'll be there at 1:45 PM to give us plenty of time.</div>
+                                                  <div className="text-xs opacity-70 mt-1">1 hour ago</div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ScrollArea>
+                                          <div className="flex gap-2 pt-4 border-t mt-auto">
+                                            <Input
+                                              placeholder="Type your message..."
+                                              value={newMessage}
+                                              onChange={(e) => setNewMessage(e.target.value)}
+                                              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                                            />
+                                            <Button size="sm" onClick={handleSendMessage} className="bg-amber-500 hover:bg-amber-600">
+                                              <Send className="w-4 h-4" />
+                                            </Button>
+                                          </div>
+                                        </div>
+                                      </SheetContent>
+                                    </Sheet>
+                                    <Button variant="ghost" size="sm">
+                                      <User className="w-4 h-4 mr-1" />
+                                      Profile
+                                    </Button>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </CollapsibleContent>
+                        </Collapsible>
+                      )}
+                    </>
+                  );
+                } else {
+                  // For other statuses, show all volunteers normally
+                  return volunteers.map((volunteer) => (
+                    <div 
+                      key={volunteer.id} 
+                      className={`relative p-4 border rounded-lg transition-all duration-200 ${
+                        volunteer.status === "accepted" ? "border-green-200 bg-green-50/50" :
+                        volunteer.status === "declined" ? "border-red-200 bg-red-50/50 opacity-60" :
+                        "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-3">
+                          <Avatar className="h-12 w-12">
+                            <AvatarImage src={volunteer.avatar} />
+                            <AvatarFallback className="bg-primary/10">
+                              {volunteer.name.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="space-y-2 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-medium text-foreground">{volunteer.name}</span>
+                              {volunteer.isVerified && (
+                                <div className="flex items-center gap-1 text-xs text-blue-600">
+                                  <CheckCircle className="w-3 h-3" />
+                                  Verified
+                                </div>
+                              )}
+                              <Badge 
+                                variant={volunteer.status === "accepted" ? "default" : 
+                                       volunteer.status === "declined" ? "destructive" : "outline"}
+                                className="capitalize"
+                              >
+                                {volunteer.status}
+                              </Badge>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-1">
+                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                <span>{volunteer.rating}</span>
+                              </div>
+                              <span>•</span>
+                              <span>{volunteer.helpedCount} people helped</span>
+                              <span>•</span>
+                              <span>Applied {volunteer.appliedAt}</span>
+                            </div>
+                            {volunteer.message && (
+                              <div className="text-sm bg-muted p-3 rounded-md max-w-md">
+                                "{volunteer.message}"
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 ml-4">
+                          {volunteer.status === "pending" && needData.status === "active" && (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => setShowConfirmDialog({ 
+                                  type: 'accept', 
+                                  volunteerId: volunteer.id, 
+                                  volunteerName: volunteer.name 
+                                })}
+                                className="bg-green-600 hover:bg-green-700"
+                              >
+                                <Check className="w-4 h-4 mr-1" />
+                                Accept
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setShowConfirmDialog({ 
+                                  type: 'decline', 
+                                  volunteerId: volunteer.id, 
+                                  volunteerName: volunteer.name 
+                                })}
+                              >
+                                <X className="w-4 h-4 mr-1" />
+                                Decline
+                              </Button>
+                            </>
+                          )}
+                          <Sheet>
+                            <SheetTrigger asChild>
+                              <Button variant="outline" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white border-amber-500">
+                                <MessageSquare className="w-4 h-4 mr-1" />
+                                Message
+                              </Button>
+                            </SheetTrigger>
+                            <SheetContent className="flex flex-col h-full">
+                              <SheetHeader>
+                                <SheetTitle>Messages with {volunteer.name}</SheetTitle>
+                                <p className="text-sm text-muted-foreground">
+                                  Coordinate details for your volunteer work
+                                </p>
+                              </SheetHeader>
+                              <div className="flex flex-col flex-1 pt-4">
+                                <ScrollArea className="flex-1 pr-4 mb-4">
+                                  <div className="space-y-4">
+                                    <div className="flex justify-start">
+                                      <div className="max-w-[80%] rounded-lg p-3 bg-muted">
+                                        <div className="text-sm font-medium mb-1">{volunteer.name}</div>
+                                        <div className="text-sm">Thank you so much for volunteering to help me! I really appreciate it.</div>
+                                        <div className="text-xs opacity-70 mt-1">2 hours ago</div>
+                                      </div>
+                                    </div>
+                                    <div className="flex justify-end">
+                                      <div className="max-w-[80%] rounded-lg p-3 bg-primary text-primary-foreground">
+                                        <div className="text-sm font-medium mb-1">You</div>
+                                        <div className="text-sm">Of course! Happy to help. I'll be there at 1:45 PM to give us plenty of time.</div>
+                                        <div className="text-xs opacity-70 mt-1">1 hour ago</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </ScrollArea>
+                                <div className="flex gap-2 pt-4 border-t mt-auto">
+                                  <Input
+                                    placeholder="Type your message..."
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                                  />
+                                  <Button size="sm" onClick={handleSendMessage} className="bg-amber-500 hover:bg-amber-600">
+                                    <Send className="w-4 h-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </SheetContent>
+                          </Sheet>
+                          <Button variant="ghost" size="sm">
+                            <User className="w-4 h-4 mr-1" />
+                            Profile
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  ));
+                }
+              })()}
             </CardContent>
           </Card>
         )}
