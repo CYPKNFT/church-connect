@@ -580,27 +580,25 @@ export default function NeedDetails() {
         return (
           <div className="flex flex-wrap gap-2">
             {needData.review ? (
-              <div className="flex items-center gap-3">
-                <div 
-                  className="flex items-center gap-2 bg-accent/10 px-4 py-2 rounded-lg cursor-pointer hover:bg-accent/20 transition-colors border border-accent/20"
-                  onClick={() => setViewReviewDialogOpen(true)}
-                >
-                  <span className="text-sm font-medium text-foreground">Your Review:</span>
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star 
-                        key={star}
-                        className={`w-4 h-4 ${
-                          star <= needData.review!.rating 
-                            ? "fill-accent text-accent" 
-                            : "text-muted-foreground/40"
-                        }`} 
-                      />
-                    ))}
-                  </div>
-                  <span className="text-xs text-muted-foreground">Click to view details</span>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="hover:bg-accent hover:text-accent-foreground hover:border-accent"
+                onClick={() => setViewReviewDialogOpen(true)}
+              >
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star 
+                      key={star}
+                      className={`w-4 h-4 ${
+                        star <= needData.review!.rating 
+                          ? "fill-foreground text-foreground" 
+                          : "text-muted-foreground/40"
+                      }`} 
+                    />
+                  ))}
                 </div>
-              </div>
+              </Button>
             ) : (
               <Button 
                 size="sm" 
