@@ -16,6 +16,19 @@ export default function Community() {
 
   const communityNeeds = [
     {
+      id: 12,
+      title: "Meal Delivery for Seniors",
+      description: "Help deliver hot meals to seniors in our community every Friday afternoon.",
+      category: "Meals",
+      location: "Senior Center",
+      urgency: "Weekly",
+      timePosted: "2 weeks ago",
+      icon: ChefHat,
+      church: "Grace Community",
+      responses: 6,
+      featured: false
+    },
+    {
       id: 1,
       title: "Grocery Shopping for Mrs. Johnson",
       description: "Weekly grocery assistance needed for our beloved 85-year-old church elder who is recovering from surgery. She's been a faithful member for 40 years.",
@@ -92,6 +105,71 @@ export default function Community() {
       church: "Grace Community",
       responses: 4,
       featured: false
+    },
+    {
+      id: 7,
+      title: "Tech Help for Seniors",
+      description: "Our senior group needs help setting up tablets for virtual Bible study. Looking for patient volunteers to assist.",
+      category: "Technology",
+      location: "Community Center",
+      urgency: "This Week",
+      timePosted: "4 days ago",
+      icon: Wrench,
+      church: "Grace Community",
+      responses: 2,
+      featured: false
+    },
+    {
+      id: 8,
+      title: "Moving Assistance for New Family",
+      description: "The Lee family is moving into our neighborhood and needs help unloading their truck and settling in.",
+      category: "Moving",
+      location: "Maple Street",
+      urgency: "This Weekend",
+      timePosted: "5 days ago",
+      icon: Wrench,
+      church: "First Baptist",
+      responses: 5,
+      featured: false
+    },
+    {
+      id: 9,
+      title: "Pet Care for Hospitalized Member",
+      description: "Sister Ann is in the hospital and needs someone to care for her dog for a week. Food and supplies provided.",
+      category: "Pet Care",
+      location: "Elm Avenue",
+      urgency: "Urgent",
+      timePosted: "6 days ago",
+      icon: Heart,
+      church: "Community Fellowship",
+      responses: 1,
+      featured: false
+    },
+    {
+      id: 10,
+      title: "Tutoring for Kids",
+      description: "Several children need help with math and reading after school. Volunteers with teaching experience preferred.",
+      category: "Education",
+      location: "Church Hall",
+      urgency: "Ongoing",
+      timePosted: "1 week ago",
+      icon: Heart,
+      church: "Riverside Church",
+      responses: 3,
+      featured: false
+    },
+    {
+      id: 11,
+      title: "Emergency Home Repair",
+      description: "A family lost part of their roof in last night's storm. Immediate help needed to cover and repair damage.",
+      category: "Emergency Repair",
+      location: "Oakwood Suburb",
+      urgency: "Immediate",
+      timePosted: "1 week ago",
+      icon: Wrench,
+      church: "Hillside Baptist",
+      responses: 2,
+      featured: true
     }
   ];
 
@@ -261,19 +339,19 @@ export default function Community() {
             
             {/* Dashboard Stats - Glassmorphic Badges */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
-              {categories.slice(1).map((category) => {
-                const categoryCount = communityNeeds.filter(need => need.category === category).length;
-                
+              {["All", ...categories.slice(1).filter(c => c !== "Food Drive")].map((category) => {
+                const categoryCount = category === "All"
+                  ? communityNeeds.length
+                  : communityNeeds.filter(need => need.category === category).length;
                 return (
                   <div
-                    key={category} 
+                    key={category}
                     className="relative group cursor-pointer"
                     onClick={() => setSelectedCategory(category)}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl blur-sm group-hover:blur-md transition-all duration-300 opacity-60 group-hover:opacity-80"></div>
-                    <div className="relative bg-black/20 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-center transition-all duration-300 group-hover:border-white/30 group-hover:bg-black/30">
-                      <div className="text-lg font-bold text-white mb-1">{categoryCount}</div>
-                      <div className="text-xs text-white/80 font-medium">{category}</div>
+                    <div className={`relative flex items-center justify-between bg-white/15 border border-white/25 rounded-full px-6 py-3 shadow backdrop-blur-md transition-all duration-300 group-hover:border-white/40 group-hover:bg-white/25 ${selectedCategory === category ? 'border-white/60 bg-white/25' : ''}`}>
+                      <span className="text-base text-white font-medium">{category}</span>
+                      <span className="text-lg font-bold text-white ml-4">{categoryCount}</span>
                     </div>
                   </div>
                 );
@@ -281,8 +359,14 @@ export default function Community() {
             </div>
 
             {/* Needs Grid - 2 rows x 3 columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {filteredNeeds.slice(0, 6).map((need) => (
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 overflow-y-auto max-h-[600px] scroll-smooth pr-2 custom-scrollbar"
+              style={{
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#aaa transparent',
+              }}
+            >
+              {filteredNeeds.slice(0, 12).map((need) => (
                 <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
@@ -310,12 +394,10 @@ export default function Community() {
                       {need.title}
                     </CardTitle>
                   </CardHeader>
-                  
                   <CardContent className="space-y-3">
                     <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                       {need.description}
                     </p>
-                    
                     <div className="space-y-2 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
@@ -331,7 +413,6 @@ export default function Community() {
                       </div>
                     </div>
                   </CardContent>
-                  
                   <div className="p-6 pt-0 space-y-3">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">{need.responses} responses</span>
@@ -349,14 +430,6 @@ export default function Community() {
                 </Card>
               ))}
             </div>
-            
-            {filteredNeeds.length > 6 && (
-              <div className="text-center pt-6">
-                <Button variant="outline" size="lg">
-                  View All Community Needs ({filteredNeeds.length})
-                </Button>
-              </div>
-            )}
           </TabsContent>
 
           {/* Success Stories Tab */}
