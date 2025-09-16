@@ -259,20 +259,23 @@ export default function Community() {
               </p>
             </div>
             
-            {/* Dashboard Stats - Small Badges */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            {/* Dashboard Stats - Glassmorphic Badges */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
               {categories.slice(1).map((category) => {
                 const categoryCount = communityNeeds.filter(need => need.category === category).length;
                 
                 return (
-                  <Badge 
+                  <div
                     key={category} 
-                    variant="secondary" 
-                    className="px-3 py-2 text-sm font-medium cursor-pointer hover:bg-secondary/80 transition-colors"
+                    className="relative group cursor-pointer"
                     onClick={() => setSelectedCategory(category)}
                   >
-                    {categoryCount} {category}
-                  </Badge>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl blur-sm group-hover:blur-md transition-all duration-300 opacity-60 group-hover:opacity-80"></div>
+                    <div className="relative bg-black/20 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-center transition-all duration-300 group-hover:border-white/30 group-hover:bg-black/30">
+                      <div className="text-lg font-bold text-white mb-1">{categoryCount}</div>
+                      <div className="text-xs text-white/80 font-medium">{category}</div>
+                    </div>
+                  </div>
                 );
               })}
             </div>
