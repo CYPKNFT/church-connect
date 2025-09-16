@@ -149,22 +149,26 @@ export default function JoinMovement() {
         </div>
 
         {/* Security Notice */}
-        <div className="max-w-4xl mx-auto mt-16">
-          <Link to="/safety-trust" className="block w-full">
-            <Card className="border-0 shadow-xl bg-white/90 dark:bg-card backdrop-blur-sm w-full cursor-pointer transition-transform hover:-translate-y-1">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Shield className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Safe & Verified Community</h3>
-                <div className="text-lg text-muted-foreground leading-relaxed space-y-2">
-                  <div>All church administrators are verified before approval.</div>
-                  <div>Members are connected only within their verified church communities.</div>
-                  <div>Ensuring a safe and trusted environment for everyone.</div>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
+        <div className="max-w-6xl mx-auto mt-16">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="col-span-2">
+              <Link to="/safety-trust" className="block w-full">
+                <Card className="border-0 shadow-xl bg-white/90 dark:bg-card backdrop-blur-sm w-full cursor-pointer transition-transform hover:-translate-y-1">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <Shield className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4">Safe & Verified Community</h3>
+                    <div className="text-lg text-muted-foreground leading-relaxed space-y-2">
+                      <div>All church administrators are verified before approval.</div>
+                      <div>Members are connected only within their verified church communities.</div>
+                      <div>Ensuring a safe and trusted environment for everyone.</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 

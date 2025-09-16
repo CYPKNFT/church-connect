@@ -270,30 +270,33 @@ export default function Churches() {
           </div>
           
           <ScrollArea className="max-h-[800px] rounded-3xl">
-            <div className="grid md:grid-cols-2 gap-8 pr-4">
+            <div className="grid md:grid-cols-2 gap-8 pr-4" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem', position: 'relative' }}>
               {resources.map((resource) => {
                 const IconComponent = resource.icon;
                 return (
-                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start gap-4">
-                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                          <IconComponent className="w-8 h-8 text-accent" />
+                  <div style={{ position: 'relative', padding: '1.5rem', overflow: 'visible' }}>
+                    {/* Glow effect removed as requested */}
+                    <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group relative" style={{ position: 'relative', zIndex: 1 }}>
+                      <CardHeader className="pb-4">
+                        <div className="flex items-start gap-4">
+                          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-8 h-8 text-accent" />
+                          </div>
+                          <div className="flex-1">
+                            <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
+                            <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
-                          <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
-                      <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download Resource
-                      </Button>
-                    </CardContent>
-                  </Card>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
+                        <Button className="w-full bg-primary hover:bg-primary-hover text-white">
+                          <Download className="w-4 h-4 mr-2" />
+                          Download Resource
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
                 );
               })}
             </div>
@@ -310,44 +313,35 @@ export default function Churches() {
           </div>
           
           <ScrollArea className="max-h-[800px] rounded-3xl group">
-            <div className="space-y-8 pr-4 group-hover:pr-2 transition-all duration-300">
-            {leadershipStories.map((story) => (
-              <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                <CardContent className="p-8">
-                  <div className="grid lg:grid-cols-3 gap-8 items-center">
-                    <div className="lg:col-span-2">
-                      <div className="flex items-start gap-4 mb-6">
-                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                          <Church className="w-8 h-8 text-accent" />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-foreground mb-1">{story.pastor}</h3>
-                          <p className="text-accent font-medium mb-2">{story.title}</p>
-                          <p className="text-muted-foreground mb-2">{story.church}, {story.location}</p>
-                          <Badge variant="secondary">{story.yearsInMinistry} years in ministry</Badge>
+            <div className="grid md:grid-cols-2 gap-8 pr-4" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem' }}>
+              {leadershipStories.map((story) => (
+                <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
+                  <CardContent className="p-8">
+                    <div className="grid lg:grid-cols-3 gap-8 items-center">
+                      <div className="lg:col-span-2">
+                        <h4 className="text-xl font-bold text-foreground mb-2">{story.pastor}, {story.title}</h4>
+                        <div className="text-muted-foreground mb-2">{story.church} &mdash; {story.location}</div>
+                        <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
+                          "{story.testimonial}"
+                        </blockquote>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span className="bg-accent/10 px-3 py-1 rounded-full">{story.impact}</span>
                         </div>
                       </div>
-                      <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
-                        "{story.testimonial}"
-                      </blockquote>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span className="bg-accent/10 px-3 py-1 rounded-full">{story.impact}</span>
+                      <div className="space-y-6">
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-accent mb-2">{story.yearsInMinistry}</div>
+                          <p className="text-sm text-muted-foreground">Years in Ministry</p>
+                        </div>
+                        <div className="text-center border-t pt-4">
+                          <p className="text-sm font-medium text-foreground mb-1">Key Achievement</p>
+                          <p className="text-sm text-muted-foreground">{story.keyMetric}</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="space-y-6">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-accent mb-2">{story.yearsInMinistry}</div>
-                        <p className="text-sm text-muted-foreground">Years in Ministry</p>
-                      </div>
-                      <div className="text-center border-t pt-4">
-                        <p className="text-sm font-medium text-foreground mb-1">Key Achievement</p>
-                        <p className="text-sm text-muted-foreground">{story.keyMetric}</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </ScrollArea>
         </section>
