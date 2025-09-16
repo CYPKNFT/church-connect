@@ -247,52 +247,52 @@ export default function MyChurch() {
               </div>
             </div>
             
-            <ScrollArea className="h-[700px] pr-4">
-              <div className="space-y-6">
+            <ScrollArea className="h-[700px] pr-4 overflow-visible">
+              <div className="space-y-4 overflow-visible">
                 {filteredNeeds.map((need) => {
                   const IconComponent = need.icon;
                   return (
-                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                      <CardContent className="p-8">
-                        <div className="flex items-start gap-6">
-                          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                            <IconComponent className="w-8 h-8 text-accent" />
+                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group overflow-visible">
+                      <CardContent className="p-5">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-accent" />
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-4">
-                              <div>
-                                <h3 className="text-2xl font-bold text-foreground mb-2">{need.title}</h3>
-                                <p className="text-lg text-muted-foreground leading-relaxed mb-4">{need.description}</p>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between mb-3">
+                              <div className="flex-1 min-w-0 pr-3">
+                                <h3 className="text-lg font-bold text-foreground mb-1 line-clamp-2">{need.title}</h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{need.description}</p>
                               </div>
-                              <Badge variant={getUrgencyColor(need.urgency) as any}>
+                              <Badge variant={getUrgencyColor(need.urgency) as any} className="flex-shrink-0">
                                 {need.urgency}
                               </Badge>
                             </div>
-                            <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
-                              <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4" />
+                            <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-4">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
                                 {need.location}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Clock className="w-4 h-4" />
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
                                 {need.timePosted}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4" />
+                              <div className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
                                 {need.postedBy}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <MessageSquare className="w-4 h-4" />
+                              <div className="flex items-center gap-1">
+                                <MessageSquare className="w-3 h-3" />
                                 {need.responses} responses
                               </div>
                             </div>
-                            <div className="flex gap-3">
-                              <Button className="bg-primary hover:bg-primary-hover text-white">
-                                <Heart className="w-4 h-4 mr-2" />
+                            <div className="flex gap-2">
+                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white">
+                                <Heart className="w-3 h-3 mr-1" />
                                 Offer Help
                               </Button>
-                              <Button variant="outline">
-                                <MessageSquare className="w-4 h-4 mr-2" />
+                              <Button variant="outline" size="sm">
+                                <MessageSquare className="w-3 h-3 mr-1" />
                                 Message
                               </Button>
                             </div>
