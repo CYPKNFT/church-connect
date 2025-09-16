@@ -421,7 +421,14 @@ export default function NeedDetails() {
         const pendingCount = volunteers.filter(v => v.status === "pending").length;
         return (
           <div className="flex flex-wrap gap-2">
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+            <Button 
+              size="sm" 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => {
+                const applicationsSection = document.getElementById('volunteer-applications');
+                applicationsSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               <Users className="w-4 h-4 mr-2" />
               Review Applications ({pendingCount})
             </Button>
@@ -459,7 +466,7 @@ export default function NeedDetails() {
                       {messages.map((message) => (
                         <div key={message.id} className={`flex ${message.isRequester ? 'justify-end' : 'justify-start'}`}>
                           <div className={`max-w-[80%] rounded-lg p-3 ${message.isRequester ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                            <div className="text-sm font-medium mb-1">{message.sender}</div>
+                            <div className="text-sm font-medium mb-1">{message.isRequester ? 'You' : message.sender}</div>
                             <div className="text-sm">{message.content}</div>
                             <div className="text-xs opacity-70 mt-1">{message.timestamp}</div>
                           </div>
@@ -699,7 +706,7 @@ export default function NeedDetails() {
 
         {/* Volunteers Section - Only show if there are applications */}
         {volunteers.length > 0 && needData.status !== "cancelled" && needData.status !== "expired" && (
-          <Card>
+          <Card id="volunteer-applications">
             <CardHeader>
               <CardTitle className="text-lg flex items-center justify-between">
                 Volunteer Applications
