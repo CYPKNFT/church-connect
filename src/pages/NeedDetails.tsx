@@ -853,31 +853,31 @@ export default function NeedDetails() {
                       {acceptedVolunteers.map((volunteer) => (
                         <div 
                           key={volunteer.id} 
-                          className="relative p-6 border border-green-300/60 bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                          className="relative p-6 border border-green-300/60 bg-gradient-to-br from-green-50 to-green-100/50 dark:border-green-600/50 dark:from-green-900/30 dark:to-green-800/20 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex items-start gap-4">
                               <div className="relative">
-                                <Avatar className="h-14 w-14 ring-2 ring-green-200/50">
+                                <Avatar className="h-14 w-14 ring-2 ring-green-200/50 dark:ring-green-600/40">
                                   <AvatarImage src={volunteer.avatar} />
-                                  <AvatarFallback className="bg-green-100 text-green-700 font-semibold">
+                                  <AvatarFallback className="bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 font-semibold">
                                     {volunteer.name.split(' ').map(n => n[0]).join('')}
                                   </AvatarFallback>
                                 </Avatar>
-                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                                  <CheckCircle className="w-3 h-3 text-white" />
+                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 dark:bg-green-400 rounded-full flex items-center justify-center">
+                                  <CheckCircle className="w-3 h-3 text-white dark:text-green-900" />
                                 </div>
                               </div>
                               <div className="space-y-3 flex-1">
                                 <div className="flex items-center gap-3 flex-wrap">
                                   <span className="font-semibold text-lg text-foreground">{volunteer.name}</span>
                                   {volunteer.isVerified && (
-                                    <div className="flex items-center gap-1 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                    <div className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded-full">
                                       <CheckCircle className="w-3 h-3" />
                                       Verified
                                     </div>
                                   )}
-                                  <Badge className="bg-green-500 hover:bg-green-600 text-white border-0 font-medium px-3 py-1">
+                                  <Badge className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white border-0 font-medium px-3 py-1">
                                     ✓ Accepted
                                   </Badge>
                                 </div>
@@ -896,9 +896,9 @@ export default function NeedDetails() {
                                   </div>
                                 </div>
                                 {volunteer.message && (
-                                  <div className="text-sm bg-white/60 border border-green-200/60 p-4 rounded-lg max-w-md shadow-sm">
-                                    <div className="text-xs text-green-600 font-medium mb-1">Message from volunteer:</div>
-                                    <div className="text-gray-700 italic">"{volunteer.message}"</div>
+                                  <div className="text-sm bg-white/60 dark:bg-gray-800/60 border border-green-200/60 dark:border-green-600/40 p-4 rounded-lg max-w-md shadow-sm">
+                                    <div className="text-xs text-green-600 dark:text-green-400 font-medium mb-1">Message from volunteer:</div>
+                                    <div className="text-gray-700 dark:text-gray-300 italic">"{volunteer.message}"</div>
                                   </div>
                                 )}
                               </div>
@@ -906,8 +906,8 @@ export default function NeedDetails() {
                             <div className="flex items-center gap-3 ml-4">
                               <Sheet>
                                 <SheetTrigger asChild>
-                                  <Button className="bg-amber-500 hover:bg-amber-600 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200 font-medium">
-                                     <MessageSquare className="w-4 h-4 mr-2" />
+                                  <Button className="bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+                                    <MessageSquare className="w-4 h-4 mr-2" />
                                      Message
                                    </Button>
                                  </SheetTrigger>
@@ -950,8 +950,8 @@ export default function NeedDetails() {
                                     </div>
                                   </div>
                                 </SheetContent>
-                              </Sheet>
-                              <Button variant="ghost" className="text-gray-600 hover:text-gray-800 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all duration-200">
+                               </Sheet>
+                              <Button variant="ghost" className="text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200">
                                 <User className="w-4 h-4 mr-2" />
                                 Profile
                               </Button>
