@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useMembership } from "@/hooks/useMembership";
@@ -47,39 +47,44 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
           {/* Sidebar */}
           <div 
             className={`
-              bg-card border-r border-border transition-all duration-300 ease-in-out
+              bg-gray-900 border-r border-gray-700 transition-all duration-300 ease-in-out
               ${isCollapsed ? 'w-16' : 'w-64'}
             `}
           >
             {/* Header */}
-            <div className="p-6 border-b border-border">
-              <div className="text-center">
+            <div className="p-4">
+              <div className="flex items-center gap-3">
                 {!isCollapsed && (
                   <>
-                    <h2 className="font-bold text-foreground">{churchName ?? "My Church"}</h2>
-                    <p className="text-xs text-muted-foreground">Member Dashboard</p>
+                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-white fill-white" />
+                    </div>
+                    <div>
+                      <h2 className="font-semibold text-white">ChurchConnect</h2>
+                      <p className="text-sm text-gray-400">{churchName ?? "Grace Community Church"}</p>
+                    </div>
                   </>
                 )}
                 {isCollapsed && (
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                    <Cross className="w-4 h-4 text-primary" />
+                  <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center mx-auto">
+                    <Cross className="w-5 h-5 text-white" />
                   </div>
                 )}
               </div>
             </div>
 
             {/* Navigation */}
-            <div className="p-4 space-y-2">
+            <div className="px-4 space-y-1">
               {sidebarItems.map((item) => {
                 const isActive = currentPath === item.path;
                 const linkContent = (
                   <Link
                     to={item.path}
                     className={`
-                      w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-primary/5
+                      w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                       ${isActive
-                        ? 'bg-primary/10 text-primary border border-primary/20' 
-                        : 'text-muted-foreground hover:text-foreground'
+                        ? 'bg-orange-500/90 text-white' 
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
                       }
                       ${isCollapsed ? 'justify-center' : ''}
                     `}
