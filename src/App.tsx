@@ -42,6 +42,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Feedback from "./pages/Feedback";
 import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
+import VolunteeringDetails from "./pages/VolunteeringDetails";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 
 const queryClient = new QueryClient();
@@ -79,6 +80,7 @@ const App = () => (
                   <Route path="/feedback" element={<Feedback />} />
                   <Route path="/template" element={<Template />} />
                   <Route path="/needs_details/:id" element={<NeedDetails />} />
+                  <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
                   <Route path="/help" element={<Help />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/settings" element={<Settings />} />

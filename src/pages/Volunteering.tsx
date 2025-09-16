@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award, LayoutDashboard, Heart, BookOpen, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Volunteering() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
@@ -350,7 +351,11 @@ export default function Volunteering() {
                 </Card>
               ) : (
                 filteredVolunteering.map((volunteer) => (
-                  <Card key={volunteer.id} className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                  <Card 
+                    key={volunteer.id} 
+                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer group"
+                    onClick={() => navigate(`/volunteering/${volunteer.id}`)}
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
@@ -413,32 +418,9 @@ export default function Volunteering() {
                           </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 ml-4">
-                          {volunteer.status === "Pending" && (
-                            <Button variant="default" size="sm" className="rounded-xl">
-                              <CheckCircle className="w-4 h-4 mr-2" />
-                              Confirm
-                            </Button>
-                          )}
-                          
-                          {(volunteer.status === "Confirmed" || volunteer.status === "Scheduled") && (
-                            <Button variant="outline" size="sm" className="rounded-xl">
-                              <MessageSquare className="w-4 h-4 mr-2" />
-                              Contact
-                            </Button>
-                          )}
-                          
-                          {volunteer.status === "Completed" && !volunteer.rating && (
-                            <Button variant="outline" size="sm" className="rounded-xl">
-                              <Star className="w-4 h-4 mr-2" />
-                              Rate
-                            </Button>
-                          )}
-                          
-                          <Button variant="ghost" size="sm" className="rounded-xl">
-                            <Eye className="w-4 h-4 mr-2" />
-                            Details
-                          </Button>
+                        <div className="flex items-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
+                          <span className="text-sm text-muted-foreground">Click to view details</span>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
                         </div>
                       </div>
                     </CardContent>
