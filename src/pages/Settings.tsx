@@ -7,15 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useUserSettings } from "@/hooks/useUserSettings";
 import { Link } from "react-router-dom";
 
 export default function Settings() {
   const { user } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const { toast } = useToast();
-  const [notifications, setNotifications] = useState(true);
-  const [emailUpdates, setEmailUpdates] = useState(true);
+  const { settings, loading: settingsLoading, updateSettings } = useUserSettings();
 
   if (!user) {
     return (
@@ -37,18 +36,21 @@ export default function Settings() {
     );
   }
 
-  const handleSaveSettings = () => {
-    toast({
-      title: "Settings Saved",
-      description: "Your preferences have been updated successfully.",
-    });
+  const handleNotificationsChange = async (checked: boolean) => {
+    await updateSettings({ push_notifications: checked });
   };
 
-  const handleThemeToggle = (checked: boolean) => {
-    toggleTheme();
+  const handleEmailUpdatesChange = async (checked: boolean) => {
+    await updateSettings({ email_updates: checked });
+  };
+
+  const handleThemeToggle = async (checked: boolean) => {
+    const newTheme = checked ? 'dark' : 'light';
+    setTheme(newTheme);
+    await updateSettings({ dark_mode: checked });
     toast({
       title: "Theme Updated",
-      description: `Switched to ${checked ? 'dark' : 'light'} mode.`,
+      description: `Switched to ${newTheme} mode.`,
     });
   };
 
@@ -113,8 +115,9 @@ export default function Settings() {
                 </div>
               </div>
               <Switch
-                checked={notifications}
-                onCheckedChange={setNotifications}
+                checked={settings.push_notifications}
+                onCheckedChange={handleNotificationsChange}
+                disabled={settingsLoading}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -125,8 +128,9 @@ export default function Settings() {
                 </div>
               </div>
               <Switch
-                checked={emailUpdates}
-                onCheckedChange={setEmailUpdates}
+                checked={settings.email_updates}
+                onCheckedChange={handleEmailUpdatesChange}
+                disabled={settingsLoading}
               />
             </div>
           </CardContent>
@@ -149,8 +153,9 @@ export default function Settings() {
                 </div>
               </div>
               <Switch
-                checked={theme === 'dark'}
+                checked={settings.dark_mode}
                 onCheckedChange={handleThemeToggle}
+                disabled={settingsLoading}
               />
             </div>
           </CardContent>
@@ -182,12 +187,6 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        {/* Save Button */}
-        <div className="flex justify-end">
-          <Button onClick={handleSaveSettings} className="w-full sm:w-auto">
-            Save Settings
-          </Button>
-        </div>
       </div>
     </div>
   );
