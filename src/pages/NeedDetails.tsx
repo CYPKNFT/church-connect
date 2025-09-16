@@ -582,29 +582,29 @@ export default function NeedDetails() {
             {needData.review ? (
               <div className="flex items-center gap-3">
                 <div 
-                  className="flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-lg cursor-pointer hover:bg-yellow-100 transition-colors"
+                  className="flex items-center gap-2 bg-accent/10 px-4 py-2 rounded-lg cursor-pointer hover:bg-accent/20 transition-colors border border-accent/20"
                   onClick={() => setViewReviewDialogOpen(true)}
                 >
-                  <span className="text-sm font-medium text-yellow-800">Your Review:</span>
+                  <span className="text-sm font-medium text-foreground">Your Review:</span>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star 
                         key={star}
                         className={`w-4 h-4 ${
                           star <= needData.review!.rating 
-                            ? "fill-yellow-400 text-yellow-400" 
-                            : "text-gray-300"
+                            ? "fill-accent text-accent" 
+                            : "text-muted-foreground/40"
                         }`} 
                       />
                     ))}
                   </div>
-                  <span className="text-xs text-yellow-600">Click to view details</span>
+                  <span className="text-xs text-muted-foreground">Click to view details</span>
                 </div>
               </div>
             ) : (
               <Button 
                 size="sm" 
-                className="bg-yellow-600 hover:bg-yellow-700"
+                className="bg-accent hover:bg-accent-hover text-accent-foreground"
                 onClick={() => setReviewDialogOpen(true)}
               >
                 <Star className="w-4 h-4 mr-2" />
