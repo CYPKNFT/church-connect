@@ -91,7 +91,7 @@ export default function Churches() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-24">
+      <div className="w-full max-w-5xl mx-auto px-4 py-24 flex flex-col gap-16">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-8">
@@ -261,42 +261,38 @@ export default function Churches() {
         </section>
 
         {/* Resources Section */}
-        <section className="space-y-8 mb-20">
+        <section className="space-y-8 mb-20 w-full max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Church Leader Resources</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Everything you need to successfully launch and manage ChurchConnect in your community
             </p>
           </div>
-          
           <ScrollArea className="max-h-[800px] rounded-3xl">
-            <div className="grid md:grid-cols-2 gap-8 pr-4" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem', position: 'relative' }}>
+            <div className="grid md:grid-cols-2 gap-8" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem', position: 'relative' }}>
               {resources.map((resource) => {
                 const IconComponent = resource.icon;
                 return (
-                  <div style={{ position: 'relative', padding: '1.5rem', overflow: 'visible' }}>
-                    {/* Glow effect removed as requested */}
-                    <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group relative" style={{ position: 'relative', zIndex: 1 }}>
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start gap-4">
-                          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                            <IconComponent className="w-8 h-8 text-accent" />
-                          </div>
-                          <div className="flex-1">
-                            <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
-                            <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
-                          </div>
+                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group relative p-6 flex flex-col justify-between" style={{ minWidth: 0 }}>
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start gap-4">
+                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                          <IconComponent className="w-8 h-8 text-accent" />
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
-                        <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                          <Download className="w-4 h-4 mr-2" />
-                          Download Resource
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
+                        <div className="flex-1">
+                          <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
+                          <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
+                      <Button className="w-full bg-primary hover:bg-primary-hover text-white">
+                        <Download className="w-4 h-4 mr-2" />
+                        Download Resource
+                      </Button>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>
@@ -304,7 +300,7 @@ export default function Churches() {
         </section>
 
         {/* Leadership Stories Section */}
-        <section className="space-y-8 mb-20">
+  <section className="space-y-8 mb-20 w-full max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Leadership Testimonials</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -315,8 +311,8 @@ export default function Churches() {
           <ScrollArea className="max-h-[800px] rounded-3xl group">
             <div className="grid md:grid-cols-2 gap-8 pr-4" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem' }}>
               {leadershipStories.map((story) => (
-                <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                  <CardContent className="p-8">
+                <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group p-8 flex flex-col justify-between" style={{ minWidth: 0 }}>
+                  <CardContent>
                     <div className="grid lg:grid-cols-3 gap-8 items-center">
                       <div className="lg:col-span-2">
                         <h4 className="text-xl font-bold text-foreground mb-2">{story.pastor}, {story.title}</h4>
