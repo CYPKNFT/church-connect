@@ -216,6 +216,18 @@ export default function NeedDetails() {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [selectedVolunteerId, setSelectedVolunteerId] = useState<string | null>(null);
+  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const [reviewForm, setReviewForm] = useState({
+    rating: 0,
+    feedback: "",
+    wouldRecommend: true,
+    categories: {
+      punctuality: 0,
+      helpfulness: 0,
+      communication: 0,
+      quality: 0
+    }
+  });
   const [showConfirmDialog, setShowConfirmDialog] = useState<{
     type: 'accept' | 'decline' | 'complete' | 'cancel' | 'archive' | 'reactivate';
     volunteerId?: string;
@@ -397,6 +409,25 @@ export default function NeedDetails() {
     setShowConfirmDialog(null);
   };
 
+  const handleSubmitReview = () => {
+    toast({
+      title: "Review submitted!",
+      description: `Thank you for your feedback about ${needData.acceptedVolunteer?.name}. Your review helps build a stronger community.`
+    });
+    setReviewDialogOpen(false);
+    setReviewForm({
+      rating: 0,
+      feedback: "",
+      wouldRecommend: true,
+      categories: {
+        punctuality: 0,
+        helpfulness: 0,
+        communication: 0,
+        quality: 0
+      }
+    });
+  };
+
   const getStatusDisplay = () => {
     switch (needData.status) {
       case "active":
@@ -505,7 +536,11 @@ export default function NeedDetails() {
       case "completed":
         return (
           <div className="flex flex-wrap gap-2">
-            <Button size="sm" className="bg-yellow-600 hover:bg-yellow-700">
+            <Button 
+              size="sm" 
+              className="bg-yellow-600 hover:bg-yellow-700"
+              onClick={() => setReviewDialogOpen(true)}
+            >
               <Star className="w-4 h-4 mr-2" />
               Leave Review
             </Button>
@@ -936,6 +971,150 @@ export default function NeedDetails() {
             </Button>
             <Button onClick={handleEdit}>
               Save Changes
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Review Dialog */}
+      <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              Leave a Review for {needData.acceptedVolunteer?.name}
+            </DialogTitle>
+            <p className="text-center text-muted-foreground">
+              Your feedback helps build a stronger community
+            </p>
+          </DialogHeader>
+          
+          <div className="space-y-6 py-4">
+            {/* Overall Rating */}
+            <div className="text-center space-y-4">
+              <h3 className="text-lg font-semibold">Overall Experience</h3>
+              <div className="flex justify-center gap-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    onClick={() => setReviewForm(prev => ({ ...prev, rating: star }))}
+                    className="transition-all duration-200 hover:scale-110"
+                  >
+                    <Star 
+                      className={`w-8 h-8 ${
+                        star <= reviewForm.rating 
+                          ? "fill-yellow-400 text-yellow-400" 
+                          : "text-gray-300 hover:text-yellow-300"
+                      }`} 
+                    />
+                  </button>
+                ))}
+              </div>
+              {reviewForm.rating > 0 && (
+                <p className="text-sm text-muted-foreground">
+                  {reviewForm.rating === 1 && "Poor experience"}
+                  {reviewForm.rating === 2 && "Fair experience"}
+                  {reviewForm.rating === 3 && "Good experience"}
+                  {reviewForm.rating === 4 && "Great experience"}
+                  {reviewForm.rating === 5 && "Excellent experience"}
+                </p>
+              )}
+            </div>
+
+            <Separator />
+
+            {/* Category Ratings */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Rate Specific Areas</h3>
+              
+              {[
+                { key: 'punctuality', label: 'Punctuality', icon: Clock },
+                { key: 'helpfulness', label: 'Helpfulness', icon: Heart },
+                { key: 'communication', label: 'Communication', icon: MessageSquare },
+                { key: 'quality', label: 'Quality of Help', icon: CheckCircle }
+              ].map(({ key, label, icon: Icon }) => (
+                <div key={key} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Icon className="w-5 h-5 text-muted-foreground" />
+                    <span className="font-medium">{label}</span>
+                  </div>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => setReviewForm(prev => ({
+                          ...prev,
+                          categories: { ...prev.categories, [key]: star }
+                        }))}
+                        className="transition-all duration-200 hover:scale-110"
+                      >
+                        <Star 
+                          className={`w-5 h-5 ${
+                            star <= reviewForm.categories[key as keyof typeof reviewForm.categories]
+                              ? "fill-yellow-400 text-yellow-400" 
+                              : "text-gray-300 hover:text-yellow-300"
+                          }`} 
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Separator />
+
+            {/* Written Feedback */}
+            <div className="space-y-3">
+              <Label htmlFor="feedback" className="text-lg font-semibold">
+                Share Your Experience
+              </Label>
+              <Textarea
+                id="feedback"
+                placeholder="Tell others about your experience... What went well? Any suggestions for improvement?"
+                value={reviewForm.feedback}
+                onChange={(e) => setReviewForm(prev => ({ ...prev, feedback: e.target.value }))}
+                rows={4}
+                className="resize-none"
+              />
+            </div>
+
+            {/* Recommendation */}
+            <div className="space-y-3">
+              <Label className="text-lg font-semibold">Would you recommend this volunteer?</Label>
+              <div className="flex gap-4">
+                <Button
+                  variant={reviewForm.wouldRecommend ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setReviewForm(prev => ({ ...prev, wouldRecommend: true }))}
+                  className="flex-1"
+                >
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Yes, I'd recommend
+                </Button>
+                <Button
+                  variant={!reviewForm.wouldRecommend ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setReviewForm(prev => ({ ...prev, wouldRecommend: false }))}
+                  className="flex-1"
+                >
+                  <XCircle className="w-4 h-4 mr-2" />
+                  No, I wouldn't recommend
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4 border-t">
+            <Button variant="outline" onClick={() => setReviewDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleSubmitReview}
+              disabled={reviewForm.rating === 0}
+              className="bg-yellow-600 hover:bg-yellow-700"
+            >
+              <Star className="w-4 h-4 mr-2" />
+              Submit Review
             </Button>
           </div>
         </DialogContent>
