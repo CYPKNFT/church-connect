@@ -19,11 +19,11 @@ interface AppFeedbackFormProps {
 }
 
 const categories = [
-  { id: "bug", label: "Bug Report", icon: Bug, color: "text-red-500", bgColor: "bg-red-50" },
-  { id: "feature", label: "Feature Request", icon: Lightbulb, color: "text-green-500", bgColor: "bg-green-50" },
-  { id: "praise", label: "Praise", icon: Heart, color: "text-purple-500", bgColor: "bg-purple-50" },
-  { id: "question", label: "Question", icon: HelpCircle, color: "text-blue-500", bgColor: "bg-blue-50" },
-  { id: "other", label: "Other", icon: Star, color: "text-gray-500", bgColor: "bg-gray-50" }
+  { id: "bug", label: "Bug Report", icon: Bug, color: "text-destructive", bgColor: "bg-destructive/10" },
+  { id: "feature", label: "Feature Request", icon: Lightbulb, color: "text-green-600 dark:text-green-400", bgColor: "bg-green-100/50 dark:bg-green-900/20" },
+  { id: "praise", label: "Praise", icon: Heart, color: "text-purple-600 dark:text-purple-400", bgColor: "bg-purple-100/50 dark:bg-purple-900/20" },
+  { id: "question", label: "Question", icon: HelpCircle, color: "text-primary", bgColor: "bg-primary/10" },
+  { id: "other", label: "Other", icon: Star, color: "text-muted-foreground", bgColor: "bg-muted/50" }
 ];
 
 const severityOptions = [

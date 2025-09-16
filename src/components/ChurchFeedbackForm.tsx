@@ -20,12 +20,12 @@ interface ChurchFeedbackFormProps {
 }
 
 const categories = [
-  { id: "worship", label: "Worship & Services", icon: Music, color: "text-purple-500", bgColor: "bg-purple-50" },
-  { id: "community", label: "Community & Fellowship", icon: Users, color: "text-blue-500", bgColor: "bg-blue-50" },
-  { id: "events", label: "Events & Programs", icon: Calendar, color: "text-green-500", bgColor: "bg-green-50" },
-  { id: "facilities", label: "Facilities & Building", icon: Building, color: "text-orange-500", bgColor: "bg-orange-50" },
-  { id: "leadership", label: "Leadership & Staff", icon: Star, color: "text-indigo-500", bgColor: "bg-indigo-50" },
-  { id: "outreach", label: "Outreach & Missions", icon: MapPin, color: "text-red-500", bgColor: "bg-red-50" }
+  { id: "worship", label: "Worship & Services", icon: Music, color: "text-purple-600 dark:text-purple-400", bgColor: "bg-purple-100/50 dark:bg-purple-900/20" },
+  { id: "community", label: "Community & Fellowship", icon: Users, color: "text-primary", bgColor: "bg-primary/10" },
+  { id: "events", label: "Events & Programs", icon: Calendar, color: "text-green-600 dark:text-green-400", bgColor: "bg-green-100/50 dark:bg-green-900/20" },
+  { id: "facilities", label: "Facilities & Building", icon: Building, color: "text-orange-600 dark:text-orange-400", bgColor: "bg-orange-100/50 dark:bg-orange-900/20" },
+  { id: "leadership", label: "Leadership & Staff", icon: Star, color: "text-indigo-600 dark:text-indigo-400", bgColor: "bg-indigo-100/50 dark:bg-indigo-900/20" },
+  { id: "outreach", label: "Outreach & Missions", icon: MapPin, color: "text-destructive", bgColor: "bg-destructive/10" }
 ];
 
 export function ChurchFeedbackForm({ onBack }: ChurchFeedbackFormProps) {
@@ -303,12 +303,12 @@ export function ChurchFeedbackForm({ onBack }: ChurchFeedbackFormProps) {
                 </div>
 
                 {(formData.isAnonymous && formData.followUpNeeded) && (
-                  <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                  <div className="p-4 bg-amber-100/50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
                     <div className="flex items-start gap-2">
-                      <Star className="w-4 h-4 text-amber-500 mt-0.5" />
+                      <Star className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-amber-800">Anonymous Follow-up</p>
-                        <p className="text-sm text-amber-700">
+                        <p className="text-sm font-medium text-amber-800 dark:text-amber-200">Anonymous Follow-up</p>
+                        <p className="text-sm text-amber-700 dark:text-amber-300">
                           Since you've chosen to submit anonymously, church leaders won't be able to 
                           contact you directly for follow-up. Consider making your feedback non-anonymous 
                           if you'd like a personal response.

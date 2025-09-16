@@ -90,8 +90,8 @@ export function FeedbackStats() {
         {[...Array(4)].map((_, i) => (
           <Card key={i} className="animate-pulse">
             <CardContent className="p-4">
-              <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-              <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+              <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+              <div className="h-8 bg-muted rounded w-1/2"></div>
             </CardContent>
           </Card>
         ))}
@@ -104,29 +104,29 @@ export function FeedbackStats() {
       title: "App Feedback",
       value: stats.totalAppFeedback,
       icon: MessageSquare,
-      color: "text-blue-500",
-      bgColor: "bg-blue-50"
+      color: "text-primary",
+      bgColor: "bg-primary/10"
     },
     {
       title: "Church Feedback", 
       value: stats.totalChurchFeedback,
       icon: Building,
-      color: "text-green-500",
-      bgColor: "bg-green-50"
+      color: "text-green-600 dark:text-green-400",
+      bgColor: "bg-green-100/50 dark:bg-green-900/20"
     },
     {
       title: "App Rating",
       value: stats.averageAppRating > 0 ? `${stats.averageAppRating}/5` : "N/A",
       icon: Star,
-      color: "text-yellow-500",
-      bgColor: "bg-yellow-50"
+      color: "text-yellow-600 dark:text-yellow-400",
+      bgColor: "bg-yellow-100/50 dark:bg-yellow-900/20"
     },
     {
       title: "Recent (30d)",
       value: stats.recentSubmissions,
       icon: TrendingUp,
-      color: "text-purple-500",
-      bgColor: "bg-purple-50"
+      color: "text-purple-600 dark:text-purple-400",
+      bgColor: "bg-purple-100/50 dark:bg-purple-900/20"
     }
   ];
 

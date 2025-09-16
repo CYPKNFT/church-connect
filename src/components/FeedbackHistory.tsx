@@ -73,8 +73,8 @@ export function FeedbackHistory() {
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
               <div key={i} className="animate-pulse">
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-muted rounded w-1/2"></div>
               </div>
             ))}
           </div>
@@ -88,21 +88,21 @@ export function FeedbackHistory() {
   const getCategoryColor = (category: string, type: 'app' | 'church') => {
     if (type === 'app') {
       switch (category) {
-        case 'bug': return 'bg-red-50 text-red-700 border-red-200';
-        case 'feature': return 'bg-green-50 text-green-700 border-green-200';
-        case 'praise': return 'bg-purple-50 text-purple-700 border-purple-200';
-        case 'question': return 'bg-blue-50 text-blue-700 border-blue-200';
-        default: return 'bg-gray-50 text-gray-700 border-gray-200';
+        case 'bug': return 'bg-destructive/10 text-destructive border-destructive/20';
+        case 'feature': return 'bg-green-100/50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800';
+        case 'praise': return 'bg-purple-100/50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800';
+        case 'question': return 'bg-primary/10 text-primary border-primary/20';
+        default: return 'bg-muted/50 text-muted-foreground border-border';
       }
     } else {
       switch (category) {
-        case 'worship': return 'bg-purple-50 text-purple-700 border-purple-200';
-        case 'community': return 'bg-blue-50 text-blue-700 border-blue-200';
-        case 'events': return 'bg-green-50 text-green-700 border-green-200';
-        case 'facilities': return 'bg-orange-50 text-orange-700 border-orange-200';
-        case 'leadership': return 'bg-indigo-50 text-indigo-700 border-indigo-200';
-        case 'outreach': return 'bg-red-50 text-red-700 border-red-200';
-        default: return 'bg-gray-50 text-gray-700 border-gray-200';
+        case 'worship': return 'bg-purple-100/50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800';
+        case 'community': return 'bg-primary/10 text-primary border-primary/20';
+        case 'events': return 'bg-green-100/50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800';
+        case 'facilities': return 'bg-orange-100/50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800';
+        case 'leadership': return 'bg-indigo-100/50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800';
+        case 'outreach': return 'bg-destructive/10 text-destructive border-destructive/20';
+        default: return 'bg-muted/50 text-muted-foreground border-border';
       }
     }
   };
@@ -142,12 +142,12 @@ export function FeedbackHistory() {
               >
                 <div className="flex-shrink-0">
                   {item.type === 'app' ? (
-                    <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
-                      <MessageSquare className="w-4 h-4 text-blue-500" />
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <MessageSquare className="w-4 h-4 text-primary" />
                     </div>
                   ) : (
-                    <div className="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center">
-                      <Building className="w-4 h-4 text-green-500" />
+                    <div className="w-8 h-8 bg-green-100/50 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
+                      <Building className="w-4 h-4 text-green-600 dark:text-green-400" />
                     </div>
                   )}
                 </div>
