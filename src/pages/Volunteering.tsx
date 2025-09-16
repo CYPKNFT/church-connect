@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award, LayoutDashboard, Heart, BookOpen, FileText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function Volunteering() {
   const navigate = useNavigate();
