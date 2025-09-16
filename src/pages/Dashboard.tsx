@@ -2,14 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer, FileText, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard, BookOpen, UserCheck, Settings, TrendingUp, Activity, MapPin, MessageSquare, Award, Bell, Filter, Search, ChevronRight, HandHeart, Target, Timer, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMembership } from "@/hooks/useMembership";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function Dashboard() {
   const [selectedFilter, setSelectedFilter] = useState("All");
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { displayName, churchName } = useMembership();
   
   const userNeeds = [
@@ -180,45 +180,10 @@ export default function Dashboard() {
     { label: "Reliable Helper", progress: 90, target: 5, current: 4.5 }
   ];
 
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: true, path: "/dashboard" },
-    { icon: Heart, label: "My Needs", path: "/my-needs" },
-    { icon: Users, label: "Volunteering", path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", path: "/browse" },
-    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-  ];
-
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex">
-        {/* Clean Left Sidebar */}
-        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
-          <div className="p-6 border-b border-border">
-            <div className="text-center">
-              <h2 className="font-bold text-foreground">{churchName ?? "My Church"}</h2>
-              <p className="text-xs text-muted-foreground">Member Dashboard</p>
-            </div>
-          </div>
-          
-          <nav className="p-4 space-y-2">
-            {sidebarItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.path}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-primary/5 ${
-                  item.active 
-                    ? 'bg-primary/10 text-primary border border-primary/20' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Main Content */}
+    <DashboardLayout>
+      <div className="min-h-screen bg-background">
+        {/* Page Content */}
         <div className="flex-1 p-8">
           {/* Header */}
           <div className="mb-8">
@@ -416,12 +381,15 @@ export default function Dashboard() {
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
-                          {volunteer.category}
-                        </span>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-accent font-medium flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {volunteer.location}
+                          </span>
+                        </div>
                         <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-accent group-hover:text-white" asChild>
                           <Link to="/volunteering">
-                            {volunteer.status === "Confirmed" ? "Details" : "Confirm"}
+                            View <ChevronRight className="w-3 h-3 ml-1" />
                           </Link>
                         </Button>
                       </div>
@@ -430,177 +398,159 @@ export default function Dashboard() {
                 </div>
                 <Button variant="outline" className="w-full rounded-xl text-sm mt-auto" asChild>
                   <Link to="/volunteering">
-                    View All My Volunteering <ChevronRight className="w-4 h-4 ml-2" />
+                    View All Volunteering <ChevronRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Achievements & Progress */}
+            {/* Achievements - Enhanced */}
             <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl flex flex-col">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="w-8 h-8 bg-amber-500/10 rounded-xl flex items-center justify-center">
-                    <Award className="w-4 h-4 text-amber-600" />
+                  <div className="w-8 h-8 bg-yellow-400/10 rounded-xl flex items-center justify-center">
+                    <Award className="w-4 h-4 text-yellow-600" />
                   </div>
                   Achievements
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 flex-1 flex flex-col">
-                <div className="flex-1 space-y-4">
-                  {achievements.map((achievement, index) => (
-                    <div key={index} className="p-4 bg-transparent border border-border rounded-xl">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-semibold text-sm text-foreground">{achievement.label}</h4>
-                        <span className="text-xs text-muted-foreground">
-                          {achievement.current}/{achievement.target}
-                        </span>
-                      </div>
-                      <Progress value={achievement.progress} className="h-2 mb-2" />
+              <CardContent className="space-y-6 flex-1">
+                {achievements.map((achievement, index) => (
+                  <div key={index} className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-medium text-foreground text-sm">{achievement.label}</h3>
+                      <span className="text-xs text-muted-foreground font-medium">
+                        {achievement.current}/{achievement.target}
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <Progress value={achievement.progress} className="h-2" />
                       <p className="text-xs text-muted-foreground">
-                        {achievement.progress}% complete
+                        {achievement.progress >= 100 
+                          ? "🎉 Achievement Unlocked!" 
+                          : `${achievement.target - achievement.current} more to unlock`
+                        }
                       </p>
                     </div>
-                  ))}
-                </div>
-                <Button variant="outline" className="w-full rounded-xl text-sm mt-auto">
-                  <Target className="w-4 h-4 mr-2" />
-                  View All Achievements
-                </Button>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           </div>
 
-          {/* Community Needs Section */}
-          <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl mb-8">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="w-8 h-8 bg-blue-500/10 rounded-xl flex items-center justify-center">
-                    <Bell className="w-4 h-4 text-blue-600" />
+          {/* Bottom Section: Community & Activity */}
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Urgent Community Needs */}
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="w-8 h-8 bg-red-500/10 rounded-xl flex items-center justify-center">
+                      <Target className="w-4 h-4 text-red-600" />
+                    </div>
+                    Urgent Community Needs
+                  </CardTitle>
+                  <div className="flex items-center gap-2">
+                    <select 
+                      value={selectedFilter} 
+                      onChange={(e) => setSelectedFilter(e.target.value)}
+                      className="text-xs border border-border rounded-lg px-2 py-1 bg-background"
+                    >
+                      <option value="All">All</option>
+                      <option value="Immediate">Immediate</option>
+                      <option value="This Week">This Week</option>
+                    </select>
+                    <Button variant="ghost" size="sm" className="rounded-full">
+                      <Filter className="w-4 h-4" />
+                    </Button>
                   </div>
-                  Urgent Community Needs
-                </CardTitle>
-                <div className="flex items-center gap-2">
-                  <select 
-                    value={selectedFilter} 
-                    onChange={(e) => setSelectedFilter(e.target.value)}
-                    className="text-sm border border-border rounded-lg px-3 py-1.5 bg-background"
-                  >
-                    <option value="All">All Categories</option>
-                    <option value="Moving">Moving</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Education">Education</option>
-                  </select>
-                  <Button variant="outline" size="sm" className="rounded-full" asChild>
-                    <Link to="/browse">View All</Link>
-                  </Button>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {communityNeeds.map((need) => (
-                  <div key={need.id} className="p-5 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200">
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {communityNeeds.slice(0, 3).map((need) => (
+                  <div key={need.id} className="p-4 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200 group">
                     <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{need.title}</h3>
+                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{need.description}</p>
+                      </div>
                       <Badge 
-                        variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"}
-                        className="text-xs px-2 py-1 rounded-full"
+                        variant={need.urgency === "Immediate" ? "destructive" : "secondary"}
+                        className="rounded-full text-xs px-2 py-1 ml-2"
                       >
                         {need.urgency}
                       </Badge>
-                      <span className="text-xs text-muted-foreground">{need.posted}</span>
                     </div>
-                    
-                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{need.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{need.description}</p>
-                    
-                    <div className="space-y-2 text-xs text-muted-foreground mb-4">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-3 h-3" />
-                        <span>Posted by {need.requester}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                      <span className="flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
-                        <span>{need.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-3 h-3" />
-                        <span>{need.estimatedTime}</span>
-                      </div>
+                        {need.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Timer className="w-3 h-3" />
+                        {need.estimatedTime}
+                      </span>
                     </div>
-                    
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-emerald-600 bg-transparent border border-emerald-600/20 px-2 py-1 rounded-full">
-                          {need.volunteers}/{need.needed} volunteers
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs text-primary font-medium flex items-center gap-1">
+                          <Users className="w-3 h-3" />
+                          {need.volunteers}/{need.needed}
                         </span>
-                        <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
-                          {need.category}
+                        <span className="text-xs text-muted-foreground">
+                          Posted {need.posted}
                         </span>
                       </div>
-                      <Button size="sm" className="rounded-full text-xs px-4">
+                      <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white">
                         Help
                       </Button>
                     </div>
                   </div>
                 ))}
-              </div>
-            </CardContent>
-          </Card>
+                <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
+                  <Link to="/browse">
+                    View All Community Needs <ChevronRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
 
-          {/* Recent Activity - Enhanced */}
-          <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+            {/* Recent Activity */}
+            <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+              <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="w-8 h-8 bg-violet-500/10 rounded-xl flex items-center justify-center">
-                    <Activity className="w-4 h-4 text-violet-600" />
+                  <div className="w-8 h-8 bg-blue-500/10 rounded-xl flex items-center justify-center">
+                    <Activity className="w-4 h-4 text-blue-600" />
                   </div>
                   Recent Activity
                 </CardTitle>
-                <Button variant="ghost" size="sm" className="text-xs">
-                  View All
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+              </CardHeader>
+              <CardContent className="space-y-4">
                 {recentActivity.map((activity) => {
-                  const Icon = activity.icon;
-                  const colorClass = {
-                    emerald: "bg-transparent border border-emerald-600/20 hover:bg-emerald-50/10",
-                    rose: "bg-transparent border border-rose-600/20 hover:bg-rose-50/10", 
-                    amber: "bg-transparent border border-amber-600/20 hover:bg-amber-50/10",
-                    blue: "bg-transparent border border-blue-600/20 hover:bg-blue-50/10"
-                  }[activity.color];
-                  
-                  const iconColorClass = {
-                    emerald: "bg-emerald-100 text-emerald-600",
-                    rose: "bg-rose-100 text-rose-600",
-                    amber: "bg-amber-100 text-amber-600", 
-                    blue: "bg-blue-100 text-blue-600"
-                  }[activity.color];
-
+                  const IconComponent = activity.icon;
                   return (
-                    <div key={activity.id} className={`flex items-start gap-4 p-4 ${colorClass} rounded-xl transition-all duration-200 cursor-pointer group`}>
-                      <div className={`w-10 h-10 ${iconColorClass} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200`}>
-                        <Icon className="w-5 h-5" />
+                    <div key={activity.id} className="flex items-start gap-4 p-3 bg-transparent border border-border rounded-xl hover:shadow-gentle transition-all duration-200">
+                      <div className={`w-10 h-10 bg-${activity.color}-100 rounded-full flex items-center justify-center flex-shrink-0`}>
+                        <IconComponent className={`w-4 h-4 text-${activity.color}-600`} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-foreground text-sm mb-1 line-clamp-1">{activity.title}</p>
-                        <p className="text-xs text-muted-foreground line-clamp-2 mb-1">{activity.description}</p>
-                        <span className="text-xs text-muted-foreground font-medium">{activity.time}</span>
+                        <h3 className="font-medium text-foreground text-sm mb-1 line-clamp-1">{activity.title}</h3>
+                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{activity.description}</p>
+                        <span className="text-xs text-muted-foreground">{activity.time}</span>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-200" />
                     </div>
                   );
                 })}
-              </div>
-            </CardContent>
-          </Card>
+                <Button variant="outline" className="w-full rounded-xl text-sm" asChild>
+                  <Link to="/activity">
+                    View All Activity <ChevronRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

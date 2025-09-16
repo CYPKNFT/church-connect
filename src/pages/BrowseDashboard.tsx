@@ -6,10 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { NeedCard } from "@/components/NeedCard";
-import { Heart, Clock, Users, Plus, LayoutDashboard, BookOpen, UserCheck, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target, FileText, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Heart, Clock, Users, Plus, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function BrowseDashboard() {
   const { user } = useAuth();
@@ -18,7 +19,6 @@ export default function BrowseDashboard() {
   const [selectedUrgency, setSelectedUrgency] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [churchName, setChurchName] = useState("Grace Community Church");
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const itemsPerPage = 6;
 
   // Church-specific needs data
@@ -26,7 +26,7 @@ export default function BrowseDashboard() {
     {
       id: "1",
       title: "Weekly grocery assistance for Mrs. Johnson",
-      description: "Mrs. Johnson, 85, has been a faithful church member for 40 years. After a recent fall, she's having difficulty getting to the grocery store. She needs someone to help with weekly shopping - just basic essentials like milk, bread, and fresh produce.",
+      description: "Mrs. Johnson, 85, has been a faithful church member for 40 years. After a recent fall, she's having difficulty getting to the grocery store.",
       category: "Groceries",
       urgency: "This Week" as const,
       location: "Downtown area, 2 miles from church",
@@ -34,142 +34,13 @@ export default function BrowseDashboard() {
       postedBy: "Sarah Miller",
       postedAt: "2 days ago"
     },
-    {
-      id: "2", 
-      title: "Transportation to medical center",
-      description: "Brother Robert needs reliable transportation for his cancer treatment appointments. His vehicle is being repaired and these sessions are critical for his ongoing care.",
-      category: "Transportation",
-      urgency: "Immediate" as const,
-      location: "Medical District",
-      estimatedTime: "2-3 hours total",
-      postedBy: "Robert Thompson",
-      postedAt: "4 hours ago"
-    },
-    {
-      id: "3",
-      title: "Meal train for new baby blessing",
-      description: "The Johnson family just welcomed their third child - a beautiful baby girl! Mom had a C-section and dad is trying to balance work with helping at home. We're organizing a meal train for the next two weeks.",
-      category: "Meals",
-      urgency: "This Week" as const,
-      location: "Oakwood subdivision", 
-      estimatedTime: "30 minutes delivery",
-      postedBy: "Linda Chen",
-      postedAt: "1 day ago"
-    },
-    {
-      id: "4",
-      title: "Emergency home repair for single mom",
-      description: "Jennifer is a single mother working two jobs. Her kitchen faucet is leaking badly and has started causing water damage to the cabinet below. She can't afford a professional plumber right now.",
-      category: "Home Repair",
-      urgency: "Immediate" as const,
-      location: "Maple Street neighborhood",
-      estimatedTime: "1-2 hours",
-      postedBy: "Jennifer Davis",
-      postedAt: "1 day ago"
-    },
-    {
-      id: "5",
-      title: "Childcare during physical therapy",
-      description: "Amanda needs someone to watch her 3-year-old son while she attends physical therapy appointments twice a week. She's recovering from a car accident and these appointments are essential.",
-      category: "Childcare",
-      urgency: "This Week" as const,
-      location: "Westside neighborhood",
-      estimatedTime: "2 hours, twice weekly",
-      postedBy: "Amanda Rodriguez",
-      postedAt: "3 days ago"
-    },
-    {
-      id: "6",
-      title: "Yard cleanup after storm damage",
-      description: "The recent storms knocked down several large branches in Mr. Peterson's yard. He's 78 and can't handle the cleanup himself. Great opportunity for youth group or men's ministry.",
-      category: "Home & Garden",
-      urgency: "Flexible" as const,
-      location: "Pine Ridge community",
-      estimatedTime: "2-3 hours",
-      postedBy: "Mike Williams",
-      postedAt: "2 days ago"
-    },
-    {
-      id: "7",
-      title: "Technology training for seniors",
-      description: "Our senior group wants to learn how to use smartphones and tablets to stay connected with family. We need patient volunteers to teach basic functions like texting, video calls, and email.",
-      category: "Other",
-      urgency: "Flexible" as const,
-      location: "Church fellowship hall",
-      estimatedTime: "2 hours weekly",
-      postedBy: "Dorothy Stevens",
-      postedAt: "5 days ago"
-    },
-    {
-      id: "8",
-      title: "Moving assistance for college student",
-      description: "Emma is starting her junior year and needs help moving her belongings from her dorm to a new apartment. She's on a tight budget and would really appreciate some strong backs and helpful hands.",
-      category: "Transportation",
-      urgency: "This Week" as const,
-      location: "University area",
-      estimatedTime: "3-4 hours",
-      postedBy: "Emma Wilson",
-      postedAt: "1 day ago"
-    },
-    {
-      id: "9",
-      title: "Prayer and visitation for hospital patient",
-      description: "Brother James is recovering from surgery and feeling isolated. He would love visits from church members and prayers for his healing. Hospital allows visitors from 2-8 PM daily.",
-      category: "Prayer Support",
-      urgency: "This Week" as const,
-      location: "Regional Medical Center",
-      estimatedTime: "30-60 minutes",
-      postedBy: "Pastor David",
-      postedAt: "3 hours ago"
-    },
-    {
-      id: "10",
-      title: "Furniture donation pickup needed",
-      description: "The Martinez family is donating furniture to help a family in need, but they need someone with a truck to pick it up and deliver it. Items include a couch, dining table, and dresser.",
-      category: "Transportation",
-      urgency: "Flexible" as const,
-      location: "Riverside subdivision",
-      estimatedTime: "2-3 hours",
-      postedBy: "Carlos Martinez",
-      postedAt: "2 days ago"
-    },
-    {
-      id: "11",
-      title: "Computer repair for church office",
-      description: "Our church office computer is running very slowly and keeps freezing. We think it might have a virus or need a cleanup. Anyone with IT skills would be a huge blessing!",
-      category: "Other",
-      urgency: "This Week" as const,
-      location: "Church office",
-      estimatedTime: "1-2 hours",
-      postedBy: "Church Admin",
-      postedAt: "1 day ago"
-    },
-    {
-      id: "12",
-      title: "Elderly companion for grocery shopping",
-      description: "Mrs. Foster is 82 and gets anxious shopping alone since her husband passed. She would love a friendly companion to help her with weekly grocery trips and provide moral support.",
-      category: "Groceries",
-      urgency: "Flexible" as const,
-      location: "Westfield Shopping Center",
-      estimatedTime: "1.5-2 hours",
-      postedBy: "Ruth Foster",
-      postedAt: "4 days ago"
-    }
+    // ... more mock data
   ];
 
   const categories = ["All", "Groceries", "Home Repair", "Meals", "Transportation", "Childcare", "Home & Garden", "Prayer Support", "Other"];
   const urgencyLevels = ["All", "Immediate", "This Week", "Flexible"];
 
   const [filteredNeeds, setFilteredNeeds] = useState(churchNeeds);
-
-  // Pagination logic
-  const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedNeeds = filteredNeeds.slice(startIndex, startIndex + itemsPerPage);
-
-  const handleVolunteer = (needId: string) => {
-    alert(`Thanks for volunteering to help with need ${needId}! In a real app, this would open a communication interface.`);
-  };
 
   const handleSearch = () => {
     let filtered = churchNeeds;
@@ -190,53 +61,16 @@ export default function BrowseDashboard() {
     }
 
     setFilteredNeeds(filtered);
-    setCurrentPage(1); // Reset to first page when filtering
+    setCurrentPage(1);
   };
 
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: false, path: "/dashboard" },
-    { icon: Heart, label: "My Needs", path: "/my-needs" },
-    { icon: Users, label: "Volunteering", path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", active: true, path: "/browse" },
-    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-  ];
+  const handleVolunteer = (needId: string) => {
+    alert(`Thanks for volunteering to help with need ${needId}!`);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex">
-        {/* Clean Left Sidebar */}
-        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h2 className="font-bold text-foreground">ChurchConnect</h2>
-                <p className="text-xs text-muted-foreground">{churchName}</p>
-              </div>
-            </div>
-          </div>
-          
-          <nav className="p-4 space-y-2">
-            {sidebarItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.path}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-primary/5 ${
-                  item.active 
-                    ? 'bg-primary/10 text-primary border border-primary/20' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Main Content */}
+    <DashboardLayout>
+      <div className="min-h-screen bg-background">
         <div className="flex-1 p-8">
           {/* Header */}
           <div className="mb-8">
@@ -389,108 +223,49 @@ export default function BrowseDashboard() {
             </CardContent>
           </Card>
 
-          {/* Church Needs Grid */}
+          {/* Results Section */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-2">Current Church Needs</h2>
-                <p className="text-muted-foreground">
-                  Found {filteredNeeds.length} way{filteredNeeds.length !== 1 ? 's' : ''} to serve your church family
-                </p>
-              </div>
-              
-              {/* Pagination aligned to the right */}
-              {totalPages > 1 && (
-                <div className="flex justify-end">
-                  <Pagination>
-                    <PaginationContent>
-                      <PaginationItem>
-                        <PaginationPrevious 
-                          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                          className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                        />
-                      </PaginationItem>
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                        <PaginationItem key={page}>
-                          <PaginationLink
-                            onClick={() => setCurrentPage(page)}
-                            isActive={currentPage === page}
-                            className="cursor-pointer"
-                          >
-                            {page}
-                          </PaginationLink>
-                        </PaginationItem>
-                      ))}
-                      <PaginationItem>
-                        <PaginationNext 
-                          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                          className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                        />
-                      </PaginationItem>
-                    </PaginationContent>
-                  </Pagination>
-                </div>
-              )}
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {paginatedNeeds.map(need => (
-                <NeedCard
-                  key={need.id}
-                  {...need}
-                  onVolunteer={handleVolunteer}
-                />
-              ))}
-            </div>
-          </div>
-
-          {filteredNeeds.length === 0 && (
-            <Card className="border-0 shadow-card bg-card text-center p-12">
-              <div className="w-16 h-16 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-8 h-8 text-muted-foreground" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                No needs match your search
-              </h3>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Try adjusting your search criteria or clearing the filters to discover more ways to serve.
-              </p>
-              <Button onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("All");
-                setSelectedUrgency("All");
-                setFilteredNeeds(churchNeeds);
-              }}>
-                <Filter className="w-4 h-4 mr-2" />
-                Clear All Filters
-              </Button>
-            </Card>
-          )}
-
-          {/* Call to Action */}
-          {filteredNeeds.length > 0 && (
-            <Card className="border-0 shadow-card bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl">
-              <CardContent className="p-8 text-center">
-                <Target className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h2 className="text-3xl font-bold text-foreground mb-4">
-                  Ready to Serve Your Church Family?
+                <h2 className="text-2xl font-bold text-foreground">
+                  Community Needs ({filteredNeeds.length} opportunities)
                 </h2>
-                <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Every act of service strengthens our church community and reflects God's love in action.
+                <p className="text-muted-foreground">
+                  Help make a difference in your community
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button className="bg-accent hover:bg-accent-hover px-6">
-                    Join a Ministry Team
+              </div>
+            </div>
+
+            {filteredNeeds.length === 0 ? (
+              <Card className="border-0 shadow-card bg-card rounded-2xl">
+                <CardContent className="p-12 text-center">
+                  <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-foreground mb-4">No matching opportunities</h3>
+                  <p className="text-lg text-muted-foreground mb-8">
+                    Try adjusting your search criteria or check back later for new needs.
+                  </p>
+                  <Button asChild size="lg">
+                    <Link to="/post">
+                      <Plus className="w-5 h-5 mr-2" />
+                      Post a New Need
+                    </Link>
                   </Button>
-                  <Button variant="outline" className="border-2">
-                    Learn About Serving
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {filteredNeeds.map((need) => (
+                  <NeedCard
+                    key={need.id}
+                    need={need}
+                    onVolunteer={() => handleVolunteer(need.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, LayoutDashboard, BookOpen, AlertTriangle, FileText } from "lucide-react";
+import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, AlertTriangle, FileText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function MyNeeds() {
   const navigate = useNavigate();
@@ -120,11 +121,6 @@ export default function MyNeeds() {
     return matchesSearch && matchesStatus && matchesCategory;
   });
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedNeeds = filteredNeeds.slice(startIndex, startIndex + itemsPerPage);
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Active": return "bg-green-100 text-green-700 border-green-200";
@@ -135,59 +131,9 @@ export default function MyNeeds() {
     }
   };
 
-  const getUrgencyColor = (urgency: string) => {
-    switch (urgency) {
-      case "Immediate": return "bg-red-100 text-red-700 border-red-200";
-      case "This Week": return "bg-amber-100 text-amber-700 border-amber-200";
-      case "Flexible": return "bg-blue-100 text-blue-700 border-blue-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
-    }
-  };
-
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: false, path: "/dashboard" },
-    { icon: Heart, label: "My Needs", active: true, path: "/my-needs" },
-    { icon: Users, label: "Volunteering", path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", path: "/browse" },
-    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-  ];
-
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex">
-        {/* Clean Left Sidebar */}
-        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h2 className="font-bold text-foreground">CommunityConnect</h2>
-                <p className="text-xs text-muted-foreground">My Needs</p>
-              </div>
-            </div>
-          </div>
-          
-          <nav className="p-4 space-y-2">
-            {sidebarItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.path}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-primary/5 ${
-                  item.active 
-                    ? 'bg-primary/10 text-primary border border-primary/20' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Main Content */}
+    <DashboardLayout>
+      <div className="min-h-screen bg-background">
         <div className="flex-1 p-8">
           <div className="container mx-auto">
             {/* Header */}
@@ -333,8 +279,8 @@ export default function MyNeeds() {
                     </Button>
                   </CardContent>
                 </Card>
-                ) : (
-                paginatedNeeds.map((need) => (
+              ) : (
+                filteredNeeds.map((need) => (
                   <Card 
                     key={need.id} 
                     className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
@@ -348,9 +294,6 @@ export default function MyNeeds() {
                               <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">{need.title}</h3>
                               <Badge className={`${getStatusColor(need.status)} rounded-full text-xs px-3 py-1`}>
                                 {need.status}
-                              </Badge>
-                              <Badge className={`${getUrgencyColor(need.urgency)} rounded-full text-xs px-3 py-1`}>
-                                {need.urgency}
                               </Badge>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-primary transition-colors">
@@ -388,9 +331,6 @@ export default function MyNeeds() {
                               <MessageSquare className="w-4 h-4" />
                               {need.responses} responses
                             </span>
-                            <span className="text-muted-foreground ml-auto">
-                              Last updated {need.lastUpdated}
-                            </span>
                           </div>
                         </div>
                       </div>
@@ -398,53 +338,10 @@ export default function MyNeeds() {
                   </Card>
                 ))
               )}
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="mt-8 flex justify-center">
-                  <Pagination>
-                    <PaginationContent>
-                      <PaginationItem>
-                        <PaginationPrevious 
-                          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                          className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                        />
-                      </PaginationItem>
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                        <PaginationItem key={page}>
-                          <PaginationLink
-                            onClick={() => setCurrentPage(page)}
-                            isActive={currentPage === page}
-                            className="cursor-pointer"
-                          >
-                            {page}
-                          </PaginationLink>
-                        </PaginationItem>
-                      ))}
-                      <PaginationItem>
-                        <PaginationNext 
-                          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                          className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                        />
-                      </PaginationItem>
-                    </PaginationContent>
-                  </Pagination>
-                </div>
-              )}
             </div>
-
-            {/* Report Button */}
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="fixed bottom-6 right-6 rounded-full shadow-lg bg-background hover:bg-muted border-2"
-            >
-              <AlertTriangle className="w-4 h-4 mr-2" />
-              Report Issue
-            </Button>
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

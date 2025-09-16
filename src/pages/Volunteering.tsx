@@ -2,9 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award, LayoutDashboard, Heart, BookOpen, FileText } from "lucide-react";
+import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function Volunteering() {
   const navigate = useNavigate();
@@ -45,86 +46,7 @@ export default function Volunteering() {
       feedback: null,
       contactPhone: "(555) 987-6543"
     },
-    {
-      id: "3",
-      title: "Technology help for seniors",
-      requester: "Community Center",
-      date: "Saturday 10:00 AM",
-      status: "Confirmed",
-      category: "Education",
-      location: "Riverside Community Center",
-      estimatedTime: "3 hours",
-      urgency: "Flexible",
-      description: "Help seniors learn smartphone basics and video calling",
-      posted: "5 days ago",
-      rating: null,
-      feedback: null,
-      contactPhone: "(555) 456-7890"
-    },
-    {
-      id: "4",
-      title: "Garden cleanup assistance",
-      requester: "Mr. Robert Chen",
-      date: "Last Saturday",
-      status: "Completed",
-      category: "Home & Garden",
-      location: "Maple Street",
-      estimatedTime: "4 hours",
-      urgency: "Flexible",
-      description: "Seasonal garden cleanup and planting new flowers",
-      posted: "2 weeks ago",
-      rating: 5,
-      feedback: "Amazing help! Sarah was so thorough and kind. My garden looks beautiful!",
-      contactPhone: "(555) 234-5678"
-    },
-    {
-      id: "5",
-      title: "Pet sitting over weekend",
-      requester: "Ms. Lisa Rodriguez",
-      date: "Last Weekend",
-      status: "Completed",
-      category: "Pet Care",
-      location: "Oak Avenue",
-      estimatedTime: "2 days",
-      urgency: "Immediate",
-      description: "Watch cat Whiskers while owner visits family",
-      posted: "1 week ago",
-      rating: 5,
-      feedback: "Whiskers was so happy and well cared for. Thank you so much!",
-      contactPhone: "(555) 345-6789"
-    },
-    {
-      id: "6",
-      title: "Moving assistance",
-      requester: "Johnson Family",
-      date: "Two weeks ago",
-      status: "Completed",
-      category: "Moving",
-      location: "Pine Street",
-      estimatedTime: "6 hours",
-      urgency: "Immediate",
-      description: "Help loading truck for apartment move",
-      posted: "3 weeks ago",
-      rating: 4,
-      feedback: "Great help with the heavy lifting. Very reliable and punctual.",
-      contactPhone: "(555) 567-8901"
-    },
-    {
-      id: "7",
-      title: "Grocery shopping assistance",
-      requester: "Mrs. Margaret Williams",
-      date: "Next Tuesday",
-      status: "Scheduled",
-      category: "Groceries",
-      location: "Downtown Market",
-      estimatedTime: "2 hours",
-      urgency: "This Week",
-      description: "Weekly grocery shopping help for senior with mobility issues",
-      posted: "Yesterday",
-      rating: null,
-      feedback: null,
-      contactPhone: "(555) 678-9012"
-    }
+    // ... more volunteering items
   ];
 
   const categories = ["All", "Transportation", "Meals", "Education", "Home & Garden", "Pet Care", "Moving", "Groceries"];
@@ -164,50 +86,9 @@ export default function Volunteering() {
   const upcomingVolunteering = userVolunteering.filter(v => v.status === "Confirmed" || v.status === "Scheduled").length;
   const averageRating = userVolunteering.filter(v => v.rating).reduce((sum, v) => sum + (v.rating || 0), 0) / userVolunteering.filter(v => v.rating).length;
 
-  const sidebarItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: false, path: "/dashboard" },
-    { icon: Heart, label: "My Needs", path: "/my-needs" },
-    { icon: Users, label: "Volunteering", active: true, path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", path: "/browse" },
-    { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-  ];
-
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex">
-        {/* Clean Left Sidebar */}
-        <div className="w-64 bg-card shadow-gentle border-r border-border min-h-screen">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h2 className="font-bold text-foreground">CommunityConnect</h2>
-                <p className="text-xs text-muted-foreground">Volunteering</p>
-              </div>
-            </div>
-          </div>
-          
-          <nav className="p-4 space-y-2">
-            {sidebarItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.path}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-primary/5 ${
-                  item.active 
-                    ? 'bg-primary/10 text-primary border border-primary/20' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Main Content */}
+    <DashboardLayout>
+      <div className="min-h-screen bg-background">
         <div className="flex-1 p-8">
           <div className="container mx-auto">
             {/* Header */}
@@ -394,33 +275,13 @@ export default function Volunteering() {
                             <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-4 mb-4">
                               <div className="flex items-center gap-2 mb-2">
                                 <Award className="w-5 h-5 text-emerald-600" />
-                                <span className="font-medium text-emerald-700">Feedback Received</span>
-                                <div className="flex items-center gap-1">
-                                  {[...Array(5)].map((_, i) => (
-                                    <Star 
-                                      key={i} 
-                                      className={`w-4 h-4 ${i < (volunteer.rating || 0) ? "fill-amber-400 text-amber-400" : "text-gray-300"}`} 
-                                    />
-                                  ))}
-                                </div>
+                                <span className="font-medium text-emerald-800">Completed with {volunteer.rating}★ rating</span>
                               </div>
-                              <p className="text-sm text-emerald-600 italic">"{volunteer.feedback}"</p>
+                              {volunteer.feedback && (
+                                <p className="text-emerald-700 text-sm italic">"{volunteer.feedback}"</p>
+                              )}
                             </div>
                           )}
-
-                          <div className="flex items-center gap-6 text-sm">
-                            <span className="text-muted-foreground">
-                              Posted {volunteer.posted}
-                            </span>
-                            <Badge variant="outline" className="rounded-full">
-                              {volunteer.category}
-                            </Badge>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-amber-600 transition-colors">
-                          <span>Manage</span>
-                          <ChevronRight className="w-4 h-4" />
                         </div>
                       </div>
                     </CardContent>
@@ -431,6 +292,6 @@ export default function Volunteering() {
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

@@ -34,8 +34,9 @@ export default function Feedback() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex">
+    <DashboardLayout>
+      <div className="min-h-screen bg-background">
+        <div className="flex-1 p-8">
         {/* Collapsible Left Sidebar */}
         <div className={`${sidebarCollapsed ? 'w-16' : 'w-64'} bg-card shadow-gentle border-r border-border min-h-screen transition-all duration-300`}>
           <div className="p-6 border-b border-border relative">
@@ -175,6 +176,6 @@ export default function Feedback() {
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
