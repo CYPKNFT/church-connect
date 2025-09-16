@@ -353,7 +353,7 @@ export default function MyNeeds() {
                                 {need.urgency}
                               </Badge>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-amber-500 hover-scale transition-all duration-200">
                               <span>Manage</span>
                               <ChevronRight className="w-4 h-4" />
                             </div>
