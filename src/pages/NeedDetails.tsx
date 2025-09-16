@@ -69,6 +69,18 @@ interface NeedData {
     name: string;
     avatar?: string;
   };
+  review?: {
+    rating: number;
+    feedback: string;
+    wouldRecommend: boolean;
+    categories: {
+      punctuality: number;
+      helpfulness: number;
+      communication: number;
+      quality: number;
+    };
+    submittedAt: string;
+  };
 }
 
 interface Volunteer {
@@ -128,7 +140,23 @@ export default function NeedDetails() {
           acceptedVolunteer: { id: "2", name: "Emily Rodriguez", avatar: undefined }
         };
       case "3":
-        return { ...baseData, status: "completed" as RequestStatus };
+        return { 
+          ...baseData, 
+          status: "completed" as RequestStatus,
+          acceptedVolunteer: { id: "2", name: "Emily Rodriguez", avatar: undefined },
+          review: {
+            rating: 5,
+            feedback: "Emily was absolutely wonderful! She arrived right on time and was so helpful with everything. She made the shopping trip easy and even helped me organize everything when we got back. I would definitely recommend her to anyone who needs assistance.",
+            wouldRecommend: true,
+            categories: {
+              punctuality: 5,
+              helpfulness: 5,
+              communication: 4,
+              quality: 5
+            },
+            submittedAt: "2 days ago"
+          }
+        };
       case "4":
         return { ...baseData, status: "cancelled" as RequestStatus };
       case "5":
@@ -217,6 +245,7 @@ export default function NeedDetails() {
   const [isSaving, setIsSaving] = useState(false);
   const [selectedVolunteerId, setSelectedVolunteerId] = useState<string | null>(null);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const [viewReviewDialogOpen, setViewReviewDialogOpen] = useState(false);
   const [reviewForm, setReviewForm] = useState({
     rating: 0,
     feedback: "",
@@ -536,14 +565,38 @@ export default function NeedDetails() {
       case "completed":
         return (
           <div className="flex flex-wrap gap-2">
-            <Button 
-              size="sm" 
-              className="bg-yellow-600 hover:bg-yellow-700"
-              onClick={() => setReviewDialogOpen(true)}
-            >
-              <Star className="w-4 h-4 mr-2" />
-              Leave Review
-            </Button>
+            {needData.review ? (
+              <div className="flex items-center gap-3">
+                <div 
+                  className="flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-lg cursor-pointer hover:bg-yellow-100 transition-colors"
+                  onClick={() => setViewReviewDialogOpen(true)}
+                >
+                  <span className="text-sm font-medium text-yellow-800">Your Review:</span>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star 
+                        key={star}
+                        className={`w-4 h-4 ${
+                          star <= needData.review!.rating 
+                            ? "fill-yellow-400 text-yellow-400" 
+                            : "text-gray-300"
+                        }`} 
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-yellow-600">Click to view details</span>
+                </div>
+              </div>
+            ) : (
+              <Button 
+                size="sm" 
+                className="bg-yellow-600 hover:bg-yellow-700"
+                onClick={() => setReviewDialogOpen(true)}
+              >
+                <Star className="w-4 h-4 mr-2" />
+                Leave Review
+              </Button>
+            )}
             <Button variant="outline" size="sm">
               <RotateCcw className="w-4 h-4 mr-2" />
               Request Again
@@ -1115,6 +1168,121 @@ export default function NeedDetails() {
             >
               <Star className="w-4 h-4 mr-2" />
               Submit Review
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* View Review Dialog */}
+      <Dialog open={viewReviewDialogOpen} onOpenChange={setViewReviewDialogOpen}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              Review for {needData.acceptedVolunteer?.name}
+            </DialogTitle>
+            <p className="text-center text-muted-foreground">
+              Submitted {needData.review?.submittedAt}
+            </p>
+          </DialogHeader>
+          
+          {needData.review && (
+            <div className="space-y-6 py-4">
+              {/* Overall Rating */}
+              <div className="text-center space-y-4">
+                <h3 className="text-lg font-semibold">Overall Experience</h3>
+                <div className="flex justify-center gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star 
+                      key={star}
+                      className={`w-8 h-8 ${
+                        star <= needData.review!.rating 
+                          ? "fill-yellow-400 text-yellow-400" 
+                          : "text-gray-300"
+                      }`} 
+                    />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {needData.review.rating === 1 && "Poor experience"}
+                  {needData.review.rating === 2 && "Fair experience"}
+                  {needData.review.rating === 3 && "Good experience"}
+                  {needData.review.rating === 4 && "Great experience"}
+                  {needData.review.rating === 5 && "Excellent experience"}
+                </p>
+              </div>
+
+              <Separator />
+
+              {/* Category Ratings */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Detailed Ratings</h3>
+                
+                {[
+                  { key: 'punctuality', label: 'Punctuality', icon: Clock },
+                  { key: 'helpfulness', label: 'Helpfulness', icon: Heart },
+                  { key: 'communication', label: 'Communication', icon: MessageSquare },
+                  { key: 'quality', label: 'Quality of Help', icon: CheckCircle }
+                ].map(({ key, label, icon: IconComponent }) => (
+                  <div key={key} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <IconComponent className="w-5 h-5 text-muted-foreground" />
+                      <span className="font-medium">{label}</span>
+                    </div>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star 
+                          key={star}
+                          className={`w-5 h-5 ${
+                            star <= needData.review!.categories[key as keyof typeof needData.review.categories]
+                              ? "fill-yellow-400 text-yellow-400" 
+                              : "text-gray-300"
+                          }`} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <Separator />
+
+              {/* Written Feedback */}
+              {needData.review.feedback && (
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold">Written Feedback</h3>
+                  <div className="bg-muted p-4 rounded-lg">
+                    <p className="text-foreground leading-relaxed">"{needData.review.feedback}"</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Recommendation */}
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold">Recommendation</h3>
+                <div className={`flex items-center gap-2 p-3 rounded-lg ${
+                  needData.review.wouldRecommend 
+                    ? 'bg-green-50 text-green-800' 
+                    : 'bg-red-50 text-red-800'
+                }`}>
+                  {needData.review.wouldRecommend ? (
+                    <>
+                      <CheckCircle className="w-5 h-5" />
+                      <span className="font-medium">Would recommend this volunteer</span>
+                    </>
+                  ) : (
+                    <>
+                      <XCircle className="w-5 h-5" />
+                      <span className="font-medium">Would not recommend this volunteer</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="flex justify-end pt-4 border-t">
+            <Button variant="outline" onClick={() => setViewReviewDialogOpen(false)}>
+              Close
             </Button>
           </div>
         </DialogContent>
