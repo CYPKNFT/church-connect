@@ -28,13 +28,23 @@ export default function BrowseDashboard() {
       title: "Weekly grocery assistance for Mrs. Johnson",
       description: "Mrs. Johnson, 85, has been a faithful church member for 40 years. After a recent fall, she's having difficulty getting to the grocery store.",
       category: "Groceries",
-      urgency: "This Week" as const,
+      urgency: "This Week" as "Immediate" | "This Week" | "Flexible",
       location: "Downtown area, 2 miles from church",
       estimatedTime: "1-2 hours",
       postedBy: "Sarah Miller",
       postedAt: "2 days ago"
     },
-    // ... more mock data
+    {
+      id: "2", 
+      title: "Transportation to medical center",
+      description: "Brother Robert needs reliable transportation for his cancer treatment appointments.",
+      category: "Transportation",
+      urgency: "Immediate" as "Immediate" | "This Week" | "Flexible",
+      location: "Medical District",
+      estimatedTime: "2-3 hours total",
+      postedBy: "Robert Thompson",
+      postedAt: "4 hours ago"
+    }
   ];
 
   const categories = ["All", "Groceries", "Home Repair", "Meals", "Transportation", "Childcare", "Home & Garden", "Prayer Support", "Other"];
@@ -114,7 +124,7 @@ export default function BrowseDashboard() {
                     <div>
                       <p className="text-sm font-medium text-amber-600 mb-1">Urgent Needs</p>
                       <p className="text-3xl font-bold text-amber-700">
-                        {filteredNeeds.filter(need => need.urgency === "Immediate").length}
+        {filteredNeeds.filter(need => need.urgency === "Immediate").length}
                       </p>
                       <p className="text-xs text-amber-500 mt-1">Need immediate help</p>
                     </div>
@@ -255,11 +265,36 @@ export default function BrowseDashboard() {
             ) : (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {filteredNeeds.map((need) => (
-                  <NeedCard
-                    key={need.id}
-                    need={need}
-                    onVolunteer={() => handleVolunteer(need.id)}
-                  />
+                  <Card key={need.id} className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors mb-2">{need.title}</h3>
+                          <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">{need.description}</p>
+                          
+                          <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-4">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-4 h-4" />
+                              <span>{need.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Timer className="w-4 h-4" />
+                              <span>{need.estimatedTime}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <Badge variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"} className="rounded-full text-xs px-3 py-1">
+                              {need.urgency}
+                            </Badge>
+                            <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs group-hover:bg-primary group-hover:text-white" onClick={() => handleVolunteer(need.id)}>
+                              Help
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             )}
