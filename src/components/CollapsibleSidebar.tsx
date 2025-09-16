@@ -52,22 +52,40 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             `}
           >
             {/* Header */}
-            <div className="p-4">
+            <div className="p-4 relative">
               <div className="flex items-center gap-3">
                 {!isCollapsed && (
                   <>
                     <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
                       <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h2 className="font-semibold text-sidebar-foreground">ChurchConnect</h2>
                       <p className="text-sm text-sidebar-foreground/70">{churchName ?? "Grace Community Church"}</p>
                     </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={toggleSidebar}
+                      className="hover:bg-sidebar-accent transition-colors duration-200 text-sidebar-foreground p-2 h-8 w-8"
+                    >
+                      <PanelLeftClose className="w-4 h-4" />
+                    </Button>
                   </>
                 )}
                 {isCollapsed && (
-                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mx-auto">
-                    <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={toggleSidebar}
+                      className="hover:bg-sidebar-accent transition-colors duration-200 text-sidebar-foreground p-2 h-8 w-8"
+                    >
+                      <PanelLeftOpen className="w-4 h-4" />
+                    </Button>
                   </div>
                 )}
               </div>
@@ -118,24 +136,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
-            {/* Header with Collapse Button */}
-            <header className="h-12 flex items-center justify-between border-b border-sidebar-border bg-sidebar/80 backdrop-blur-sm sticky top-0 z-10 px-4">
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={toggleSidebar}
-                  className="hover:bg-sidebar-accent transition-colors duration-200 text-sidebar-foreground"
-                >
-                  {isCollapsed ? (
-                    <PanelLeftOpen className="w-4 h-4" />
-                  ) : (
-                    <PanelLeftClose className="w-4 h-4" />
-                  )}
-                </Button>
-              </div>
-            </header>
-
             {/* Page Content */}
             <main className="flex-1 overflow-auto">
               {children}
