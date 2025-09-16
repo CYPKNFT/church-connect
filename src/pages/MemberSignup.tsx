@@ -36,7 +36,7 @@ export default function MemberSignup() {
     const fetchChurches = async () => {
       try {
         const { data, error } = await supabase
-          .from('Churches')
+          .from('churches')
           .select('id, name, city, state')
           .eq('is_verified', true)
           .order('name');

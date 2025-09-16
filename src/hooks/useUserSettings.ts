@@ -31,7 +31,7 @@ export function useUserSettings() {
     if (!memberId) return;
 
     try {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('user_settings')
         .select('push_notifications, email_updates, dark_mode')
         .eq('member_id', memberId)
@@ -40,7 +40,7 @@ export function useUserSettings() {
       if (error) throw error;
 
       if (data) {
-        setSettings(data as UserSettings);
+        setSettings(data);
       } else {
         // Create default settings if none exist
         await createDefaultSettings();
@@ -61,7 +61,7 @@ export function useUserSettings() {
     if (!memberId) return;
 
     try {
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from('user_settings')
         .insert({
           member_id: memberId,
@@ -82,7 +82,7 @@ export function useUserSettings() {
     try {
       const updatedSettings = { ...settings, ...newSettings };
       
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from('user_settings')
         .upsert({
           member_id: memberId,

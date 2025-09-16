@@ -43,7 +43,7 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
   const fetchChurches = async () => {
     try {
       const { data, error } = await supabase
-        .from('Churches')
+        .from('churches')
         .select('id, name, city, state')
         .order('name');
       

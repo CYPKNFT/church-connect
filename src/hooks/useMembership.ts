@@ -47,7 +47,7 @@ export function useMembership(): MembershipData {
         let churchName: string | null = null;
         if (member?.church_id) {
           const { data: church, error: churchErr } = await supabase
-            .from("Churches")
+            .from("churches")
             .select("id, name")
             .eq("id", member.church_id)
             .maybeSingle();

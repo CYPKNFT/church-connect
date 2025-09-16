@@ -25,7 +25,7 @@ export function useChurchVerification() {
       try {
         // Check if user is a church admin
         const { data: churchData, error } = await supabase
-          .from('Churches')
+          .from('churches')
           .select('id, name, is_verified, admin_user_id')
           .eq('admin_user_id', user.id)
           .single();

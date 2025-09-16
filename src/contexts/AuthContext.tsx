@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const pending = JSON.parse(raw);
         // Avoid duplicate if church already exists for this admin
         const { data: existing } = await supabase
-          .from('Churches')
+          .from('churches')
           .select('id')
           .eq('admin_user_id', user.id)
           .limit(1)
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const admin = pending?.admin || {};
 
         const { data: created, error: churchError } = await supabase
-          .from('Churches')
+          .from('churches')
           .insert({
             name: church.name,
             address: church.address,
