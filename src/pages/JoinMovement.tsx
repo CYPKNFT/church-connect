@@ -14,28 +14,28 @@ export default function JoinMovement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-accent to-primary relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-accent to-primary dark:from-background dark:via-muted/20 dark:to-background relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl -translate-y-64 translate-x-64"></div>
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-2xl translate-y-64 -translate-x-32"></div>
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 dark:bg-primary/5 rounded-full blur-3xl -translate-y-64 translate-x-64"></div>
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent/10 dark:bg-accent/5 rounded-full blur-2xl translate-y-64 -translate-x-32"></div>
       
       <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 bg-white/15 border border-white/25 rounded-full px-8 py-4 text-white font-semibold mb-8 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-3 bg-white/15 dark:bg-card border border-white/25 dark:border-border rounded-full px-8 py-4 text-white dark:text-foreground font-semibold mb-8 backdrop-blur-sm">
             <Heart className="w-6 h-6" />
             <span className="text-lg">Join the Community</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-            Choose Your <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Path</span>
+          <h1 className="text-5xl lg:text-7xl font-bold text-white dark:text-foreground mb-8 leading-tight">
+            Choose Your <span className="bg-gradient-to-r from-white to-white/80 dark:from-primary dark:to-accent bg-clip-text text-transparent">Path</span>
           </h1>
-          <p className="text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-2xl lg:text-3xl text-white/90 dark:text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Whether you're leading a church community or joining as a member, ChurchConnect empowers meaningful connections
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Church Admin Option */}
-          <Card className="border-0 shadow-2xl hover:shadow-3xl hover-lift bg-white/95 backdrop-blur-sm group cursor-pointer overflow-hidden relative"
+          <Card className="border-0 shadow-2xl hover:shadow-3xl hover-lift bg-white/95 dark:bg-card backdrop-blur-sm group cursor-pointer overflow-hidden relative"
                 onClick={() => handleRoleSelect("admin")}>
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <CardHeader className="pb-8 relative z-10">
@@ -91,7 +91,7 @@ export default function JoinMovement() {
           </Card>
 
           {/* Church Member Option */}
-          <Card className="border-0 shadow-2xl hover:shadow-3xl hover-lift bg-white/95 backdrop-blur-sm group cursor-pointer overflow-hidden relative"
+          <Card className="border-0 shadow-2xl hover:shadow-3xl hover-lift bg-white/95 dark:bg-card backdrop-blur-sm group cursor-pointer overflow-hidden relative"
                 onClick={() => handleRoleSelect("member")}>
             <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <CardHeader className="pb-8 relative z-10">
@@ -149,7 +149,7 @@ export default function JoinMovement() {
 
         {/* Security Notice */}
         <div className="max-w-4xl mx-auto mt-16">
-          <Card className="border-0 shadow-xl bg-white/90 backdrop-blur-sm">
+          <Card className="border-0 shadow-xl bg-white/90 dark:bg-card backdrop-blur-sm">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <Shield className="w-8 h-8 text-white" />
