@@ -145,57 +145,49 @@ export default function Churches() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Users className="w-12 h-12 text-accent" />
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
+              <CardContent className="p-8 h-full flex flex-col">
+                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <Users className="w-10 h-10 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Increase Engagement</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <h3 className="text-xl font-bold mb-4">Increase Engagement</h3>
+                <p className="text-muted-foreground leading-relaxed flex-grow">
                   Churches report 300% increase in volunteer participation within the first year.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Shield className="w-12 h-12 text-accent" />
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
+              <CardContent className="p-8 h-full flex flex-col">
+                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <Shield className="w-10 h-10 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Built-in Safety</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <h3 className="text-xl font-bold mb-4">Built-in Safety</h3>
+                <p className="text-muted-foreground leading-relaxed flex-grow">
                   Church-verified members and comprehensive safety guidelines protect your community.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <BarChart3 className="w-12 h-12 text-accent" />
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
+              <CardContent className="p-8 h-full flex flex-col">
+                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <BarChart3 className="w-10 h-10 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Track Impact</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <h3 className="text-xl font-bold mb-4">Track Impact</h3>
+                <p className="text-muted-foreground leading-relaxed flex-grow">
                   Detailed analytics help you measure and share your church's community impact.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-8">
-              <CardHeader className="pb-6">
-                <div className="w-24 h-24 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Settings className="w-12 h-12 text-accent" />
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
+              <CardContent className="p-8 h-full flex flex-col">
+                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                  <Settings className="w-10 h-10 text-accent" />
                 </div>
-                <CardTitle className="text-2xl font-bold mb-4">Easy Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+                <h3 className="text-xl font-bold mb-4">Easy Management</h3>
+                <p className="text-muted-foreground leading-relaxed flex-grow">
                   Simple admin tools make it easy to manage your church community and volunteer programs.
                 </p>
               </CardContent>
@@ -268,35 +260,31 @@ export default function Churches() {
               Everything you need to successfully launch and manage ChurchConnect in your community
             </p>
           </div>
-          <ScrollArea className="max-h-[800px] rounded-3xl">
-            <div className="grid md:grid-cols-2 gap-8" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem', position: 'relative' }}>
-              {resources.map((resource) => {
-                const IconComponent = resource.icon;
-                return (
-                  <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group relative p-6 flex flex-col justify-between" style={{ minWidth: 0 }}>
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start gap-4">
-                        <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                          <IconComponent className="w-8 h-8 text-accent" />
-                        </div>
-                        <div className="flex-1">
-                          <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
-                          <CardTitle className="text-xl font-bold mb-2">{resource.title}</CardTitle>
-                        </div>
+          <div className="grid md:grid-cols-2 gap-8 px-2">
+            {resources.map((resource) => {
+              const IconComponent = resource.icon;
+              return (
+                <Card key={resource.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group relative h-full">
+                  <CardContent className="p-6 h-full flex flex-col">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
+                        <IconComponent className="w-8 h-8 text-accent" />
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground leading-relaxed mb-6">{resource.description}</p>
-                      <Button className="w-full bg-primary hover:bg-primary-hover text-white">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download Resource
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </ScrollArea>
+                      <div className="flex-1">
+                        <Badge variant="secondary" className="mb-3">{resource.type}</Badge>
+                        <h3 className="text-xl font-bold mb-2">{resource.title}</h3>
+                      </div>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">{resource.description}</p>
+                    <Button className="w-full bg-primary hover:bg-primary-hover text-white">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download Resource
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </section>
 
         {/* Leadership Stories Section */}
@@ -308,38 +296,36 @@ export default function Churches() {
             </p>
           </div>
           
-          <ScrollArea className="max-h-[800px] rounded-3xl group">
-            <div className="grid md:grid-cols-2 gap-8 pr-4" style={{ overflow: 'visible', paddingTop: '2rem', paddingBottom: '2rem' }}>
-              {leadershipStories.map((story) => (
-                <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group p-8 flex flex-col justify-between" style={{ minWidth: 0 }}>
-                  <CardContent>
-                    <div className="grid lg:grid-cols-3 gap-8 items-center">
-                      <div className="lg:col-span-2">
-                        <h4 className="text-xl font-bold text-foreground mb-2">{story.pastor}, {story.title}</h4>
-                        <div className="text-muted-foreground mb-2">{story.church} &mdash; {story.location}</div>
-                        <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
-                          "{story.testimonial}"
-                        </blockquote>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span className="bg-accent/10 px-3 py-1 rounded-full">{story.impact}</span>
-                        </div>
-                      </div>
-                      <div className="space-y-6">
-                        <div className="text-center">
-                          <div className="text-3xl font-bold text-accent mb-2">{story.yearsInMinistry}</div>
-                          <p className="text-sm text-muted-foreground">Years in Ministry</p>
-                        </div>
-                        <div className="text-center border-t pt-4">
-                          <p className="text-sm font-medium text-foreground mb-1">Key Achievement</p>
-                          <p className="text-sm text-muted-foreground">{story.keyMetric}</p>
-                        </div>
+          <div className="grid md:grid-cols-2 gap-8 px-2">
+            {leadershipStories.map((story) => (
+              <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group h-full">
+                <CardContent className="p-8 h-full flex flex-col">
+                  <div className="grid lg:grid-cols-3 gap-8 items-center h-full">
+                    <div className="lg:col-span-2">
+                      <h4 className="text-xl font-bold text-foreground mb-2">{story.pastor}, {story.title}</h4>
+                      <div className="text-muted-foreground mb-2">{story.church} &mdash; {story.location}</div>
+                      <blockquote className="text-lg text-muted-foreground leading-relaxed mb-6 italic">
+                        "{story.testimonial}"
+                      </blockquote>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <span className="bg-accent/10 px-3 py-1 rounded-full">{story.impact}</span>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </ScrollArea>
+                    <div className="space-y-6">
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-accent mb-2">{story.yearsInMinistry}</div>
+                        <p className="text-sm text-muted-foreground">Years in Ministry</p>
+                      </div>
+                      <div className="text-center border-t pt-4">
+                        <p className="text-sm font-medium text-foreground mb-1">Key Achievement</p>
+                        <p className="text-sm text-muted-foreground">{story.keyMetric}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
 
         {/* CTA Section */}
