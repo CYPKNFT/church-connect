@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, Building, Users, Calendar, MapPin, Music, Star, Send, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Building, Users, Calendar, MapPin, Music, Star, Send, Eye, EyeOff, Baby } from "lucide-react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ const categories = [
   { id: "events", label: "Events & Programs", icon: Calendar, color: "text-green-600 dark:text-green-400", bgColor: "bg-green-100/50 dark:bg-green-900/20" },
   { id: "facilities", label: "Facilities & Building", icon: Building, color: "text-orange-600 dark:text-orange-400", bgColor: "bg-orange-100/50 dark:bg-orange-900/20" },
   { id: "leadership", label: "Leadership & Staff", icon: Star, color: "text-indigo-600 dark:text-indigo-400", bgColor: "bg-indigo-100/50 dark:bg-indigo-900/20" },
-  { id: "outreach", label: "Outreach & Missions", icon: MapPin, color: "text-destructive", bgColor: "bg-destructive/10" }
+  { id: "children", label: "Children Ministry", icon: Baby, color: "text-blue-400 dark:text-blue-300", bgColor: "bg-blue-100/50 dark:bg-blue-900/20" }
 ];
 
 export function ChurchFeedbackForm({ onBack }: ChurchFeedbackFormProps) {
