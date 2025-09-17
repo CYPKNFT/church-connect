@@ -4,6 +4,7 @@ import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose,
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useMembership } from "@/hooks/useMembership";
+import { useSidebar } from "@/contexts/SidebarContext";
 
 interface CollapsibleSidebarProps {
   children: ReactNode;
@@ -18,27 +19,15 @@ const sidebarItems = [
 ];
 
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggle: toggleSidebar } = useSidebar();
+  const [mounted, setMounted] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
 
-  // Load collapse state from localStorage on mount
   useEffect(() => {
-    const savedState = localStorage.getItem("sidebar-collapsed");
-    if (savedState) {
-      setIsCollapsed(JSON.parse(savedState));
-    }
+    setMounted(true);
   }, []);
-
-  // Save collapse state to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem("sidebar-collapsed", JSON.stringify(isCollapsed));
-  }, [isCollapsed]);
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
 
   return (
     <TooltipProvider>
@@ -47,7 +36,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
           {/* Sidebar */}
           <div 
             className={`
-              bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out relative
+              bg-sidebar border-r border-sidebar-border relative
+              ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
               ${isCollapsed ? 'w-16' : 'w-64'}
             `}
           >
