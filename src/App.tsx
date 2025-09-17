@@ -43,6 +43,7 @@ import Feedback from "./pages/Feedback";
 import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
+import AdminDashboard from "./pages/AdminDashboard";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -83,6 +84,8 @@ const App = () => (
                     <Route path="/template" element={<Template />} />
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
+                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
