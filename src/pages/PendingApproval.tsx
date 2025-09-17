@@ -25,10 +25,10 @@ export default function PendingApproval() {
                 <Shield className="w-4 h-4 text-white" />
               </div>
             </div>
-            <h1 className="text-5xl font-bold text-white mb-4 animate-slide-up">
+            <h1 className="text-5xl font-bold text-white dark:text-foreground mb-4 animate-slide-up">
               Registration Under Review
             </h1>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-xl text-white/80 dark:text-muted-foreground max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
               Thank you for registering your church with ChurchConnect! Your application is being carefully reviewed.
             </p>
           </div>
@@ -37,13 +37,13 @@ export default function PendingApproval() {
           <div className="mb-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Card className="glass-card border-0 backdrop-blur-lg bg-white/10 shadow-elegant">
               <CardContent className="p-8">
-                <h2 className="text-2xl font-semibold text-white mb-8 text-center">Your Progress</h2>
+                <h2 className="text-2xl font-semibold text-white dark:text-foreground mb-8 text-center">Your Progress</h2>
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0">
                   {[
                     { icon: FileCheck, title: "Application Submitted", status: "complete", color: "text-green-400" },
                     { icon: Shield, title: "Security Review", status: "current", color: "text-primary" },
-                    { icon: Users, title: "Team Verification", status: "pending", color: "text-white/40" },
-                    { icon: Zap, title: "Account Activation", status: "pending", color: "text-white/40" },
+                    { icon: Users, title: "Team Verification", status: "pending", color: "text-white/40 dark:text-muted-foreground" },
+                    { icon: Zap, title: "Account Activation", status: "pending", color: "text-white/40 dark:text-muted-foreground" },
                   ].map((step, index) => (
                     <div key={step.title} className="flex flex-col items-center text-center">
                       <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-all duration-300 ${
@@ -53,7 +53,7 @@ export default function PendingApproval() {
                       }`}>
                         <step.icon className={`w-8 h-8 ${step.color}`} />
                       </div>
-                      <h3 className="font-medium text-white mb-2">{step.title}</h3>
+                      <h3 className="font-medium text-white dark:text-foreground mb-2">{step.title}</h3>
                       <div className={`w-2 h-2 rounded-full ${
                         step.status === 'complete' ? 'bg-green-400' : 
                         step.status === 'current' ? 'bg-primary animate-pulse' : 
@@ -79,7 +79,7 @@ export default function PendingApproval() {
                     <CheckCircle className="w-8 h-8 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-semibold text-white mb-6">
+                    <h3 className="text-2xl font-semibold text-white dark:text-foreground mb-6">
                       What happens next?
                     </h3>
                     <div className="grid md:grid-cols-2 gap-6">
@@ -92,7 +92,7 @@ export default function PendingApproval() {
                         <div key={index} className="flex items-start gap-3 animate-slide-up" 
                           style={{ animationDelay: `${0.8 + index * 0.1}s` }}>
                           <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-white/90">{item}</p>
+                          <p className="text-white/90 dark:text-muted-foreground">{item}</p>
                         </div>
                       ))}
                     </div>
@@ -110,11 +110,11 @@ export default function PendingApproval() {
                   <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center shadow-primary group-hover:scale-110 transition-transform duration-300">
                     <Mail className="w-6 h-6 text-white" />
                   </div>
-                  <h4 className="text-xl font-semibold text-white">
+                  <h4 className="text-xl font-semibold text-white dark:text-foreground">
                     Questions?
                   </h4>
                 </div>
-                <p className="text-white/80 mb-6">
+                <p className="text-white/80 dark:text-muted-foreground mb-6">
                   Contact our support team if you have any questions about the approval process.
                 </p>
                 <Button variant="gentle" size="sm" className="w-full group-hover:shadow-glow transition-all duration-300">
@@ -130,11 +130,11 @@ export default function PendingApproval() {
                   <div className="w-12 h-12 bg-gradient-secondary rounded-full flex items-center justify-center shadow-secondary group-hover:scale-110 transition-transform duration-300">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
-                  <h4 className="text-xl font-semibold text-white">
+                  <h4 className="text-xl font-semibold text-white dark:text-foreground">
                     Need Help?
                   </h4>
                 </div>
-                <p className="text-white/80 mb-6">
+                <p className="text-white/80 dark:text-muted-foreground mb-6">
                   Call us during business hours for immediate assistance with your registration.
                 </p>
                 <Button variant="gentle" size="sm" className="w-full group-hover:shadow-glow transition-all duration-300">
