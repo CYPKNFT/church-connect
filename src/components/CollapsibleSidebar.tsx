@@ -1,4 +1,5 @@
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode } from "react";
+import { useSidebar } from "@/contexts/SidebarContext";
 import { Link, useLocation } from "react-router-dom";
 import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,27 +19,14 @@ const sidebarItems = [
 ];
 
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
 
-  // Load collapse state from localStorage on mount
-  useEffect(() => {
-    const savedState = localStorage.getItem("sidebar-collapsed");
-    if (savedState) {
-      setIsCollapsed(JSON.parse(savedState));
-    }
-  }, []);
+  // collapse state managed by SidebarContext
 
-  // Save collapse state to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem("sidebar-collapsed", JSON.stringify(isCollapsed));
-  }, [isCollapsed]);
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  // toggle handled by SidebarContext
 
   return (
     <TooltipProvider>
