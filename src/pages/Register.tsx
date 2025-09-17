@@ -156,7 +156,7 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-hero-gradient py-12 px-4">
       <div className="container mx-auto max-w-2xl">
-        <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
+        <Card className="shadow-card border-0 backdrop-blur-sm bg-background/95 dark:bg-background/95">
           <CardHeader className="text-center space-y-4 relative">
             {/* Compact member signup option in top right */}
             <div className="absolute top-4 right-4">
