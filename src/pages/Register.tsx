@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,7 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -35,6 +36,28 @@ export default function Register() {
     yearsInMinistry: "",
     description: ""
   });
+
+  // Pre-fill form from URL parameters
+  useEffect(() => {
+    const email = searchParams.get('email');
+    const name = searchParams.get('name');
+    const church = searchParams.get('church');
+    
+    if (email) {
+      setFormData(prev => ({ ...prev, email }));
+    }
+    
+    if (name) {
+      const nameParts = name.split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+      setFormData(prev => ({ ...prev, firstName, lastName }));
+    }
+    
+    if (church) {
+      setFormData(prev => ({ ...prev, churchName: church }));
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
