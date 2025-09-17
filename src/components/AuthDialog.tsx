@@ -154,15 +154,7 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[480px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">
-            {mode === "signin" ? "Welcome Back" : "Join ChurchConnect"}
-          </DialogTitle>
-          {mode === "signup" && (
-            <p className="text-center text-muted-foreground text-sm">
-              Connect with your church community and serve your neighbors
-            </p>
-          )}
+        <DialogHeader className="pb-2">
         </DialogHeader>
 
         {mode === "signup" ? (
