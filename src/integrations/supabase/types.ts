@@ -471,6 +471,7 @@ export type Database = {
           granted_at: string
           id: string
           member_id: string
+          ministry_area: string | null
           role: string
         }
         Insert: {
@@ -478,6 +479,7 @@ export type Database = {
           granted_at?: string
           id?: string
           member_id: string
+          ministry_area?: string | null
           role: string
         }
         Update: {
@@ -485,6 +487,7 @@ export type Database = {
           granted_at?: string
           id?: string
           member_id?: string
+          ministry_area?: string | null
           role?: string
         }
         Relationships: [
@@ -1802,7 +1805,124 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      feedback_with_access: {
+        Row: {
+          access_type: string | null
+          category: string | null
+          church_id: string | null
+          created_at: string | null
+          follow_up_needed: boolean | null
+          handled_at: string | null
+          handled_by_member_id: string | null
+          id: string | null
+          is_anonymous: boolean | null
+          member_id: string | null
+          message: string | null
+          rating: number | null
+          reply: string | null
+          title: string | null
+          user_id: string | null
+          visible_to_admins_only: boolean | null
+        }
+        Insert: {
+          access_type?: never
+          category?: string | null
+          church_id?: string | null
+          created_at?: string | null
+          follow_up_needed?: boolean | null
+          handled_at?: string | null
+          handled_by_member_id?: string | null
+          id?: string | null
+          is_anonymous?: boolean | null
+          member_id?: string | null
+          message?: string | null
+          rating?: number | null
+          reply?: string | null
+          title?: string | null
+          user_id?: string | null
+          visible_to_admins_only?: boolean | null
+        }
+        Update: {
+          access_type?: never
+          category?: string | null
+          church_id?: string | null
+          created_at?: string | null
+          follow_up_needed?: boolean | null
+          handled_at?: string | null
+          handled_by_member_id?: string | null
+          id?: string | null
+          is_anonymous?: boolean | null
+          member_id?: string | null
+          message?: string | null
+          rating?: number | null
+          reply?: string | null
+          title?: string | null
+          user_id?: string | null
+          visible_to_admins_only?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chfb_church_fk"
+            columns: ["church_id"]
+            isOneToOne: false
+            referencedRelation: "churches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chfb_handled_by_member_fk"
+            columns: ["handled_by_member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chfb_member_fk"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_ministry_roles: {
+        Row: {
+          church_id: string | null
+          granted_at: string | null
+          member_id: string | null
+          ministry_area: string | null
+          role: string | null
+        }
+        Insert: {
+          church_id?: string | null
+          granted_at?: string | null
+          member_id?: string | null
+          ministry_area?: string | null
+          role?: string | null
+        }
+        Update: {
+          church_id?: string | null
+          granted_at?: string | null
+          member_id?: string | null
+          ministry_area?: string | null
+          role?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "church_roles_church_id_fkey"
+            columns: ["church_id"]
+            isOneToOne: false
+            referencedRelation: "churches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "church_roles_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       cancel_my_signup: {
@@ -1833,6 +1953,10 @@ export type Database = {
           scope: string
           tag_code: string
         }[]
+      }
+      get_user_roles: {
+        Args: { user_uuid: string }
+        Returns: string[]
       }
       is_church_admin: {
         Args: { ch: string }
@@ -2022,6 +2146,10 @@ export type Database = {
       signup_for_need: {
         Args: { p_need: string; p_notes?: string }
         Returns: string
+      }
+      user_has_role: {
+        Args: { roles: string[]; user_uuid: string }
+        Returns: boolean
       }
     }
     Enums: {

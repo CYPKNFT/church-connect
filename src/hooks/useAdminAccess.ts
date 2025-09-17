@@ -29,13 +29,14 @@ export function useAdminAccess(): AdminAccessData {
       }
 
       try {
-        // Check if user has admin or pastor role
+        // Check if user has admin or pastor role with admin ministry_area
         const { data: roles, error: rolesError } = await supabase
           .from('church_roles')
-          .select('role')
+          .select('role, ministry_area')
           .eq('member_id', memberId)
           .eq('church_id', churchId)
-          .in('role', ['admin', 'pastor']);
+          .in('role', ['admin', 'pastor'])
+          .eq('ministry_area', 'admin');
 
         if (rolesError) {
           console.error('Error checking admin roles:', rolesError);
