@@ -153,13 +153,13 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[480px] [&>.lucide-x]:hidden">
         <DialogHeader className="pb-2">
         </DialogHeader>
 
         {mode === "signup" ? (
           <Tabs value={signupType} onValueChange={(value) => setSignupType(value as "member" | "admin")} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsList className="grid w-full grid-cols-2 mb-4">
               <TabsTrigger value="member" className="flex items-center gap-2">
                 <Users className="w-4 h-4" />
                 Join Church
@@ -171,10 +171,10 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
             </TabsList>
 
             <TabsContent value="member" className="space-y-0">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="text-center mb-4">
-                  <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Users className="w-6 h-6 text-blue-600" />
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div className="text-center mb-3">
+                  <div className="w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <Users className="w-5 h-5 text-blue-600" />
                   </div>
                   <h3 className="font-semibold text-lg">Join Your Church Community</h3>
                   <p className="text-sm text-muted-foreground">Connect with members and serve together</p>
@@ -258,10 +258,10 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
             </TabsContent>
 
             <TabsContent value="admin" className="space-y-0">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="text-center mb-4">
-                  <div className="w-12 h-12 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Building className="w-6 h-6 text-orange-600" />
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div className="text-center mb-3">
+                  <div className="w-10 h-10 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <Building className="w-5 h-5 text-orange-600" />
                   </div>
                   <h3 className="font-semibold text-lg">Register Your Church</h3>
                   <p className="text-sm text-muted-foreground">Get started with basic info, complete details later</p>
@@ -319,10 +319,10 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
             </TabsContent>
           </Tabs>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="text-center mb-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Users className="w-6 h-6 text-primary" />
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="text-center mb-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Users className="w-5 h-5 text-primary" />
               </div>
               <h3 className="font-semibold text-lg">Sign In to Your Account</h3>
               <p className="text-sm text-muted-foreground">Welcome back to ChurchConnect</p>
@@ -387,7 +387,7 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
           </form>
         )}
 
-        <div className="text-center text-sm border-t border-border pt-4">
+        <div className="text-center text-sm border-t border-border pt-3">
           {mode === "signin" ? (
             <p>
               Don't have an account?{" "}
