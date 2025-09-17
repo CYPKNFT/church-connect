@@ -73,24 +73,37 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               </div>
             </div>
 
-            {/* Floating Collapse Button */}
-            <Button
-              variant="ghost"
-              size="sm"
+            {/* Tab Toggle */}
+            <div
               onClick={toggleSidebar}
               className={`
-                absolute top-4 z-20 p-2 h-8 w-8 
-                hover:bg-sidebar-accent transition-all duration-200 text-sidebar-foreground
-                bg-sidebar border border-sidebar-border rounded-md shadow-sm
-                ${isCollapsed ? 'left-[72px]' : 'left-[272px]'}
+                absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                bg-sidebar-border hover:bg-sidebar-border/80 
+                flex items-center justify-center
+                ${isCollapsed 
+                  ? 'right-[-20px] w-6 h-8 rounded-r-md' 
+                  : 'right-[-20px] w-6 h-8 rounded-r-md'
+                }
               `}
             >
-              {isCollapsed ? (
-                <PanelLeftOpen className="w-4 h-4" />
-              ) : (
-                <PanelLeftClose className="w-4 h-4" />
-              )}
-            </Button>
+              <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                <svg 
+                  width="12" 
+                  height="12" 
+                  viewBox="0 0 12 12" 
+                  fill="none" 
+                  className="text-yellow-500"
+                >
+                  <path 
+                    d="M4 2L8 6L4 10" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
 
             {/* Navigation */}
             <div className="px-4 space-y-1">
