@@ -29,22 +29,21 @@ export function useAdminAccess(): AdminAccessData {
       }
 
       try {
-        // Check if user has admin or pastor role with admin ministry_area
-        const { data: roles, error: rolesError } = await supabase
-          .from('church_roles')
-          .select('role, ministry_area')
-          .eq('member_id', memberId)
+        // Check if user has admin role in members table
+        const { data: memberData, error: memberError } = await supabase
+          .from('members')
+          .select('role')
+          .eq('id', memberId)
           .eq('church_id', churchId)
-          .in('role', ['admin', 'pastor'])
-          .eq('ministry_area', 'admin');
+          .maybeSingle();
 
-        if (rolesError) {
-          console.error('Error checking admin roles:', rolesError);
+        if (memberError) {
+          console.error('Error checking member role:', memberError);
           setState({ isAdmin: false, loading: false, church: null });
           return;
         }
 
-        const isAdmin = roles && roles.length > 0;
+        const isAdmin = memberData?.role === 'admin';
 
         // Get church info if admin
         let church = null;
@@ -53,7 +52,7 @@ export function useAdminAccess(): AdminAccessData {
             .from('churches')
             .select('id, name')
             .eq('id', churchId)
-            .single();
+            .maybeSingle();
 
           if (!churchError) {
             church = churchData;

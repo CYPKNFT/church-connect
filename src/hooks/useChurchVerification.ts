@@ -14,6 +14,7 @@ export function useChurchVerification() {
   const [church, setChurch] = useState<ChurchData | null>(null);
   const [loading, setLoading] = useState(true);
   const [isVerified, setIsVerified] = useState(false);
+  const [isChurchAdmin, setIsChurchAdmin] = useState(false);
 
   useEffect(() => {
     async function checkChurchVerification() {
@@ -23,22 +24,44 @@ export function useChurchVerification() {
       }
 
       try {
-        // Check if user is a church admin
-        const { data: churchData, error } = await supabase
-          .from('churches')
-          .select('id, name, is_verified, admin_user_id')
-          .eq('admin_user_id', user.id)
-          .single();
+        // Check if user is an admin via members table role field
+        const { data: memberData, error: memberError } = await supabase
+          .from('members')
+          .select('id, role, church_id, churches(id, name, is_verified, admin_user_id)')
+          .eq('user_id', user.id)
+          .eq('role', 'admin')
+          .maybeSingle();
 
-        if (error && error.code !== 'PGRST116') {
-          console.error('Error checking church verification:', error);
+        if (memberError && memberError.code !== 'PGRST116') {
+          console.error('Error checking member admin status:', memberError);
           setLoading(false);
           return;
         }
 
-        if (churchData) {
+        if (memberData && memberData.churches) {
+          const churchData = memberData.churches as ChurchData;
           setChurch(churchData);
           setIsVerified(churchData.is_verified || false);
+          setIsChurchAdmin(true);
+        } else {
+          // Fallback: check if user created a church (for backward compatibility)
+          const { data: churchData, error } = await supabase
+            .from('churches')
+            .select('id, name, is_verified, admin_user_id')
+            .eq('admin_user_id', user.id)
+            .maybeSingle();
+
+          if (error && error.code !== 'PGRST116') {
+            console.error('Error checking church verification:', error);
+            setLoading(false);
+            return;
+          }
+
+          if (churchData) {
+            setChurch(churchData);
+            setIsVerified(churchData.is_verified || false);
+            setIsChurchAdmin(true);
+          }
         }
       } catch (error) {
         console.error('Error in church verification check:', error);
@@ -54,6 +77,6 @@ export function useChurchVerification() {
     church,
     isVerified,
     loading,
-    isChurchAdmin: !!church
+    isChurchAdmin
   };
 }

@@ -35,7 +35,11 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     ];
 
     if (isChurchAdmin) {
-      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard" });
+      // Insert Admin at the top of the list
+      return [
+        { icon: Settings, label: "Admin", path: "/admin-dashboard" },
+        ...baseItems
+      ];
     }
 
     return baseItems;
