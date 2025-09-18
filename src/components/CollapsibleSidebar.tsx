@@ -63,17 +63,81 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     return baseItems;
   };
 
-  // Admin submenu items
-  const adminSubmenuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", path: "/admin-dashboard" },
-    { icon: Users, label: "Community Needs", path: "/admin/community-needs" },
-    { icon: CheckCircle, label: "Need Approvals", path: "/admin/need-approvals" },
-    { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
-    { icon: TrendingUp, label: "Community Impact", path: "/admin/community-impact" },
-    { icon: Flag, label: "Flagged Content", path: "/admin/flagged-content" },
-    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
-    { icon: Megaphone, label: "Announcements", path: "/admin/announcements" },
-    { icon: Settings, label: "Admin Settings", path: "/admin/settings" }
+  // Admin submenu items with expandable sections
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['dashboard']));
+  
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(sectionId)) {
+        newSet.delete(sectionId);
+      } else {
+        newSet.add(sectionId);
+      }
+      return newSet;
+    });
+  };
+
+  const adminSubmenuSections = [
+    {
+      id: 'dashboard',
+      icon: LayoutDashboard,
+      label: "Dashboard",
+      path: "/admin-dashboard",
+      type: 'single' as const
+    },
+    {
+      id: 'community-management',
+      icon: Users,
+      label: "Community Management",
+      type: 'expandable' as const,
+      items: [
+        { icon: Users, label: "Community Needs", path: "/admin/community-needs" },
+        { icon: CheckCircle, label: "Need Approvals", path: "/admin/need-approvals" },
+        { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
+        { icon: TrendingUp, label: "Community Impact", path: "/admin/community-impact" }
+      ]
+    },
+    {
+      id: 'content-moderation',
+      icon: Flag,
+      label: "Content Moderation",
+      type: 'expandable' as const,
+      items: [
+        { icon: Flag, label: "Flagged Content", path: "/admin/flagged-content" },
+        { icon: Settings, label: "Moderation Rules", path: "/admin/moderation-rules" },
+        { icon: MessageSquare, label: "Reports", path: "/admin/reports" }
+      ]
+    },
+    {
+      id: 'analytics',
+      icon: BarChart3,
+      label: "Analytics & Reports",
+      type: 'expandable' as const,
+      items: [
+        { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
+        { icon: TrendingUp, label: "Performance", path: "/admin/performance" },
+        { icon: Users, label: "User Insights", path: "/admin/user-insights" }
+      ]
+    },
+    {
+      id: 'communication',
+      icon: Megaphone,
+      label: "Communication",
+      type: 'expandable' as const,
+      items: [
+        { icon: Megaphone, label: "Announcements", path: "/admin/announcements" },
+        { icon: MessageSquare, label: "Notifications", path: "/admin/notifications" },
+        { icon: Settings, label: "Email Templates", path: "/admin/email-templates" }
+      ]
+    },
+    {
+      id: 'settings',
+      icon: Settings,
+      label: "Admin Settings",
+      path: "/admin/settings",
+      type: 'single' as const
+    }
   ];
 
   const mainNavItems = getMainNavItems();
@@ -279,24 +343,77 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                 {/* Admin Navigation */}
                 <div className="p-4 space-y-1">
-                  {adminSubmenuItems.map((item) => {
-                    const isActive = currentPath === item.path;
-                    
+                  {adminSubmenuSections.map((section) => {
+                    if (section.type === 'single') {
+                      const isActive = currentPath === section.path;
+                      return (
+                        <Link
+                          key={section.path}
+                          to={section.path!}
+                          className={`
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                            ${isActive
+                              ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                              : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                            }
+                          `}
+                        >
+                          <section.icon className="w-4 h-4 flex-shrink-0" />
+                          <span className="font-medium">{section.label}</span>
+                        </Link>
+                      );
+                    }
+
+                    const isExpanded = expandedSections.has(section.id);
+                    const hasActiveChild = section.items?.some(item => currentPath === item.path);
+
                     return (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
-                          ${isActive
-                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                            : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
-                          }
-                        `}
-                      >
-                        <item.icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
+                      <div key={section.id} className="space-y-1">
+                        <button
+                          onClick={() => toggleSection(section.id)}
+                          className={`
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 justify-between
+                            ${hasActiveChild
+                              ? 'bg-sidebar-accent/30 text-sidebar-accent-foreground' 
+                              : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                            }
+                          `}
+                        >
+                          <div className="flex items-center gap-3">
+                            <section.icon className="w-4 h-4 flex-shrink-0" />
+                            <span className="font-medium">{section.label}</span>
+                          </div>
+                          <div className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : 'rotate-0'}`}>
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-sidebar-foreground/50">
+                              <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                        </button>
+                        
+                        {isExpanded && section.items && (
+                          <div className="ml-4 space-y-1 animate-accordion-down">
+                            {section.items.map((item) => {
+                              const isActive = currentPath === item.path;
+                              return (
+                                <Link
+                                  key={item.path}
+                                  to={item.path}
+                                  className={`
+                                    w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 text-sm
+                                    ${isActive
+                                      ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                                      : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/30'
+                                    }
+                                  `}
+                                >
+                                  <item.icon className="w-3.5 h-3.5 flex-shrink-0" />
+                                  <span>{item.label}</span>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>
