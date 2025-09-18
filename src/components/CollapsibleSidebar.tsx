@@ -26,17 +26,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Dynamic sidebar items based on user role
   const getSidebarItems = () => {
-    const baseItems = [
-      { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-      { icon: Cross, label: "My Needs", path: "/my-needs" },
-      { icon: Users, label: "Volunteering", path: "/volunteering" },
-      { icon: BookOpen, label: "Browse", path: "/browse" },
-      { icon: MessageSquare, label: "Feedback", path: "/feedback" },
-    ];
+    const baseItems = [];
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard" });
     }
+
+    baseItems.push(
+      { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+      { icon: Cross, label: "My Needs", path: "/my-needs" },
+      { icon: Users, label: "Volunteering", path: "/volunteering" },
+      { icon: BookOpen, label: "Browse", path: "/browse" },
+      { icon: MessageSquare, label: "Feedback", path: "/feedback" }
+    );
 
     return baseItems;
   };
