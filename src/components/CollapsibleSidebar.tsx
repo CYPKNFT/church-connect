@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart, Settings } from "lucide-react";
+import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart, Settings, Clock, TrendingUp, AlertTriangle, BarChart3, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useMembership } from "@/hooks/useMembership";
@@ -35,10 +35,23 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     ];
 
     if (isChurchAdmin) {
-      // Insert Admin at the top of the list
-      return [
+      // Add admin items for church admins
+      const adminItems = [
         { icon: Settings, label: "Admin", path: "/admin-dashboard" },
-        ...baseItems
+        { icon: Heart, label: "Community Needs", path: "/admin/community-needs" },
+        { icon: Clock, label: "Need Approvals", path: "/admin/need-approvals" },
+        { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
+        { icon: TrendingUp, label: "Community Impact", path: "/admin/community-impact" },
+        { icon: AlertTriangle, label: "Flagged Content", path: "/admin/flagged-content" },
+        { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
+        { icon: Megaphone, label: "Announcements", path: "/admin/announcements" },
+        { icon: Settings, label: "Admin Settings", path: "/admin/settings" },
+      ];
+      
+      return [
+        ...adminItems,
+        { icon: LayoutDashboard, label: "Member Dashboard", path: "/dashboard" }, // Renamed for clarity
+        ...baseItems.slice(1) // Skip the first dashboard item since we renamed it above
       ];
     }
 

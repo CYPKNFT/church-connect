@@ -37,17 +37,14 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="flex">
-        <AdminSidebar />
-        <div className="flex-1 min-h-screen">
-          <AdminHeader church={church} />
-          <div className="p-6 space-y-6">
-            <AdminMetrics />
-            <AdminMainContent />
-          </div>
+    <DashboardLayout>
+      <div className="min-h-screen">
+        <AdminHeader church={church} />
+        <div className="p-6 space-y-6">
+          <AdminMetrics />
+          <AdminMainContent />
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
