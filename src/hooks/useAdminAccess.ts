@@ -23,35 +23,28 @@ export function useAdminAccess(): AdminAccessData {
 
   useEffect(() => {
     async function checkAdminAccess() {
-      console.log('🔍 Admin Access Check:', { user: !!user, memberId, churchId, membershipLoading });
-      
       if (!user || !memberId || !churchId) {
-        console.log('❌ Missing required data:', { user: !!user, memberId, churchId });
         setState({ isAdmin: false, loading: false, church: null });
         return;
       }
 
       try {
-        console.log('🔎 Checking member role for:', { memberId, churchId });
-        
-        // Check if user has admin role in members table
-        const { data: memberData, error: memberError } = await supabase
-          .from('members')
-          .select('role')
-          .eq('id', memberId)
+        // Check if user has admin or pastor role with admin ministry_area
+        const { data: roles, error: rolesError } = await supabase
+          .from('church_roles')
+          .select('role, ministry_area')
+          .eq('member_id', memberId)
           .eq('church_id', churchId)
-          .maybeSingle();
+          .in('role', ['admin', 'pastor'])
+          .eq('ministry_area', 'admin');
 
-        console.log('👤 Member data result:', { memberData, memberError });
-
-        if (memberError) {
-          console.error('Error checking member role:', memberError);
+        if (rolesError) {
+          console.error('Error checking admin roles:', rolesError);
           setState({ isAdmin: false, loading: false, church: null });
           return;
         }
 
-        const isAdmin = memberData?.role === 'admin';
-        console.log('🔑 Admin check result:', { role: memberData?.role, isAdmin });
+        const isAdmin = roles && roles.length > 0;
 
         // Get church info if admin
         let church = null;
@@ -60,16 +53,13 @@ export function useAdminAccess(): AdminAccessData {
             .from('churches')
             .select('id, name')
             .eq('id', churchId)
-            .maybeSingle();
-
-          console.log('🏛️ Church data result:', { churchData, churchError });
+            .single();
 
           if (!churchError) {
             church = churchData;
           }
         }
 
-        console.log('✅ Final admin access result:', { isAdmin, church });
         setState({
           isAdmin,
           loading: false,
