@@ -44,6 +44,7 @@ import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
 import AdminDashboard from "./pages/AdminDashboard";
+import Admin2Dashboard from "./pages/Admin2Dashboard";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -86,6 +87,7 @@ const App = () => (
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
                     <Route path="/admin-dashboard" element={<AdminDashboard />} />
                     <Route path="/admin" element={<AdminDashboard />} />
+                    <Route path="/admin2" element={<Admin2Dashboard />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
