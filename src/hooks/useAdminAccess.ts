@@ -23,12 +23,17 @@ export function useAdminAccess(): AdminAccessData {
 
   useEffect(() => {
     async function checkAdminAccess() {
+      console.log('🔍 Admin Access Check:', { user: !!user, memberId, churchId, membershipLoading });
+      
       if (!user || !memberId || !churchId) {
+        console.log('❌ Missing required data:', { user: !!user, memberId, churchId });
         setState({ isAdmin: false, loading: false, church: null });
         return;
       }
 
       try {
+        console.log('🔎 Checking member role for:', { memberId, churchId });
+        
         // Check if user has admin role in members table
         const { data: memberData, error: memberError } = await supabase
           .from('members')
@@ -37,6 +42,8 @@ export function useAdminAccess(): AdminAccessData {
           .eq('church_id', churchId)
           .maybeSingle();
 
+        console.log('👤 Member data result:', { memberData, memberError });
+
         if (memberError) {
           console.error('Error checking member role:', memberError);
           setState({ isAdmin: false, loading: false, church: null });
@@ -44,6 +51,7 @@ export function useAdminAccess(): AdminAccessData {
         }
 
         const isAdmin = memberData?.role === 'admin';
+        console.log('🔑 Admin check result:', { role: memberData?.role, isAdmin });
 
         // Get church info if admin
         let church = null;
@@ -54,11 +62,14 @@ export function useAdminAccess(): AdminAccessData {
             .eq('id', churchId)
             .maybeSingle();
 
+          console.log('🏛️ Church data result:', { churchData, churchError });
+
           if (!churchError) {
             church = churchData;
           }
         }
 
+        console.log('✅ Final admin access result:', { isAdmin, church });
         setState({
           isAdmin,
           loading: false,
