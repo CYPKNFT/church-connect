@@ -25,13 +25,6 @@ interface CollapsibleSidebarProps {
   children: ReactNode;
 }
 
-interface NavItem {
-  icon: any;
-  label: string;
-  path: string;
-  isAdmin?: boolean;
-}
-
 
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
@@ -52,22 +45,23 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setIsAdminMode(currentPath.startsWith('/admin'));
   }, [currentPath]);
 
-  // Main navigation items - Fixed order to prevent reordering
-  const getMainNavItems = (): NavItem[] => {
-    const items: NavItem[] = [
+  // Main navigation items
+  const getMainNavItems = () => {
+    const baseItems = [];
+
+    if (isChurchAdmin) {
+      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard", isAdmin: true });
+    }
+
+    baseItems.push(
       { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
       { icon: Plus, label: "My Needs", path: "/my-needs" },
       { icon: Users, label: "Volunteering", path: "/volunteering" },
       { icon: BookOpen, label: "Browse", path: "/browse" },
       { icon: MessageSquare, label: "Feedback", path: "/feedback" }
-    ];
+    );
 
-    // Add admin item at the beginning if user is admin
-    if (isChurchAdmin) {
-      items.unshift({ icon: Settings, label: "Admin", path: "/admin-dashboard", isAdmin: true });
-    }
-
-    return items;
+    return baseItems;
   };
 
   // Admin submenu items
@@ -101,14 +95,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
-                bg-sidebar border-r border-sidebar-border relative overflow-hidden
-                ${mounted ? 'transition-all duration-500 ease-out' : ''}
+                bg-sidebar border-r border-sidebar-border relative
+                ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
                 ${isCollapsed ? 'w-16' : 'w-64'}
               `}
-              style={{
-                willChange: 'width',
-                transform: 'translateZ(0)', // Force hardware acceleration
-              }}
             >
               {/* Header */}
               <div className="p-4">
@@ -136,19 +126,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div
                 onClick={toggleSidebar}
                 className={`
-                  absolute top-4 cursor-pointer z-30 transition-all duration-300 ease-in-out
-                  bg-yellow-500 hover:bg-yellow-600 
+                  absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                  bg-sidebar-border hover:bg-sidebar-border/80 
                   flex items-center justify-center
-                  right-[-12px] w-6 h-8 rounded-r-md shadow-lg
+                  right-[-16px] w-4 h-6 rounded-r-sm
                 `}
               >
-                <div className={`transition-transform duration-500 ease-out ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                   <svg 
-                    width="12" 
-                    height="12" 
+                    width="8" 
+                    height="8" 
                     viewBox="0 0 12 12" 
                     fill="none" 
-                    className="text-white"
+                    className="text-yellow-500"
                   >
                     <path 
                       d="M4 2L8 6L4 10" 
@@ -173,27 +163,16 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                           to={item.path}
                           onClick={() => handleNavItemClick(item)}
                           className={`
-                            w-full flex items-center gap-3 px-4 py-3 rounded-lg 
-                            transition-all duration-300 ease-out transform hover:scale-[1.02]
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                             ${isActive
-                              ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium shadow-lg' 
+                              ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                               : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                             }
                             ${isCollapsed ? 'justify-center' : ''}
                           `}
                         >
-                          <item.icon className="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
-                          {!isCollapsed && (
-                            <span 
-                              className="font-medium transition-opacity duration-300"
-                              style={{ 
-                                opacity: isCollapsed ? 0 : 1,
-                                transform: isCollapsed ? 'translateX(-10px)' : 'translateX(0)'
-                              }}
-                            >
-                              {item.label}
-                            </span>
-                          )}
+                          <item.icon className="w-5 h-5 flex-shrink-0" />
+                          {!isCollapsed && <span className="font-medium">{item.label}</span>}
                         </Link>
                       </div>
                     );
@@ -204,27 +183,16 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       to={item.path}
                       onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-full flex items-center gap-3 px-4 py-3 rounded-lg 
-                        transition-all duration-300 ease-out transform hover:scale-[1.02]
+                        w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                         ${isActive
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium shadow-lg' 
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                         }
                         ${isCollapsed ? 'justify-center' : ''}
                       `}
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0 transition-transform duration-200" />
-                      {!isCollapsed && (
-                        <span 
-                          className="font-medium transition-opacity duration-300"
-                          style={{ 
-                            opacity: isCollapsed ? 0 : 1,
-                            transform: isCollapsed ? 'translateX(-10px)' : 'translateX(0)'
-                          }}
-                        >
-                          {item.label}
-                        </span>
-                      )}
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.label}</span>}
                     </Link>
                   );
 
@@ -306,14 +274,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Right Column - Admin Submenu with Collapse */}
               <div 
                 className={`
-                  bg-sidebar border-r border-sidebar-border relative overflow-hidden
-                  ${mounted ? 'transition-all duration-500 ease-out' : ''}
+                  bg-sidebar border-r border-sidebar-border relative
+                  ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
                   ${isAdminCollapsed ? 'w-16' : 'w-64'}
                 `}
-                style={{
-                  willChange: 'width',
-                  transform: 'translateZ(0)', // Force hardware acceleration
-                }}
               >
                 {/* Admin Collapse Toggle */}
                 <div
@@ -325,7 +289,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`transition-transform duration-500 ease-out ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
@@ -361,27 +325,16 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       <Link
                         to={item.path}
                         className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg 
-                          transition-all duration-300 ease-out transform hover:scale-[1.02]
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
-                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium shadow-lg' 
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                           }
                           ${isAdminCollapsed ? 'justify-center' : ''}
                         `}
                       >
-                        <item.icon className="w-4 h-4 flex-shrink-0 transition-transform duration-200" />
-                        {!isAdminCollapsed && (
-                          <span 
-                            className="font-medium transition-opacity duration-300"
-                            style={{ 
-                              opacity: isAdminCollapsed ? 0 : 1,
-                              transform: isAdminCollapsed ? 'translateX(-10px)' : 'translateX(0)'
-                            }}
-                          >
-                            {item.label}
-                          </span>
-                        )}
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        {!isAdminCollapsed && <span className="font-medium">{item.label}</span>}
                       </Link>
                     );
 
@@ -412,9 +365,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
             <main className="flex-1 overflow-auto">
-              <div className="animate-fade-in">
-                {children}
-              </div>
+              {children}
             </main>
           </div>
         </div>
