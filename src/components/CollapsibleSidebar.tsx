@@ -1,6 +1,20 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart, Settings } from "lucide-react";
+import { 
+  Cross, 
+  LayoutDashboard, 
+  Users, 
+  BookOpen, 
+  MessageSquare, 
+  Heart, 
+  Settings,
+  Plus,
+  CheckCircle,
+  BarChart3,
+  Flag,
+  Megaphone,
+  TrendingUp
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useMembership } from "@/hooks/useMembership";
@@ -15,6 +29,7 @@ interface CollapsibleSidebarProps {
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const [mounted, setMounted] = useState(false);
+  const [isAdminMode, setIsAdminMode] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
@@ -24,17 +39,22 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Dynamic sidebar items based on user role
-  const getSidebarItems = () => {
+  // Check if we're on an admin route to maintain admin mode
+  useEffect(() => {
+    setIsAdminMode(currentPath.startsWith('/admin'));
+  }, [currentPath]);
+
+  // Main navigation items
+  const getMainNavItems = () => {
     const baseItems = [];
 
     if (isChurchAdmin) {
-      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard" });
+      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard", isAdmin: true });
     }
 
     baseItems.push(
       { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-      { icon: Cross, label: "My Needs", path: "/my-needs" },
+      { icon: Plus, label: "My Needs", path: "/my-needs" },
       { icon: Users, label: "Volunteering", path: "/volunteering" },
       { icon: BookOpen, label: "Browse", path: "/browse" },
       { icon: MessageSquare, label: "Feedback", path: "/feedback" }
@@ -43,117 +63,249 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     return baseItems;
   };
 
-  const sidebarItems = getSidebarItems();
+  // Admin submenu items
+  const adminSubmenuItems = [
+    { icon: LayoutDashboard, label: "Dashboard", path: "/admin-dashboard" },
+    { icon: Users, label: "Community Needs", path: "/admin/community-needs" },
+    { icon: CheckCircle, label: "Need Approvals", path: "/admin/need-approvals" },
+    { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
+    { icon: TrendingUp, label: "Community Impact", path: "/admin/community-impact" },
+    { icon: Flag, label: "Flagged Content", path: "/admin/flagged-content" },
+    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
+    { icon: Megaphone, label: "Announcements", path: "/admin/announcements" },
+    { icon: Settings, label: "Admin Settings", path: "/admin/settings" }
+  ];
+
+  const mainNavItems = getMainNavItems();
+
+  const handleNavItemClick = (item: any) => {
+    if (item.isAdmin) {
+      setIsAdminMode(true);
+    } else {
+      setIsAdminMode(false);
+    }
+  };
 
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <div className="flex min-h-screen w-full relative">
-          {/* Sidebar */}
-          <div 
-            className={`
-              bg-sidebar border-r border-sidebar-border relative
-              ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
-              ${isCollapsed ? 'w-16' : 'w-64'}
-            `}
-          >
-            {/* Header */}
-            <div className="p-4">
-              <div className="flex items-center gap-3">
-                {!isCollapsed && (
-                  <>
-                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
-                    </div>
-                    <div>
-                      <h2 className="font-semibold text-sidebar-foreground">ChurchConnect</h2>
-                      <p className="text-sm text-sidebar-foreground/70">{churchName ?? "Grace Community Church"}</p>
-                    </div>
-                  </>
-                )}
-                {isCollapsed && (
-                  <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mx-auto">
-                    <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Tab Toggle */}
-            <div
-              onClick={toggleSidebar}
+          {!isAdminMode ? (
+            /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
+            <div 
               className={`
-                absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
-                bg-sidebar-border hover:bg-sidebar-border/80 
-                flex items-center justify-center
-                right-[-16px] w-4 h-6 rounded-r-sm
+                bg-sidebar border-r border-sidebar-border relative
+                ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
+                ${isCollapsed ? 'w-16' : 'w-64'}
               `}
             >
-              <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
-                <svg 
-                  width="8" 
-                  height="8" 
-                  viewBox="0 0 12 12" 
-                  fill="none" 
-                  className="text-yellow-500"
-                >
-                  <path 
-                    d="M4 2L8 6L4 10" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
+              {/* Header */}
+              <div className="p-4">
+                <div className="flex items-center gap-3">
+                  {!isCollapsed && (
+                    <>
+                      <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                        <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                      </div>
+                      <div>
+                        <h2 className="font-semibold text-sidebar-foreground">ChurchConnect</h2>
+                        <p className="text-sm text-sidebar-foreground/70">{churchName ?? "Grace Community Church"}</p>
+                      </div>
+                    </>
+                  )}
+                  {isCollapsed && (
+                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mx-auto">
+                      <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Tab Toggle */}
+              <div
+                onClick={toggleSidebar}
+                className={`
+                  absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                  bg-sidebar-border hover:bg-sidebar-border/80 
+                  flex items-center justify-center
+                  right-[-16px] w-4 h-6 rounded-r-sm
+                `}
+              >
+                <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <svg 
+                    width="8" 
+                    height="8" 
+                    viewBox="0 0 12 12" 
+                    fill="none" 
+                    className="text-yellow-500"
+                  >
+                    <path 
+                      d="M4 2L8 6L4 10" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Navigation */}
+              <div className="px-4 space-y-1">
+                {mainNavItems.map((item) => {
+                  const isActive = currentPath === item.path || (item.isAdmin && currentPath.startsWith('/admin'));
+                  
+                  if (item.isAdmin) {
+                    return (
+                      <div key={item.path}>
+                        <button
+                          onClick={() => handleNavItemClick(item)}
+                          className={`
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                            ${isActive
+                              ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                              : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                            }
+                            ${isCollapsed ? 'justify-center' : ''}
+                          `}
+                        >
+                          <item.icon className="w-5 h-5 flex-shrink-0" />
+                          {!isCollapsed && <span className="font-medium">{item.label}</span>}
+                        </button>
+                      </div>
+                    );
+                  }
+
+                  const linkContent = (
+                    <Link
+                      to={item.path}
+                      onClick={() => handleNavItemClick(item)}
+                      className={`
+                        w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                        ${isActive
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                          : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                        }
+                        ${isCollapsed ? 'justify-center' : ''}
+                      `}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.label}</span>}
+                    </Link>
+                  );
+
+                  if (isCollapsed) {
+                    return (
+                      <Tooltip key={item.path}>
+                        <TooltipTrigger asChild>
+                          {linkContent}
+                        </TooltipTrigger>
+                        <TooltipContent side="right">
+                          <p>{item.label}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    );
+                  }
+
+                  return (
+                    <div key={item.path}>
+                      {linkContent}
+                    </div>
+                  );
+                })}
               </div>
             </div>
+          ) : (
+            /* STATE 2: ADMIN EXPANDED - Icon strip + Admin submenu */
+            <div className="flex">
+              {/* Left Column - Icon Strip */}
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+                {/* Brand Icon */}
+                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
+                  <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                </div>
 
-            {/* Navigation */}
-            <div className="px-4 space-y-1">
-              {sidebarItems.map((item) => {
-                const isActive = currentPath === item.path;
-                const linkContent = (
-                  <Link
-                    to={item.path}
-                    className={`
-                      w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
-                      ${isActive
-                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                        : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
-                      }
-                      ${isCollapsed ? 'justify-center' : ''}
-                    `}
-                  >
-                    <item.icon className="w-5 h-5 flex-shrink-0" />
-                    {!isCollapsed && <span className="font-medium">{item.label}</span>}
-                  </Link>
-                );
+                {/* Navigation Icons */}
+                {mainNavItems.map((item) => {
+                  const isActive = item.isAdmin && isAdminMode;
+                  
+                  const iconButton = (
+                    <button
+                      onClick={() => handleNavItemClick(item)}
+                      className={`
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
+                        ${isActive
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                          : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                        }
+                      `}
+                    >
+                      <item.icon className="w-5 h-5" />
+                    </button>
+                  );
 
-                if (isCollapsed) {
+                  if (item.isAdmin) {
+                    return (
+                      <div key={item.path}>
+                        {iconButton}
+                      </div>
+                    );
+                  }
+
                   return (
                     <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
-                        {linkContent}
+                        <Link to={item.path} onClick={() => handleNavItemClick(item)}>
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
                       </TooltipTrigger>
                       <TooltipContent side="right">
                         <p>{item.label}</p>
                       </TooltipContent>
                     </Tooltip>
                   );
-                }
+                })}
+              </div>
 
-                return (
-                  <div key={item.path}>
-                    {linkContent}
-                  </div>
-                );
-              })}
+              {/* Right Column - Admin Submenu */}
+              <div className="w-64 bg-sidebar border-r border-sidebar-border">
+                {/* Admin Header */}
+                <div className="p-4 border-b border-sidebar-border">
+                  <h2 className="font-semibold text-sidebar-foreground">Admin Dashboard</h2>
+                  <p className="text-sm text-sidebar-foreground/70">Management & Settings</p>
+                </div>
+
+                {/* Admin Navigation */}
+                <div className="p-4 space-y-1">
+                  {adminSubmenuItems.map((item) => {
+                    const isActive = currentPath === item.path;
+                    
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={`
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          ${isActive
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                            : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                          }
+                        `}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        <span className="font-medium">{item.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
-            {/* Page Content */}
             <main className="flex-1 overflow-auto">
               {children}
             </main>
