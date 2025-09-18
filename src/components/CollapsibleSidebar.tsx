@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart, Settings } from "lucide-react";
+import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart, Settings, ChevronDown, Phone, Activity, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useMembership } from "@/hooks/useMembership";
@@ -15,6 +15,7 @@ interface CollapsibleSidebarProps {
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const [mounted, setMounted] = useState(false);
+  const [isAdminExpanded, setIsAdminExpanded] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
@@ -24,26 +25,30 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Dynamic sidebar items based on user role
-  const getSidebarItems = () => {
-    const baseItems = [];
+  // Admin sub-items
+  const adminSubItems = [
+    { icon: Phone, label: "Phone Configuration", path: "/admin/phone-config" },
+    { icon: Activity, label: "Tracking", path: "/admin/tracking" },
+    { icon: Zap, label: "Automation", path: "/admin/automation" },
+  ];
 
-    if (isChurchAdmin) {
-      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard" });
+  // Check if any admin path is active
+  const isAdminPathActive = currentPath.startsWith('/admin');
+
+  // Regular sidebar items (non-expandable)
+  const regularSidebarItems = [
+    { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+    { icon: Cross, label: "My Needs", path: "/my-needs" },
+    { icon: Users, label: "Volunteering", path: "/volunteering" },
+    { icon: BookOpen, label: "Browse", path: "/browse" },
+    { icon: MessageSquare, label: "Feedback", path: "/feedback" }
+  ];
+
+  const toggleAdminExpansion = () => {
+    if (!isCollapsed) {
+      setIsAdminExpanded(!isAdminExpanded);
     }
-
-    baseItems.push(
-      { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-      { icon: Cross, label: "My Needs", path: "/my-needs" },
-      { icon: Users, label: "Volunteering", path: "/volunteering" },
-      { icon: BookOpen, label: "Browse", path: "/browse" },
-      { icon: MessageSquare, label: "Feedback", path: "/feedback" }
-    );
-
-    return baseItems;
   };
-
-  const sidebarItems = getSidebarItems();
 
   return (
     <TooltipProvider>
@@ -110,7 +115,75 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
             {/* Navigation */}
             <div className="px-4 space-y-1">
-              {sidebarItems.map((item) => {
+              {/* Admin expandable menu (only show if user is admin) */}
+              {isChurchAdmin && (
+                <div>
+                  {/* Admin parent item */}
+                  <div
+                    onClick={toggleAdminExpansion}
+                    className={`
+                      w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer
+                      ${isAdminPathActive
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                        : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                      }
+                      ${isCollapsed ? 'justify-center' : ''}
+                    `}
+                  >
+                    <Settings className="w-5 h-5 flex-shrink-0" />
+                    {!isCollapsed && (
+                      <>
+                        <span className="font-medium flex-1">Admin</span>
+                        <ChevronDown 
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            isAdminExpanded ? 'rotate-180' : 'rotate-0'
+                          }`} 
+                        />
+                      </>
+                    )}
+                  </div>
+
+                  {/* Admin sub-items */}
+                  {!isCollapsed && isAdminExpanded && (
+                    <div className="ml-4 mt-1 space-y-1 animate-accordion-down">
+                      {adminSubItems.map((subItem) => {
+                        const isSubActive = currentPath === subItem.path;
+                        return (
+                          <Link
+                            key={subItem.path}
+                            to={subItem.path}
+                            className={`
+                              w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 text-sm
+                              ${isSubActive
+                                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                                : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/30'
+                              }
+                            `}
+                          >
+                            <subItem.icon className="w-4 h-4 flex-shrink-0" />
+                            <span>{subItem.label}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Tooltip for collapsed admin */}
+                  {isCollapsed && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div />
+                      </TooltipTrigger>
+                      <TooltipContent side="right">
+                        <p>Admin</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                </div>
+              )}
+
+              {/* Regular sidebar items */}
+              {regularSidebarItems.map((item) => {
                 const isActive = currentPath === item.path;
                 const linkContent = (
                   <Link
