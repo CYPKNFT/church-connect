@@ -217,121 +217,146 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               </div>
             </div>
           ) : (
-            /* STATE 2: ADMIN NAVIGATION */
-            <div 
-              className={`
-                bg-sidebar border-r border-sidebar-border relative
-                ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
-                ${isAdminCollapsed ? 'w-16' : 'w-64'}
-              `}
-            >
-              {/* Admin Header */}
-              <div className="p-4">
-                <div className="flex items-center gap-3">
-                  {!isAdminCollapsed && (
-                    <>
-                      <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                        <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
-                      </div>
-                      <div>
-                        <h2 className="font-semibold text-sidebar-foreground">Admin Dashboard</h2>
-                        <p className="text-sm text-sidebar-foreground/70">Management & Settings</p>
-                      </div>
-                    </>
-                  )}
-                  {isAdminCollapsed && (
-                    <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mx-auto">
-                      <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
-                    </div>
-                  )}
+            /* STATE 2: ADMIN EXPANDED - Icon strip + Admin submenu */
+            <div className="flex">
+              {/* Left Column - Icon Strip */}
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+                {/* Brand Icon */}
+                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
+                  <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
                 </div>
-              </div>
 
-              {/* Admin Collapse Toggle */}
-              <div
-                onClick={() => setIsAdminCollapsed(!isAdminCollapsed)}
-                className={`
-                  absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
-                  bg-sidebar-border hover:bg-sidebar-border/80 
-                  flex items-center justify-center
-                  right-[-16px] w-4 h-6 rounded-r-sm
-                `}
-              >
-                <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
-                  <svg 
-                    width="8" 
-                    height="8" 
-                    viewBox="0 0 12 12" 
-                    fill="none" 
-                    className="text-yellow-500"
-                  >
-                    <path 
-                      d="M4 2L8 6L4 10" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Admin Navigation */}
-              <div className="px-4 space-y-1">
-                {/* Back to main navigation */}
-                <button
-                  onClick={() => setIsAdminMode(false)}
-                  className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
-                    text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50
-                    ${isAdminCollapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  {!isAdminCollapsed && <span className="font-medium">Back</span>}
-                </button>
-
-                {adminSubmenuItems.map((item) => {
-                  const isActive = currentPath === item.path;
+                {/* Navigation Icons */}
+                {mainNavItems.map((item) => {
+                  const isActive = item.isAdmin && isAdminMode;
                   
-                  const linkContent = (
-                    <Link
-                      to={item.path}
+                  const iconButton = (
+                    <button
+                      onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
                         ${isActive
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                         }
-                        ${isAdminCollapsed ? 'justify-center' : ''}
                       `}
                     >
-                      <item.icon className="w-4 h-4 flex-shrink-0" />
-                      {!isAdminCollapsed && <span className="font-medium">{item.label}</span>}
-                    </Link>
+                      <item.icon className="w-5 h-5" />
+                    </button>
                   );
 
-                  if (isAdminCollapsed) {
+                  if (item.isAdmin) {
                     return (
-                      <Tooltip key={item.path}>
-                        <TooltipTrigger asChild>
-                          {linkContent}
-                        </TooltipTrigger>
-                        <TooltipContent side="right">
-                          <p>{item.label}</p>
-                        </TooltipContent>
-                      </Tooltip>
+                      <div key={item.path}>
+                        {iconButton}
+                      </div>
                     );
                   }
 
                   return (
-                    <div key={item.path}>
-                      {linkContent}
-                    </div>
+                    <Tooltip key={item.path}>
+                      <TooltipTrigger asChild>
+                        <Link to={item.path} onClick={() => handleNavItemClick(item)}>
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">
+                        <p>{item.label}</p>
+                      </TooltipContent>
+                    </Tooltip>
                   );
                 })}
+              </div>
+
+              {/* Right Column - Admin Submenu with Collapse */}
+              <div 
+                className={`
+                  bg-sidebar border-r border-sidebar-border relative
+                  ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
+                  ${isAdminCollapsed ? 'w-16' : 'w-64'}
+                `}
+              >
+                {/* Admin Collapse Toggle */}
+                <div
+                  onClick={() => setIsAdminCollapsed(!isAdminCollapsed)}
+                  className={`
+                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    bg-sidebar-border hover:bg-sidebar-border/80 
+                    flex items-center justify-center
+                    right-[-16px] w-4 h-6 rounded-r-sm
+                  `}
+                >
+                  <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                    <svg 
+                      width="8" 
+                      height="8" 
+                      viewBox="0 0 12 12" 
+                      fill="none" 
+                      className="text-yellow-500"
+                    >
+                      <path 
+                        d="M4 2L8 6L4 10" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Admin Header */}
+                {!isAdminCollapsed && (
+                  <div className="p-4 border-b border-sidebar-border">
+                    <h2 className="font-semibold text-sidebar-foreground">Admin Dashboard</h2>
+                    <p className="text-sm text-sidebar-foreground/70">Management & Settings</p>
+                  </div>
+                )}
+
+                {/* Admin Navigation */}
+                <div className="p-4 space-y-1">
+                  {adminSubmenuItems.map((item) => {
+                    const isActive = currentPath === item.path;
+                    
+                    const linkContent = (
+                      <Link
+                        to={item.path}
+                        className={`
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          ${isActive
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                            : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                          }
+                          ${isAdminCollapsed ? 'justify-center' : ''}
+                        `}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        {!isAdminCollapsed && <span className="font-medium">{item.label}</span>}
+                      </Link>
+                    );
+
+                    if (isAdminCollapsed) {
+                      return (
+                        <Tooltip key={item.path}>
+                          <TooltipTrigger asChild>
+                            {linkContent}
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            <p>{item.label}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+
+                    return (
+                      <div key={item.path}>
+                        {linkContent}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
