@@ -7,20 +7,33 @@ import { AdminMainContent } from "@/components/admin/AdminMainContent";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { useAdminAccess } from "@/hooks/useAdminAccess";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function AdminDashboard() {
   const { isAdmin, loading, church } = useAdminAccess();
+  const { user, loading: authLoading } = useAuth();
   const { toast } = useToast();
 
   useEffect(() => {
-    if (!loading && !isAdmin) {
+    if (authLoading || loading) return;
+
+    if (!user) {
+      toast({
+        title: "Login required",
+        description: "Please sign in to access the admin dashboard.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!isAdmin) {
       toast({
         title: "Access Denied",
         description: "You don't have admin access to this church.",
         variant: "destructive",
       });
     }
-  }, [isAdmin, loading, toast]);
+  }, [user, isAdmin, loading, authLoading, toast]);
 
   if (loading) {
     return (
@@ -32,7 +45,11 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!isAdmin) {
+  if (!authLoading && !user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!loading && !isAdmin) {
     return <Navigate to="/dashboard" replace />;
   }
 
