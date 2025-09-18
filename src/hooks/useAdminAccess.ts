@@ -23,47 +23,39 @@ export function useAdminAccess(): AdminAccessData {
 
   useEffect(() => {
     async function checkAdminAccess() {
-      if (!user || !memberId || !churchId) {
+      if (!user || !churchId) {
+        console.log('[AdminAccess] Missing user or churchId:', { user, churchId });
         setState({ isAdmin: false, loading: false, church: null });
         return;
       }
 
       try {
-        // Check if user has admin or pastor role with admin ministry_area
-        const { data: roles, error: rolesError } = await supabase
-          .from('church_roles')
-          .select('role, ministry_area')
-          .eq('member_id', memberId)
-          .eq('church_id', churchId)
-          .in('role', ['admin', 'pastor'])
-          .eq('ministry_area', 'admin');
+        // Check admin access using churches table
+        const { data: churchData, error: churchError } = await supabase
+          .from('churches')
+          .select('id, name, admin_user_id, admin_email')
+          .eq('id', churchId)
+          .single();
 
-        if (rolesError) {
-          console.error('Error checking admin roles:', rolesError);
+        console.log('[AdminAccess] user.id:', user.id, 'user.email:', user.email, 'churchId:', churchId, 'churchData:', churchData);
+
+        if (churchError || !churchData) {
+          console.log('[AdminAccess] Error or missing churchData:', churchError, churchData);
           setState({ isAdmin: false, loading: false, church: null });
           return;
         }
 
-        const isAdmin = roles && roles.length > 0;
+        // Check if current user is admin by user_id or email
+        const isAdmin =
+          churchData.admin_user_id === user.id ||
+          (user.email && churchData.admin_email === user.email);
 
-        // Get church info if admin
-        let church = null;
-        if (isAdmin) {
-          const { data: churchData, error: churchError } = await supabase
-            .from('churches')
-            .select('id, name')
-            .eq('id', churchId)
-            .single();
-
-          if (!churchError) {
-            church = churchData;
-          }
-        }
+        console.log('[AdminAccess] isAdmin:', isAdmin);
 
         setState({
           isAdmin,
           loading: false,
-          church,
+          church: isAdmin ? { id: churchData.id, name: churchData.name } : null,
         });
       } catch (error) {
         console.error('Error in admin access check:', error);
@@ -74,7 +66,7 @@ export function useAdminAccess(): AdminAccessData {
     if (!membershipLoading) {
       checkAdminAccess();
     }
-  }, [user, memberId, churchId, membershipLoading]);
+  }, [user, churchId, membershipLoading]);
 
   return {
     ...state,
