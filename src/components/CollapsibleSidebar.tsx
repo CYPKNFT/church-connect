@@ -289,7 +289,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-180' : 'rotate-0'}`}>
+                  <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
