@@ -25,6 +25,13 @@ interface CollapsibleSidebarProps {
   children: ReactNode;
 }
 
+interface NavItem {
+  icon: any;
+  label: string;
+  path: string;
+  isAdmin?: boolean;
+}
+
 
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
@@ -45,23 +52,22 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setIsAdminMode(currentPath.startsWith('/admin'));
   }, [currentPath]);
 
-  // Main navigation items
-  const getMainNavItems = () => {
-    const baseItems = [];
-
-    if (isChurchAdmin) {
-      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard", isAdmin: true });
-    }
-
-    baseItems.push(
+  // Main navigation items - Fixed order to prevent reordering
+  const getMainNavItems = (): NavItem[] => {
+    const items: NavItem[] = [
       { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
       { icon: Plus, label: "My Needs", path: "/my-needs" },
       { icon: Users, label: "Volunteering", path: "/volunteering" },
       { icon: BookOpen, label: "Browse", path: "/browse" },
       { icon: MessageSquare, label: "Feedback", path: "/feedback" }
-    );
+    ];
 
-    return baseItems;
+    // Add admin item at the beginning if user is admin
+    if (isChurchAdmin) {
+      items.unshift({ icon: Settings, label: "Admin", path: "/admin-dashboard", isAdmin: true });
+    }
+
+    return items;
   };
 
   // Admin submenu items
