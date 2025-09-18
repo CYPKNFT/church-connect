@@ -1,11 +1,11 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart, Settings } from "lucide-react";
+import { Cross, LayoutDashboard, Users, BookOpen, MessageSquare, PanelLeftClose, PanelLeftOpen, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useMembership } from "@/hooks/useMembership";
 import { useSidebar } from "@/contexts/SidebarContext";
-import { useChurchVerification } from "@/hooks/useChurchVerification";
+
 
 interface CollapsibleSidebarProps {
   children: ReactNode;
@@ -18,8 +18,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
-  const { isChurchAdmin } = useChurchVerification();
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -33,14 +31,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
       { icon: BookOpen, label: "Browse", path: "/browse" },
       { icon: MessageSquare, label: "Feedback", path: "/feedback" },
     ];
-
-    if (isChurchAdmin) {
-      // Insert Admin at the top of the list
-      return [
-        { icon: Settings, label: "Admin", path: "/admin-dashboard" },
-        ...baseItems
-      ];
-    }
 
     return baseItems;
   };
