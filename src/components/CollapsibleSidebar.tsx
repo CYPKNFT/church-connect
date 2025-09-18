@@ -12,6 +12,7 @@ interface CollapsibleSidebarProps {
 }
 
 
+// Expandable admin sidebar component with proper menu structure
 export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const [mounted, setMounted] = useState(false);
