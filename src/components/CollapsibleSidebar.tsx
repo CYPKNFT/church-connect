@@ -136,19 +136,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div
                 onClick={toggleSidebar}
                 className={`
-                  absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
-                  bg-sidebar-border hover:bg-sidebar-border/80 
+                  absolute top-4 cursor-pointer z-30 transition-all duration-300 ease-in-out
+                  bg-yellow-500 hover:bg-yellow-600 
                   flex items-center justify-center
-                  right-[-16px] w-4 h-6 rounded-r-sm
+                  right-[-12px] w-6 h-8 rounded-r-md shadow-lg
                 `}
               >
                 <div className={`transition-transform duration-500 ease-out ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                   <svg 
-                    width="8" 
-                    height="8" 
+                    width="12" 
+                    height="12" 
                     viewBox="0 0 12 12" 
                     fill="none" 
-                    className="text-yellow-500"
+                    className="text-white"
                   >
                     <path 
                       d="M4 2L8 6L4 10" 
