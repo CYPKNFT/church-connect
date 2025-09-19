@@ -134,7 +134,7 @@ export default function MyNeeds() {
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-background">
-        <div className="flex-1 p-8">
+        <div className="flex-1 p-6 lg:p-8">
           <div className="container mx-auto">
             {/* Header */}
             <div className="mb-8">
