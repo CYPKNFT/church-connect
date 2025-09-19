@@ -1,7 +1,7 @@
 import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 
-export default function AdminDashboardTemplate() {
+export default function AdminDashboard2() {
   // Mock church data for template display
   const mockChurch = {
     id: "template-church",
