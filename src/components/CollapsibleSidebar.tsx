@@ -49,24 +49,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Only derive serving mode from route; admin/adminCopy are click-controlled
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const gear = params.get('gear');
-    
-    // If gear=copy parameter exists, maintain admin copy mode
-    if (gear === 'copy') {
-      setIsAdminCopyMode(true);
-      setIsServingMode(false);
-      setIsAdminMode(false);
-    } else {
-      // Only set serving mode if not in admin routes and no gear parameter
-      setIsServingMode(
-        currentPath === '/dashboard' || 
-        currentPath === '/my-needs' || 
-        currentPath === '/volunteering' || 
-        currentPath === '/browse'
-      );
-    }
-  }, [currentPath, location.search]);
+    setIsServingMode(
+      currentPath === '/dashboard' || 
+      currentPath === '/my-needs' || 
+      currentPath === '/volunteering' || 
+      currentPath === '/browse'
+    );
+  }, [currentPath]);
 
   // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
   useEffect(() => {
@@ -124,10 +113,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard?gear=copy" },
-    { icon: Plus, label: "My Needs", path: "/my-needs?gear=copy" },
-    { icon: Users, label: "Volunteering", path: "/volunteering?gear=copy" },
-    { icon: BookOpen, label: "Browse", path: "/browse?gear=copy" }
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/my-needs" },
+    { icon: Users, label: "Volunteering", path: "/volunteering" },
+    { icon: BookOpen, label: "Browse", path: "/browse" }
   ];
 
   // Serving submenu items
