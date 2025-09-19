@@ -32,8 +32,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const [mounted, setMounted] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [isAdminCopyMode, setIsAdminCopyMode] = useState(false);
   const [isServingMode, setIsServingMode] = useState(false);
   const [isAdminCollapsed, setIsAdminCollapsed] = useState(false);
+  const [isAdminCopyCollapsed, setIsAdminCopyCollapsed] = useState(false);
   const [isServingCollapsed, setIsServingCollapsed] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
@@ -46,7 +48,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Check if we're on an admin or serving route to maintain mode
   useEffect(() => {
-    setIsAdminMode(currentPath.startsWith('/admin'));
+    setIsAdminMode(currentPath.startsWith('/admin') && !currentPath.startsWith('/admin-copy'));
+    setIsAdminCopyMode(currentPath.startsWith('/admin-copy'));
     setIsServingMode(
       currentPath === '/dashboard' || 
       currentPath === '/my-needs' || 
@@ -61,6 +64,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
+      baseItems.push({ icon: Settings, label: "Admin Copy", path: "/admin-copy/dashboard", isAdminCopy: true });
     }
 
     baseItems.push(
@@ -81,6 +85,15 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
+  // Admin Copy submenu items (exact duplicate)
+  const adminCopySubmenuItems = [
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin-copy/dashboard" },
+    { icon: ShieldCheck, label: "Staff Verification", path: "/admin-copy/staff-verification" },
+    { icon: FolderOpen, label: "Content Moderation", path: "/admin-copy/content-moderation" },
+    { icon: BarChart3, label: "Analytics", path: "/admin-copy/analytics" },
+    { icon: Settings, label: "System Settings", path: "/admin-copy/settings" }
+  ];
+
   // Serving submenu items
   const servingSubmenuItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -94,12 +107,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const handleNavItemClick = (item: any) => {
     if (item.isAdmin) {
       setIsAdminMode(true);
+      setIsAdminCopyMode(false);
+      setIsServingMode(false);
+    } else if (item.isAdminCopy) {
+      setIsAdminCopyMode(true);
+      setIsAdminMode(false);
       setIsServingMode(false);
     } else if (item.category === 'serving') {
       setIsServingMode(true);
       setIsAdminMode(false);
+      setIsAdminCopyMode(false);
     } else {
       setIsAdminMode(false);
+      setIsAdminCopyMode(false);
       setIsServingMode(false);
     }
   };
@@ -108,7 +128,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <div className="flex min-h-screen w-full relative">
-          {!isAdminMode && !isServingMode ? (
+          {!isAdminMode && !isAdminCopyMode && !isServingMode ? (
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
@@ -170,9 +190,11 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Navigation */}
               <div className="px-4 space-y-1">
                 {mainNavItems.map((item) => {
-                  const isActive = currentPath === item.path || (item.isAdmin && currentPath.startsWith('/admin'));
+                  const isActive = currentPath === item.path || 
+                    (item.isAdmin && currentPath.startsWith('/admin') && !currentPath.startsWith('/admin-copy')) ||
+                    (item.isAdminCopy && currentPath.startsWith('/admin-copy'));
                   
-                  if (item.isAdmin) {
+                  if (item.isAdmin || item.isAdminCopy) {
                     return (
                       <div key={item.path}>
                         <Link
@@ -354,6 +376,148 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     );
 
                     if (isAdminCollapsed) {
+                      return (
+                        <Tooltip key={item.path}>
+                          <TooltipTrigger asChild>
+                            {linkContent}
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            <p>{item.label}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+
+                    return (
+                      <div key={item.path}>
+                        {linkContent}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : isAdminCopyMode ? (
+            /* STATE 2B: ADMIN COPY EXPANDED - Icon strip + Admin Copy submenu (exact duplicate) */
+            <div className="flex">
+              {/* Left Column - Icon Strip */}
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+                {/* Brand Icon */}
+                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
+                  <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                </div>
+
+                {/* Navigation Icons */}
+                {mainNavItems.map((item) => {
+                  const isActive = item.isAdminCopy && isAdminCopyMode;
+                  
+                  const iconButton = (
+                    <button
+                      onClick={() => handleNavItemClick(item)}
+                      className={`
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
+                        ${isActive
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                          : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                        }
+                      `}
+                    >
+                      <item.icon className="w-5 h-5" />
+                    </button>
+                  );
+
+                  if (item.isAdminCopy) {
+                    return (
+                      <div key={item.path}>
+                        {iconButton}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Tooltip key={item.path}>
+                      <TooltipTrigger asChild>
+                        <Link to={item.path} onClick={() => handleNavItemClick(item)}>
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">
+                        <p>{item.label}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  );
+                })}
+              </div>
+
+              {/* Right Column - Admin Copy Submenu with Collapse */}
+              <div 
+                className={`
+                  bg-sidebar border-r border-sidebar-border relative
+                  ${isAdminCopyCollapsed ? 'w-16' : 'w-64'}
+                `}
+              >
+                {/* Admin Copy Collapse Toggle */}
+                <div
+                  onClick={() => setIsAdminCopyCollapsed(!isAdminCopyCollapsed)}
+                  className={`
+                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    bg-sidebar-border hover:bg-sidebar-border/80 
+                    flex items-center justify-center
+                    right-[-16px] w-4 h-6 rounded-r-sm
+                  `}
+                >
+                  <div className={`transition-transform duration-300 ${isAdminCopyCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                    <svg 
+                      width="8" 
+                      height="8" 
+                      viewBox="0 0 12 12" 
+                      fill="none" 
+                      className="text-yellow-500"
+                    >
+                      <path 
+                        d="M4 2L8 6L4 10" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Admin Copy Header */}
+                {!isAdminCopyCollapsed && (
+                  <div className="p-4 border-b border-sidebar-border">
+                    <h2 className="font-semibold text-sidebar-foreground">Admin Dashboard</h2>
+                    <p className="text-sm text-sidebar-foreground/70">Management & Settings</p>
+                  </div>
+                )}
+
+                {/* Admin Copy Navigation */}
+                <div className="p-4 space-y-1">
+                  {adminCopySubmenuItems.map((item) => {
+                    const isActive = currentPath === item.path;
+                    
+                    const linkContent = (
+                      <Link
+                        to={item.path}
+                        className={`
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          ${isActive
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                            : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                          }
+                          ${isAdminCopyCollapsed ? 'justify-center' : ''}
+                        `}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        {!isAdminCopyCollapsed && <span className="font-medium">{item.label}</span>}
+                      </Link>
+                    );
+
+                    if (isAdminCopyCollapsed) {
                       return (
                         <Tooltip key={item.path}>
                           <TooltipTrigger asChild>
