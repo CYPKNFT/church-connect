@@ -1,7 +1,5 @@
 import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
-import { AdminMetrics } from "@/components/admin/AdminMetrics";
-import { AdminMainContent } from "@/components/admin/AdminMainContent";
 
 export default function AdminDashboardTemplate() {
   // Mock church data for template display
@@ -14,9 +12,8 @@ export default function AdminDashboardTemplate() {
     <CollapsibleSidebar>
       <div className="flex-1 min-h-screen">
         <AdminHeader church={mockChurch} />
-        <div className="p-6 space-y-6">
-          <AdminMetrics />
-          <AdminMainContent />
+        <div className="p-6">
+          {/* Empty content area - template ready for customization */}
         </div>
       </div>
     </CollapsibleSidebar>
