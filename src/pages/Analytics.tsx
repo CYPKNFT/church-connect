@@ -13,7 +13,8 @@ export default function Analytics() {
   const [timeframe, setTimeframe] = useState("30d");
 
   return (
-    <div className="space-y-8">
+    <div className="p-6 lg:p-8">
+      <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -102,5 +103,6 @@ export default function Analytics() {
           </TabsContent>
         </Tabs>
       </div>
+    </div>
   );
 }
