@@ -187,21 +187,21 @@ function docStatusBadge(v: boolean | number, target?: number) {
   if (typeof v === "number") {
     const ok = target ? v >= target : v >= 2;
     return ok ? (
-      <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-400">
+      <span className="inline-flex items-center rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
         <CheckCircle2 className="mr-1 h-3 w-3" /> {v}/{target ?? 2}
       </span>
     ) : (
-      <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-400">
+      <span className="inline-flex items-center rounded-full bg-warning/15 px-2 py-0.5 text-xs font-medium text-warning">
         <Clock className="mr-1 h-3 w-3" /> {v}/{target ?? 2}
       </span>
     );
   }
   return v ? (
-    <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-400">
+    <span className="inline-flex items-center rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
       <CheckCircle2 className="mr-1 h-3 w-3" /> Complete
     </span>
   ) : (
-    <span className="inline-flex items-center rounded-full bg-rose-500/15 px-2 py-0.5 text-xs font-medium text-rose-400">
+    <span className="inline-flex items-center rounded-full bg-destructive/15 px-2 py-0.5 text-xs font-medium text-destructive">
       <AlertTriangle className="mr-1 h-3 w-3" /> Missing
     </span>
   );
@@ -225,7 +225,7 @@ export default function ChurchConnectAdmin() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="flex">
         <Sidebar active={active} onChange={setActive} />
         <main className="flex-1 p-6 lg:p-8" role="main">
@@ -257,17 +257,17 @@ function Sidebar({
   ];
   return (
     <aside
-      className="hidden w-72 shrink-0 border-r border-slate-800 bg-gradient-to-b from-slate-800 to-slate-950/60 p-6 lg:block"
+      className="hidden w-72 shrink-0 border-r border-border bg-card p-6 lg:block"
       aria-label="Sidebar"
     >
-      <div className="mb-6 border-b border-slate-800 pb-4">
-        <h1 className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-2xl font-bold text-transparent">
+      <div className="mb-6 border-b border-border pb-4">
+        <h1 className="bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-bold text-transparent">
           Church Connect
         </h1>
-        <p className="mt-1 text-sm text-slate-400">Admin Panel</p>
+        <p className="mt-1 text-sm text-muted-foreground">Admin Panel</p>
       </div>
       <nav className="space-y-1" aria-label="Administration">
-        <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Administration
         </div>
         {items.map(({ key, label, icon: Icon }) => (
@@ -275,10 +275,10 @@ function Sidebar({
             key={key}
             onClick={() => onChange(key)}
             className={classNames(
-              "group flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-slate-200 outline-none transition",
+              "group flex w-full items-center gap-3 rounded-md px-3 py-2 text-left outline-none transition-all",
               active === key
-                ? "bg-sky-500/15 text-sky-400 ring-1 ring-inset ring-sky-500/40"
-                : "hover:bg-sky-500/10 hover:text-sky-300"
+                ? "bg-primary/10 text-primary ring-1 ring-inset ring-primary/20"
+                : "text-foreground hover:bg-primary/5 hover:text-primary"
             )}
             aria-current={active === key ? "page" : undefined}
           >
@@ -296,16 +296,16 @@ function Dashboard({ onGoToStaff }: { onGoToStaff: () => void }) {
   return (
     <div>
       <header className="mb-6">
-        <h2 className="text-3xl font-bold text-slate-100">Administrative Dashboard</h2>
-        <p className="mt-1 text-slate-400">Manage church operations and system settings</p>
+        <h2 className="text-3xl font-bold text-foreground">Administrative Dashboard</h2>
+        <p className="mt-1 text-muted-foreground">Manage church operations and system settings</p>
       </header>
 
       <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="flex items-start gap-4 rounded-2xl border border-amber-500/30 bg-slate-900/70 p-4 shadow-inner shadow-black/20 ring-1 ring-amber-500/10">
-          <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-400" />
+        <div className="flex items-start gap-4 rounded-2xl border border-warning/30 bg-card p-4 shadow-sm ring-1 ring-warning/10">
+          <AlertTriangle className="mt-0.5 h-5 w-5 text-warning" />
           <div>
-            <h3 className="text-base font-semibold text-amber-300">Action Required</h3>
-            <p className="mt-1 text-xs text-slate-300">
+            <h3 className="text-base font-semibold text-warning">Action Required</h3>
+            <p className="mt-1 text-xs text-muted-foreground">
               7 pending applications • 3 need background checks
             </p>
           </div>
@@ -313,7 +313,7 @@ function Dashboard({ onGoToStaff }: { onGoToStaff: () => void }) {
 
         <button
           onClick={onGoToStaff}
-          className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-4 font-semibold text-white shadow-lg transition hover:brightness-110"
+          className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-warning to-warning/80 px-4 py-4 font-semibold text-warning-foreground shadow-lg transition hover:brightness-110"
         >
           <span className="flex items-center gap-2">
             <Clock className="h-4 w-4" />
@@ -327,7 +327,7 @@ function Dashboard({ onGoToStaff }: { onGoToStaff: () => void }) {
           <ChevronRight className="h-4 w-4 opacity-80 transition group-hover:translate-x-0.5" />
         </button>
 
-        <button className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-700 px-4 py-4 font-semibold text-white shadow-lg transition hover:brightness-110">
+        <button className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-primary to-primary-light px-4 py-4 font-semibold text-primary-foreground shadow-lg transition hover:brightness-110">
           <span className="flex items-center gap-2">
             <Mail className="h-4 w-4" />
             <span className="text-sm">
@@ -406,11 +406,11 @@ function QuickStats() {
       {items.map((s, i) => (
         <div
           key={i}
-          className="relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-b from-slate-800 to-slate-950/60 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-500/40 hover:shadow-sky-500/10"
+          className="relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
         >
-          <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-sky-400 to-violet-500" />
-          <div className="text-3xl font-bold text-slate-100">{s.value}</div>
-          <div className="mt-1 text-sm text-slate-400">{s.label}</div>
+          <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary to-accent" />
+          <div className="text-3xl font-bold text-foreground">{s.value}</div>
+          <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
         </div>
       ))}
     </div>
@@ -431,25 +431,25 @@ function AdminCard({
   primaryLabel: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-gradient-to-b from-slate-800/80 to-slate-950/50 p-6 transition hover:-translate-y-0.5 hover:border-sky-500/40 hover:shadow-lg hover:shadow-sky-500/10">
-      <div className="mb-3 inline-flex rounded-lg bg-sky-500/15 p-2 text-sky-400">
+    <div className="rounded-xl border border-border bg-card p-6 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg">
+      <div className="mb-3 inline-flex rounded-lg bg-primary/15 p-2 text-primary">
         <Icon className="h-5 w-5" />
       </div>
-      <h3 className="text-lg font-semibold text-slate-100">{title}</h3>
-      <p className="mt-1 text-sm text-slate-400">{description}</p>
+      <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+      <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       <div className="mt-4 grid grid-cols-3 gap-3">
         {stats.map((s, i) => (
           <div key={i} className="text-center">
-            <div className="text-xl font-bold text-slate-100">{s.value}</div>
-            <div className="text-xs text-slate-400">{s.label}</div>
+            <div className="text-xl font-bold text-foreground">{s.value}</div>
+            <div className="text-xs text-muted-foreground">{s.label}</div>
           </div>
         ))}
       </div>
       <div className="mt-5 flex gap-2">
-        <button className="flex-1 rounded-md bg-gradient-to-r from-sky-500 to-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110">
+        <button className="flex-1 rounded-md bg-gradient-to-r from-primary to-primary-light px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-110">
           {primaryLabel}
         </button>
-        <button className="flex-1 rounded-md border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800/60">
+        <button className="flex-1 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-secondary">
           View All
         </button>
       </div>
@@ -511,34 +511,34 @@ function StaffVerification() {
   return (
     <section aria-labelledby="staff-heading">
       <header className="mb-6">
-        <h2 id="staff-heading" className="text-3xl font-bold text-slate-100">
+        <h2 id="staff-heading" className="text-3xl font-bold text-foreground">
           Staff Verification
         </h2>
-        <p className="mt-1 text-slate-400">
+        <p className="mt-1 text-muted-foreground">
           Review and approve ministry staff applications, manage background checks, and verify credentials.
         </p>
       </header>
 
       {/* Filters */}
       <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-        <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2">
-          <Search className="h-4 w-4 text-slate-400" />
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
+          <Search className="h-4 w-4 text-muted-foreground" />
           <input
             aria-label="Search applicants"
             placeholder="Search by name, email, role…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-transparent text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none"
+            className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
           />
         </div>
 
-        <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2">
-          <Filter className="h-4 w-4 text-slate-400" />
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
+          <Filter className="h-4 w-4 text-muted-foreground" />
           <select
             aria-label="Filter by category"
             value={category}
             onChange={(e) => setCategory(e.target.value as any)}
-            className="w-full bg-transparent text-sm text-slate-200 focus:outline-none"
+            className="w-full bg-transparent text-sm text-foreground focus:outline-none"
           >
             <option>All</option>
             {CATEGORIES.map((c) => (
@@ -547,13 +547,13 @@ function StaffVerification() {
           </select>
         </div>
 
-        <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2">
-          <Shield className="h-4 w-4 text-slate-400" />
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
+          <Shield className="h-4 w-4 text-muted-foreground" />
           <select
             aria-label="Filter by status"
             value={status}
             onChange={(e) => setStatus(e.target.value as any)}
-            className="w-full bg-transparent text-sm text-slate-200 focus:outline-none"
+            className="w-full bg-transparent text-sm text-foreground focus:outline-none"
           >
             <option>All</option>
             {STATUS.map((s) => (
@@ -567,11 +567,11 @@ function StaffVerification() {
         <div className="flex items-center justify-end gap-2">
           <button
             onClick={() => exportCSV(filtered)}
-            className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800/60"
+            className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-semibold text-foreground hover:bg-secondary"
           >
             <Download className="h-4 w-4" /> Export CSV
           </button>
-          <button className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800/60">
+          <button className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-semibold text-foreground hover:bg-secondary">
             <Upload className="h-4 w-4" /> Import
           </button>
         </div>
@@ -579,8 +579,8 @@ function StaffVerification() {
 
       {/* Bulk actions */}
       <div className="mb-2 flex items-center justify-between">
-        <div className="text-sm text-slate-400">
-          Showing <span className="font-semibold text-slate-200">{filtered.length}</span> of {apps.length}
+        <div className="text-sm text-muted-foreground">
+          Showing <span className="font-semibold text-foreground">{filtered.length}</span> of {apps.length}
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -589,8 +589,8 @@ function StaffVerification() {
             className={classNames(
               "inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold",
               selected.length === 0
-                ? "cursor-not-allowed border-slate-800 text-slate-600"
-                : "border-amber-500/40 text-amber-300 hover:bg-amber-500/10"
+                ? "cursor-not-allowed border-border text-muted-foreground/50"
+                : "border-warning/40 text-warning hover:bg-warning/10"
             )}
           >
             <FileCheck2 className="h-4 w-4" /> Request Missing Docs
@@ -601,8 +601,8 @@ function StaffVerification() {
             className={classNames(
               "inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold",
               selected.length === 0
-                ? "cursor-not-allowed border-slate-800 text-slate-600"
-                : "border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10"
+                ? "cursor-not-allowed border-border text-muted-foreground/50"
+                : "border-success/40 text-success hover:bg-success/10"
             )}
           >
             <BadgeCheck className="h-4 w-4" /> Approve Selected
@@ -611,15 +611,15 @@ function StaffVerification() {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-slate-800">
-        <table className="min-w-full divide-y divide-slate-800">
-          <thead className="bg-slate-900/60">
+      <div className="overflow-hidden rounded-xl border border-border">
+        <table className="min-w-full divide-y divide-border">
+          <thead className="bg-muted/50">
             <tr>
-              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <input
                   aria-label="Select all on page"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500"
+                  className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
                   checked={allOnPageChecked}
                   onChange={(e) =>
                     setSelected(
@@ -629,41 +629,41 @@ function StaffVerification() {
                 />
               </th>
               <SortableTH label="Applicant" sort={sort} setSort={setSort} k="name" />
-              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Category
               </th>
-              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Role Requested
               </th>
               <SortableTH label="Submitted" sort={sort} setSort={setSort} k="submittedAt" />
-              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Required Docs
               </th>
-              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Status
               </th>
-              <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800">
+          <tbody className="divide-y divide-border">
             {filtered.map((a) => {
               const missing = calcMissingDocs(a);
               return (
-                <tr key={a.id} className="hover:bg-slate-900/40">
+                <tr key={a.id} className="hover:bg-muted/50">
                   <td className="px-3 py-2">
                     <input
                       aria-label={`Select ${a.name}`}
                       type="checkbox"
-                      className="h-4 w-4 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500"
+                      className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
                       checked={selected.includes(a.id)}
                       onChange={() => toggleSelect(a.id)}
                     />
                   </td>
                   <td className="px-3 py-3">
-                    <div className="font-medium text-slate-100">{a.name}</div>
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                    <div className="font-medium text-foreground">{a.name}</div>
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
                         <Mail className="h-3.5 w-3.5" /> {a.email}
                       </span>
@@ -675,9 +675,9 @@ function StaffVerification() {
                       </span>
                     </div>
                   </td>
-                  <td className="px-3 py-3 text-sm text-slate-300">{a.category}</td>
-                  <td className="px-3 py-3 text-sm text-slate-300">{a.roleRequested}</td>
-                  <td className="px-3 py-3 text-sm text-slate-300">{formatDate(a.submittedAt)}</td>
+                  <td className="px-3 py-3 text-sm text-foreground">{a.category}</td>
+                  <td className="px-3 py-3 text-sm text-foreground">{a.roleRequested}</td>
+                  <td className="px-3 py-3 text-sm text-muted-foreground">{formatDate(a.submittedAt)}</td>
                   <td className="px-3 py-3 text-sm">
                     <div className="flex flex-wrap items-center gap-2">
                       {(REQUIRED_DOCS[a.category] || []).map((doc) => {
@@ -686,7 +686,7 @@ function StaffVerification() {
                         const target = need ? parseInt(need, 10) : undefined;
                         return (
                           <div key={doc} className="whitespace-nowrap">
-                            <span className="mr-1 text-xs text-slate-400">{doc}:</span>
+                            <span className="mr-1 text-xs text-muted-foreground">{doc}:</span>
                             {docStatusBadge(v as any, target)}
                           </div>
                         );
@@ -700,7 +700,7 @@ function StaffVerification() {
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={() => setDrawer(a.id)}
-                        className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-200 hover:bg-slate-800/60"
+                        className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-sm font-semibold text-foreground hover:bg-secondary"
                       >
                         <UserCheck className="h-4 w-4" /> Review
                       </button>
@@ -708,7 +708,7 @@ function StaffVerification() {
                         onClick={() =>
                           setApps((prev) => prev.map((p) => (p.id === a.id ? { ...p, status: "approved" } : p)))
                         }
-                        className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:brightness-110"
+                        className="inline-flex items-center gap-2 rounded-md bg-success px-3 py-1.5 text-sm font-semibold text-success-foreground hover:brightness-110"
                       >
                         <CheckCircle2 className="h-4 w-4" /> Approve
                       </button>
@@ -747,10 +747,10 @@ function SortableTH({
   const active = sort.key === k;
   const dir = active ? sort.dir : undefined;
   return (
-    <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+    <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
       <button
         onClick={() => setSort({ key: k, dir: active && dir === "asc" ? "desc" : "asc" })}
-        className="inline-flex items-center gap-1.5 hover:text-slate-200"
+        className="inline-flex items-center gap-1.5 hover:text-foreground"
         aria-sort={active ? (dir === "asc" ? "ascending" : "descending") : "none"}
       >
         {label}
@@ -776,15 +776,15 @@ function StatusPill({
   const map: Record<(typeof STATUS)[number], { text: string; classes: string }> = {
     pending: {
       text: "Pending",
-      classes: "bg-amber-500/15 text-amber-300",
+      classes: "bg-warning/15 text-warning",
     },
     missing_docs: {
       text: `Missing Docs${missingCount ? ` (${missingCount})` : ""}`,
-      classes: "bg-rose-500/15 text-rose-300",
+      classes: "bg-destructive/15 text-destructive",
     },
-    ready: { text: "Ready", classes: "bg-sky-500/15 text-sky-300" },
-    approved: { text: "Approved", classes: "bg-emerald-500/15 text-emerald-300" },
-    denied: { text: "Denied", classes: "bg-rose-600/20 text-rose-300" },
+    ready: { text: "Ready", classes: "bg-info/15 text-info" },
+    approved: { text: "Approved", classes: "bg-success/15 text-success" },
+    denied: { text: "Denied", classes: "bg-destructive/15 text-destructive" },
   };
   const m = map[status];
   return (
@@ -965,10 +965,10 @@ function Placeholder({ title }: { title: string }) {
   return (
     <div>
       <header className="mb-6">
-        <h2 className="text-3xl font-bold text-slate-100">{title}</h2>
-        <p className="mt-1 text-slate-400">Coming soon. Focus is Staff Verification.</p>
+        <h2 className="text-3xl font-bold text-foreground">{title}</h2>
+        <p className="mt-1 text-muted-foreground">Coming soon. Focus is Staff Verification.</p>
       </header>
-      <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-6 text-slate-300">
+      <div className="rounded-xl border border-border bg-muted/40 p-6 text-muted-foreground">
         Build these next or hide them from non-admins via RLS-backed feature flags.
       </div>
     </div>
