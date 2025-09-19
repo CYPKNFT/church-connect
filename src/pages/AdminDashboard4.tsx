@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Users,
   ShieldCheck,
@@ -10,6 +13,13 @@ import {
   Clock,
   Mail,
   ChevronRight,
+  Plus,
+  Send,
+  Heart,
+  CheckCircle,
+  Star,
+  TrendingUp,
+  FileText,
 } from "lucide-react";
 
 // --- Utility helpers --------------------------------------------------------
@@ -23,15 +33,49 @@ export default function ChurchConnectAdmin() {
   >("dashboard");
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background">
       <div className="flex">
         <Sidebar active={active} onChange={setActive} />
-        <main className="flex-1 p-6 lg:p-8" role="main">
-          {active === "dashboard" && <Dashboard />}
-          {active === "moderation" && <Placeholder title="Content Moderation" />}
-          {active === "analytics" && <Placeholder title="Analytics & Reports" />}
-          {active === "settings" && <Placeholder title="System Settings" />}
+        <main className="flex-1" role="main">
+          <AdminHeader />
+          <div className="p-6 space-y-6">
+            {active === "dashboard" && <Dashboard />}
+            {active === "moderation" && <Placeholder title="Content Moderation" />}
+            {active === "analytics" && <Placeholder title="Analytics & Reports" />}
+            {active === "settings" && <Placeholder title="System Settings" />}
+          </div>
         </main>
+      </div>
+    </div>
+  );
+}
+
+// --- Header -----------------------------------------------------------------
+function AdminHeader() {
+  const navigate = useNavigate();
+  
+  return (
+    <div className="bg-card border-b border-border px-6 py-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Church Connect Admin</h1>
+          <p className="text-muted-foreground mt-1">
+            Manage staff verification and church operations
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Button variant="outline" className="flex items-center gap-2">
+            <Send className="h-4 w-4" />
+            Send Update
+          </Button>
+          <Button 
+            onClick={() => navigate('/staff-verification')}
+            className="flex items-center gap-2 bg-warning hover:bg-warning/90 text-warning-foreground"
+          >
+            <Plus className="h-4 w-4" />
+            Review Staff Applications
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -53,6 +97,7 @@ function Sidebar({
     { key: "analytics", label: "Analytics & Reports", icon: Users },
     { key: "settings", label: "System Settings", icon: Settings },
   ];
+  
   return (
     <aside
       className="hidden w-72 shrink-0 border-r border-border bg-card p-6 lg:block"
@@ -91,182 +136,300 @@ function Sidebar({
 
 // --- Dashboard (overview) ---------------------------------------------------
 function Dashboard() {
-  const navigate = useNavigate();
-  
   return (
-    <div>
-      <header className="mb-6">
-        <h2 className="text-3xl font-bold text-foreground">Administrative Dashboard</h2>
-        <p className="mt-1 text-muted-foreground">Manage church operations and system settings</p>
-      </header>
-
-      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="flex items-start gap-4 rounded-2xl border border-warning/30 bg-card p-4 shadow-sm ring-1 ring-warning/10">
-          <AlertTriangle className="mt-0.5 h-5 w-5 text-warning" />
-          <div>
-            <h3 className="text-base font-semibold text-warning">Action Required</h3>
-            <p className="mt-1 text-xs text-muted-foreground">
-              7 pending applications • 3 need background checks
-            </p>
-          </div>
-        </div>
-
-        <button
-          onClick={() => navigate('/staff-verification')}
-          className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-warning to-warning/80 px-4 py-4 font-semibold text-warning-foreground shadow-lg transition hover:brightness-110"
-        >
-          <span className="flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            <span className="text-sm">
-              Review Pending Applications
-              <span className="block text-xs font-normal opacity-90">
-                12 applications awaiting review
-              </span>
-            </span>
-          </span>
-          <ChevronRight className="h-4 w-4 opacity-80 transition group-hover:translate-x-0.5" />
-        </button>
-
-        <button className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-primary to-primary-light px-4 py-4 font-semibold text-primary-foreground shadow-lg transition hover:brightness-110">
-          <span className="flex items-center gap-2">
-            <Mail className="h-4 w-4" />
-            <span className="text-sm">
-              Send Community Update
-              <span className="block text-xs font-normal opacity-90">
-                Notify members of new activities
-              </span>
-            </span>
-          </span>
-          <ChevronRight className="h-4 w-4 opacity-80 transition group-hover:translate-x-0.5" />
-        </button>
-      </div>
-
-      <QuickStats />
-
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-        <AdminCard
-          title="Staff Verification"
-          description="Review and approve ministry staff applications, manage background checks, and verify credentials."
-          stats={[
-            { label: "Pending", value: "7" },
-            { label: "This Month", value: "23" },
-            { label: "Total Active", value: "156" },
-          ]}
-          icon={ShieldCheck}
-          primaryLabel="Review Applications"
-        />
-        <AdminCard
-          title="Content Moderation"
-          description="Monitor flagged content, manage community posts, and maintain platform safety standards."
-          stats={[
-            { label: "Flagged", value: "3" },
-            { label: "Reviewed", value: "12" },
-            { label: "Clean Rate", value: "95%" },
-          ]}
-          icon={FolderOpen}
-          primaryLabel="Review Content"
-        />
-        <AdminCard
-          title="Analytics & Reports"
-          description="Track platform usage, generate administrative reports, and monitor system performance."
-          stats={[
-            { label: "Users", value: "1.2K" },
-            { label: "Engagement", value: "89%" },
-            { label: "Actions", value: "5.2K" },
-          ]}
-          icon={Users}
-          primaryLabel="View Reports"
-        />
-        <AdminCard
-          title="System Settings"
-          description="Configure platform settings, manage integrations, and control permissions."
-          stats={[
-            { label: "Admins", value: "12" },
-            { label: "Uptime", value: "99.9%" },
-            { label: "Version", value: "v2.1" },
-          ]}
-          icon={Settings}
-          primaryLabel="Manage Settings"
-        />
-      </div>
+    <div className="space-y-6">
+      <AdminMetrics />
+      <AdminMainContent />
     </div>
   );
 }
 
-function QuickStats() {
-  const items = [
-    { label: "Pending Review", value: "12" },
-    { label: "Documents Missing", value: "5" },
-    { label: "Ready for Approval", value: "7" },
-    { label: "Approved This Month", value: "23" },
-    { label: "Active Staff Members", value: "156" },
+// --- Metrics ----------------------------------------------------------------
+function AdminMetrics() {
+  const metrics = [
+    {
+      id: "staff-pending",
+      title: "Staff Applications Pending",
+      value: "7",
+      change: "+2 this week",
+      changeType: "positive" as const,
+      icon: Clock,
+      color: "text-orange-500",
+      bgColor: "bg-orange-500/10",
+      borderColor: "border-orange-500/20",
+    },
+    {
+      id: "staff-approved",
+      title: "Staff Approved This Month",
+      value: "23",
+      change: "+15% vs last month",
+      changeType: "positive" as const,
+      icon: CheckCircle,
+      color: "text-green-500",
+      bgColor: "bg-green-500/10",
+      borderColor: "border-green-500/20",
+    },
+    {
+      id: "total-staff",
+      title: "Total Active Staff",
+      value: "156",
+      change: "Across all ministries",
+      changeType: "neutral" as const,
+      icon: Users,
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
+      borderColor: "border-blue-500/20",
+    },
+    {
+      id: "verification-rate",
+      title: "Verification Success Rate",
+      value: "94%",
+      change: "Based on 89 applications",
+      changeType: "positive" as const,
+      icon: ShieldCheck,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+      borderColor: "border-purple-500/20",
+    },
   ];
+
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-5">
-      {items.map((s, i) => (
-        <div
-          key={i}
-          className="relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {metrics.map((metric) => (
+        <Card 
+          key={metric.id} 
+          className={`relative overflow-hidden border-2 ${metric.borderColor} ${metric.bgColor}`}
         >
-          <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary to-accent" />
-          <div className="text-3xl font-bold text-foreground">{s.value}</div>
-          <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
-        </div>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className={`p-2 rounded-lg ${metric.bgColor}`}>
+                <metric.icon className={`h-5 w-5 ${metric.color}`} />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-muted-foreground">
+                {metric.title}
+              </p>
+              <div className="flex items-end gap-2">
+                <span className="text-3xl font-bold text-foreground">
+                  {metric.value}
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                {metric.changeType === "positive" && (
+                  <TrendingUp className="h-3 w-3 text-green-600" />
+                )}
+                <span className={`text-xs font-medium ${
+                  metric.changeType === "positive" 
+                    ? "text-green-600" 
+                    : "text-muted-foreground"
+                }`}>
+                  {metric.change}
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       ))}
     </div>
   );
 }
 
-function AdminCard({
-  title,
-  description,
-  stats,
-  icon: Icon,
-  primaryLabel,
-}: {
-  title: string;
-  description: string;
-  stats: Array<{ label: string; value: string }>;
-  icon: any;
-  primaryLabel: string;
-}) {
+// --- Main Content -----------------------------------------------------------
+function AdminMainContent() {
   return (
-    <div className="rounded-xl border border-border bg-card p-6 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg">
-      <div className="mb-3 inline-flex rounded-lg bg-primary/15 p-2 text-primary">
-        <Icon className="h-5 w-5" />
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="lg:col-span-2 space-y-6">
+        <StaffPendingApprovals />
+        <RecentActivity />
       </div>
-      <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-      <div className="mt-4 grid grid-cols-3 gap-3">
-        {stats.map((s, i) => (
-          <div key={i} className="text-center">
-            <div className="text-xl font-bold text-foreground">{s.value}</div>
-            <div className="text-xs text-muted-foreground">{s.label}</div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-5 flex gap-2">
-        <button className="flex-1 rounded-md bg-gradient-to-r from-primary to-primary-light px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-110">
-          {primaryLabel}
-        </button>
-        <button className="flex-1 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-secondary">
-          View All
-        </button>
+      <div className="lg:col-span-1">
+        <QuickActions />
       </div>
     </div>
   );
 }
 
+// --- Staff Pending Approvals ------------------------------------------------
+function StaffPendingApprovals() {
+  const navigate = useNavigate();
+  
+  const pendingStaff = [
+    {
+      id: "1",
+      name: "Ava Thompson",
+      role: "Nursery Volunteer",
+      category: "Child Ministries",
+      timePosted: "2 hours ago",
+      urgency: "background-check",
+    },
+    {
+      id: "2", 
+      name: "Marcus Lee",
+      role: "Guitarist",
+      category: "Worship/Service",
+      timePosted: "4 hours ago",
+      urgency: "ready",
+    },
+    {
+      id: "3",
+      name: "Jordan Park",
+      role: "Youth Leader",
+      category: "Leadership",
+      timePosted: "1 day ago",
+      urgency: "missing-docs",
+    },
+  ];
+
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="text-lg font-semibold">Staff Applications Awaiting Review</CardTitle>
+        <Button variant="outline" size="sm" onClick={() => navigate('/staff-verification')}>
+          View All
+        </Button>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {pendingStaff.map((staff) => (
+          <div key={staff.id} className="border border-border rounded-lg p-4 space-y-3">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <h4 className="font-medium text-foreground">{staff.name}</h4>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                  <span>{staff.role}</span>
+                  <span>•</span>
+                  <span>{staff.category}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant={
+                  staff.urgency === "background-check" ? "destructive" : 
+                  staff.urgency === "ready" ? "default" : "secondary"
+                }>
+                  {staff.urgency === "background-check" ? "Background Check Needed" :
+                   staff.urgency === "ready" ? "Ready for Review" : "Missing Documents"}
+                </Badge>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Clock className="h-3 w-3" />
+                <span>{staff.timePosted}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button size="sm" variant="outline" onClick={() => navigate('/staff-verification')}>
+                  Review
+                </Button>
+                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
+                  Approve
+                </Button>
+                <Button size="sm" variant="destructive">Reject</Button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+// --- Recent Activity --------------------------------------------------------
+function RecentActivity() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg font-semibold">Recent Activity</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="text-sm text-muted-foreground">
+          <p>• Elena Rivera approved as Small Group Leader (Leadership)</p>
+          <p>• 3 new applications submitted for Child Ministries</p>
+          <p>• Background check completed for Marcus Lee</p>
+          <p>• System backup completed successfully</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// --- Quick Actions ----------------------------------------------------------
+function QuickActions() {
+  const navigate = useNavigate();
+  
+  const quickActions = [
+    {
+      id: "review-staff",
+      title: "Review Staff Applications",
+      description: "7 applications awaiting approval",
+      icon: ShieldCheck,
+      color: "bg-warning hover:bg-warning/90",
+      onClick: () => navigate('/staff-verification'),
+    },
+    {
+      id: "send-update",
+      title: "Send Community Update",
+      description: "Notify members of new activities",
+      icon: Send,
+      color: "bg-primary hover:bg-primary/90",
+    },
+    {
+      id: "export-report",
+      title: "Export Staff Report",
+      description: "Download monthly verification data",
+      icon: FileText,
+      color: "bg-secondary hover:bg-secondary/90",
+    },
+    {
+      id: "manage-roles",
+      title: "Manage Staff Roles",
+      description: "Update ministry permissions",
+      icon: Users,
+      color: "bg-secondary hover:bg-secondary/90",
+    },
+  ];
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {quickActions.map((action) => (
+          <Button
+            key={action.id}
+            variant="outline"
+            className={`w-full justify-start h-auto p-4 ${action.color} text-white border-0 hover:text-white`}
+            onClick={action.onClick}
+          >
+            <div className="flex items-center gap-3 w-full">
+              <action.icon className="h-5 w-5 flex-shrink-0" />
+              <div className="flex-1 text-left">
+                <div className="font-medium text-sm">{action.title}</div>
+                <div className="text-xs opacity-90 mt-1">{action.description}</div>
+              </div>
+            </div>
+          </Button>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+// --- Placeholder sections ---------------------------------------------------
 function Placeholder({ title }: { title: string }) {
   return (
-    <div>
-      <header className="mb-6">
-        <h2 className="text-3xl font-bold text-foreground">{title}</h2>
-        <p className="mt-1 text-muted-foreground">Coming soon. Focus is Staff Verification.</p>
-      </header>
-      <div className="rounded-xl border border-border bg-muted/40 p-6 text-muted-foreground">
-        Build these next or hide them from non-admins via RLS-backed feature flags.
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-xl font-bold">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Coming soon. Focus is Staff Verification.</p>
+        <div className="mt-4 p-4 bg-muted rounded-lg text-muted-foreground">
+          Build these next or hide them from non-admins via RLS-backed feature flags.
+        </div>
+      </CardContent>
+    </Card>
   );
 }
