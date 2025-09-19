@@ -50,7 +50,6 @@ import StaffVerification from "./pages/StaffVerification";
 import ContentModeration from "./pages/ContentModeration";
 import Analytics from "./pages/Analytics";
 import SystemSettings from "./pages/SystemSettings";
-import Marketplace from "./pages/Marketplace";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -97,7 +96,6 @@ const App = () => (
                     <Route path="/admin/content-moderation" element={<AdminLayout><ContentModeration /></AdminLayout>} />
                     <Route path="/admin/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
                     <Route path="/admin/settings" element={<AdminLayout><SystemSettings /></AdminLayout>} />
-                    <Route path="/marketplace" element={<Marketplace />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
