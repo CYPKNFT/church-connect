@@ -15,7 +15,8 @@ import {
   PanelsTopLeft,
   HandHeart,
   ShoppingCart,
-  Package
+  Package,
+  HeartHandshake
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -89,7 +90,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
-      baseItems.push({ icon: Settings, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
+      baseItems.push({ icon: HeartHandshake, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
     }
 
     baseItems.push(
