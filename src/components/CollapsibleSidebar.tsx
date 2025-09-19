@@ -112,7 +112,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
-                bg-sidebar border-r border-sidebar-border relative
+                bg-sidebar border-r border-sidebar-border relative flex-none
                 ${isCollapsed ? 'w-16' : 'w-64'}
               `}
             >
@@ -237,7 +237,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 2: ADMIN EXPANDED - Icon strip + Admin submenu */
             <div className="flex">
               {/* Left Column - Icon Strip */}
-              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+              <div className="flex-none w-14 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
                 {/* Brand Icon */}
                 <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
                   <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
@@ -290,7 +290,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Right Column - Admin Submenu with Collapse */}
               <div 
                 className={`
-                  bg-sidebar border-r border-sidebar-border relative
+                  bg-sidebar border-r border-sidebar-border relative flex-none
                   ${isAdminCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
@@ -379,7 +379,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 3: SERVING EXPANDED - Icon strip + Serving submenu */
             <div className="flex">
               {/* Left Column - Icon Strip */}
-              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+              <div className="flex-none w-14 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
                 {/* Brand Icon */}
                 <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
                   <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
@@ -432,7 +432,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Right Column - Serving Submenu with Collapse */}
               <div 
                 className={`
-                  bg-sidebar border-r border-sidebar-border relative
+                  bg-sidebar border-r border-sidebar-border relative flex-none
                   ${isServingCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
@@ -521,7 +521,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
-            <main className="flex-1 overflow-auto">
+            <main className="flex-1 overflow-y-scroll">
               {children}
             </main>
           </div>
