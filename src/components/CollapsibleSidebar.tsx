@@ -49,13 +49,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Only derive serving mode from route; admin/adminCopy are click-controlled
   useEffect(() => {
+    // If we're in admin copy mode and navigate to dashboard, stay in admin copy mode
+    if (isAdminCopyMode && currentPath === '/dashboard') {
+      setIsServingMode(false);
+      return;
+    }
+    
     setIsServingMode(
       currentPath === '/dashboard' || 
       currentPath === '/my-needs' || 
       currentPath === '/volunteering' || 
       currentPath === '/browse'
     );
-  }, [currentPath]);
+  }, [currentPath, isAdminCopyMode]);
 
   // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
   useEffect(() => {
@@ -113,7 +119,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard" },
     { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
     { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
     { icon: BookOpen, label: "Browse", path: "/admin/analytics" }
