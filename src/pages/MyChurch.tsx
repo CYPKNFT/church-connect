@@ -47,9 +47,9 @@ export default function MyChurch() {
   // Stats data
   const stats = [
     { icon: Heart, label: "Active Needs", value: 3 },
-    { icon: UserCheck, label: "Times Helped", value: 7 },
-    { icon: Gift, label: "Giveaways", value: 12 },
+    { icon: UserCheck, label: "Needs Served", value: 7 },
     { icon: Star, label: "Active Wishes", value: 8 },
+    { icon: Gift, label: "Giveaways", value: 12 },
     { icon: Calendar, label: "Upcoming Events", value: 2 },
     { icon: Users, label: "Church Members", value: 156 }
   ];
@@ -344,55 +344,60 @@ export default function MyChurch() {
 
       {/* Three-Tab Navigation - Separate Section */}
       <div className="container mx-auto px-4 -mt-8 relative z-10">
-        <div className="bg-card/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border overflow-hidden">
+        <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-muted/50 h-14 rounded-none">
+            <TabsList className="grid w-full grid-cols-3 bg-transparent h-16 rounded-none border-b border-border/10">
               <TabsTrigger 
                 value="serving" 
-                className="text-sm font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground h-full"
+                className="text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary h-full rounded-none transition-all duration-300"
               >
                 SERVING
               </TabsTrigger>
               <TabsTrigger 
                 value="giving" 
-                className="text-sm font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground h-full"
+                className="text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary h-full rounded-none transition-all duration-300"
               >
                 GIVING
               </TabsTrigger>
               <TabsTrigger 
                 value="connecting" 
-                className="text-sm font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground h-full"
+                className="text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary h-full rounded-none transition-all duration-300"
               >
                 CONNECTING
               </TabsTrigger>
             </TabsList>
 
             {/* Search Section - Inside Tabs but Separated */}
-            <div className="p-6 border-b border-border bg-background/50">
-              <div className="flex flex-col md:flex-row gap-4">
+            <div className="p-8 bg-gradient-to-br from-muted/30 to-muted/10 border-b border-border/10">
+              <div className="flex flex-col md:flex-row gap-6">
                 <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                    <Input
-                      placeholder={activeTab === "serving" ? "Search church needs..." : activeTab === "giving" ? "Search items..." : "Search events..."}
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10 h-10 rounded-lg bg-background"
-                    />
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5 group-hover:text-primary transition-colors duration-200" />
+                      <Input
+                        placeholder={activeTab === "serving" ? "Search church needs..." : activeTab === "giving" ? "Search items..." : "Search events..."}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-12 h-14 rounded-2xl bg-background/80 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 hover:border-border transition-all duration-200 text-base shadow-lg"
+                      />
+                    </div>
                   </div>
                 </div>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-full md:w-48 h-10 rounded-lg bg-background">
-                    <SelectValue placeholder="All Categories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(activeTab === "serving" ? categories : itemCategories).map(category => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="w-full md:w-64">
+                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <SelectTrigger className="h-14 rounded-2xl bg-background/80 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 hover:border-border transition-all duration-200 text-base shadow-lg">
+                      <SelectValue placeholder="All Categories" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl border-border/50 shadow-2xl backdrop-blur-xl">
+                      {(activeTab === "serving" ? categories : itemCategories).map(category => (
+                        <SelectItem key={category} value={category} className="rounded-lg">
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           </Tabs>
@@ -406,58 +411,15 @@ export default function MyChurch() {
             {/* SERVING TAB */}
             <TabsContent value="serving" className="mt-0">
               {/* Enhanced Church Family Needs Section */}
-              <div className="space-y-6">
-                {/* Stats Cards */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                  <div className="bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl p-4 text-center">
-                    <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <Heart className="w-6 h-6 text-red-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-red-700">
-                      {allChurchNeeds.filter(n => n.urgency === "Immediate").length}
-                    </h3>
-                    <p className="text-red-600 text-sm font-medium">Active Needs</p>
-                    <p className="text-red-500 text-xs">In our church</p>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-xl p-4 text-center">
-                    <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <Clock className="w-6 h-6 text-orange-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-orange-700">
-                      {allChurchNeeds.filter(n => n.urgency === "This Week").length}
-                    </h3>
-                    <p className="text-orange-600 text-sm font-medium">Urgent Needs</p>
-                    <p className="text-orange-500 text-xs">Need immediate help</p>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-4 text-center">
-                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <UserCheck className="w-6 h-6 text-green-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-700">23</h3>
-                    <p className="text-green-600 text-sm font-medium">Members Helped</p>
-                    <p className="text-green-500 text-xs">This month</p>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-4 text-center">
-                    <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <Users className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-blue-700">12</h3>
-                    <p className="text-blue-600 text-sm font-medium">Volunteers</p>
-                    <p className="text-blue-500 text-xs">Active this week</p>
-                  </div>
-                </div>
-
+              <div className="space-y-8">
                 {/* Section Header */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground">Community Needs ({filteredNeeds.length} opportunities)</h2>
-                    <p className="text-muted-foreground">Help make a difference in your church family</p>
+                    <h2 className="text-3xl font-bold text-foreground">Community Needs ({filteredNeeds.length} opportunities)</h2>
+                    <p className="text-muted-foreground text-lg">Help make a difference in your church family</p>
                   </div>
-                  <Button className="bg-yellow-600 hover:bg-yellow-700 text-white">
-                    <Plus className="w-4 h-4 mr-2" />
+                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
+                    <Plus className="w-5 h-5 mr-2" />
                     Post New Need
                   </Button>
                 </div>
