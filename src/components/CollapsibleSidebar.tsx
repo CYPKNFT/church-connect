@@ -85,6 +85,15 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
+  // Admin Copy submenu items (duplicate of admin)
+  const adminCopySubmenuItems = [
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
+    { icon: FolderOpen, label: "Content Moderation", path: "/admin/content-moderation" },
+    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
+    { icon: Settings, label: "System Settings", path: "/admin/settings" }
+  ];
+
   // Serving submenu items
   const servingSubmenuItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -342,9 +351,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                   </div>
                 )}
 
-                {/* Admin Navigation */}
+                {/* Admin Copy Navigation */}
                 <div className="p-4 space-y-1">
-                  {adminSubmenuItems.map((item) => {
+                  {adminCopySubmenuItems.map((item) => {
                     const isActive = currentPath === item.path;
                     
                     const linkContent = (
