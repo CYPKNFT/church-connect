@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
-import { AdminMetrics } from "@/components/admin/AdminMetrics";
-import { AdminMainContent } from "@/components/admin/AdminMainContent";
 import { useAdminAccess } from "@/hooks/useAdminAccess";
 import { useToast } from "@/hooks/use-toast";
 
@@ -39,9 +37,8 @@ export default function AdminDashboard() {
     <CollapsibleSidebar>
       <div className="flex-1 min-h-screen">
         <AdminHeader church={church} />
-        <div className="p-6 space-y-6">
-          <AdminMetrics />
-          <AdminMainContent />
+        <div className="p-6">
+          {/* Main content area - ready for new components */}
         </div>
       </div>
     </CollapsibleSidebar>
