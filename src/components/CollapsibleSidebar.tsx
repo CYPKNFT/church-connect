@@ -32,7 +32,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const [mounted, setMounted] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [isServingMode, setIsServingMode] = useState(false);
   const [isAdminCollapsed, setIsAdminCollapsed] = useState(false);
+  const [isServingCollapsed, setIsServingCollapsed] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
@@ -42,9 +44,15 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Check if we're on an admin route to maintain admin mode
+  // Check if we're on an admin or serving route to maintain mode
   useEffect(() => {
     setIsAdminMode(currentPath.startsWith('/admin'));
+    setIsServingMode(
+      currentPath === '/dashboard' || 
+      currentPath === '/my-needs' || 
+      currentPath === '/volunteering' || 
+      currentPath === '/browse'
+    );
   }, [currentPath]);
 
   // Main navigation items
@@ -73,13 +81,26 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
+  // Serving submenu items
+  const servingSubmenuItems = [
+    { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/my-needs" },
+    { icon: Users, label: "Volunteering", path: "/volunteering" },
+    { icon: BookOpen, label: "Browse", path: "/browse" }
+  ];
+
   const mainNavItems = getMainNavItems();
 
   const handleNavItemClick = (item: any) => {
     if (item.isAdmin) {
       setIsAdminMode(true);
+      setIsServingMode(false);
+    } else if (item.category === 'serving') {
+      setIsServingMode(true);
+      setIsAdminMode(false);
     } else {
       setIsAdminMode(false);
+      setIsServingMode(false);
     }
   };
 
@@ -87,7 +108,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <div className="flex min-h-screen w-full relative">
-          {!isAdminMode ? (
+          {!isAdminMode && !isServingMode ? (
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
@@ -213,7 +234,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 })}
               </div>
             </div>
-          ) : (
+          ) : isAdminMode ? (
             /* STATE 2: ADMIN EXPANDED - Icon strip + Admin submenu */
             <div className="flex">
               {/* Left Column - Icon Strip */}
@@ -335,6 +356,149 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     );
 
                     if (isAdminCollapsed) {
+                      return (
+                        <Tooltip key={item.path}>
+                          <TooltipTrigger asChild>
+                            {linkContent}
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            <p>{item.label}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+
+                    return (
+                      <div key={item.path}>
+                        {linkContent}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* STATE 3: SERVING EXPANDED - Icon strip + Serving submenu */
+            <div className="flex">
+              {/* Left Column - Icon Strip */}
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+                {/* Brand Icon */}
+                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
+                  <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                </div>
+
+                {/* Navigation Icons */}
+                {mainNavItems.map((item) => {
+                  const isActive = item.category === 'serving' && isServingMode;
+                  
+                  const iconButton = (
+                    <button
+                      onClick={() => handleNavItemClick(item)}
+                      className={`
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
+                        ${isActive
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                          : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                        }
+                      `}
+                    >
+                      <item.icon className="w-5 h-5" />
+                    </button>
+                  );
+
+                  if (item.category === 'serving') {
+                    return (
+                      <div key={item.path}>
+                        {iconButton}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Tooltip key={item.path}>
+                      <TooltipTrigger asChild>
+                        <Link to={item.path} onClick={() => handleNavItemClick(item)}>
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">
+                        <p>{item.label}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  );
+                })}
+              </div>
+
+              {/* Right Column - Serving Submenu with Collapse */}
+              <div 
+                className={`
+                  bg-sidebar border-r border-sidebar-border relative
+                  ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
+                  ${isServingCollapsed ? 'w-16' : 'w-64'}
+                `}
+              >
+                {/* Serving Collapse Toggle */}
+                <div
+                  onClick={() => setIsServingCollapsed(!isServingCollapsed)}
+                  className={`
+                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    bg-sidebar-border hover:bg-sidebar-border/80 
+                    flex items-center justify-center
+                    right-[-16px] w-4 h-6 rounded-r-sm
+                  `}
+                >
+                  <div className={`transition-transform duration-300 ${isServingCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                    <svg 
+                      width="8" 
+                      height="8" 
+                      viewBox="0 0 12 12" 
+                      fill="none" 
+                      className="text-yellow-500"
+                    >
+                      <path 
+                        d="M4 2L8 6L4 10" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Serving Header */}
+                {!isServingCollapsed && (
+                  <div className="p-4 border-b border-sidebar-border">
+                    <h2 className="font-semibold text-sidebar-foreground">Serving</h2>
+                    <p className="text-sm text-sidebar-foreground/70">Community & Service</p>
+                  </div>
+                )}
+
+                {/* Serving Navigation */}
+                <div className="p-4 space-y-1">
+                  {servingSubmenuItems.map((item) => {
+                    const isActive = currentPath === item.path;
+                    
+                    const linkContent = (
+                      <Link
+                        to={item.path}
+                        className={`
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          ${isActive
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                            : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                          }
+                          ${isServingCollapsed ? 'justify-center' : ''}
+                        `}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        {!isServingCollapsed && <span className="font-medium">{item.label}</span>}
+                      </Link>
+                    );
+
+                    if (isServingCollapsed) {
                       return (
                         <Tooltip key={item.path}>
                           <TooltipTrigger asChild>
