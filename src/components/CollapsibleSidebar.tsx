@@ -14,7 +14,8 @@ import {
   Flag,
   Megaphone,
   TrendingUp,
-  ShieldCheck
+  ShieldCheck,
+  PanelsTopLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -67,7 +68,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Admin submenu items
   const adminSubmenuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
     { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
     { icon: CheckCircle, label: "Need Approvals", path: "/admin/need-approvals" },
     { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
