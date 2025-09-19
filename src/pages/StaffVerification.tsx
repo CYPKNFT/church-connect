@@ -249,18 +249,18 @@ export default function StaffVerification() {
 
   return (
     <div className="bg-background p-6 lg:p-8">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-foreground flex items-center gap-3">
-            <ShieldCheck className="h-8 w-8 text-primary" />
-            Staff Verification
-          </CardTitle>
-          <p className="text-muted-foreground">
-            Review and approve ministry staff applications, manage background checks, and verify credentials.
-          </p>
-        </CardHeader>
+      <header className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <ShieldCheck className="h-8 w-8 text-primary" />
+          <h2 className="text-3xl font-bold text-foreground">Staff Verification</h2>
+        </div>
+        <p className="text-muted-foreground">
+          Review and approve ministry staff applications, manage background checks, and verify credentials.
+        </p>
+      </header>
 
-        <CardContent className="space-y-6">
+      <Card>
+        <CardContent className="space-y-6 pt-6">
           {/* Filters */}
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
             <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
