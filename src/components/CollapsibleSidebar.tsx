@@ -116,8 +116,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
     { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
     { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
-    { icon: BookOpen, label: "Browse", path: "/admin/analytics" },
-    { icon: Settings, label: "System Settings", path: "/admin/settings" }
+    { icon: BookOpen, label: "Browse", path: "/admin/analytics" }
   ];
 
   // Serving submenu items
