@@ -1,5 +1,4 @@
-import { AdminHeader } from "@/components/admin/AdminHeader";
-import { 
+import {
   AlertTriangle, 
   Clock, 
   Mail, 
@@ -19,12 +18,11 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex-1 min-h-screen">
-      <AdminHeader church={mockChurch} />
       <div className="p-6 lg:p-8">
-          <header className="mb-6">
-            <h2 className="text-3xl font-bold text-foreground">Administrative Dashboard</h2>
-            <p className="mt-1 text-muted-foreground">Manage church operations and system settings</p>
-          </header>
+        <header className="mb-6">
+          <h2 className="text-3xl font-bold text-foreground">Administrative Dashboard</h2>
+          <p className="mt-1 text-muted-foreground">Manage church operations and system settings</p>
+        </header>
 
           {/* Action Cards */}
           <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
