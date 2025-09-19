@@ -113,7 +113,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard2" },
     { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
     { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
     { icon: BookOpen, label: "Browse", path: "/admin/analytics" }
