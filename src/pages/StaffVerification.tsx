@@ -248,7 +248,7 @@ export default function StaffVerification() {
   const open = apps.find((a) => a.id === drawer) || null;
 
   return (
-    <div className="min-h-screen bg-background p-6 lg:p-8">
+    <div className="bg-background p-6 lg:p-8">
       <Card>
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-foreground flex items-center gap-3">

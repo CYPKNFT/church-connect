@@ -69,7 +69,7 @@ function AdminHeader() {
             Send Update
           </Button>
           <Button 
-            onClick={() => navigate('/staff-verification')}
+            onClick={() => navigate('/admin/staff-verification')}
             className="flex items-center gap-2 bg-warning hover:bg-warning/90 text-warning-foreground"
           >
             <Plus className="h-4 w-4" />
@@ -116,7 +116,7 @@ function Sidebar({
         {items.map(({ key, label, icon: Icon, isNavigation }) => (
           <button
             key={key}
-            onClick={() => isNavigation ? navigate('/staff-verification') : onChange(key)}
+            onClick={() => isNavigation ? navigate('/admin/staff-verification') : onChange(key)}
             className={classNames(
               "group flex w-full items-center gap-3 rounded-md px-3 py-2 text-left outline-none transition-all",
               active === key
@@ -286,7 +286,7 @@ function StaffPendingApprovals() {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold">Staff Applications Awaiting Review</CardTitle>
-        <Button variant="outline" size="sm" onClick={() => navigate('/staff-verification')}>
+        <Button variant="outline" size="sm" onClick={() => navigate('/admin/staff-verification')}>
           View All
         </Button>
       </CardHeader>
@@ -319,7 +319,7 @@ function StaffPendingApprovals() {
                 <span>{staff.timePosted}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Button size="sm" variant="outline" onClick={() => navigate('/staff-verification')}>
+                <Button size="sm" variant="outline" onClick={() => navigate('/admin/staff-verification')}>
                   Review
                 </Button>
                 <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
@@ -365,7 +365,7 @@ function QuickActions() {
       description: "7 applications awaiting approval",
       icon: ShieldCheck,
       color: "bg-warning hover:bg-warning/90",
-      onClick: () => navigate('/staff-verification'),
+      onClick: () => navigate('/admin/staff-verification'),
     },
     {
       id: "send-update",
