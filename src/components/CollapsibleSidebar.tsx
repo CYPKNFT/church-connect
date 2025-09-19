@@ -440,13 +440,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 <div
                   onClick={() => setIsServingCollapsed(!isServingCollapsed)}
                   className={`
-                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    absolute top-4 cursor-pointer z-20
                     bg-sidebar-border hover:bg-sidebar-border/80 
                     flex items-center justify-center
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`transition-transform duration-300 ${isServingCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <div className={`${isServingCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
@@ -482,7 +482,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       <Link
                         to={item.path}
                         className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg
                           ${isActive
                             ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
