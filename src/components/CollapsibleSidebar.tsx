@@ -111,12 +111,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
-  // Admin copy submenu items (points to serving pages)
+  // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard" },
-    { icon: Plus, label: "My Needs", path: "/my-needs" },
-    { icon: Users, label: "Volunteering", path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", path: "/browse-needs" }
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
+    { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
+    { icon: BookOpen, label: "Browse", path: "/admin/analytics" }
   ];
 
   // Serving submenu items
