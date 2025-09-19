@@ -387,11 +387,16 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                 {/* Navigation Icons */}
                 {mainNavItems.map((item) => {
-                  const isActive = item.category === 'serving' && isServingMode;
-                  
+                  // COPY ADMIN PATTERN EXACTLY: primary icon is a button (no navigation)
+                  // For Serving copy, use the "Giving" icon as the primary trigger
+                  const isActive = item.category === 'giving' && isServingMode;
+
                   const iconButton = (
                     <button
-                      onClick={() => handleNavItemClick(item)}
+                      onClick={() => {
+                        setIsServingMode(true);
+                        setIsAdminMode(false);
+                      }}
                       className={`
                         w-10 h-10 flex items-center justify-center rounded-lg
                         ${isActive
@@ -404,7 +409,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     </button>
                   );
 
-                  if (item.category === 'serving') {
+                  // Treat the Giving icon as the primary (like the gear in Admin)
+                  if (item.category === 'giving') {
                     return (
                       <div key={item.path}>
                         {iconButton}
