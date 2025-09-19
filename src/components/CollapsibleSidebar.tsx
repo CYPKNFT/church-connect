@@ -218,7 +218,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                   
                   if (item.isAdmin || item.isAdminCopy) {
                     return (
-                      <div key={item.path}>
+                      <div key={`${item.isAdmin ? 'admin' : 'admin-copy'}-${item.path}`}>
                         <Link
                           to={item.path}
                           onClick={() => handleNavItemClick(item)}
@@ -309,7 +309,11 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                   if (item.isAdmin || item.isAdminCopy) {
                     return (
                       <div key={`${item.isAdmin ? 'admin' : 'admin-copy'}-${item.path}`}>
-                        {iconButton}
+                        <Link to="/admin/dashboard" onClick={() => handleNavItemClick(item)}>
+                          <div className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 ${isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'}`}>
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
                       </div>
                     );
                   }
@@ -451,7 +455,11 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                   if (item.isAdmin || item.isAdminCopy) {
                     return (
                       <div key={`${item.isAdmin ? 'admin' : 'admin-copy'}-${item.path}`}>
-                        {iconButton}
+                        <Link to="/admin/dashboard" onClick={() => handleNavItemClick(item)}>
+                          <div className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 ${isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'}`}>
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
                       </div>
                     );
                   }
