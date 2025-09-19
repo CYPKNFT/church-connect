@@ -105,7 +105,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     baseItems.push(
       { icon: HandHeart, label: "Serving", path: "/dashboard", category: "serving" },
-      { icon: ShoppingCart, label: "Giving", path: "/marketplace", category: "giving" },
+      { icon: Gift, label: "Giving", path: "/marketplace", category: "giving" },
       { icon: MessageSquare, label: "Feedback", path: "/feedback", category: "feedback" }
     );
 
@@ -139,7 +139,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Giving submenu items
   const givingSubmenuItems = [
-    { icon: ShoppingCart, label: "Marketplace", path: "/marketplace" },
+    { icon: Gift, label: "Marketplace", path: "/marketplace" },
     { icon: TrendingUp, label: "My Dashboard", path: "/my-dashboard" }
   ];
 
