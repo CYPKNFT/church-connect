@@ -52,6 +52,8 @@ import Analytics from "./pages/Analytics";
 import SystemSettings from "./pages/SystemSettings";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
+import Marketplace from "./pages/Marketplace";
+import MyDashboard from "./pages/MyDashboard";
 
 const queryClient = new QueryClient();
 
@@ -114,6 +116,8 @@ const App = () => (
                     <Route path="/churches" element={<Churches />} />
                     <Route path="/support" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/my-dashboard" element={<MyDashboard />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
