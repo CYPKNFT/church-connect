@@ -47,6 +47,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
 import AdminDashboard2 from "./pages/AdminDashboard2";
 import AdminDashboard3 from "./pages/AdminDashboard3";
+import AdminDashboard4 from "./pages/AdminDashboard4";
+import StaffVerification from "./pages/StaffVerification";
+import StaffVerification2 from "./pages/StaffVerification2";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -91,6 +94,9 @@ const App = () => (
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
                     <Route path="/admin-dashboard2" element={<AdminDashboard2 />} />
                     <Route path="/admin-dashboard3" element={<AdminDashboard3 />} />
+                    <Route path="/admin-dashboard4" element={<AdminDashboard4 />} />
+                    <Route path="/staff-verification" element={<StaffVerification />} />
+                    <Route path="/staff-verification2" element={<StaffVerification2 />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
