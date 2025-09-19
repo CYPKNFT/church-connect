@@ -114,9 +114,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
     { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
-    { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
-    { icon: FolderOpen, label: "Content Moderation", path: "/admin/content-moderation" },
-    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
+    { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
+    { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
+    { icon: BookOpen, label: "Browse", path: "/admin/analytics" },
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
