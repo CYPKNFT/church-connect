@@ -47,7 +47,6 @@ import VolunteeringDetails from "./pages/VolunteeringDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
 import StaffVerification from "./pages/StaffVerification";
-import StaffVerification2 from "./pages/StaffVerification2";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -91,8 +90,6 @@ const App = () => (
                     <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
                     <Route path="/admin/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
-                    <Route path="/staff-verification" element={<StaffVerification />} />
-                    <Route path="/staff-verification2" element={<StaffVerification2 />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
