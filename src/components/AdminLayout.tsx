@@ -8,9 +8,7 @@ interface AdminLayoutProps {
 export function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <CollapsibleSidebar>
-      <div className="min-h-screen bg-background">
-        {children}
-      </div>
+      {children}
     </CollapsibleSidebar>
   );
 }

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Header } from "@/components/Header";
+import { AdminLayout } from "@/components/AdminLayout";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Footer } from "@/components/Footer";
 import Landing from "./pages/Landing";
@@ -90,12 +91,12 @@ const App = () => (
                     <Route path="/template" element={<Template />} />
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
-                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/admin-dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
                     <Route path="/admin-dashboard2" element={<AdminDashboard2 />} />
                     <Route path="/admin-dashboard3" element={<AdminDashboard3 />} />
-                    <Route path="/admin-dashboard4" element={<AdminDashboard4 />} />
-                    <Route path="/admin/staff-verification" element={<StaffVerification />} />
+                    <Route path="/admin-dashboard4" element={<AdminLayout><AdminDashboard4 /></AdminLayout>} />
+                    <Route path="/admin/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
                     <Route path="/staff-verification" element={<StaffVerification />} />
                     <Route path="/staff-verification2" element={<StaffVerification2 />} />
                     <Route path="/help" element={<Help />} />
