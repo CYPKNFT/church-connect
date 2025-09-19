@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { NeedCard } from "@/components/NeedCard";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity } from "lucide-react";
@@ -23,6 +25,8 @@ export default function MyChurch() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [postType, setPostType] = useState<"give" | "wish">("give");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
   const [newItem, setNewItem] = useState({ title: "", description: "", category: "Household", contact: "message" });
   const { churchName: churchFromDB, memberName } = useMembership();
 
@@ -50,42 +54,111 @@ export default function MyChurch() {
     { icon: Users, label: "Church Members", value: 156 }
   ];
   
-  const churchNeeds = [
+  // Enhanced mock data with more realistic and compelling needs
+  const allChurchNeeds = [
     {
-      id: 1,
-      title: "Elder Care - Mrs. Johnson needs grocery help",
-      description: "Our beloved church elder Mrs. Johnson (85) needs weekly grocery assistance after her recent fall. She's been a faithful member for 40 years.",
+      id: "1",
+      title: "Weekly grocery assistance for elderly neighbor",
+      description: "Mrs. Johnson, 85, has been a faithful church member for 40 years. After a recent fall, she's having difficulty getting to the grocery store. She needs someone to help with weekly shopping - just basic essentials like milk, bread, and fresh produce. She's very organized with her list and always has her payment ready. This is a wonderful opportunity to bless someone who has served our church family for decades.",
       category: "Groceries",
-      location: "Downtown Area",
-      urgency: "This Week",
-      timePosted: "2 hours ago",
-      icon: ShoppingCart,
+      urgency: "This Week" as const,
+      location: "Downtown area, 2 miles from church",
+      estimatedTime: "1-2 hours",
       postedBy: "Sarah Miller",
+      postedAt: "2 hours ago",
+      icon: ShoppingCart,
       responses: 3
     },
     {
-      id: 2,
-      title: "Youth Leader needs transportation",
-      description: "Brother Robert needs a ride to his cancer treatment appointment. His car is in the shop and this is critical for his recovery.",
-      category: "Transportation",
-      location: "Medical Center",
-      urgency: "Immediate",
-      timePosted: "4 hours ago",
-      icon: Car,
-      postedBy: "Robert Thompson",
+      id: "2", 
+      title: "Emergency plumbing repair for single mom",
+      description: "Jennifer is a single mother of two young children, working two jobs to make ends meet. Her kitchen faucet is leaking badly and has started causing water damage to the cabinet below. She can't afford a professional plumber right now and is worried about the damage getting worse. Any handyman skills would be incredibly appreciated - this is urgent to prevent further damage to her home.",
+      category: "Home Repair",
+      urgency: "Immediate" as const,
+      location: "Maple Street neighborhood",
+      estimatedTime: "1-2 hours",
+      postedBy: "Jennifer Davis",
+      postedAt: "1 day ago",
+      icon: Wrench,
       responses: 1
     },
     {
-      id: 3,
-      title: "New Baby Blessing - Meal Train",
-      description: "The Johnson family just welcomed baby Grace! Let's organize meals for the next two weeks to support this growing family.",
+      id: "3",
+      title: "Meal train coordination for new baby blessing",
+      description: "The Johnson family just welcomed their third child - a beautiful baby girl! Mom had a C-section and dad is trying to balance work with helping at home. We're organizing a meal train to provide dinners for the next two weeks. Looking for volunteers to prepare and deliver meals (any day between 5-7 PM works). This is such a special time to show God's love through practical care.",
       category: "Meals",
-      location: "Oakwood Subdivision",
-      urgency: "This Week",
-      timePosted: "1 day ago",
-      icon: ChefHat,
+      urgency: "This Week" as const,
+      location: "Oakwood subdivision", 
+      estimatedTime: "30 minutes delivery",
       postedBy: "Linda Chen",
+      postedAt: "1 day ago",
+      icon: ChefHat,
       responses: 8
+    },
+    {
+      id: "4",
+      title: "Transportation to critical medical appointment",
+      description: "Robert needs a ride to his oncologist appointment next Tuesday at 2 PM for cancer treatment follow-up. His car broke down and this appointment is crucial for his ongoing treatment plan. The medical center is about 20 minutes away, and the appointment usually takes about an hour. Robert is a Vietnam veteran and longtime church member who would be so grateful for this help during a difficult time.",
+      category: "Transportation",
+      urgency: "This Week" as const,
+      location: "Pick up from Elm Street",
+      estimatedTime: "2-3 hours total",
+      postedBy: "Robert Thompson",
+      postedAt: "4 hours ago",
+      icon: Car,
+      responses: 1
+    },
+    {
+      id: "5",
+      title: "Yard cleanup after storm damage",
+      description: "The recent storms knocked down several large branches in our elderly neighbor's yard. Mr. Peterson, 78, can't handle the cleanup himself and is worried about the branches blocking his driveway. Looking for a few people with trucks to help haul away the debris. He has all the tools needed - just need strong backs and willing hearts! Great opportunity for youth group or men's ministry.",
+      category: "Home & Garden",
+      urgency: "Flexible" as const,
+      location: "Pine Ridge community",
+      estimatedTime: "2-3 hours",
+      postedBy: "Mike Williams",
+      postedAt: "4 days ago",
+      icon: Wrench,
+      responses: 5
+    },
+    {
+      id: "6",
+      title: "Childcare for medical appointments",
+      description: "Amanda needs someone to watch her 3-year-old son while she attends physical therapy appointments twice a week (Tuesdays and Thursdays, 10 AM - 12 PM). She's recovering from a car accident and these appointments are essential for her recovery. Her son is well-behaved and loves to read books and play with toys. This ongoing help would mean the world to a young mom working hard to get back on her feet.",
+      category: "Childcare",
+      urgency: "This Week" as const,
+      location: "Westside neighborhood",
+      estimatedTime: "2 hours, twice weekly",
+      postedBy: "Amanda Rodriguez",
+      postedAt: "5 days ago",
+      icon: Heart,
+      responses: 3
+    },
+    {
+      id: "7",
+      title: "Computer help for elderly member",
+      description: "Mr. Williams needs help setting up video calls to connect with his grandchildren who live far away. He recently got a tablet but is struggling with the technology. Looking for someone patient who can teach him the basics of video calling and help him stay connected with his family.",
+      category: "Technology",
+      urgency: "Flexible" as const,
+      location: "Senior Living Community",
+      estimatedTime: "1-2 hours",
+      postedBy: "Pastor Mike",
+      postedAt: "3 days ago",
+      icon: MessageSquare,
+      responses: 2
+    },
+    {
+      id: "8",
+      title: "Moving assistance for young family",
+      description: "The Rodriguez family is moving to a new apartment this weekend and could use some extra hands. They have most items packed but need help loading and unloading the truck. Great opportunity for our men's ministry to show love in action!",
+      category: "Moving",
+      urgency: "This Week" as const,
+      location: "Cross town move",
+      estimatedTime: "4-5 hours",
+      postedBy: "Carlos Rodriguez",
+      postedAt: "2 days ago",
+      icon: Car,
+      responses: 7
     }
   ];
 
@@ -193,10 +266,11 @@ export default function MyChurch() {
     }
   ];
 
-  const categories = ["All", "Groceries", "Transportation", "Home Repair", "Meals", "Childcare", "Prayer Support"];
+  const categories = ["All", "Groceries", "Home Repair", "Meals", "Transportation", "Childcare", "Home & Garden", "Technology", "Moving", "Prayer Support"];
   const itemCategories = ["Household", "Electronics", "Books", "Clothing", "Baby/Kids", "Furniture", "Garden"];
   
-  const filteredNeeds = churchNeeds.filter(need => {
+  // Filter needs based on search and category
+  const filteredNeeds = allChurchNeeds.filter(need => {
     const matchesSearch = searchQuery === "" || 
       need.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       need.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -204,14 +278,21 @@ export default function MyChurch() {
     return matchesSearch && matchesCategory;
   });
 
-  const getUrgencyColor = (urgency: string) => {
-    switch (urgency) {
-      case "Immediate": return "destructive";
-      case "This Week": return "default";
-      case "Flexible": return "secondary";
-      default: return "default";
-    }
+  // Pagination logic
+  const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNeeds = filteredNeeds.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory]);
+
+  const handleVolunteer = (needId: string) => {
+    toast.success("Thanks for volunteering to help! We'll connect you with the need organizer.");
   };
+  
 
   const handlePostItem = () => {
     toast.success(`${postType === "give" ? "Item" : "Wish"} posted successfully!`);
@@ -324,68 +405,154 @@ export default function MyChurch() {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* SERVING TAB */}
             <TabsContent value="serving" className="mt-0">
-              {/* Church Family Needs */}
+              {/* Enhanced Church Family Needs Section */}
               <div className="space-y-6">
+                {/* Stats Cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                  <div className="bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl p-4 text-center">
+                    <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <Heart className="w-6 h-6 text-red-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-red-700">
+                      {allChurchNeeds.filter(n => n.urgency === "Immediate").length}
+                    </h3>
+                    <p className="text-red-600 text-sm font-medium">Active Needs</p>
+                    <p className="text-red-500 text-xs">In our church</p>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-xl p-4 text-center">
+                    <div className="w-12 h-12 bg-orange-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <Clock className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-orange-700">
+                      {allChurchNeeds.filter(n => n.urgency === "This Week").length}
+                    </h3>
+                    <p className="text-orange-600 text-sm font-medium">Urgent Needs</p>
+                    <p className="text-orange-500 text-xs">Need immediate help</p>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-4 text-center">
+                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <UserCheck className="w-6 h-6 text-green-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-green-700">23</h3>
+                    <p className="text-green-600 text-sm font-medium">Members Helped</p>
+                    <p className="text-green-500 text-xs">This month</p>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-4 text-center">
+                    <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <Users className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-blue-700">12</h3>
+                    <p className="text-blue-600 text-sm font-medium">Volunteers</p>
+                    <p className="text-blue-500 text-xs">Active this week</p>
+                  </div>
+                </div>
+
+                {/* Section Header */}
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-foreground">Church Family Needs</h2>
-                  <Badge variant="secondary" className="text-sm">{filteredNeeds.length} Active</Badge>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">Community Needs ({filteredNeeds.length} opportunities)</h2>
+                    <p className="text-muted-foreground">Help make a difference in your church family</p>
+                  </div>
+                  <Button className="bg-yellow-600 hover:bg-yellow-700 text-white">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Post New Need
+                  </Button>
                 </div>
                 
-                <div className="grid gap-4">
-                  {filteredNeeds.map((need) => {
-                    const IconComponent = need.icon;
-                    return (
-                      <Card key={need.id} className="border border-border hover:shadow-lg transition-shadow">
-                        <CardContent className="p-6">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                              <IconComponent className="w-6 h-6 text-accent" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between mb-3">
-                                <div className="flex-1 min-w-0 pr-3">
-                                  <h3 className="text-lg font-semibold text-foreground mb-1">{need.title}</h3>
-                                  <p className="text-sm text-muted-foreground leading-relaxed">{need.description}</p>
-                                </div>
-                                <Badge variant={getUrgencyColor(need.urgency) as any} className="flex-shrink-0">
-                                  {need.urgency}
-                                </Badge>
-                              </div>
-                              <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-4">
-                                <div className="flex items-center gap-1">
-                                  <MapPin className="w-3 h-3" />
-                                  {need.location}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Clock className="w-3 h-3" />
-                                  {need.timePosted}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Users className="w-3 h-3" />
-                                  {need.postedBy}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <MessageSquare className="w-3 h-3" />
-                                  {need.responses} responses
-                                </div>
-                              </div>
-                              <div className="flex gap-2">
-                                <Button size="sm" className="bg-yellow-600 hover:bg-yellow-700 text-white">
-                                  <Heart className="w-3 h-3 mr-1" />
-                                  Offer Help
-                                </Button>
-                                <Button variant="outline" size="sm">
-                                  <MessageSquare className="w-3 h-3 mr-1" />
-                                  Message
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
+                {/* Needs Grid */}
+                {currentNeeds.length > 0 ? (
+                  <>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {currentNeeds.map((need) => (
+                        <NeedCard
+                          key={need.id}
+                          id={need.id}
+                          title={need.title}
+                          description={need.description}
+                          category={need.category}
+                          urgency={need.urgency}
+                          location={need.location}
+                          estimatedTime={need.estimatedTime}
+                          postedBy={need.postedBy}
+                          postedAt={need.postedAt}
+                          onVolunteer={handleVolunteer}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                      <div className="mt-8">
+                        <Pagination>
+                          <PaginationContent>
+                            <PaginationItem>
+                              <PaginationPrevious 
+                                href="#" 
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  if (currentPage > 1) setCurrentPage(currentPage - 1);
+                                }}
+                                className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                              />
+                            </PaginationItem>
+                            
+                            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                              <PaginationItem key={page}>
+                                <PaginationLink
+                                  href="#"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setCurrentPage(page);
+                                  }}
+                                  isActive={currentPage === page}
+                                  className="cursor-pointer"
+                                >
+                                  {page}
+                                </PaginationLink>
+                              </PaginationItem>
+                            ))}
+                            
+                            <PaginationItem>
+                              <PaginationNext 
+                                href="#" 
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                                }}
+                                className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                              />
+                            </PaginationItem>
+                          </PaginationContent>
+                        </Pagination>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-center py-16 bg-muted/20 rounded-xl">
+                    <div className="w-16 h-16 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Search className="w-8 h-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      No needs match your search
+                    </h3>
+                    <p className="text-muted-foreground mb-6">
+                      Try adjusting your search criteria or clearing the filters to discover more ways to serve.
+                    </p>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => {
+                        setSearchQuery("");
+                        setSelectedCategory("All");
+                        setCurrentPage(1);
+                      }}
+                    >
+                      Clear Filters
+                    </Button>
+                  </div>
+                )}
               </div>
             </TabsContent>
 
