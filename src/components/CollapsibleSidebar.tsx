@@ -9,12 +9,9 @@ import {
   Heart, 
   Settings,
   Plus,
-  CheckCircle,
-  BarChart3,
-  Flag,
-  Megaphone,
-  TrendingUp,
   ShieldCheck,
+  FolderOpen,
+  BarChart3,
   PanelsTopLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -70,13 +67,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const adminSubmenuItems = [
     { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
     { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
-    { icon: CheckCircle, label: "Need Approvals", path: "/admin/need-approvals" },
-    { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
-    { icon: TrendingUp, label: "Community Impact", path: "/admin/community-impact" },
-    { icon: Flag, label: "Flagged Content", path: "/admin/flagged-content" },
+    { icon: FolderOpen, label: "Content Moderation", path: "/admin/content-moderation" },
     { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
-    { icon: Megaphone, label: "Announcements", path: "/admin/announcements" },
-    { icon: Settings, label: "Admin Settings", path: "/admin/settings" }
+    { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
   const mainNavItems = getMainNavItems();
