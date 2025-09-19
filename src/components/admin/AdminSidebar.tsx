@@ -98,7 +98,7 @@ export function AdminSidebar() {
 
   const isActive = (href: string) => {
     return location.pathname === href || 
-      (href === "/admin" && location.pathname === "/admin-dashboard");
+      (href === "/admin" && location.pathname === "/admin/dashboard");
   };
 
   const isParentActive = (item: NavigationItem) => {

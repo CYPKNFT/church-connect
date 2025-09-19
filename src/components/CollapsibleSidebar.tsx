@@ -51,7 +51,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     const baseItems = [];
 
     if (isChurchAdmin) {
-      baseItems.push({ icon: Settings, label: "Admin", path: "/admin-dashboard", isAdmin: true });
+      baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
     }
 
     baseItems.push(
@@ -67,7 +67,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Admin submenu items
   const adminSubmenuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", path: "/admin-dashboard" },
+    { icon: LayoutDashboard, label: "Dashboard", path: "/admin/dashboard" },
     { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
     { icon: CheckCircle, label: "Need Approvals", path: "/admin/need-approvals" },
     { icon: Users, label: "Members & Helpers", path: "/admin/members-helpers" },
