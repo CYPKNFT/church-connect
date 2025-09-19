@@ -96,13 +96,6 @@ const App = () => (
                     <Route path="/admin/content-moderation" element={<AdminLayout><ContentModeration /></AdminLayout>} />
                     <Route path="/admin/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
                     <Route path="/admin/settings" element={<AdminLayout><SystemSettings /></AdminLayout>} />
-
-                    {/* Admin Copy duplicate routes */}
-                    <Route path="/admin-copy/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
-                    <Route path="/admin-copy/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
-                    <Route path="/admin-copy/content-moderation" element={<AdminLayout><ContentModeration /></AdminLayout>} />
-                    <Route path="/admin-copy/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
-                    <Route path="/admin-copy/settings" element={<AdminLayout><SystemSettings /></AdminLayout>} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
