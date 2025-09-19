@@ -15,7 +15,9 @@ import {
   PanelsTopLeft,
   HandHeart,
   ShoppingCart,
-  Package
+  Package,
+  HeartHandshake,
+  Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -89,7 +91,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
-      baseItems.push({ icon: Settings, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
+      baseItems.push({ icon: HeartHandshake, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
     }
 
     baseItems.push(
@@ -110,13 +112,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
-  // Admin copy submenu items (points to same pages)
+  // Admin copy submenu items (renamed for serving community)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
-    { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
-    { icon: FolderOpen, label: "Content Moderation", path: "/admin/content-moderation" },
-    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
-    { icon: Settings, label: "System Settings", path: "/admin/settings" }
+    { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/my-needs" },
+    { icon: HandHeart, label: "Volunteering", path: "/volunteering" },
+    { icon: Search, label: "Browse", path: "/browse" }
   ];
 
   // Serving submenu items
@@ -529,8 +530,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 {/* Admin Copy Header */}
                 {!isAdminCopyCollapsed && (
                   <div className="p-4 border-b border-sidebar-border">
-                    <h2 className="font-semibold text-sidebar-foreground">Admin Copy Dashboard</h2>
-                    <p className="text-sm text-sidebar-foreground/70">Management & Settings Copy</p>
+                    <h2 className="font-semibold text-sidebar-foreground">Serving</h2>
+                    <p className="text-sm text-sidebar-foreground/70">Community & Service</p>
                   </div>
                 )}
 
