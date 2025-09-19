@@ -44,6 +44,8 @@ import Feedback from "./pages/Feedback";
 import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
+import Marketplace from "./pages/Marketplace";
+import MyDashboard from "./pages/MyDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
 import StaffVerification from "./pages/StaffVerification";
@@ -114,6 +116,8 @@ const App = () => (
                     <Route path="/churches" element={<Churches />} />
                     <Route path="/support" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/my-dashboard" element={<MyDashboard />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
