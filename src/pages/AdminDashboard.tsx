@@ -1,4 +1,4 @@
-import {
+import { 
   AlertTriangle, 
   Clock, 
   Mail, 
@@ -6,7 +6,8 @@ import {
   ShieldCheck,
   FolderOpen,
   Users,
-  Settings
+  Settings,
+  LayoutDashboard
 } from "lucide-react";
 
 export default function AdminDashboard() {
@@ -21,7 +22,7 @@ export default function AdminDashboard() {
       <div className="p-6 lg:p-8">
         <header className="mb-6">
           <div className="flex items-center gap-3 mb-2">
-            <Settings className="h-8 w-8 text-primary" />
+            <LayoutDashboard className="h-8 w-8 text-primary" />
             <h2 className="text-3xl font-bold text-foreground">Administrative Dashboard</h2>
           </div>
           <p className="mt-1 text-muted-foreground">Manage church operations and system settings</p>
