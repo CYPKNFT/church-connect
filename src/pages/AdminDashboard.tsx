@@ -1,4 +1,3 @@
-import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { 
   AlertTriangle, 
@@ -11,7 +10,7 @@ import {
   Settings
 } from "lucide-react";
 
-export default function AdminDashboard2() {
+export default function AdminDashboard() {
   // Mock church data for template display
   const mockChurch = {
     id: "template-church",
@@ -19,10 +18,9 @@ export default function AdminDashboard2() {
   };
 
   return (
-    <CollapsibleSidebar>
-      <div className="flex-1 min-h-screen">
-        <AdminHeader church={mockChurch} />
-        <div className="p-6 lg:p-8">
+    <div className="flex-1 min-h-screen">
+      <AdminHeader church={mockChurch} />
+      <div className="p-6 lg:p-8">
           <header className="mb-6">
             <h2 className="text-3xl font-bold text-foreground">Administrative Dashboard</h2>
             <p className="mt-1 text-muted-foreground">Manage church operations and system settings</p>
@@ -134,9 +132,8 @@ export default function AdminDashboard2() {
               primaryLabel="Manage Settings"
             />
           </div>
-        </div>
       </div>
-    </CollapsibleSidebar>
+    </div>
   );
 }
 

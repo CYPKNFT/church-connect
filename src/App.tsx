@@ -88,7 +88,7 @@ const App = () => (
                     <Route path="/template" element={<Template />} />
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
-                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
                     <Route path="/admin/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
                     <Route path="/staff-verification" element={<StaffVerification />} />
