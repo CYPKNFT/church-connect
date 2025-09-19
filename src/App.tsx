@@ -44,9 +44,9 @@ import Feedback from "./pages/Feedback";
 import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
-import AdminDashboard from "./pages/AdminDashboard";
+import OldAdminDashboard from "./pages/OldAdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
-import AdminDashboard2 from "./pages/AdminDashboard2";
+import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboard3 from "./pages/AdminDashboard3";
 import AdminDashboard4 from "./pages/AdminDashboard4";
 import StaffVerification from "./pages/StaffVerification";
@@ -92,8 +92,8 @@ const App = () => (
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
                     <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/old-admin-dashboard" element={<OldAdminDashboard />} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
-                    <Route path="/admin-dashboard2" element={<AdminDashboard2 />} />
                     <Route path="/admin-dashboard3" element={<AdminDashboard3 />} />
                     <Route path="/admin-dashboard4" element={<AdminDashboard4 />} />
                     <Route path="/admin/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
