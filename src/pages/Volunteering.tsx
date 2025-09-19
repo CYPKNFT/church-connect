@@ -89,8 +89,8 @@ export default function Volunteering() {
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-background">
-        <div className="flex-1 p-8">
-          <div className="container mx-auto">
+        <div className="flex-1 p-6 lg:p-8">
+          <div className="mx-auto">
             {/* Header */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-6">

@@ -113,7 +113,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             <div 
               className={`
                 bg-sidebar border-r border-sidebar-border relative
-                ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
                 ${isCollapsed ? 'w-16' : 'w-64'}
               `}
             >
@@ -292,7 +291,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div 
                 className={`
                   bg-sidebar border-r border-sidebar-border relative
-                  ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
                   ${isAdminCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
@@ -435,7 +433,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div 
                 className={`
                   bg-sidebar border-r border-sidebar-border relative
-                  ${mounted ? 'transition-all duration-300 ease-in-out' : ''}
                   ${isServingCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
