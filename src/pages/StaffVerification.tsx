@@ -1,4 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   ShieldCheck,
   Search,
@@ -168,23 +171,23 @@ function docStatusBadge(v: boolean | number, target?: number) {
   if (typeof v === "number") {
     const ok = target ? v >= target : v >= 2;
     return ok ? (
-      <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-400">
+      <Badge variant="default" className="bg-success/15 text-success border-success/20">
         <CheckCircle2 className="mr-1 h-3 w-3" /> {v}/{target ?? 2}
-      </span>
+      </Badge>
     ) : (
-      <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-400">
+      <Badge variant="secondary" className="bg-warning/15 text-warning border-warning/20">
         <Clock className="mr-1 h-3 w-3" /> {v}/{target ?? 2}
-      </span>
+      </Badge>
     );
   }
   return v ? (
-    <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-400">
+    <Badge variant="default" className="bg-success/15 text-success border-success/20">
       <CheckCircle2 className="mr-1 h-3 w-3" /> Complete
-    </span>
+    </Badge>
   ) : (
-    <span className="inline-flex items-center rounded-full bg-rose-500/15 px-2 py-0.5 text-xs font-medium text-rose-400">
+    <Badge variant="destructive" className="bg-destructive/15 text-destructive border-destructive/20">
       <AlertTriangle className="mr-1 h-3 w-3" /> Missing
-    </span>
+    </Badge>
   );
 }
 
@@ -233,7 +236,7 @@ export default function StaffVerification() {
 
   const bulkApprove = () => {
     setApps((prev) =>
-      prev.map((a) => (selected.includes(a.id) ? { ...a, status: "approved" } : a))
+      prev.map((a) => (selected.includes(a.id) ? { ...a, status: "approved" as const } : a))
     );
     setSelected([]);
   };
@@ -245,228 +248,230 @@ export default function StaffVerification() {
   const open = apps.find((a) => a.id === drawer) || null;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 p-6 lg:p-8">
-      <section aria-labelledby="staff-heading">
-        <header className="mb-6">
-          <h2 id="staff-heading" className="text-3xl font-bold text-slate-100">
+    <div className="min-h-screen bg-background p-6 lg:p-8">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-foreground flex items-center gap-3">
+            <ShieldCheck className="h-8 w-8 text-primary" />
             Staff Verification
-          </h2>
-          <p className="mt-1 text-slate-400">
+          </CardTitle>
+          <p className="text-muted-foreground">
             Review and approve ministry staff applications, manage background checks, and verify credentials.
           </p>
-        </header>
+        </CardHeader>
 
-        {/* Filters */}
-        <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-          <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2">
-            <Search className="h-4 w-4 text-slate-400" />
-            <input
-              aria-label="Search applicants"
-              placeholder="Search by name, email, role…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-transparent text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none"
+        <CardContent className="space-y-6">
+          {/* Filters */}
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
+              <Search className="h-4 w-4 text-muted-foreground" />
+              <input
+                aria-label="Search applicants"
+                placeholder="Search by name, email, role…"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+              />
+            </div>
+
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
+              <Filter className="h-4 w-4 text-muted-foreground" />
+              <select
+                aria-label="Filter by category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value as any)}
+                className="w-full bg-transparent text-sm text-foreground focus:outline-none"
+              >
+                <option>All</option>
+                {CATEGORIES.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-3 py-2">
+              <Shield className="h-4 w-4 text-muted-foreground" />
+              <select
+                aria-label="Filter by status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value as any)}
+                className="w-full bg-transparent text-sm text-foreground focus:outline-none"
+              >
+                <option>All</option>
+                {STATUS.map((s) => (
+                  <option key={s} value={s}>
+                    {labelize(s)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => exportCSV(filtered)}
+                className="flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" /> Export CSV
+              </Button>
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Upload className="h-4 w-4" /> Import
+              </Button>
+            </div>
+          </div>
+
+          {/* Bulk actions */}
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-muted-foreground">
+              Showing <span className="font-semibold text-foreground">{filtered.length}</span> of {apps.length}
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={bulkRequestDocs}
+                disabled={selected.length === 0}
+                className={selected.length === 0 ? "opacity-50 cursor-not-allowed" : "border-warning text-warning hover:bg-warning/10"}
+              >
+                <FileCheck2 className="h-4 w-4 mr-2" /> Request Missing Docs
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={bulkApprove}
+                disabled={selected.length === 0}
+                className={selected.length === 0 ? "opacity-50 cursor-not-allowed" : "border-success text-success hover:bg-success/10"}
+              >
+                <BadgeCheck className="h-4 w-4 mr-2" /> Approve Selected
+              </Button>
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="overflow-hidden rounded-xl border border-border">
+            <table className="min-w-full divide-y divide-border">
+              <thead className="bg-muted/50">
+                <tr>
+                  <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <input
+                      aria-label="Select all on page"
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+                      checked={allOnPageChecked}
+                      onChange={(e) =>
+                        setSelected(
+                          e.target.checked ? Array.from(new Set([...selected, ...filtered.map((a) => a.id)])) : []
+                        )
+                      }
+                    />
+                  </th>
+                  <SortableTH label="Applicant" sort={sort} setSort={setSort} k="name" />
+                  <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Category
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Role Requested
+                  </th>
+                  <SortableTH label="Submitted" sort={sort} setSort={setSort} k="submittedAt" />
+                  <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Required Docs
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Status
+                  </th>
+                  <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {filtered.map((a) => {
+                  const missing = calcMissingDocs(a);
+                  return (
+                    <tr key={a.id} className="hover:bg-muted/50">
+                      <td className="px-3 py-2">
+                        <input
+                          aria-label={`Select ${a.name}`}
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+                          checked={selected.includes(a.id)}
+                          onChange={() => toggleSelect(a.id)}
+                        />
+                      </td>
+                      <td className="px-3 py-3">
+                        <div className="font-medium text-foreground">{a.name}</div>
+                        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                          <span className="inline-flex items-center gap-1">
+                            <Mail className="h-3.5 w-3.5" /> {a.email}
+                          </span>
+                          <span className="inline-flex items-center gap-1">
+                            <Phone className="h-3.5 w-3.5" /> {a.phone}
+                          </span>
+                          <span className="hidden items-center gap-1 sm:inline-flex">
+                            <MapPin className="h-3.5 w-3.5" /> {a.address}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 text-sm text-foreground">{a.category}</td>
+                      <td className="px-3 py-3 text-sm text-foreground">{a.roleRequested}</td>
+                      <td className="px-3 py-3 text-sm text-muted-foreground">{formatDate(a.submittedAt)}</td>
+                      <td className="px-3 py-3 text-sm">
+                        <div className="flex flex-wrap items-center gap-2">
+                          {(REQUIRED_DOCS[a.category] || []).map((doc) => {
+                            const v = a.docs[doc];
+                            const need = /\((\d+)\)/.exec(doc)?.[1];
+                            const target = need ? parseInt(need, 10) : undefined;
+                            return (
+                              <div key={doc} className="whitespace-nowrap">
+                                <span className="mr-1 text-xs text-muted-foreground">{doc}:</span>
+                                {docStatusBadge(v as any, target)}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 text-sm">
+                        <StatusPill status={a.status} missingCount={missing.length} />
+                      </td>
+                      <td className="px-3 py-3 text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setDrawer(a.id)}
+                            className="flex items-center gap-2"
+                          >
+                            <UserCheck className="h-4 w-4" /> Review
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() =>
+                              setApps((prev) => prev.map((p) => (p.id === a.id ? { ...p, status: "approved" as const } : p)))
+                            }
+                            className="bg-success hover:bg-success/90 text-success-foreground flex items-center gap-2"
+                          >
+                            <CheckCircle2 className="h-4 w-4" /> Approve
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Drawer */}
+          {open && (
+            <ReviewDrawer
+              app={open}
+              onClose={() => setDrawer(null)}
+              onUpdate={(patch) => setApps((prev) => prev.map((p) => (p.id === open.id ? { ...p, ...patch } : p)))}
             />
-          </div>
-
-          <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2">
-            <Filter className="h-4 w-4 text-slate-400" />
-            <select
-              aria-label="Filter by category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value as any)}
-              className="w-full bg-transparent text-sm text-slate-200 focus:outline-none"
-            >
-              <option>All</option>
-              {CATEGORIES.map((c) => (
-                <option key={c}>{c}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2">
-            <Shield className="h-4 w-4 text-slate-400" />
-            <select
-              aria-label="Filter by status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value as any)}
-              className="w-full bg-transparent text-sm text-slate-200 focus:outline-none"
-            >
-              <option>All</option>
-              {STATUS.map((s) => (
-                <option key={s} value={s}>
-                  {labelize(s)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex items-center justify-end gap-2">
-            <button
-              onClick={() => exportCSV(filtered)}
-              className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800/60"
-            >
-              <Download className="h-4 w-4" /> Export CSV
-            </button>
-            <button className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800/60">
-              <Upload className="h-4 w-4" /> Import
-            </button>
-          </div>
-        </div>
-
-        {/* Bulk actions */}
-        <div className="mb-2 flex items-center justify-between">
-          <div className="text-sm text-slate-400">
-            Showing <span className="font-semibold text-slate-200">{filtered.length}</span> of {apps.length}
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={bulkRequestDocs}
-              disabled={selected.length === 0}
-              className={classNames(
-                "inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold",
-                selected.length === 0
-                  ? "cursor-not-allowed border-slate-800 text-slate-600"
-                  : "border-amber-500/40 text-amber-300 hover:bg-amber-500/10"
-              )}
-            >
-              <FileCheck2 className="h-4 w-4" /> Request Missing Docs
-            </button>
-            <button
-              onClick={bulkApprove}
-              disabled={selected.length === 0}
-              className={classNames(
-                "inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold",
-                selected.length === 0
-                  ? "cursor-not-allowed border-slate-800 text-slate-600"
-                  : "border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10"
-              )}
-            >
-              <BadgeCheck className="h-4 w-4" /> Approve Selected
-            </button>
-          </div>
-        </div>
-
-        {/* Table */}
-        <div className="overflow-hidden rounded-xl border border-slate-800">
-          <table className="min-w-full divide-y divide-slate-800">
-            <thead className="bg-slate-900/60">
-              <tr>
-                <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  <input
-                    aria-label="Select all on page"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500"
-                    checked={allOnPageChecked}
-                    onChange={(e) =>
-                      setSelected(
-                        e.target.checked ? Array.from(new Set([...selected, ...filtered.map((a) => a.id)])) : []
-                      )
-                    }
-                  />
-                </th>
-                <SortableTH label="Applicant" sort={sort} setSort={setSort} k="name" />
-                <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Category
-                </th>
-                <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Role Requested
-                </th>
-                <SortableTH label="Submitted" sort={sort} setSort={setSort} k="submittedAt" />
-                <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Required Docs
-                </th>
-                <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Status
-                </th>
-                <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800">
-              {filtered.map((a) => {
-                const missing = calcMissingDocs(a);
-                return (
-                  <tr key={a.id} className="hover:bg-slate-900/40">
-                    <td className="px-3 py-2">
-                      <input
-                        aria-label={`Select ${a.name}`}
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-sky-500"
-                        checked={selected.includes(a.id)}
-                        onChange={() => toggleSelect(a.id)}
-                      />
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="font-medium text-slate-100">{a.name}</div>
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
-                        <span className="inline-flex items-center gap-1">
-                          <Mail className="h-3.5 w-3.5" /> {a.email}
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          <Phone className="h-3.5 w-3.5" /> {a.phone}
-                        </span>
-                        <span className="hidden items-center gap-1 sm:inline-flex">
-                          <MapPin className="h-3.5 w-3.5" /> {a.address}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-3 py-3 text-sm text-slate-300">{a.category}</td>
-                    <td className="px-3 py-3 text-sm text-slate-300">{a.roleRequested}</td>
-                    <td className="px-3 py-3 text-sm text-slate-300">{formatDate(a.submittedAt)}</td>
-                    <td className="px-3 py-3 text-sm">
-                      <div className="flex flex-wrap items-center gap-2">
-                        {(REQUIRED_DOCS[a.category] || []).map((doc) => {
-                          const v = a.docs[doc];
-                          const need = /\((\d+)\)/.exec(doc)?.[1];
-                          const target = need ? parseInt(need, 10) : undefined;
-                          return (
-                            <div key={doc} className="whitespace-nowrap">
-                              <span className="mr-1 text-xs text-slate-400">{doc}:</span>
-                              {docStatusBadge(v as any, target)}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </td>
-                    <td className="px-3 py-3 text-sm">
-                      <StatusPill status={a.status} missingCount={missing.length} />
-                    </td>
-                    <td className="px-3 py-3 text-right">
-                      <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => setDrawer(a.id)}
-                          className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-200 hover:bg-slate-800/60"
-                        >
-                          <UserCheck className="h-4 w-4" /> Review
-                        </button>
-                        <button
-                          onClick={() =>
-                            setApps((prev) => prev.map((p) => (p.id === a.id ? { ...p, status: "approved" } : p)))
-                          }
-                          className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:brightness-110"
-                        >
-                          <CheckCircle2 className="h-4 w-4" /> Approve
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Drawer */}
-        {open && (
-          <ReviewDrawer
-            app={open}
-            onClose={() => setDrawer(null)}
-            onUpdate={(patch) => setApps((prev) => prev.map((p) => (p.id === open.id ? { ...p, ...patch } : p)))}
-          />
-        )}
-      </section>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
