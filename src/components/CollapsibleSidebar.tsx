@@ -395,7 +395,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     
                     const linkContent = (
                       <Link
-                        to={item.path}
+                        to={`${item.path}?gear=primary`}
                         className={`
                           w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
@@ -541,7 +541,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     
                     const linkContent = (
                       <Link
-                        to={item.path}
+                        to={`${item.path}?gear=copy`}
                         className={`
                           w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
