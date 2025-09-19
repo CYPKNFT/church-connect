@@ -31,6 +31,23 @@ const CATEGORIES = [
 
 const STATUS = ["pending", "missing_docs", "ready", "approved", "denied"] as const;
 
+type StaffCategory = typeof CATEGORIES[number];
+type StaffStatus = typeof STATUS[number];
+
+interface StaffApplication {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  submittedAt: string;
+  category: StaffCategory;
+  roleRequested: string;
+  docs: Record<string, boolean | number>;
+  notes: string;
+  status: StaffStatus;
+}
+
 /** Category-specific required docs (example policy) */
 const REQUIRED_DOCS: Record<(typeof CATEGORIES)[number], string[]> = {
   "Worship/Service": ["Government ID"],
@@ -46,7 +63,7 @@ const REQUIRED_DOCS: Record<(typeof CATEGORIES)[number], string[]> = {
 };
 
 // --- Sample data (replace with Supabase) -----------------------------------
-const seedApplicants = [
+const seedApplicants: StaffApplication[] = [
   {
     id: "a01",
     name: "Ava Thompson",
@@ -193,7 +210,7 @@ export function csvEscape(x: unknown) {
 }
 
 export default function StaffVerification() {
-  const [apps, setApps] = useState(seedApplicants);
+  const [apps, setApps] = useState<StaffApplication[]>(seedApplicants);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"All" | (typeof CATEGORIES)[number]>("All");
   const [status, setStatus] = useState<"All" | (typeof STATUS)[number]>("All");
@@ -231,7 +248,7 @@ export default function StaffVerification() {
 
   const bulkApprove = () => {
     setApps((prev) =>
-      prev.map((a) => (selected.includes(a.id) ? { ...a, status: "approved" } : a))
+      prev.map((a) => (selected.includes(a.id) ? { ...a, status: "approved" as StaffStatus } : a))
     );
     setSelected([]);
   };
@@ -441,7 +458,7 @@ export default function StaffVerification() {
                         </button>
                         <button
                           onClick={() =>
-                            setApps((prev) => prev.map((p) => (p.id === a.id ? { ...p, status: "approved" } : p)))
+                            setApps((prev) => prev.map((p) => (p.id === a.id ? { ...p, status: "approved" as StaffStatus } : p)))
                           }
                           className="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:brightness-110"
                         >
@@ -461,7 +478,7 @@ export default function StaffVerification() {
           <ReviewDrawer
             app={open}
             onClose={() => setDrawer(null)}
-            onUpdate={(patch) => setApps((prev) => prev.map((p) => (p.id === open.id ? { ...p, ...patch } : p)))}
+            onUpdate={(patch: Partial<StaffApplication>) => setApps((prev) => prev.map((p) => (p.id === open.id ? { ...p, ...patch } : p)))}
           />
         )}
       </section>
