@@ -142,13 +142,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div
                 onClick={toggleSidebar}
                 className={`
-                  absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    absolute top-4 cursor-pointer z-20
                   bg-sidebar-border hover:bg-sidebar-border/80 
                   flex items-center justify-center
                   right-[-16px] w-4 h-6 rounded-r-sm
                 `}
               >
-                <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                <div className={`${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                   <svg 
                     width="8" 
                     height="8" 
@@ -179,9 +179,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                           to={item.path}
                           onClick={() => handleNavItemClick(item)}
                           className={`
-                            w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
                             ${isActive
-                              ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                              ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                               : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                             }
                             ${isCollapsed ? 'justify-center' : ''}
@@ -199,9 +199,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       to={item.path}
                       onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                        w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
                         ${isActive
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                         }
                         ${isCollapsed ? 'justify-center' : ''}
@@ -251,7 +251,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <button
                       onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
+                        w-10 h-10 flex items-center justify-center rounded-lg
                         ${isActive
                           ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
@@ -274,7 +274,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.path} onClick={() => handleNavItemClick(item)}>
-                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                           <div className="w-10 h-10 flex items-center justify-center rounded-lg text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
                             <item.icon className="w-5 h-5" />
                           </div>
                         </Link>
@@ -298,13 +298,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 <div
                   onClick={() => setIsAdminCollapsed(!isAdminCollapsed)}
                   className={`
-                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    absolute top-4 cursor-pointer z-20
                     bg-sidebar-border hover:bg-sidebar-border/80 
                     flex items-center justify-center
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <div className={`${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
@@ -340,9 +340,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       <Link
                         to={item.path}
                         className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
                           ${isActive
-                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                             ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                           }
                           ${isAdminCollapsed ? 'justify-center' : ''}
@@ -393,7 +393,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <button
                       onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
+                        w-10 h-10 flex items-center justify-center rounded-lg
                         ${isActive
                           ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
@@ -416,7 +416,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.path} onClick={() => handleNavItemClick(item)}>
-                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
                             <item.icon className="w-5 h-5" />
                           </div>
                         </Link>
@@ -482,9 +482,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       <Link
                         to={item.path}
                         className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
                           ${isActive
-                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                           }
                           ${isServingCollapsed ? 'justify-center' : ''}
