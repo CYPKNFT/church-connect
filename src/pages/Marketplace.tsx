@@ -330,9 +330,9 @@ export default function Marketplace() {
   const { user } = useAuth();
   const { displayName } = useMembership();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedDistance, setSelectedDistance] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedDistance, setSelectedDistance] = useState("any");
+  const [selectedDate, setSelectedDate] = useState("anytime");
   const [activeTab, setActiveTab] = useState("browse");
 
   // Mock data
@@ -562,7 +562,7 @@ export default function Marketplace() {
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Categories</SelectItem>
+                  <SelectItem value="all">All Categories</SelectItem>
                   <SelectItem value="furniture">Furniture</SelectItem>
                   <SelectItem value="clothing">Clothing</SelectItem>
                   <SelectItem value="books">Books</SelectItem>
@@ -578,7 +578,7 @@ export default function Marketplace() {
                   <SelectValue placeholder="Distance" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Distance</SelectItem>
+                  <SelectItem value="any">Any Distance</SelectItem>
                   <SelectItem value="1">Within 1 mile</SelectItem>
                   <SelectItem value="5">Within 5 miles</SelectItem>
                   <SelectItem value="10">Within 10 miles</SelectItem>
@@ -590,20 +590,20 @@ export default function Marketplace() {
                   <SelectValue placeholder="Date posted" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any time</SelectItem>
+                  <SelectItem value="anytime">Any time</SelectItem>
                   <SelectItem value="today">Today</SelectItem>
                   <SelectItem value="week">This week</SelectItem>
                   <SelectItem value="month">This month</SelectItem>
                 </SelectContent>
               </Select>
 
-              {(selectedCategory || selectedDistance || selectedDate) && (
+              {(selectedCategory && selectedCategory !== "all" || selectedDistance && selectedDistance !== "any" || selectedDate && selectedDate !== "anytime") && (
                 <Button 
                   variant="outline" 
                   onClick={() => {
-                    setSelectedCategory("");
-                    setSelectedDistance("");
-                    setSelectedDate("");
+                    setSelectedCategory("all");
+                    setSelectedDistance("any");
+                    setSelectedDate("anytime");
                   }}
                 >
                   Clear filters
