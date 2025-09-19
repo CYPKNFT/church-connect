@@ -112,19 +112,25 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const mainNavItems = getMainNavItems();
 
   const handleNavItemClick = (item: any) => {
+    console.log('Clicked item:', item.label, 'isAdmin:', item.isAdmin, 'isAdminCopy:', item.isAdminCopy);
+    
     if (item.isAdmin) {
+      console.log('Setting admin mode');
       setIsAdminMode(true);
       setIsAdminCopyMode(false);
       setIsServingMode(false);
     } else if (item.isAdminCopy) {
+      console.log('Setting admin copy mode');
       setIsAdminCopyMode(true);
       setIsAdminMode(false);
       setIsServingMode(false);
     } else if (item.category === 'serving') {
+      console.log('Setting serving mode');
       setIsServingMode(true);
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
     } else {
+      console.log('Clearing all modes');
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
       setIsServingMode(false);
