@@ -46,6 +46,7 @@ import VolunteeringDetails from "./pages/VolunteeringDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
 import AdminDashboard2 from "./pages/AdminDashboard2";
+import AdminDashboard3 from "./pages/AdminDashboard3";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -89,6 +90,7 @@ const App = () => (
                     <Route path="/admin-dashboard" element={<AdminDashboard />} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
                     <Route path="/admin-dashboard2" element={<AdminDashboard2 />} />
+                    <Route path="/admin-dashboard3" element={<AdminDashboard3 />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
