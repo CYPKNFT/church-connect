@@ -50,6 +50,7 @@ import StaffVerification from "./pages/StaffVerification";
 import ContentModeration from "./pages/ContentModeration";
 import Analytics from "./pages/Analytics";
 import SystemSettings from "./pages/SystemSettings";
+import Marketplace from "./pages/Marketplace";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -114,6 +115,7 @@ const App = () => (
                     <Route path="/churches" element={<Churches />} />
                     <Route path="/support" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
