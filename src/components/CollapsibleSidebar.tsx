@@ -112,7 +112,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
-                bg-sidebar border-r border-sidebar-border relative flex-none
+                bg-sidebar border-r border-sidebar-border relative
                 ${isCollapsed ? 'w-16' : 'w-64'}
               `}
             >
@@ -142,13 +142,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               <div
                 onClick={toggleSidebar}
                 className={`
-                    absolute top-4 cursor-pointer z-20
+                  absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
                   bg-sidebar-border hover:bg-sidebar-border/80 
                   flex items-center justify-center
                   right-[-16px] w-4 h-6 rounded-r-sm
                 `}
               >
-                <div className={`${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                <div className={`transition-transform duration-300 ${isCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                   <svg 
                     width="8" 
                     height="8" 
@@ -179,9 +179,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                           to={item.path}
                           onClick={() => handleNavItemClick(item)}
                           className={`
-                            w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                             ${isActive
-                              ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                              ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                               : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                             }
                             ${isCollapsed ? 'justify-center' : ''}
@@ -199,9 +199,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       to={item.path}
                       onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+                        w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                         ${isActive
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                         }
                         ${isCollapsed ? 'justify-center' : ''}
@@ -237,7 +237,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 2: ADMIN EXPANDED - Icon strip + Admin submenu */
             <div className="flex">
               {/* Left Column - Icon Strip */}
-              <div className="flex-none w-14 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
                 {/* Brand Icon */}
                 <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
                   <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
@@ -251,7 +251,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <button
                       onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-10 h-10 flex items-center justify-center rounded-lg
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
                         ${isActive
                           ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
@@ -274,7 +274,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.path} onClick={() => handleNavItemClick(item)}>
-                           <div className="w-10 h-10 flex items-center justify-center rounded-lg text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
                             <item.icon className="w-5 h-5" />
                           </div>
                         </Link>
@@ -290,7 +290,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Right Column - Admin Submenu with Collapse */}
               <div 
                 className={`
-                  bg-sidebar border-r border-sidebar-border relative flex-none
+                  bg-sidebar border-r border-sidebar-border relative
                   ${isAdminCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
@@ -298,13 +298,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 <div
                   onClick={() => setIsAdminCollapsed(!isAdminCollapsed)}
                   className={`
-                    absolute top-4 cursor-pointer z-20
+                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
                     bg-sidebar-border hover:bg-sidebar-border/80 
                     flex items-center justify-center
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <div className={`transition-transform duration-300 ${isAdminCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
@@ -340,9 +340,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       <Link
                         to={item.path}
                         className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
-                             ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                           }
                           ${isAdminCollapsed ? 'justify-center' : ''}
@@ -379,7 +379,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
             /* STATE 3: SERVING EXPANDED - Icon strip + Serving submenu */
             <div className="flex">
               {/* Left Column - Icon Strip */}
-              <div className="flex-none w-14 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
                 {/* Brand Icon */}
                 <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
                   <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
@@ -387,18 +387,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                 {/* Navigation Icons */}
                 {mainNavItems.map((item) => {
-                  // COPY ADMIN PATTERN EXACTLY: primary icon is a button (no navigation)
-                  // For Serving copy, use the "Giving" icon as the primary trigger
-                  const isActive = item.category === 'giving' && isServingMode;
-
+                  const isActive = item.category === 'serving' && isServingMode;
+                  
                   const iconButton = (
                     <button
-                      onClick={() => {
-                        setIsServingMode(true);
-                        setIsAdminMode(false);
-                      }}
+                      onClick={() => handleNavItemClick(item)}
                       className={`
-                        w-10 h-10 flex items-center justify-center rounded-lg
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
                         ${isActive
                           ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
                           : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
@@ -409,8 +404,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     </button>
                   );
 
-                  // Treat the Giving icon as the primary (like the gear in Admin)
-                  if (item.category === 'giving') {
+                  if (item.category === 'serving') {
                     return (
                       <div key={item.path}>
                         {iconButton}
@@ -422,7 +416,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.path} onClick={() => handleNavItemClick(item)}>
-                          <div className="w-10 h-10 flex items-center justify-center rounded-lg text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
                             <item.icon className="w-5 h-5" />
                           </div>
                         </Link>
@@ -438,7 +432,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Right Column - Serving Submenu with Collapse */}
               <div 
                 className={`
-                  bg-sidebar border-r border-sidebar-border relative flex-none
+                  bg-sidebar border-r border-sidebar-border relative
                   ${isServingCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
@@ -446,13 +440,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 <div
                   onClick={() => setIsServingCollapsed(!isServingCollapsed)}
                   className={`
-                    absolute top-4 cursor-pointer z-20
+                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
                     bg-sidebar-border hover:bg-sidebar-border/80 
                     flex items-center justify-center
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`${isServingCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <div className={`transition-transform duration-300 ${isServingCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
@@ -488,9 +482,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                       <Link
                         to={item.path}
                         className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
-                            ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                           }
                           ${isServingCollapsed ? 'justify-center' : ''}
@@ -527,7 +521,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
           {/* Main Content */}
           <div className="flex-1 flex flex-col">
-            <main className="flex-1 overflow-y-scroll">
+            <main className="flex-1 overflow-auto">
               {children}
             </main>
           </div>
