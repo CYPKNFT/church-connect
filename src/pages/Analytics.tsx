@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { AdminLayout } from "@/components/AdminLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -14,8 +13,7 @@ export default function Analytics() {
   const [timeframe, setTimeframe] = useState("30d");
 
   return (
-    <AdminLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -104,6 +102,5 @@ export default function Analytics() {
           </TabsContent>
         </Tabs>
       </div>
-    </AdminLayout>
   );
 }
