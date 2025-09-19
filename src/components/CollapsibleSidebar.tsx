@@ -12,7 +12,10 @@ import {
   ShieldCheck,
   FolderOpen,
   BarChart3,
-  PanelsTopLeft
+  PanelsTopLeft,
+  HandHeart,
+  ShoppingCart,
+  Package
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -53,11 +56,9 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     }
 
     baseItems.push(
-      { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-      { icon: Plus, label: "My Needs", path: "/my-needs" },
-      { icon: Users, label: "Volunteering", path: "/volunteering" },
-      { icon: BookOpen, label: "Browse", path: "/browse" },
-      { icon: MessageSquare, label: "Feedback", path: "/feedback" }
+      { icon: HandHeart, label: "Serving", path: "/dashboard", category: "serving" },
+      { icon: ShoppingCart, label: "Giving", path: "/marketplace", category: "giving" },
+      { icon: MessageSquare, label: "Feedback", path: "/feedback", category: "feedback" }
     );
 
     return baseItems;
