@@ -32,10 +32,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const { isCollapsed, toggle: toggleSidebar } = useSidebar();
   const [mounted, setMounted] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
-  const [isAdminCopyMode, setIsAdminCopyMode] = useState(false);
+  const [isServingCopyMode, setIsServingCopyMode] = useState(false);
   const [isServingMode, setIsServingMode] = useState(false);
   const [isAdminCollapsed, setIsAdminCollapsed] = useState(false);
-  const [isAdminCopyCollapsed, setIsAdminCopyCollapsed] = useState(false);
+  const [isServingCopyCollapsed, setIsServingCopyCollapsed] = useState(false);
   const [isServingCollapsed, setIsServingCollapsed] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
@@ -49,7 +49,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   // Check if we're on an admin or serving route to maintain mode
   useEffect(() => {
     setIsAdminMode(currentPath.startsWith('/admin'));
-    setIsAdminCopyMode(currentPath.startsWith('/admin'));
+    setIsServingCopyMode(
+      currentPath === '/dashboard' || 
+      currentPath === '/my-needs' || 
+      currentPath === '/volunteering' || 
+      currentPath === '/browse'
+    );
     setIsServingMode(
       currentPath === '/dashboard' || 
       currentPath === '/my-needs' || 
@@ -64,7 +69,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
-      baseItems.push({ icon: Settings, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
+      baseItems.push({ icon: HandHeart, label: "Serving Copy", path: "/dashboard", isServingCopy: true });
     }
 
     baseItems.push(
@@ -98,19 +103,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const handleNavItemClick = (item: any) => {
     if (item.isAdmin) {
       setIsAdminMode(true);
-      setIsAdminCopyMode(false);
+      setIsServingCopyMode(false);
       setIsServingMode(false);
-    } else if (item.isAdminCopy) {
-      setIsAdminCopyMode(true);
+    } else if (item.isServingCopy) {
+      setIsServingCopyMode(true);
       setIsAdminMode(false);
       setIsServingMode(false);
     } else if (item.category === 'serving') {
       setIsServingMode(true);
       setIsAdminMode(false);
-      setIsAdminCopyMode(false);
+      setIsServingCopyMode(false);
     } else {
       setIsAdminMode(false);
-      setIsAdminCopyMode(false);
+      setIsServingCopyMode(false);
       setIsServingMode(false);
     }
   };
@@ -119,7 +124,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <div className="flex min-h-screen w-full relative">
-          {!isAdminMode && !isAdminCopyMode && !isServingMode ? (
+          {!isAdminMode && !isServingCopyMode && !isServingMode ? (
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
@@ -181,11 +186,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Navigation */}
               <div className="px-4 space-y-1">
                 {mainNavItems.map((item) => {
-                  const isActive = currentPath === item.path || ((item.isAdmin || item.isAdminCopy) && currentPath.startsWith('/admin'));
+                  const isActive = currentPath === item.path || ((item.isAdmin) && currentPath.startsWith('/admin')) || 
+                    ((item.isServingCopy) && (currentPath === '/dashboard' || currentPath === '/my-needs' || currentPath === '/volunteering' || currentPath === '/browse'));
                   
-                  if (item.isAdmin || item.isAdminCopy) {
+                  if (item.isAdmin || item.isServingCopy) {
                     return (
-                      <div key={`${item.path}-${item.isAdmin ? 'admin' : 'admin-copy'}`}>
+                      <div key={`${item.path}-${item.isAdmin ? 'admin' : 'serving-copy'}`}>
                         <Link
                           to={item.path}
                           onClick={() => handleNavItemClick(item)}
@@ -386,8 +392,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 </div>
               </div>
             </div>
-          ) : isAdminCopyMode ? (
-            /* STATE 2B: ADMIN COPY EXPANDED - Icon strip + Admin submenu */
+          ) : isServingCopyMode ? (
+            /* STATE 2B: SERVING COPY EXPANDED - Icon strip + Serving submenu */
             <div className="flex">
               {/* Left Column - Icon Strip */}
               <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
@@ -398,7 +404,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                 {/* Navigation Icons */}
                 {mainNavItems.map((item) => {
-                  const isActive = item.isAdminCopy && isAdminCopyMode;
+                  const isActive = item.isServingCopy && isServingCopyMode;
                   
                   const iconButton = (
                     <button
@@ -415,16 +421,16 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     </button>
                   );
 
-                  if (item.isAdminCopy) {
+                  if (item.isServingCopy) {
                     return (
-                      <div key={`${item.path}-admin-copy`}>
+                      <div key={`${item.path}-serving-copy`}>
                         {iconButton}
                       </div>
                     );
                   }
 
                   return (
-                    <Tooltip key={`${item.path}-icon-copy`}>
+                    <Tooltip key={`${item.path}-icon-serving-copy`}>
                       <TooltipTrigger asChild>
                         <Link to={item.path} onClick={() => handleNavItemClick(item)}>
                           <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
@@ -440,16 +446,16 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 })}
               </div>
 
-              {/* Right Column - Admin Copy Submenu with Collapse */}
+              {/* Right Column - Serving Copy Submenu with Collapse */}
               <div 
                 className={`
                   bg-sidebar border-r border-sidebar-border relative
-                  ${isAdminCopyCollapsed ? 'w-16' : 'w-64'}
+                  ${isServingCopyCollapsed ? 'w-16' : 'w-64'}
                 `}
               >
-                {/* Admin Copy Collapse Toggle */}
+                {/* Serving Copy Collapse Toggle */}
                 <div
-                  onClick={() => setIsAdminCopyCollapsed(!isAdminCopyCollapsed)}
+                  onClick={() => setIsServingCopyCollapsed(!isServingCopyCollapsed)}
                   className={`
                     absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
                     bg-sidebar-border hover:bg-sidebar-border/80 
@@ -457,7 +463,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     right-[-16px] w-4 h-6 rounded-r-sm
                   `}
                 >
-                  <div className={`transition-transform duration-300 ${isAdminCopyCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                  <div className={`transition-transform duration-300 ${isServingCopyCollapsed ? 'rotate-0' : 'rotate-180'}`}>
                     <svg 
                       width="8" 
                       height="8" 
@@ -476,17 +482,17 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                   </div>
                 </div>
 
-                {/* Admin Copy Header */}
-                {!isAdminCopyCollapsed && (
+                {/* Serving Copy Header */}
+                {!isServingCopyCollapsed && (
                   <div className="p-4 border-b border-sidebar-border">
-                    <h2 className="font-semibold text-sidebar-foreground">Admin Dashboard</h2>
-                    <p className="text-sm text-sidebar-foreground/70">Management & Settings</p>
+                    <h2 className="font-semibold text-sidebar-foreground">Serving</h2>
+                    <p className="text-sm text-sidebar-foreground/70">Community & Service</p>
                   </div>
                 )}
 
-                {/* Admin Copy Navigation */}
+                {/* Serving Copy Navigation */}
                 <div className="p-4 space-y-1">
-                  {adminSubmenuItems.map((item) => {
+                  {servingSubmenuItems.map((item) => {
                     const isActive = currentPath === item.path;
                     
                     const linkContent = (
@@ -498,17 +504,17 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                             ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
                             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                           }
-                          ${isAdminCopyCollapsed ? 'justify-center' : ''}
+                          ${isServingCopyCollapsed ? 'justify-center' : ''}
                         `}
                       >
                         <item.icon className="w-4 h-4 flex-shrink-0" />
-                        {!isAdminCopyCollapsed && <span className="font-medium">{item.label}</span>}
+                        {!isServingCopyCollapsed && <span className="font-medium">{item.label}</span>}
                       </Link>
                     );
 
-                    if (isAdminCopyCollapsed) {
+                    if (isServingCopyCollapsed) {
                       return (
-                        <Tooltip key={`${item.path}-copy`}>
+                        <Tooltip key={`${item.path}-serving-copy`}>
                           <TooltipTrigger asChild>
                             {linkContent}
                           </TooltipTrigger>
@@ -520,7 +526,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     }
 
                     return (
-                      <div key={`${item.path}-copy`}>
+                      <div key={`${item.path}-serving-copy`}>
                         {linkContent}
                       </div>
                     );
