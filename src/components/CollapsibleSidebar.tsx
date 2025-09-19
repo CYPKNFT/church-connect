@@ -49,7 +49,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   // Check if we're on an admin or serving route to maintain mode
   useEffect(() => {
     setIsAdminMode(currentPath.startsWith('/admin'));
-    setIsAdminCopyMode(currentPath.startsWith('/admin'));
+    setIsAdminCopyMode(currentPath.startsWith('/admin-copy'));
     setIsServingMode(
       currentPath === '/dashboard' || 
       currentPath === '/my-needs' || 
@@ -64,7 +64,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
-      baseItems.push({ icon: Settings, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
+      baseItems.push({ icon: Settings, label: "Admin Copy", path: "/admin-copy/dashboard", isAdminCopy: true });
     }
 
     baseItems.push(
@@ -85,13 +85,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
-  // Admin Copy submenu items (duplicate of admin)
+  // Admin Copy submenu items (separate routes)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
-    { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
-    { icon: FolderOpen, label: "Content Moderation", path: "/admin/content-moderation" },
-    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
-    { icon: Settings, label: "System Settings", path: "/admin/settings" }
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin-copy/dashboard" },
+    { icon: ShieldCheck, label: "Staff Verification", path: "/admin-copy/staff-verification" },
+    { icon: FolderOpen, label: "Content Moderation", path: "/admin-copy/content-moderation" },
+    { icon: BarChart3, label: "Analytics", path: "/admin-copy/analytics" },
+    { icon: Settings, label: "System Settings", path: "/admin-copy/settings" }
   ];
 
   // Serving submenu items
@@ -190,7 +190,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
               {/* Navigation */}
               <div className="px-4 space-y-1">
                 {mainNavItems.map((item) => {
-                  const isActive = currentPath === item.path || ((item.isAdmin || item.isAdminCopy) && currentPath.startsWith('/admin'));
+                  const isActive =
+                    currentPath === item.path ||
+                    (item.isAdmin && currentPath.startsWith('/admin')) ||
+                    (item.isAdminCopy && currentPath.startsWith('/admin-copy'));
                   
                   if (item.isAdmin || item.isAdminCopy) {
                     return (
@@ -353,7 +356,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                 {/* Admin Copy Navigation */}
                 <div className="p-4 space-y-1">
-                  {adminCopySubmenuItems.map((item) => {
+                  {adminSubmenuItems.map((item) => {
                     const isActive = currentPath === item.path;
                     
                     const linkContent = (
@@ -495,7 +498,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                 {/* Admin Copy Navigation */}
                 <div className="p-4 space-y-1">
-                  {adminSubmenuItems.map((item) => {
+                  {adminCopySubmenuItems.map((item) => {
                     const isActive = currentPath === item.path;
                     
                     const linkContent = (
