@@ -261,9 +261,9 @@ export default function MyChurch() {
         </div>
       </div>
 
-      {/* Three-Tab Navigation */}
+      {/* Three-Tab Navigation - Separate Section */}
       <div className="container mx-auto px-4 -mt-8 relative z-10">
-        <Card className="border-0 shadow-2xl bg-card backdrop-blur-sm rounded-2xl overflow-hidden">
+        <div className="bg-card/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 bg-muted/50 h-14 rounded-none">
               <TabsTrigger 
@@ -286,37 +286,44 @@ export default function MyChurch() {
               </TabsTrigger>
             </TabsList>
 
-            {/* SERVING TAB */}
-            <TabsContent value="serving" className="p-6 mt-0">
-              {/* Search Section */}
-              <div className="mb-8">
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="flex-1">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                      <Input
-                        placeholder="Search church needs..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-10 h-10 rounded-lg"
-                      />
-                    </div>
+            {/* Search Section - Inside Tabs but Separated */}
+            <div className="p-6 border-b border-border bg-background/50">
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex-1">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      placeholder={activeTab === "serving" ? "Search church needs..." : activeTab === "giving" ? "Search items..." : "Search events..."}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10 h-10 rounded-lg bg-background"
+                    />
                   </div>
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="w-full md:w-48 h-10 rounded-lg">
-                      <SelectValue placeholder="All Categories" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map(category => (
-                        <SelectItem key={category} value={category}>
-                          {category}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
                 </div>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-full md:w-48 h-10 rounded-lg bg-background">
+                    <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(activeTab === "serving" ? categories : itemCategories).map(category => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
+          </Tabs>
+        </div>
+      </div>
 
+      {/* Main Content Area - Separate Section */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-background rounded-2xl shadow-lg border border-border p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            {/* SERVING TAB */}
+            <TabsContent value="serving" className="mt-0">
               {/* Church Family Needs */}
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
@@ -383,7 +390,7 @@ export default function MyChurch() {
             </TabsContent>
 
             {/* GIVING TAB */}
-            <TabsContent value="giving" className="p-6 mt-0">
+            <TabsContent value="giving" className="mt-0">
               <div className="space-y-8">
                 {/* Header with Post Button */}
                 <div className="flex items-center justify-between">
@@ -484,7 +491,7 @@ export default function MyChurch() {
                 </div>
 
                 {/* Search and Filters */}
-                <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex flex-col md:flex-row gap-4 mb-8">
                   <div className="flex-1">
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -581,7 +588,7 @@ export default function MyChurch() {
             </TabsContent>
 
             {/* CONNECTING TAB */}
-            <TabsContent value="connecting" className="p-6 mt-0">
+            <TabsContent value="connecting" className="mt-0">
               <div className="grid lg:grid-cols-2 gap-8">
                 {/* Church Events */}
                 <div className="space-y-6">
@@ -643,7 +650,7 @@ export default function MyChurch() {
               </div>
             </TabsContent>
           </Tabs>
-        </Card>
+        </div>
       </div>
     </div>
   );
