@@ -5,16 +5,25 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Link, useNavigate } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
+import { toast } from "sonner";
 
 export default function MyChurch() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("serving");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+  const [postType, setPostType] = useState<"give" | "wish">("give");
+  const [newItem, setNewItem] = useState({ title: "", description: "", category: "Household", contact: "message" });
   const { churchName: churchFromDB, memberName } = useMembership();
 
   useEffect(() => {
@@ -28,8 +37,18 @@ export default function MyChurch() {
   }
 
   // Church-specific data - fetched from database via hook
-  const churchName = churchFromDB ?? "My Church";
+  const churchName = churchFromDB ?? "Test Church";
   const memberSince = "2022";
+
+  // Stats data
+  const stats = [
+    { icon: Heart, label: "Active Needs", value: 3 },
+    { icon: UserCheck, label: "Times Helped", value: 7 },
+    { icon: Gift, label: "Giveaways", value: 12 },
+    { icon: Star, label: "Active Wishes", value: 8 },
+    { icon: Calendar, label: "Upcoming Events", value: 2 },
+    { icon: Users, label: "Church Members", value: 156 }
+  ];
   
   const churchNeeds = [
     {
@@ -67,6 +86,63 @@ export default function MyChurch() {
       icon: ChefHat,
       postedBy: "Linda Chen",
       responses: 8
+    }
+  ];
+
+  const giveawayItems = [
+    {
+      id: 1,
+      title: "Dining Table Set",
+      description: "Beautiful oak dining table with 6 chairs. Great condition, just downsizing!",
+      category: "Furniture",
+      status: "Available",
+      postedBy: "John Smith",
+      timePosted: "3 hours ago",
+      image: "/placeholder.svg",
+      interested: 5
+    },
+    {
+      id: 2,
+      title: "Baby Clothes Bundle",
+      description: "Gently used baby clothes, sizes newborn to 12 months. Includes onesies, sleepers, and outfits.",
+      category: "Baby/Kids",
+      status: "Available",
+      postedBy: "Maria Garcia",
+      timePosted: "1 day ago",
+      image: "/placeholder.svg",
+      interested: 8
+    },
+    {
+      id: 3,
+      title: "Kitchen Appliances",
+      description: "Blender, toaster, and coffee maker. All working perfectly, just bought new ones.",
+      category: "Household",
+      status: "Claimed",
+      postedBy: "David Lee",
+      timePosted: "2 days ago",
+      image: "/placeholder.svg",
+      interested: 12
+    }
+  ];
+
+  const wishListItems = [
+    {
+      id: 1,
+      title: "Looking for a bicycle for my daughter",
+      description: "Seeking a kids' bike for my 8-year-old daughter. Any condition welcome!",
+      category: "Recreation",
+      postedBy: "Sarah Johnson",
+      timePosted: "5 hours ago",
+      responses: 2
+    },
+    {
+      id: 2,
+      title: "Need a car seat",
+      description: "New baby on the way! Looking for an infant car seat in good condition.",
+      category: "Baby/Kids",
+      postedBy: "Mike Brown",
+      timePosted: "1 day ago",
+      responses: 4
     }
   ];
 
@@ -118,6 +194,7 @@ export default function MyChurch() {
   ];
 
   const categories = ["All", "Groceries", "Transportation", "Home Repair", "Meals", "Childcare", "Prayer Support"];
+  const itemCategories = ["Household", "Electronics", "Books", "Clothing", "Baby/Kids", "Furniture", "Garden"];
   
   const filteredNeeds = churchNeeds.filter(need => {
     const matchesSearch = searchQuery === "" || 
@@ -134,6 +211,16 @@ export default function MyChurch() {
       case "Flexible": return "secondary";
       default: return "default";
     }
+  };
+
+  const handlePostItem = () => {
+    toast.success(`${postType === "give" ? "Item" : "Wish"} posted successfully!`);
+    setIsPostModalOpen(false);
+    setNewItem({ title: "", description: "", category: "Household", contact: "message" });
+  };
+
+  const handleWantItem = (itemTitle: string) => {
+    toast.success(`Interest expressed in "${itemTitle}"!`);
   };
 
   return (
@@ -156,231 +243,407 @@ export default function MyChurch() {
             </p>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 max-w-4xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <Heart className="w-4 h-4 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">3</h3>
-                <p className="text-white/80 text-xs">Active Needs</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <UserCheck className="w-4 h-4 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">7</h3>
-                <p className="text-white/80 text-xs">Times Helped</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <Calendar className="w-4 h-4 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">2</h3>
-                <p className="text-white/80 text-xs">Upcoming Events</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <Users className="w-4 h-4 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">156</h3>
-                <p className="text-white/80 text-xs">Church Members</p>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8 max-w-6xl mx-auto">
+              {stats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
+                    <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <IconComponent className="w-4 h-4 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">{stat.value}</h3>
+                    <p className="text-white/80 text-xs">{stat.label}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Search Section */}
-      <div className="container mx-auto px-4 -mt-12 relative z-10">
-        <Card className="border-0 shadow-elegant bg-card backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-border">
-          <CardHeader className="text-center pb-6">
-            <CardTitle className="text-2xl font-bold text-foreground mb-2">
-              Explore Community Impact
-            </CardTitle>
-            <p className="text-muted-foreground">
-              Search through real needs, inspiring stories, and upcoming opportunities
-            </p>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder="Search church needs..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-10 rounded-xl"
-                  />
+      {/* Three-Tab Navigation */}
+      <div className="container mx-auto px-4 -mt-8 relative z-10">
+        <Card className="border-0 shadow-2xl bg-card backdrop-blur-sm rounded-2xl overflow-hidden">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-muted/50 h-14 rounded-none">
+              <TabsTrigger 
+                value="serving" 
+                className="text-sm font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground h-full"
+              >
+                SERVING
+              </TabsTrigger>
+              <TabsTrigger 
+                value="giving" 
+                className="text-sm font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground h-full"
+              >
+                GIVING
+              </TabsTrigger>
+              <TabsTrigger 
+                value="connecting" 
+                className="text-sm font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground h-full"
+              >
+                CONNECTING
+              </TabsTrigger>
+            </TabsList>
+
+            {/* SERVING TAB */}
+            <TabsContent value="serving" className="p-6 mt-0">
+              {/* Search Section */}
+              <div className="mb-8">
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                      <Input
+                        placeholder="Search church needs..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-10 h-10 rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <SelectTrigger className="w-full md:w-48 h-10 rounded-lg">
+                      <SelectValue placeholder="All Categories" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map(category => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl relative [&>span]:absolute [&>span]:left-1/2 [&>span]:-translate-x-1/2 [&>span]:w-full [&>span]:text-center [&>svg]:absolute [&>svg]:right-3">
-                  <SelectValue placeholder="All Categories" />
-                </SelectTrigger>
-                <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
-                  {categories.map(category => (
-                    <SelectItem key={category} value={category} className="text-center">
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
 
-      <div className="container mx-auto px-4 py-16">
-
-        {/* Three Column Layout */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column - Church Needs */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-3xl font-bold text-foreground">Church Family Needs</h2>
-              <div className="flex items-center gap-4">
-                <Badge variant="secondary" className="text-sm">{filteredNeeds.length} Active</Badge>
-                <Link to="/my-church/needs">
-                  <Button variant="outline" size="sm">See All</Button>
-                </Link>
-              </div>
-            </div>
-            
-            <ScrollArea className="h-[700px] pr-4 overflow-visible">
-              <div className="space-y-4 overflow-visible">
-                {filteredNeeds.map((need) => {
-                  const IconComponent = need.icon;
-                  return (
-                    <Card key={need.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group overflow-visible">
-                      <CardContent className="p-5">
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors flex-shrink-0">
-                            <IconComponent className="w-6 h-6 text-accent" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between mb-3">
-                              <div className="flex-1 min-w-0 pr-3">
-                                <h3 className="text-lg font-bold text-foreground mb-1 line-clamp-2">{need.title}</h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{need.description}</p>
-                              </div>
-                              <Badge variant={getUrgencyColor(need.urgency) as any} className="flex-shrink-0">
-                                {need.urgency}
-                              </Badge>
-                            </div>
-                            <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-4">
-                              <div className="flex items-center gap-1">
-                                <MapPin className="w-3 h-3" />
-                                {need.location}
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                {need.timePosted}
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Users className="w-3 h-3" />
-                                {need.postedBy}
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <MessageSquare className="w-3 h-3" />
-                                {need.responses} responses
-                              </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button size="sm" className="bg-primary hover:bg-primary-hover text-white">
-                                <Heart className="w-3 h-3 mr-1" />
-                                Offer Help
-                              </Button>
-                              <Button variant="outline" size="sm">
-                                <MessageSquare className="w-3 h-3 mr-1" />
-                                Message
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </ScrollArea>
-          </div>
-
-          {/* Right Column - Events & Activity */}
-          <div className="space-y-8">
-            {/* Church Events */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-foreground">Church Events</h2>
-                <Link to="/my-church/events">
-                  <Button variant="outline" size="sm">See All</Button>
-                </Link>
-              </div>
-              <ScrollArea className="h-[300px] pr-4">
-                <div className="space-y-4">
-                  {churchEvents.map((event) => (
-                    <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm">
-                      <CardContent className="p-6">
-                        <Badge variant="secondary" className="mb-3">{event.category}</Badge>
-                        <h3 className="text-lg font-bold text-foreground mb-2">{event.title}</h3>
-                        <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
-                        <div className="space-y-2 text-xs text-muted-foreground mb-4">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-3 h-3" />
-                            {event.date} at {event.time}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="w-3 h-3" />
-                            {event.location}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users className="w-3 h-3" />
-                            {event.attendees} attending
-                          </div>
-                        </div>
-                        <Button size="sm" className="w-full bg-accent hover:bg-accent-hover">
-                          Join Event
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
+              {/* Church Family Needs */}
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-bold text-foreground">Church Family Needs</h2>
+                  <Badge variant="secondary" className="text-sm">{filteredNeeds.length} Active</Badge>
                 </div>
-              </ScrollArea>
-            </div>
-
-            {/* Recent Activity */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-foreground">Recent Activity</h2>
-                <Link to="/my-church/activity">
-                  <Button variant="outline" size="sm">See All</Button>
-                </Link>
-              </div>
-              <ScrollArea className="h-[300px] pr-4">
-                <div className="space-y-4">
-                  {recentActivity.map((activity) => (
-                    <Card key={activity.id} className="border-0 shadow-card bg-card backdrop-blur-sm">
-                      <CardContent className="p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
-                            <UserCheck className="w-4 h-4 text-accent" />
+                
+                <div className="grid gap-4">
+                  {filteredNeeds.map((need) => {
+                    const IconComponent = need.icon;
+                    return (
+                      <Card key={need.id} className="border border-border hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6">
+                          <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <IconComponent className="w-6 h-6 text-accent" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between mb-3">
+                                <div className="flex-1 min-w-0 pr-3">
+                                  <h3 className="text-lg font-semibold text-foreground mb-1">{need.title}</h3>
+                                  <p className="text-sm text-muted-foreground leading-relaxed">{need.description}</p>
+                                </div>
+                                <Badge variant={getUrgencyColor(need.urgency) as any} className="flex-shrink-0">
+                                  {need.urgency}
+                                </Badge>
+                              </div>
+                              <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-4">
+                                <div className="flex items-center gap-1">
+                                  <MapPin className="w-3 h-3" />
+                                  {need.location}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {need.timePosted}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Users className="w-3 h-3" />
+                                  {need.postedBy}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <MessageSquare className="w-3 h-3" />
+                                  {need.responses} responses
+                                </div>
+                              </div>
+                              <div className="flex gap-2">
+                                <Button size="sm" className="bg-yellow-600 hover:bg-yellow-700 text-white">
+                                  <Heart className="w-3 h-3 mr-1" />
+                                  Offer Help
+                                </Button>
+                                <Button variant="outline" size="sm">
+                                  <MessageSquare className="w-3 h-3 mr-1" />
+                                  Message
+                                </Button>
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex-1">
-                            <p className="text-sm text-foreground">
-                              <span className="font-semibold">{activity.member}</span> {activity.action}{" "}
-                              <span className="text-muted-foreground">{activity.need}</span>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
+            </TabsContent>
+
+            {/* GIVING TAB */}
+            <TabsContent value="giving" className="p-6 mt-0">
+              <div className="space-y-8">
+                {/* Header with Post Button */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">Item Marketplace</h2>
+                    <p className="text-muted-foreground">Share and discover items within your church community</p>
+                  </div>
+                  <Dialog open={isPostModalOpen} onOpenChange={setIsPostModalOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-primary hover:bg-primary/90">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Post New Item
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>
+                          {postType === "give" ? "Give Away Item" : "Add to Wish List"}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div className="flex gap-2">
+                          <Button 
+                            variant={postType === "give" ? "default" : "outline"} 
+                            size="sm"
+                            onClick={() => setPostType("give")}
+                            className="flex-1"
+                          >
+                            Give Away
+                          </Button>
+                          <Button 
+                            variant={postType === "wish" ? "default" : "outline"} 
+                            size="sm"
+                            onClick={() => setPostType("wish")}
+                            className="flex-1"
+                          >
+                            Add Wish
+                          </Button>
+                        </div>
+                        
+                        {postType === "give" && (
+                          <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
+                            <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                            <p className="text-sm text-muted-foreground">
+                              Drop photos here or click to upload
                             </p>
-                            <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
                           </div>
+                        )}
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="title">Title</Label>
+                          <Input
+                            id="title"
+                            value={newItem.title}
+                            onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
+                            placeholder="What are you sharing?"
+                          />
                         </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="description">Description</Label>
+                          <Textarea
+                            id="description"
+                            value={newItem.description}
+                            onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
+                            placeholder="Provide details about the item..."
+                            rows={3}
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="category">Category</Label>
+                          <Select value={newItem.category} onValueChange={(value) => setNewItem({ ...newItem, category: value })}>
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {itemCategories.map(category => (
+                                <SelectItem key={category} value={category}>
+                                  {category}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        
+                        <div className="flex gap-2 pt-4">
+                          <Button onClick={handlePostItem} className="flex-1">
+                            Post {postType === "give" ? "Item" : "Wish"}
+                          </Button>
+                          <Button variant="outline" onClick={() => setIsPostModalOpen(false)}>
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
+                {/* Search and Filters */}
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                      <Input
+                        placeholder="Search items..."
+                        className="pl-10 h-10 rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  <Select defaultValue="All Categories">
+                    <SelectTrigger className="w-full md:w-48 h-10 rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="All Categories">All Categories</SelectItem>
+                      {itemCategories.map(category => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Item Grid */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {giveawayItems.map((item) => (
+                    <Card key={item.id} className="border border-border hover:shadow-lg transition-shadow">
+                      <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center">
+                        <Camera className="w-8 h-8 text-muted-foreground" />
+                      </div>
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-2">
+                          <h3 className="font-semibold text-foreground">{item.title}</h3>
+                          <Badge variant={item.status === "Available" ? "default" : "secondary"}>
+                            {item.status}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{item.description}</p>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                          <Clock className="w-3 h-3" />
+                          {item.timePosted}
+                          <span>•</span>
+                          <Users className="w-3 h-3" />
+                          {item.postedBy}
+                        </div>
+                        {item.status === "Available" && (
+                          <Button 
+                            size="sm" 
+                            className="w-full"
+                            onClick={() => handleWantItem(item.title)}
+                          >
+                            I Want This
+                          </Button>
+                        )}
                       </CardContent>
                     </Card>
                   ))}
                 </div>
-              </ScrollArea>
-            </div>
-          </div>
-        </div>
+
+                {/* Wish List Section */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-foreground">Community Wish List</h3>
+                  <div className="grid gap-4">
+                    {wishListItems.map((wish) => (
+                      <Card key={wish.id} className="border border-border">
+                        <CardContent className="p-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="font-semibold text-foreground">{wish.title}</h4>
+                            <Badge variant="outline">{wish.category}</Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground mb-3">{wish.description}</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <Users className="w-3 h-3" />
+                              {wish.postedBy}
+                              <span>•</span>
+                              <Clock className="w-3 h-3" />
+                              {wish.timePosted}
+                              <span>•</span>
+                              <MessageSquare className="w-3 h-3" />
+                              {wish.responses} responses
+                            </div>
+                            <Button size="sm" variant="outline">
+                              I Have This
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
+            {/* CONNECTING TAB */}
+            <TabsContent value="connecting" className="p-6 mt-0">
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Church Events */}
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-bold text-foreground">Church Events</h2>
+                  <div className="space-y-4">
+                    {churchEvents.map((event) => (
+                      <Card key={event.id} className="border border-border hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6">
+                          <Badge variant="secondary" className="mb-3">{event.category}</Badge>
+                          <h3 className="text-lg font-bold text-foreground mb-2">{event.title}</h3>
+                          <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
+                          <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="w-3 h-3" />
+                              {event.date} at {event.time}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-3 h-3" />
+                              {event.location}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Users className="w-3 h-3" />
+                              {event.attendees} attending
+                            </div>
+                          </div>
+                          <Button size="sm" className="w-full">
+                            Join Event
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Community Activities */}
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-bold text-foreground">Recent Activity</h2>
+                  <div className="space-y-4">
+                    {recentActivity.map((activity) => (
+                      <Card key={activity.id} className="border border-border">
+                        <CardContent className="p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                              <Activity className="w-4 h-4 text-accent" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm text-foreground">
+                                <span className="font-semibold">{activity.member}</span> {activity.action}{" "}
+                                <span className="text-muted-foreground">{activity.need}</span>
+                              </p>
+                              <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </Card>
       </div>
     </div>
   );
