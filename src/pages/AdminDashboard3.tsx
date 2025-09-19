@@ -300,46 +300,45 @@ function Dashboard({ onGoToStaff }: { onGoToStaff: () => void }) {
         <p className="mt-1 text-slate-400">Manage church operations and system settings</p>
       </header>
 
-      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-[1fr,340px]">
-        <div className="flex items-start gap-4 rounded-2xl border border-amber-500/30 bg-slate-900/70 p-5 shadow-inner shadow-black/20 ring-1 ring-amber-500/10">
-          <AlertTriangle className="mt-0.5 h-6 w-6 text-amber-400" />
+      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="flex items-start gap-4 rounded-2xl border border-amber-500/30 bg-slate-900/70 p-4 shadow-inner shadow-black/20 ring-1 ring-amber-500/10">
+          <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-400" />
           <div>
-            <h3 className="text-lg font-semibold text-amber-300">Action Required</h3>
-            <p className="mt-1 text-sm text-slate-300">
+            <h3 className="text-base font-semibold text-amber-300">Action Required</h3>
+            <p className="mt-1 text-xs text-slate-300">
               7 pending applications • 3 need background checks
             </p>
           </div>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-3">
-          <button
-            onClick={onGoToStaff}
-            className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 px-5 py-4 font-semibold text-white shadow-lg transition hover:brightness-110"
-          >
-            <span className="flex items-center gap-3">
-              <Clock className="h-5 w-5" />
-              <span>
-                Review Pending Applications
-                <span className="block text-xs font-normal opacity-90">
-                  12 applications awaiting review
-                </span>
+        <button
+          onClick={onGoToStaff}
+          className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-4 font-semibold text-white shadow-lg transition hover:brightness-110"
+        >
+          <span className="flex items-center gap-2">
+            <Clock className="h-4 w-4" />
+            <span className="text-sm">
+              Review Pending Applications
+              <span className="block text-xs font-normal opacity-90">
+                12 applications awaiting review
               </span>
             </span>
-            <ChevronRight className="h-5 w-5 opacity-80 transition group-hover:translate-x-0.5" />
-          </button>
-          <button className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-700 px-5 py-4 font-semibold text-white shadow-lg transition hover:brightness-110">
-            <span className="flex items-center gap-3">
-              <Mail className="h-5 w-5" />
-              <span>
-                Send Community Update
-                <span className="block text-xs font-normal opacity-90">
-                  Notify members of new activities
-                </span>
+          </span>
+          <ChevronRight className="h-4 w-4 opacity-80 transition group-hover:translate-x-0.5" />
+        </button>
+
+        <button className="group relative flex items-center justify-between rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-700 px-4 py-4 font-semibold text-white shadow-lg transition hover:brightness-110">
+          <span className="flex items-center gap-2">
+            <Mail className="h-4 w-4" />
+            <span className="text-sm">
+              Send Community Update
+              <span className="block text-xs font-normal opacity-90">
+                Notify members of new activities
               </span>
             </span>
-            <ChevronRight className="h-5 w-5 opacity-80 transition group-hover:translate-x-0.5" />
-          </button>
-        </div>
+          </span>
+          <ChevronRight className="h-4 w-4 opacity-80 transition group-hover:translate-x-0.5" />
+        </button>
       </div>
 
       <QuickStats />
