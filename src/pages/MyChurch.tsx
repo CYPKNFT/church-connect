@@ -13,7 +13,7 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 import { NeedCard } from "@/components/NeedCard";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
 import { toast } from "sonner";
 
@@ -48,8 +48,8 @@ export default function MyChurch() {
   const stats = [
     { icon: Heart, label: "Active Needs", value: 3 },
     { icon: UserCheck, label: "Needs Served", value: 7 },
-    { icon: Star, label: "Active Wishes", value: 8 },
-    { icon: Gift, label: "Giveaways", value: 12 },
+    { icon: Package, label: "Items Needed", value: 8 },
+    { icon: Gift, label: "Items Given", value: 12 },
     { icon: Calendar, label: "Upcoming Events", value: 2 },
     { icon: Users, label: "Church Members", value: 156 }
   ];
@@ -346,24 +346,45 @@ export default function MyChurch() {
       <div className="container mx-auto px-4 -mt-8 relative z-10">
         <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-transparent h-16 rounded-none border-b border-border/10">
+            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
               <TabsTrigger 
                 value="serving" 
-                className="text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary h-full rounded-none transition-all duration-300"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] data-[state=active]:shadow-xl"
               >
-                SERVING
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/20 data-[state=active]:from-primary/40 data-[state=active]:to-primary/30 transition-all duration-300">
+                    <HandHeart className="w-5 h-5 text-primary/80 group-hover:text-primary data-[state=active]:text-primary transition-colors duration-300" />
+                  </div>
+                  <span className="text-muted-foreground group-hover:text-foreground data-[state=active]:text-primary transition-colors duration-300">SERVING</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="giving" 
-                className="text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary h-full rounded-none transition-all duration-300"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] data-[state=active]:shadow-xl"
               >
-                GIVING
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/20 data-[state=active]:from-accent/40 data-[state=active]:to-accent/30 transition-all duration-300">
+                    <Gift className="w-5 h-5 text-accent/80 group-hover:text-accent data-[state=active]:text-accent transition-colors duration-300" />
+                  </div>
+                  <span className="text-muted-foreground group-hover:text-foreground data-[state=active]:text-accent transition-colors duration-300">GIVING</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="connecting" 
-                className="text-base font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary h-full rounded-none transition-all duration-300"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] data-[state=active]:shadow-xl"
               >
-                CONNECTING
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 to-muted/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center group-hover:from-secondary/30 group-hover:to-secondary/20 data-[state=active]:from-secondary/40 data-[state=active]:to-secondary/30 transition-all duration-300">
+                    <Users className="w-5 h-5 text-secondary/80 group-hover:text-secondary data-[state=active]:text-secondary transition-colors duration-300" />
+                  </div>
+                  <span className="text-muted-foreground group-hover:text-foreground data-[state=active]:text-secondary transition-colors duration-300">CONNECTING</span>
+                </div>
               </TabsTrigger>
             </TabsList>
 
