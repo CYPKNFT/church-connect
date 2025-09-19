@@ -56,29 +56,14 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     );
   }, [currentPath]);
 
-  // Rehydrate which admin gear was last active
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('active-admin-gear');
-      if (saved === 'admin') {
-        setIsAdminMode(true);
-      } else if (saved === 'adminCopy') {
-        setIsAdminCopyMode(true);
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
 
-  // Persist current admin gear selection
+  // Reset admin modes when leaving admin routes
   useEffect(() => {
-    try {
-      const value = isAdminMode ? 'admin' : isAdminCopyMode ? 'adminCopy' : '';
-      localStorage.setItem('active-admin-gear', value);
-    } catch {
-      // ignore
+    if (!currentPath.startsWith('/admin')) {
+      setIsAdminMode(false);
+      setIsAdminCopyMode(false);
     }
-  }, [isAdminMode, isAdminCopyMode]);
+  }, [currentPath]);
 
   // Main navigation items
   const getMainNavItems = () => {
