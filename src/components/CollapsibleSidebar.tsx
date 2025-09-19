@@ -46,10 +46,8 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Check if we're on an admin or serving route to maintain mode
+  // Only derive serving mode from route; admin/adminCopy are click-controlled
   useEffect(() => {
-    setIsAdminMode(currentPath.startsWith('/admin'));
-    setIsAdminCopyMode(false); // Admin copy is only active when clicked, not based on route
     setIsServingMode(
       currentPath === '/dashboard' || 
       currentPath === '/my-needs' || 
@@ -57,6 +55,30 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
       currentPath === '/browse'
     );
   }, [currentPath]);
+
+  // Rehydrate which admin gear was last active
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('active-admin-gear');
+      if (saved === 'admin') {
+        setIsAdminMode(true);
+      } else if (saved === 'adminCopy') {
+        setIsAdminCopyMode(true);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  // Persist current admin gear selection
+  useEffect(() => {
+    try {
+      const value = isAdminMode ? 'admin' : isAdminCopyMode ? 'adminCopy' : '';
+      localStorage.setItem('active-admin-gear', value);
+    } catch {
+      // ignore
+    }
+  }, [isAdminMode, isAdminCopyMode]);
 
   // Main navigation items
   const getMainNavItems = () => {
