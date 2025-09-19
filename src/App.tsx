@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MemberSignup from "./pages/MemberSignup";
 import Dashboard from "./pages/Dashboard";
+import OldDashboard from "./pages/OldDashboard";
 import MyNeeds from "./pages/MyNeeds";
 import Volunteering from "./pages/Volunteering";
 import BrowseDashboard from "./pages/BrowseDashboard";
@@ -73,7 +74,8 @@ const App = () => (
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/email-verification" element={<EmailVerification />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/old_dashboard" element={<OldDashboard />} />
                     <Route path="/my-needs" element={<MyNeeds />} />
                     <Route path="/volunteering" element={<Volunteering />} />
                     <Route path="/my-church" element={<MyChurch />} />
