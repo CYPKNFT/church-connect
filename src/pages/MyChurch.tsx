@@ -349,41 +349,38 @@ export default function MyChurch() {
             <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
               <TabsTrigger 
                 value="serving" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/20 data-[state=active]:from-primary/40 data-[state=active]:to-primary/30 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center data-[state=active]:from-primary/40 data-[state=active]:to-primary/30 transition-all duration-300">
                     <HandHeart className={`w-5 h-5 transition-colors duration-300 ${activeTab === 'serving' ? 'text-primary' : 'text-muted-foreground'}`} />
                   </div>
-                  <span className="text-muted-foreground group-hover:text-foreground data-[state=active]:text-primary transition-colors duration-300">SERVING</span>
+                  <span className="text-muted-foreground data-[state=active]:text-primary transition-colors duration-300">SERVING</span>
                 </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="giving" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/20 data-[state=active]:from-accent/40 data-[state=active]:to-accent/30 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center data-[state=active]:from-accent/40 data-[state=active]:to-accent/30 transition-all duration-300">
                     <Gift className={`w-5 h-5 transition-colors duration-300 ${activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground'}`} />
                   </div>
-                  <span className="text-muted-foreground group-hover:text-foreground data-[state=active]:text-accent transition-colors duration-300">GIVING</span>
+                  <span className="text-muted-foreground data-[state=active]:text-accent transition-colors duration-300">GIVING</span>
                 </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="connecting" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 to-muted/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center group-hover:from-secondary/30 group-hover:to-secondary/20 data-[state=active]:from-secondary/40 data-[state=active]:to-secondary/30 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center data-[state=active]:from-secondary/40 data-[state=active]:to-secondary/30 transition-all duration-300">
                     <Users className={`w-5 h-5 transition-colors duration-300 ${activeTab === 'connecting' ? 'text-secondary' : 'text-muted-foreground'}`} />
                   </div>
-                  <span className="text-muted-foreground group-hover:text-foreground data-[state=active]:text-secondary transition-colors duration-300">CONNECTING</span>
+                  <span className="text-muted-foreground data-[state=active]:text-secondary transition-colors duration-300">CONNECTING</span>
                 </div>
               </TabsTrigger>
             </TabsList>
@@ -439,7 +436,7 @@ export default function MyChurch() {
                     <h2 className="text-3xl font-bold text-foreground">Community Needs ({filteredNeeds.length} opportunities)</h2>
                     <p className="text-muted-foreground text-lg">Help make a difference in your church family</p>
                   </div>
-                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
+                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-black shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
                     <Plus className="w-5 h-5 mr-2" />
                     Post New Need
                   </Button>
@@ -550,7 +547,7 @@ export default function MyChurch() {
                   </div>
                   <Dialog open={isPostModalOpen} onOpenChange={setIsPostModalOpen}>
                     <DialogTrigger asChild>
-                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
+                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-black shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
                     <Plus className="w-5 h-5 mr-2" />
                     Post New Item
                   </Button>
