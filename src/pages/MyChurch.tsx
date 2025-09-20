@@ -993,6 +993,7 @@ export default function MyChurch() {
                       {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
                       <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
                     </h2>
+                    <EventCalendar events={allEventsWithSamples} />
                   </div>
 
                   {eventsLoading ? (
