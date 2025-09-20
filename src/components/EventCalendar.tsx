@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Plus, Bell, Filter, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -69,107 +69,213 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
           Calendar
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl">
-        <DialogHeader>
+      <DialogContent className="max-w-7xl h-[90vh] flex flex-col">
+        <DialogHeader className="shrink-0">
           <DialogTitle className="flex items-center justify-between">
-            <span>Church Events Calendar</span>
-            <div className="flex items-center gap-2">
+            <span className="text-2xl font-bold">Church Events Calendar</span>
+            <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm" onClick={() => navigateMonth('prev')}>
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-5 h-5" />
               </Button>
-              <span className="text-lg font-semibold min-w-[140px] text-center">
+              <span className="text-xl font-semibold min-w-[160px] text-center">
                 {format(currentMonth, "MMMM yyyy")}
               </span>
               <Button variant="ghost" size="sm" onClick={() => navigateMonth('next')}>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-5 h-5" />
               </Button>
             </div>
           </DialogTitle>
         </DialogHeader>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Calendar */}
-          <div className="lg:col-span-2">
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={setSelectedDate}
-              month={currentMonth}
-              onMonthChange={setCurrentMonth}
-              className={cn("p-3 pointer-events-auto w-full")}
-              classNames={{
-                day: cn(
-                  "h-12 w-12 p-0 font-normal aria-selected:opacity-100 relative",
-                  "hover:bg-accent hover:text-accent-foreground"
-                ),
-                day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
-                day_today: "bg-accent text-accent-foreground font-semibold",
-              }}
-              modifiers={{
-                hasEvents: (date) => getEventsForDate(date).length > 0
-              }}
-              modifiersClassNames={{
-                hasEvents: "after:absolute after:bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full"
-              }}
-            />
+        <div className="flex-1 grid grid-cols-1 xl:grid-cols-4 gap-8 min-h-0">
+          {/* Calendar - Takes up more space */}
+          <div className="xl:col-span-3 flex flex-col">
+            <div className="flex-1 flex items-center justify-center">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                month={currentMonth}
+                onMonthChange={setCurrentMonth}
+                className={cn("p-6 pointer-events-auto scale-125 origin-center")}
+                classNames={{
+                  months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                  month: "space-y-6",
+                  caption: "flex justify-center pt-2 relative items-center mb-4",
+                  caption_label: "text-lg font-semibold",
+                  nav: "space-x-2 flex items-center",
+                  nav_button: cn(
+                    "h-8 w-8 bg-transparent p-0 opacity-70 hover:opacity-100 hover:bg-accent rounded-md transition-all"
+                  ),
+                  nav_button_previous: "absolute left-2",
+                  nav_button_next: "absolute right-2",
+                  table: "w-full border-collapse space-y-2",
+                  head_row: "flex mb-2",
+                  head_cell: "text-muted-foreground rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",
+                  row: "flex w-full mt-2",
+                  cell: "h-12 w-12 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                  day: cn(
+                    "h-12 w-12 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative"
+                  ),
+                  day_range_end: "day-range-end",
+                  day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                  day_today: "bg-accent text-accent-foreground font-bold border-2 border-primary",
+                  day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+                  day_disabled: "text-muted-foreground opacity-50",
+                  day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                  day_hidden: "invisible",
+                }}
+                modifiers={{
+                  hasEvents: (date) => getEventsForDate(date).length > 0
+                }}
+                modifiersClassNames={{
+                  hasEvents: "after:absolute after:bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:w-2 after:h-2 after:bg-primary after:rounded-full after:opacity-80"
+                }}
+              />
+            </div>
+            
+            {/* Quick Actions Bar */}
+            <div className="shrink-0 flex items-center justify-between p-4 bg-accent/5 rounded-lg mt-4">
+              <div className="flex items-center gap-4">
+                <Button variant="outline" size="sm" onClick={() => setCurrentMonth(new Date())}>
+                  Today
+                </Button>
+                <Button variant="outline" size="sm">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Event
+                </Button>
+                <Button variant="outline" size="sm">
+                  Export Calendar
+                </Button>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <span>Events</span>
+                <div className="w-2 h-2 bg-accent rounded-full ml-4"></div>
+                <span>Today</span>
+              </div>
+            </div>
           </div>
 
-          {/* Events for selected date */}
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-lg mb-2">
-                {selectedDate ? format(selectedDate, "MMMM d, yyyy") : "Select a date"}
-              </h3>
-              {eventsOnSelectedDate.length > 0 ? (
-                <div className="space-y-2 max-h-96 overflow-y-auto">
-                  {eventsOnSelectedDate.map((event) => (
-                    <Card key={event.id} className="border-l-4 border-l-primary">
-                      <CardContent className="p-3">
-                        <div className="space-y-2">
-                          <div className="flex items-start justify-between gap-2">
-                            <h4 className="font-medium text-sm line-clamp-2">{event.title}</h4>
-                            <Badge variant="secondary" className={cn("text-xs", getCategoryColor(event.category))}>
-                              {event.category}
-                            </Badge>
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            {format(new Date(event.start_datetime), "h:mm a")}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+          {/* Right Sidebar - Event Details and Controls */}
+          <div className="flex flex-col space-y-6 min-h-0">
+            {/* Selected Date Events */}
+            <Card className="flex-1 min-h-0">
+              <CardContent className="p-6 h-full flex flex-col">
+                <div className="shrink-0 mb-4">
+                  <h3 className="font-bold text-xl mb-2">
+                    {selectedDate ? format(selectedDate, "EEEE, MMMM d") : "Select a date"}
+                  </h3>
+                  {selectedDate && (
+                    <p className="text-sm text-muted-foreground">
+                      {eventsOnSelectedDate.length} event{eventsOnSelectedDate.length !== 1 ? 's' : ''} scheduled
+                    </p>
+                  )}
                 </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">No events scheduled for this date.</p>
-              )}
-            </div>
-
-            {/* Upcoming events overview */}
-            {datesWithEvents.length > 0 && (
-              <div>
-                <h4 className="font-medium mb-2">This Month's Events</h4>
-                <div className="space-y-1 max-h-32 overflow-y-auto">
-                  {datesWithEvents.slice(0, 5).map((date) => (
-                    <button
-                      key={date.toISOString()}
-                      onClick={() => setSelectedDate(date)}
-                      className="w-full text-left p-2 text-xs hover:bg-accent rounded-md transition-colors"
-                    >
-                      <div className="font-medium">{format(date, "MMM d")}</div>
-                      <div className="text-muted-foreground">
-                        {getEventsForDate(date).length} event{getEventsForDate(date).length !== 1 ? 's' : ''}
+                
+                <div className="flex-1 min-h-0 overflow-hidden">
+                  {eventsOnSelectedDate.length > 0 ? (
+                    <div className="space-y-3 h-full overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
+                      {eventsOnSelectedDate.map((event) => (
+                        <Card key={event.id} className="border-l-4 border-l-primary hover:shadow-md transition-all">
+                          <CardContent className="p-4">
+                            <div className="space-y-3">
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-semibold text-sm line-clamp-2 flex-1">{event.title}</h4>
+                                <Badge variant="secondary" className={cn("text-xs shrink-0", getCategoryColor(event.category))}>
+                                  {event.category}
+                                </Badge>
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                {format(new Date(event.start_datetime), "h:mm a")}
+                              </div>
+                              <div className="flex gap-2">
+                                <Button size="sm" variant="outline" className="text-xs h-7 flex-1">
+                                  View Details
+                                </Button>
+                                <Button size="sm" className="text-xs h-7 flex-1">
+                                  RSVP
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-center">
+                      <div className="space-y-2">
+                        <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto opacity-50" />
+                        <p className="text-sm text-muted-foreground">No events scheduled for this date</p>
+                        <Button size="sm" variant="outline" className="text-xs">
+                          <Plus className="w-3 h-3 mr-1" />
+                          Add Event
+                        </Button>
                       </div>
-                    </button>
-                  ))}
-                  {datesWithEvents.length > 5 && (
-                    <div className="text-xs text-muted-foreground p-2">
-                      +{datesWithEvents.length - 5} more days with events
                     </div>
                   )}
                 </div>
-              </div>
-            )}
+              </CardContent>
+            </Card>
+
+            {/* Monthly Overview */}
+            <Card>
+              <CardContent className="p-4">
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <Activity className="w-4 h-4" />
+                  This Month's Activity
+                </h4>
+                {datesWithEvents.length > 0 ? (
+                  <div className="space-y-2 max-h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
+                    {datesWithEvents.slice(0, 8).map((date) => (
+                      <button
+                        key={date.toISOString()}
+                        onClick={() => setSelectedDate(date)}
+                        className="w-full text-left p-2 text-xs hover:bg-accent rounded-md transition-colors flex items-center justify-between"
+                      >
+                        <div>
+                          <div className="font-medium">{format(date, "MMM d")}</div>
+                          <div className="text-muted-foreground">
+                            {getEventsForDate(date).length} event{getEventsForDate(date).length !== 1 ? 's' : ''}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-3 h-3 text-muted-foreground" />
+                      </button>
+                    ))}
+                    {datesWithEvents.length > 8 && (
+                      <div className="text-xs text-muted-foreground p-2 text-center border-t">
+                        +{datesWithEvents.length - 8} more days with events
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground text-center py-4">
+                    No events this month
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Calendar Settings */}
+            <Card>
+              <CardContent className="p-4">
+                <h4 className="font-semibold mb-3 text-sm">Calendar Settings</h4>
+                <div className="space-y-2">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8">
+                    <Bell className="w-3 h-3 mr-2" />
+                    Notification Settings
+                  </Button>
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8">
+                    <Filter className="w-3 h-3 mr-2" />
+                    Filter Events
+                  </Button>
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    Subscribe to Calendar
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </DialogContent>
