@@ -420,87 +420,89 @@ export default function MyChurch() {
 
             {/* Unified Search Bar */}
             <div className="p-6 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
-              <div className="flex flex-col sm:flex-row gap-4 items-center">
-                {/* Search Input */}
-                <div className="relative flex-1 max-w-lg">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder={
-                      activeTab === 'serving' ? "Search needs by title or description..." :
-                      activeTab === 'giving' ? "Search items by title or description..." :
-                      "Search events by title or description..."
-                    }
-                    value={
-                      activeTab === 'serving' ? searchQuery :
-                      activeTab === 'giving' ? searchQuery :
-                      eventSearchQuery
-                    }
-                    onChange={(e) => {
-                      if (activeTab === 'serving') setSearchQuery(e.target.value);
-                      else if (activeTab === 'giving') setSearchQuery(e.target.value);
-                      else setEventSearchQuery(e.target.value);
-                    }}
-                    className="pl-10 pr-4 py-3 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
-                  />
-                </div>
+              <div className="max-w-6xl mx-auto">
+                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                  {/* Search Input */}
+                  <div className="relative flex-1 max-w-lg">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      placeholder={
+                        activeTab === 'serving' ? "Search needs by title or description..." :
+                        activeTab === 'giving' ? "Search items by title or description..." :
+                        "Search events by title or description..."
+                      }
+                      value={
+                        activeTab === 'serving' ? searchQuery :
+                        activeTab === 'giving' ? searchQuery :
+                        eventSearchQuery
+                      }
+                      onChange={(e) => {
+                        if (activeTab === 'serving') setSearchQuery(e.target.value);
+                        else if (activeTab === 'giving') setSearchQuery(e.target.value);
+                        else setEventSearchQuery(e.target.value);
+                      }}
+                      className="pl-10 pr-4 py-3 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
+                    />
+                  </div>
 
-                {/* Category Filter Buttons */}
-                <div className="flex flex-wrap gap-2">
-                  {activeTab === 'serving' && (
-                    <>
-                      {['All', 'Service', 'Prayer', 'Social', 'Fundraiser', 'Workshops', 'More'].map((category) => (
-                        <Button
-                          key={category}
-                          variant={selectedCategory === category ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedCategory(category)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
-                        >
-                          {category}
-                        </Button>
-                      ))}
-                    </>
-                  )}
+                  {/* Category Filter Buttons */}
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {activeTab === 'serving' && (
+                      <>
+                        {['All', 'Service', 'Prayer', 'Social', 'Fundraiser', 'Workshops', 'Sportive'].map((category) => (
+                          <Button
+                            key={category}
+                            variant={selectedCategory === category ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setSelectedCategory(category)}
+                            className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                          >
+                            {category}
+                          </Button>
+                        ))}
+                      </>
+                    )}
 
-                  {activeTab === 'giving' && (
-                    <>
-                      {['All', 'Furniture', 'Electronics', 'Baby/Kids', 'Household', 'Clothing', 'More'].map((category) => (
-                        <Button
-                          key={category}
-                          variant={selectedCategory === category ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedCategory(category)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
-                        >
-                          {category}
-                        </Button>
-                      ))}
-                    </>
-                  )}
+                    {activeTab === 'giving' && (
+                      <>
+                        {['All', 'Furniture', 'Electronics', 'Baby/Kids', 'Household', 'Clothing', 'Books'].map((category) => (
+                          <Button
+                            key={category}
+                            variant={selectedCategory === category ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setSelectedCategory(category)}
+                            className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                          >
+                            {category}
+                          </Button>
+                        ))}
+                      </>
+                    )}
 
-                  {activeTab === 'connecting' && (
-                    <>
-                      {[
-                        { id: "all", name: "All Events" },
-                        { id: "service", name: "Service" },
-                        { id: "prayer", name: "Prayer" },
-                        { id: "social", name: "Social" },
-                        { id: "fundraiser", name: "Fundraiser" },
-                        { id: "workshops", name: "Workshops" },
-                        { id: "more", name: "More" }
-                      ].map((category) => (
-                        <Button
-                          key={category.id}
-                          variant={selectedEventCategory === category.id ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedEventCategory(category.id)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
-                        >
-                          {category.name}
-                        </Button>
-                      ))}
-                    </>
-                  )}
+                    {activeTab === 'connecting' && (
+                      <>
+                        {[
+                          { id: "all", name: "All Events" },
+                          { id: "service", name: "Service" },
+                          { id: "prayer", name: "Prayer" },
+                          { id: "social", name: "Social" },
+                          { id: "fundraiser", name: "Fundraiser" },
+                          { id: "workshops", name: "Workshops" },
+                          { id: "youth", name: "Youth" }
+                        ].map((category) => (
+                          <Button
+                            key={category.id}
+                            variant={selectedEventCategory === category.id ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setSelectedEventCategory(category.id)}
+                            className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                          >
+                            {category.name}
+                          </Button>
+                        ))}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -798,87 +800,135 @@ export default function MyChurch() {
             {/* CONNECTING TAB */}
             <TabsContent value="connecting" className="mt-0">
               <div className="space-y-8">
-                {/* Featured Events Section */}
+                {/* Featured Events and Recent Signups Section */}
                 {featuredEvents.length > 0 && (
                   <section className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <Star className="w-6 h-6 text-yellow-500" />
-                        Featured Events
-                      </h2>
-                    </div>
-                    
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {featuredEvents.map((event) => {
-                        const IconComponent = getCategoryIcon(event.category);
-                        const progressPercentage = (event.volunteer_slots_filled / event.volunteer_slots_total) * 100;
+                    <div className="grid lg:grid-cols-4 gap-8">
+                      {/* Featured Events - Left Side */}
+                      <div className="lg:col-span-3 space-y-6">
+                        <div className="flex items-center justify-between">
+                          <h2 className="text-2xl font-bold flex items-center gap-2">
+                            <Star className="w-6 h-6 text-yellow-500" />
+                            Featured Events
+                          </h2>
+                        </div>
                         
-                        return (
-                          <Card key={event.id} className="overflow-hidden border-0 shadow-elegant hover:shadow-accent hover-lift group">
-                            {event.banner_image_url && (
-                              <div className="relative h-48 bg-gradient-primary">
-                                <div className="absolute inset-0 bg-black/20"></div>
-                                <div className="absolute top-4 right-4">
-                                  <Badge className="bg-yellow-500 text-black">
-                                    <Star className="w-3 h-3 mr-1" />
-                                    Featured
-                                  </Badge>
-                                </div>
-                                <div className="absolute bottom-4 left-4 text-white">
-                                  <div className="text-sm opacity-90">Starts in {getTimeUntilEvent(event.start_datetime)}</div>
-                                </div>
-                              </div>
-                            )}
+                        <div className="grid md:grid-cols-2 gap-6">
+                          {featuredEvents.map((event) => {
+                            const IconComponent = getCategoryIcon(event.category);
+                            const progressPercentage = (event.volunteer_slots_filled / event.volunteer_slots_total) * 100;
                             
-                            <CardContent className="p-6">
-                              <div className="flex items-start justify-between mb-4">
-                                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                                  <IconComponent className="w-6 h-6 text-accent" />
-                                </div>
-                                <Badge variant={getCategoryColor(event.category) as any}>
-                                  {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                                </Badge>
-                              </div>
-                              
-                              <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                              <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
-                              
-                              <div className="space-y-2 text-sm mb-4">
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Calendar className="w-4 h-4" />
-                                  {new Date(event.start_datetime).toLocaleDateString()}
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <MapPin className="w-4 h-4" />
-                                  {event.location_text}
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Users className="w-4 h-4" />
-                                  {event.attending_count} attending • {event.interested_count} interested
-                                </div>
-                              </div>
-
-                              {/* Volunteer Progress */}
-                              {event.volunteer_slots_total > 0 && (
-                                <div className="mb-4">
-                                  <div className="flex justify-between text-sm mb-2">
-                                    <span>Volunteer Spots</span>
-                                    <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
+                            return (
+                              <Card key={event.id} className="overflow-hidden border-0 shadow-elegant hover:shadow-accent hover-lift group">
+                                {event.banner_image_url && (
+                                  <div className="relative h-48 bg-gradient-primary">
+                                    <div className="absolute inset-0 bg-black/20"></div>
+                                    <div className="absolute top-4 right-4">
+                                      <Badge className="bg-yellow-500 text-black">
+                                        <Star className="w-3 h-3 mr-1" />
+                                        Featured
+                                      </Badge>
+                                    </div>
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                      <div className="text-sm opacity-90">Starts in {getTimeUntilEvent(event.start_datetime)}</div>
+                                    </div>
                                   </div>
-                                  <Progress value={progressPercentage} className="h-2" />
-                                </div>
-                              )}
+                                )}
+                                
+                                <CardContent className="p-6">
+                                  <div className="flex items-start justify-between mb-4">
+                                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                                      <IconComponent className="w-6 h-6 text-accent" />
+                                    </div>
+                                    <Badge variant={getCategoryColor(event.category) as any}>
+                                      {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+                                    </Badge>
+                                  </div>
+                                  
+                                  <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+                                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
+                                  
+                                  <div className="space-y-2 text-sm mb-4">
+                                    <div className="flex items-center gap-2 text-muted-foreground">
+                                      <Calendar className="w-4 h-4" />
+                                      {new Date(event.start_datetime).toLocaleDateString()}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-muted-foreground">
+                                      <MapPin className="w-4 h-4" />
+                                      {event.location_text}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-muted-foreground">
+                                      <Users className="w-4 h-4" />
+                                      {event.attending_count} attending • {event.interested_count} interested
+                                    </div>
+                                  </div>
 
-                              <Link to={`/events/${event.id}`}>
-                                <Button className="w-full group">
-                                  View Details
-                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                </Button>
-                              </Link>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
+                                  {/* Volunteer Progress */}
+                                  {event.volunteer_slots_total > 0 && (
+                                    <div className="mb-4">
+                                      <div className="flex justify-between text-sm mb-2">
+                                        <span>Volunteer Spots</span>
+                                        <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
+                                      </div>
+                                      <Progress value={progressPercentage} className="h-2" />
+                                    </div>
+                                  )}
+
+                                  <Link to={`/events/${event.id}`}>
+                                    <Button className="w-full group">
+                                      View Details
+                                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                    </Button>
+                                  </Link>
+                                </CardContent>
+                              </Card>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Recent Signups - Right Side */}
+                      <div className="lg:col-span-1 space-y-4">
+                        <h3 className="text-xl font-bold flex items-center gap-2">
+                          <UserCheck className="w-5 h-5 text-primary" />
+                          Recent Signups
+                        </h3>
+                        
+                        <div className="space-y-3">
+                          {[
+                            { name: "Sarah M.", event: "Community Service", time: "2 min ago" },
+                            { name: "Mike B.", event: "Prayer Retreat", time: "5 min ago" },
+                            { name: "Emma J.", event: "Youth Workshop", time: "12 min ago" },
+                            { name: "David L.", event: "Community Service", time: "18 min ago" },
+                            { name: "Lisa W.", event: "Prayer Retreat", time: "25 min ago" },
+                            { name: "Tom R.", event: "Youth Workshop", time: "1 hour ago" },
+                            { name: "Amy S.", event: "Community Service", time: "2 hours ago" }
+                          ].map((signup, index) => (
+                            <Card key={index} className="border-0 shadow-sm bg-muted/20 hover:bg-muted/30 transition-colors">
+                              <CardContent className="p-3">
+                                <div className="flex items-center gap-3">
+                                  <Avatar className="w-8 h-8">
+                                    <AvatarFallback className="text-xs bg-primary/10 text-primary font-semibold">
+                                      {signup.name.split(' ')[0][0]}{signup.name.split(' ')[1][0]}
+                                    </AvatarFallback>
+                                  </Avatar>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-medium text-foreground truncate">{signup.name}</p>
+                                    <p className="text-xs text-muted-foreground truncate">{signup.event}</p>
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {signup.time}
+                                  </div>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                        
+                        <Button variant="outline" size="sm" className="w-full">
+                          View All Signups
+                        </Button>
+                      </div>
                     </div>
                   </section>
                 )}
