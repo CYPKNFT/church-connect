@@ -89,49 +89,9 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
         
         <div className="flex-1 grid grid-cols-12 gap-6 p-6 pt-4 min-h-0">
           {/* Main Calendar Section */}
-          <div className="col-span-8 flex flex-col min-h-0">
-            <div className="flex-1 flex items-center justify-center">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                month={currentMonth}
-                onMonthChange={setCurrentMonth}
-                className={cn("p-6 pointer-events-auto scale-110 origin-center")}
-                classNames={{
-                  months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-                  month: "space-y-6",
-                  caption: "flex justify-center pt-2 relative items-center mb-4",
-                  caption_label: "text-lg font-semibold",
-                  nav: "space-x-2 flex items-center",
-                  nav_button: cn("h-8 w-8 bg-transparent p-0 opacity-70 hover:opacity-100 hover:bg-accent rounded-md transition-all"),
-                  nav_button_previous: "absolute left-2",
-                  nav_button_next: "absolute right-2",
-                  table: "w-full border-collapse space-y-2",
-                  head_row: "flex mb-2",
-                  head_cell: "text-muted-foreground rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",
-                  row: "flex w-full mt-2",
-                  cell: "h-12 w-12 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                  day: cn("h-12 w-12 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative"),
-                  day_range_end: "day-range-end",
-                  day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                  day_today: "bg-accent text-accent-foreground font-bold border-2 border-primary",
-                  day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
-                  day_disabled: "text-muted-foreground opacity-50",
-                  day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
-                  day_hidden: "invisible",
-                }}
-                modifiers={{
-                  hasEvents: (date) => getEventsForDate(date).length > 0
-                }}
-                modifiersClassNames={{
-                  hasEvents: "after:absolute after:bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:w-2 after:h-2 after:bg-primary after:rounded-full after:opacity-80"
-                }}
-              />
-            </div>
-            
-            {/* Quick Actions Bar */}
-            <div className="shrink-0 flex items-center justify-between p-4 bg-accent/5 rounded-lg border mt-4">
+          <div className="col-span-7 flex flex-col min-h-0">
+            {/* Quick Actions Bar - Moved to top */}
+            <div className="shrink-0 flex items-center justify-between p-4 bg-accent/5 rounded-lg border mb-4">
               <div className="flex items-center gap-3">
                 <Button variant="outline" size="sm" onClick={() => setCurrentMonth(new Date())} className="h-8">
                   Today
@@ -155,11 +115,69 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                 </div>
               </div>
             </div>
+
+            <div className="flex-1 flex items-center justify-center">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                month={currentMonth}
+                onMonthChange={setCurrentMonth}
+                className={cn("p-6 pointer-events-auto scale-110 origin-center")}
+                classNames={{
+                  months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                  month: "space-y-6",
+                  caption: "flex justify-center pt-2 relative items-center mb-4",
+                  caption_label: "text-lg font-semibold",
+                  nav: "hidden", // Hide the duplicate navigation
+                  table: "w-full border-collapse space-y-2",
+                  head_row: "flex mb-2",
+                  head_cell: "text-muted-foreground rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",
+                  row: "flex w-full mt-2",
+                  cell: "h-12 w-12 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                  day: cn("h-12 w-12 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative"),
+                  day_range_end: "day-range-end",
+                  day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                  day_today: "bg-accent text-accent-foreground font-bold border-2 border-primary",
+                  day_outside: "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+                  day_disabled: "text-muted-foreground opacity-50",
+                  day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                  day_hidden: "invisible",
+                }}
+                modifiers={{
+                  hasEvents: (date) => getEventsForDate(date).length > 0
+                }}
+                modifiersClassNames={{
+                  hasEvents: "after:absolute after:bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:w-2 after:h-2 after:bg-primary after:rounded-full after:opacity-80"
+                }}
+              />
+            </div>
+            
+            {/* Calendar Settings - Moved below */}
+            <Card className="shrink-0 mt-4">
+              <CardContent className="p-4">
+                <h4 className="font-semibold mb-3 text-sm">Settings</h4>
+                <div className="space-y-1">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
+                    <Bell className="w-3 h-3 mr-2" />
+                    Notifications
+                  </Button>
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
+                    <Filter className="w-3 h-3 mr-2" />
+                    Filter Events
+                  </Button>
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    Subscribe
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Right Sidebar */}
-          <div className="col-span-4 flex flex-col space-y-4 min-h-0">
-            {/* Selected Date Events */}
+          {/* Right Side - Event Details */}
+          <div className="col-span-5 flex flex-col space-y-4 min-h-0">
+            {/* Selected Date Events - Full height */}
             <Card className="flex-1 min-h-0">
               <CardContent className="p-4 h-full flex flex-col">
                 <div className="shrink-0 mb-3">
@@ -215,65 +233,38 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                     </div>
                   )}
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Monthly Overview */}
-            <Card className="shrink-0">
-              <CardContent className="p-4">
-                <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
-                  <Activity className="w-4 h-4" />
-                  This Month ({datesWithEvents.length} days)
-                </h4>
-                {datesWithEvents.length > 0 ? (
-                  <div className="space-y-1 max-h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
-                    {datesWithEvents.slice(0, 6).map((date) => (
-                      <button
-                        key={date.toISOString()}
-                        onClick={() => setSelectedDate(date)}
-                        className="w-full text-left p-2 text-xs hover:bg-accent/50 rounded-md transition-colors flex items-center justify-between group"
-                      >
-                        <div>
-                          <div className="font-medium">{format(date, "MMM d")}</div>
-                          <div className="text-muted-foreground">
-                            {getEventsForDate(date).length} event{getEventsForDate(date).length !== 1 ? 's' : ''}
+                
+                {/* This Month's Activity - Integrated at bottom */}
+                {datesWithEvents.length > 0 && (
+                  <div className="shrink-0 mt-4 pt-4 border-t">
+                    <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
+                      <Activity className="w-4 h-4" />
+                      This Month ({datesWithEvents.length} days)
+                    </h4>
+                    <div className="space-y-1 max-h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
+                      {datesWithEvents.slice(0, 6).map((date) => (
+                        <button
+                          key={date.toISOString()}
+                          onClick={() => setSelectedDate(date)}
+                          className="w-full text-left p-2 text-xs hover:bg-accent/50 rounded-md transition-colors flex items-center justify-between group"
+                        >
+                          <div>
+                            <div className="font-medium">{format(date, "MMM d")}</div>
+                            <div className="text-muted-foreground">
+                              {getEventsForDate(date).length} event{getEventsForDate(date).length !== 1 ? 's' : ''}
+                            </div>
                           </div>
+                          <ChevronRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </button>
+                      ))}
+                      {datesWithEvents.length > 6 && (
+                        <div className="text-xs text-muted-foreground p-2 text-center border-t">
+                          +{datesWithEvents.length - 6} more days
                         </div>
-                        <ChevronRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </button>
-                    ))}
-                    {datesWithEvents.length > 6 && (
-                      <div className="text-xs text-muted-foreground p-2 text-center border-t">
-                        +{datesWithEvents.length - 6} more days
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                ) : (
-                  <p className="text-xs text-muted-foreground text-center py-3">
-                    No events this month
-                  </p>
                 )}
-              </CardContent>
-            </Card>
-
-            {/* Calendar Settings */}
-            <Card className="shrink-0">
-              <CardContent className="p-4">
-                <h4 className="font-semibold mb-3 text-sm">Settings</h4>
-                <div className="space-y-1">
-                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
-                    <Bell className="w-3 h-3 mr-2" />
-                    Notifications
-                  </Button>
-                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
-                    <Filter className="w-3 h-3 mr-2" />
-                    Filter Events
-                  </Button>
-                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
-                    <Calendar className="w-3 h-3 mr-2" />
-                    Subscribe
-                  </Button>
-                </div>
               </CardContent>
             </Card>
           </div>

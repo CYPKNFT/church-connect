@@ -26,7 +26,11 @@ import { toast } from "sonner";
 export default function MyChurch() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("serving");
+  
+  // Get the tab from URL params, default to "connecting" 
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabFromUrl = urlParams.get('tab') || "serving";
+  const [activeTab, setActiveTab] = useState(tabFromUrl);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [eventSearchQuery, setEventSearchQuery] = useState("");
