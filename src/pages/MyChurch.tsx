@@ -420,9 +420,9 @@ export default function MyChurch() {
 
             {/* Unified Search Bar */}
             <div className="p-6 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
-              <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <div className="flex flex-col gap-4 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
-                <div className="relative flex-1 max-w-lg">
+                <div className="relative w-full max-w-2xl">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                   <Input
                     placeholder={
@@ -445,10 +445,10 @@ export default function MyChurch() {
                 </div>
 
                 {/* Category Filter Buttons */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 justify-center">
                   {activeTab === 'serving' && (
                     <>
-                      {['All', 'Service', 'Prayer', 'Social', 'Fundraiser', 'Workshops', 'More'].map((category) => (
+                      {['All', 'Service', 'Prayer', 'Social', 'Fundraiser', 'Workshops', 'Sports', 'Youth'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
@@ -464,7 +464,7 @@ export default function MyChurch() {
 
                   {activeTab === 'giving' && (
                     <>
-                      {['All', 'Furniture', 'Electronics', 'Baby/Kids', 'Household', 'Clothing', 'More'].map((category) => (
+                      {['All', 'Furniture', 'Electronics', 'Baby/Kids', 'Household', 'Clothing', 'Sports', 'Youth'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
@@ -487,7 +487,8 @@ export default function MyChurch() {
                         { id: "social", name: "Social" },
                         { id: "fundraiser", name: "Fundraiser" },
                         { id: "workshops", name: "Workshops" },
-                        { id: "more", name: "More" }
+                        { id: "sports", name: "Sports" },
+                        { id: "youth", name: "Youth" }
                       ].map((category) => (
                         <Button
                           key={category.id}
