@@ -966,7 +966,6 @@ export default function MyChurch() {
                         <Star className="w-6 h-6 text-yellow-500" />
                         Featured Events
                       </h2>
-                      <EventCalendar events={allEventsWithSamples} />
                     </div>
                     
                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
