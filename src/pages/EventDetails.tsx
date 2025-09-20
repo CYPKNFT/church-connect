@@ -29,6 +29,8 @@ import {
   ExternalLink
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { MapPreview } from "@/components/MapPreview";
+import { MapLightbox } from "@/components/MapLightbox";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -93,6 +95,7 @@ export default function EventDetails() {
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [newTestimony, setNewTestimony] = useState("");
+  const [isMapLightboxOpen, setIsMapLightboxOpen] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -409,9 +412,9 @@ export default function EventDetails() {
           <div className="h-32 bg-gradient-primary"></div>
         )}
         
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="container mx-auto px-4 text-center">
-            <div className="flex items-center justify-center gap-4 mb-3">
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center gap-4 mb-6">
               <Link to="/my-church?tab=connecting">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                   <ArrowLeft className="w-4 h-4 mr-2" />
@@ -426,21 +429,33 @@ export default function EventDetails() {
               )}
             </div>
             
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{event.title}</h1>
-              <div className="flex flex-wrap items-center justify-center gap-4 text-white/90 text-lg">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-6 h-6" />
-                  {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            <div className="grid lg:grid-cols-4 gap-6 items-start max-w-6xl">
+              {/* Title and subtitle - left aligned */}
+              <div className="lg:col-span-3">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{event.title}</h1>
+                <div className="space-y-2 text-white/90 text-lg">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-6 h-6" />
+                    {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-6 h-6" />
+                    {event.location_text}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-6 h-6" />
+                    {getTimeUntilEvent(event.start_datetime)}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-6 h-6" />
-                  {event.location_text}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-6 h-6" />
-                  {getTimeUntilEvent(event.start_datetime)}
-                </div>
+              </div>
+              
+              {/* Square map panel */}
+              <div className="lg:col-span-1">
+                <MapPreview
+                  location={event.location_text}
+                  onExpand={() => setIsMapLightboxOpen(true)}
+                  className="w-full aspect-square"
+                />
               </div>
             </div>
           </div>
@@ -847,6 +862,14 @@ export default function EventDetails() {
           </div>
         </div>
       </div>
+      
+      {/* Map Lightbox */}
+      <MapLightbox
+        isOpen={isMapLightboxOpen}
+        onClose={() => setIsMapLightboxOpen(false)}
+        location={event?.location_text || ""}
+        eventTitle={event?.title || ""}
+      />
     </div>
   );
 }
