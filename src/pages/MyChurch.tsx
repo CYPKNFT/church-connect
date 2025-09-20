@@ -16,7 +16,7 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 import { NeedCard } from "@/components/NeedCard";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
 import { useEvents } from "@/hooks/useEvents";
 import { toast } from "sonner";
@@ -34,6 +34,8 @@ export default function MyChurch() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
   const [newItem, setNewItem] = useState({ title: "", description: "", category: "Household", contact: "message" });
+  const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { churchName: churchFromDB, memberName } = useMembership();
   const { events, loading: eventsLoading } = useEvents();
 
@@ -194,7 +196,8 @@ export default function MyChurch() {
       postedBy: "John Smith",
       timePosted: "3 hours ago",
       image: "/placeholder.svg",
-      interested: 5
+      interested: 5,
+      images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"]
     },
     {
       id: 2,
@@ -205,7 +208,8 @@ export default function MyChurch() {
       postedBy: "Maria Garcia",
       timePosted: "1 day ago",
       image: "/placeholder.svg",
-      interested: 8
+      interested: 8,
+      images: ["/placeholder.svg", "/placeholder.svg"]
     },
     {
       id: 3,
@@ -216,7 +220,8 @@ export default function MyChurch() {
       postedBy: "David Lee",
       timePosted: "2 days ago",
       image: "/placeholder.svg",
-      interested: 12
+      interested: 12,
+      images: ["/placeholder.svg"]
     }
   ];
 
@@ -725,32 +730,44 @@ export default function MyChurch() {
                 </div>
 
 
-                {/* Item Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {giveawayItems.map((item) => (
+                {/* Item Grid - 3 rows x 4 columns */}
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {giveawayItems.concat(Array(9).fill(null).map((_, i) => ({
+                    id: i + 10,
+                    title: `Sample Item ${i + 1}`,
+                    description: "Sample description for this marketplace item",
+                    category: "Household",
+                    status: "Available",
+                    postedBy: "Community Member",
+                    timePosted: "1 hour ago",
+                    image: "/placeholder.svg",
+                    interested: Math.floor(Math.random() * 10),
+                    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"]
+                  }))).slice(0, 12).map((item) => (
                     <Card key={item.id} className="border border-border hover:shadow-lg transition-shadow">
-                      <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center">
-                        <Camera className="w-8 h-8 text-muted-foreground" />
+                      <div className="aspect-square bg-muted rounded-t-lg flex items-center justify-center cursor-pointer group relative overflow-hidden"
+                           onClick={() => setSelectedItemImages(item.images || ["/placeholder.svg"])}>
+                        <Camera className="w-8 h-8 text-muted-foreground group-hover:scale-110 transition-transform" />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                          <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
                       </div>
-                      <CardContent className="p-4">
+                      <CardContent className="p-3">
                         <div className="flex items-start justify-between mb-2">
-                          <h3 className="font-semibold text-foreground">{item.title}</h3>
-                          <Badge variant={item.status === "Available" ? "default" : "secondary"}>
+                          <h3 className="font-semibold text-foreground text-sm line-clamp-1">{item.title}</h3>
+                          <Badge variant={item.status === "Available" ? "default" : "secondary"} className="text-xs">
                             {item.status}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{item.description}</p>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                        <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{item.description}</p>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
                           <Clock className="w-3 h-3" />
                           {item.timePosted}
-                          <span>•</span>
-                          <Users className="w-3 h-3" />
-                          {item.postedBy}
                         </div>
                         {item.status === "Available" && (
                           <Button 
                             size="sm" 
-                            className="w-full"
+                            className="w-full text-xs h-7"
                             onClick={() => handleWantItem(item.title)}
                           >
                             I Want This
@@ -761,18 +778,26 @@ export default function MyChurch() {
                   ))}
                 </div>
 
-                {/* Wish List Section */}
+                {/* Wish List Section - Two Columns */}
                 <div className="space-y-4">
                   <h3 className="text-xl font-semibold text-foreground">Community Wish List</h3>
-                  <div className="grid gap-4">
-                    {wishListItems.map((wish) => (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {wishListItems.concat(Array(6).fill(null).map((_, i) => ({
+                      id: i + 10,
+                      title: `Looking for ${['Tools', 'Baby Items', 'Furniture', 'Electronics', 'Books', 'Clothes'][i]}`,
+                      description: `In need of ${['tools for home repair', 'baby clothes and toys', 'living room furniture', 'kitchen appliances', 'children\'s books', 'winter clothing'][i]}. Any condition welcome!`,
+                      category: ['Tools', 'Baby/Kids', 'Furniture', 'Electronics', 'Books', 'Clothing'][i],
+                      postedBy: `Member ${i + 1}`,
+                      timePosted: `${i + 1} hours ago`,
+                      responses: Math.floor(Math.random() * 5)
+                    }))).slice(0, 8).map((wish) => (
                       <Card key={wish.id} className="border border-border">
                         <CardContent className="p-4">
                           <div className="flex items-start justify-between mb-2">
-                            <h4 className="font-semibold text-foreground">{wish.title}</h4>
-                            <Badge variant="outline">{wish.category}</Badge>
+                            <h4 className="font-semibold text-foreground text-sm">{wish.title}</h4>
+                            <Badge variant="outline" className="text-xs">{wish.category}</Badge>
                           </div>
-                          <p className="text-sm text-muted-foreground mb-3">{wish.description}</p>
+                          <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{wish.description}</p>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2 text-xs text-muted-foreground">
                               <Users className="w-3 h-3" />
@@ -784,7 +809,7 @@ export default function MyChurch() {
                               <MessageSquare className="w-3 h-3" />
                               {wish.responses} responses
                             </div>
-                            <Button size="sm" variant="outline">
+                            <Button size="sm" variant="outline" className="text-xs h-7">
                               I Have This
                             </Button>
                           </div>
@@ -1006,6 +1031,60 @@ export default function MyChurch() {
           </Tabs>
         </div>
       </div>
+      
+      {/* Image Overlay Modal */}
+      {selectedItemImages.length > 0 && (
+        <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
+          <DialogContent className="max-w-4xl w-full p-0">
+            <div className="relative">
+              <button
+                onClick={() => setSelectedItemImages([])}
+                className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              
+              <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                <img
+                  src={selectedItemImages[currentImageIndex]}
+                  alt="Item preview"
+                  className="w-full h-full object-cover"
+                />
+                
+                {selectedItemImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                    
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {selectedItemImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
