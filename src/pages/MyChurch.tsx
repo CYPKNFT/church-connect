@@ -670,6 +670,42 @@ export default function MyChurch() {
                   </Dialog>
                 </div>
 
+                {/* Search and Filter Bar */}
+                <div className="bg-muted/30 rounded-2xl p-4">
+                  <div className="flex flex-col gap-4">
+                    {/* Search Bar */}
+                    <div className="flex-1 max-w-md">
+                      <div className="relative">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                        <Input
+                          placeholder="Search items..."
+                          className="pl-12 h-12 bg-background/50 border-border/50"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Category Filter Buttons */}
+                    <div className="flex flex-wrap gap-2">
+                      {itemCategories.map((category) => (
+                        <Button
+                          key={category}
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2"
+                        >
+                          {category === "Household" && <Package className="w-4 h-4" />}
+                          {category === "Electronics" && <Sparkles className="w-4 h-4" />}
+                          {category === "Books" && <Book className="w-4 h-4" />}
+                          {category === "Clothing" && <Package className="w-4 h-4" />}
+                          {category === "Baby/Kids" && <Baby className="w-4 h-4" />}
+                          {category === "Furniture" && <Package className="w-4 h-4" />}
+                          {category === "Garden" && <Coffee className="w-4 h-4" />}
+                          {category}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
                 {/* Item Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -831,51 +867,50 @@ export default function MyChurch() {
                 )}
 
                 {/* Search and Filter Bar */}
-                <Card className="border-0 shadow-elegant">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row gap-4">
-                      <div className="flex-1">
-                        <div className="relative">
-                          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                          <Input
-                            placeholder="Search events by title or description..."
-                            value={eventSearchQuery}
-                            onChange={(e) => setEventSearchQuery(e.target.value)}
-                            className="pl-12 h-12"
-                          />
-                        </div>
-                      </div>
-                      
-                      {/* Category Filter Buttons */}
-                      <div className="flex flex-wrap gap-2">
-                        {eventCategories.slice(0, 6).map((category) => {
-                          const IconComponent = category.icon;
-                          const isActive = selectedEventCategory === category.id;
-                          
-                          return (
-                            <Button
-                              key={category.id}
-                              variant={isActive ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setSelectedEventCategory(category.id)}
-                              className="flex items-center gap-2"
-                            >
-                              <IconComponent className="w-4 h-4" />
-                              {category.name}
-                            </Button>
-                          );
-                        })}
-                        
-                        {eventCategories.length > 6 && (
-                          <Button variant="outline" size="sm" className="flex items-center gap-2">
-                            <Filter className="w-4 h-4" />
-                            More
-                          </Button>
-                        )}
+                <div className="bg-muted/30 rounded-2xl p-4 mb-8">
+                  <div className="flex flex-col gap-4">
+                    {/* Search Bar */}
+                    <div className="flex-1 max-w-md">
+                      <div className="relative">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                        <Input
+                          placeholder="Search events by title or description..."
+                          value={eventSearchQuery}
+                          onChange={(e) => setEventSearchQuery(e.target.value)}
+                          className="pl-12 h-12 bg-background/50 border-border/50"
+                        />
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                    
+                    {/* Category Filter Buttons */}
+                    <div className="flex flex-wrap gap-2">
+                      {eventCategories.slice(0, 7).map((category) => {
+                        const IconComponent = category.icon;
+                        const isActive = selectedEventCategory === category.id;
+                        
+                        return (
+                          <Button
+                            key={category.id}
+                            variant={isActive ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setSelectedEventCategory(category.id)}
+                            className="flex items-center gap-2"
+                          >
+                            <IconComponent className="w-4 h-4" />
+                            {category.name}
+                          </Button>
+                        );
+                      })}
+                      
+                      {eventCategories.length > 7 && (
+                        <Button variant="outline" size="sm" className="flex items-center gap-2">
+                          <Filter className="w-4 h-4" />
+                          More
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
 
                 {/* Events Grid */}
                 <section>
