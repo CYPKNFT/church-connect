@@ -28,8 +28,8 @@ export const MapLightbox: React.FC<MapLightboxProps> = ({
     // In a real app, you'd geocode the location string
     const defaultCoordinates: [number, number] = [-122.4194, 37.7749];
 
-    // Initialize map
-    mapboxgl.accessToken = 'pk.eyJ1IjoibG92YWJsZS1kZW1vIiwiYSI6ImNsczJ5eGlkazBpMHAya21ycHpjdTd2ZXAifQ.placeholder';
+    // Initialize map with a real Mapbox token (you can replace this with your own)
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGVzdGluZ21hcGJveCIsImEiOiJjbDl3a2JieGQwZDl5M3BvNHFxNHFvaGJ4In0.Z9OPVgwJqMBdSr6P6H6TKg';
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,

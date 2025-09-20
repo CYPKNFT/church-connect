@@ -412,7 +412,7 @@ export default function EventDetails() {
           <div className="h-32 bg-gradient-primary"></div>
         )}
         
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-0 flex items-end pb-8">
           <div className="container mx-auto px-4">
             <div className="flex items-center gap-4 mb-6">
               <Link to="/my-church?tab=connecting">
@@ -429,32 +429,32 @@ export default function EventDetails() {
               )}
             </div>
             
-            <div className="grid lg:grid-cols-4 gap-6 items-start max-w-6xl">
+            <div className="grid lg:grid-cols-5 gap-6 items-end max-w-6xl">
               {/* Title and subtitle - left aligned */}
-              <div className="lg:col-span-3">
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{event.title}</h1>
-                <div className="space-y-2 text-white/90 text-lg">
+              <div className="lg:col-span-4">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{event.title}</h1>
+                <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-6 h-6" />
+                    <Calendar className="w-5 h-5" />
                     {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-6 h-6" />
+                    <MapPin className="w-5 h-5" />
                     {event.location_text}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-6 h-6" />
+                    <Clock className="w-5 h-5" />
                     {getTimeUntilEvent(event.start_datetime)}
                   </div>
                 </div>
               </div>
               
-              {/* Square map panel */}
-              <div className="lg:col-span-1">
+              {/* Circular map panel */}
+              <div className="lg:col-span-1 flex justify-center lg:justify-end">
                 <MapPreview
                   location={event.location_text}
                   onExpand={() => setIsMapLightboxOpen(true)}
-                  className="w-full aspect-square"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-white/20"
                 />
               </div>
             </div>

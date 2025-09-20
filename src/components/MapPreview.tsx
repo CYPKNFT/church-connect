@@ -25,8 +25,8 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
     // In a real app, you'd geocode the location string
     const defaultCoordinates: [number, number] = [-122.4194, 37.7749];
 
-    // Initialize map
-    mapboxgl.accessToken = 'pk.eyJ1IjoibG92YWJsZS1kZW1vIiwiYSI6ImNsczJ5eGlkazBpMHAya21ycHpjdTd2ZXAifQ.placeholder';
+    // Initialize map with a real Mapbox token (you can replace this with your own)
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGVzdGluZ21hcGJveCIsImEiOiJjbDl3a2JieGQwZDl5M3BvNHFxNHFvaGJ4In0.Z9OPVgwJqMBdSr6P6H6TKg';
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -72,13 +72,15 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
           </Button>
         </div>
         
-        {/* Location label */}
-        <div className="absolute bottom-2 left-2 right-2">
-          <div className="bg-white/90 backdrop-blur-sm rounded px-2 py-1 text-xs font-medium text-gray-800 truncate flex items-center gap-1">
-            <MapPin className="h-3 w-3 text-blue-600 shrink-0" />
-            {location}
+        {/* Location label - only show for larger maps */}
+        {!className?.includes('rounded-full') && (
+          <div className="absolute bottom-2 left-2 right-2">
+            <div className="bg-white/90 backdrop-blur-sm rounded px-2 py-1 text-xs font-medium text-gray-800 truncate flex items-center gap-1">
+              <MapPin className="h-3 w-3 text-blue-600 shrink-0" />
+              {location}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
