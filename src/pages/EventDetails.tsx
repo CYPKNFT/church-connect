@@ -402,16 +402,16 @@ export default function EventDetails() {
       {/* Hero Header */}
       <div className="relative overflow-hidden">
         {event.banner_image_url ? (
-          <div className="h-80 bg-gradient-primary relative">
+          <div className="h-64 bg-gradient-primary relative">
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
         ) : (
-          <div className="h-48 bg-gradient-primary"></div>
+          <div className="h-32 bg-gradient-primary"></div>
         )}
         
         <div className="absolute inset-0 flex items-end">
-          <div className="container mx-auto px-4 pb-6">
-            <div className="flex items-center gap-4 mb-3">
+          <div className="container mx-auto px-4 pb-4">
+            <div className="flex items-center gap-4 mb-2">
               <Link to="/my-church?tab=connecting">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                   <ArrowLeft className="w-4 h-4 mr-2" />
@@ -427,8 +427,8 @@ export default function EventDetails() {
             </div>
             
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{event.title}</h1>
-              <div className="flex flex-wrap items-center gap-6 text-white/90">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{event.title}</h1>
+              <div className="flex flex-wrap items-center gap-4 text-white/90">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
                   {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -447,10 +447,10 @@ export default function EventDetails() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid lg:grid-cols-3 gap-6">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6">
             {/* Event Overview */}
             <Card className="border-0 shadow-elegant">
               <CardHeader>
@@ -513,7 +513,7 @@ export default function EventDetails() {
               </TabsContent>
               
               <TabsContent value="volunteers" className="mt-6">
-                <div className="space-y-6">
+            <div className="space-y-4">
                   {event.volunteer_roles.map((role) => {
                     const progressPercentage = (role.current_volunteers / role.max_volunteers) * 100;
                     const isUserSignedUp = event.user_volunteer_signups.includes(role.id);
@@ -607,7 +607,7 @@ export default function EventDetails() {
                     <CardTitle>Community Discussion</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-6">
+              <div className="space-y-4">
                       {/* Comment Form */}
                       {user && (
                         <div className="space-y-4">
@@ -772,7 +772,7 @@ export default function EventDetails() {
                 <CardTitle>Event Stats</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                  <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-muted-foreground" />
