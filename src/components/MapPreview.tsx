@@ -91,7 +91,7 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
   }, [location]);
 
   return (
-    <div className={`relative group ${className}`}>
+    <div className={`relative z-10 group ${className}`}>
       <div 
         ref={mapContainer} 
         className="w-full h-full rounded-lg border border-border overflow-hidden cursor-pointer"
@@ -99,7 +99,7 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
       />
       
       {/* Overlay with expand button */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg">
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg cursor-pointer" onClick={onExpand}>
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <Button
             size="sm"
