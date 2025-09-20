@@ -356,7 +356,7 @@ export default function MyChurch() {
       <div className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }}>
         <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }} />
         <div className="relative">
-          <div className="container mx-auto px-4 py-16 text-center animate-fade-in">
+          <div className="container mx-auto px-4 py-12 text-center animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
               <Heart className="w-4 h-4" />
               <span>My Church Community</span>
@@ -389,7 +389,7 @@ export default function MyChurch() {
       </div>
 
       {/* Three-Tab Navigation - Separate Section */}
-      <div className="container mx-auto px-4 -mt-8 relative z-10">
+      <div className="container mx-auto px-4 -mt-12 relative z-10">
         <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
@@ -456,8 +456,8 @@ export default function MyChurch() {
             </TabsList>
 
             {/* Unified Search Bar */}
-            <div className="p-6 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
-              <div className="flex flex-col gap-4 items-center max-w-4xl mx-auto">
+            <div className="p-4 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
+              <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
                 <div className="relative w-full max-w-2xl">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -477,7 +477,7 @@ export default function MyChurch() {
                       else if (activeTab === 'giving') setSearchQuery(e.target.value);
                       else setEventSearchQuery(e.target.value);
                     }}
-                    className="pl-10 pr-4 py-3 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
+                    className="pl-10 pr-4 py-2.5 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
                   />
                 </div>
 
@@ -547,8 +547,8 @@ export default function MyChurch() {
       </div>
 
       {/* Main Content Area - Separate Section */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-background rounded-2xl shadow-lg border border-border p-6">
+      <div className="container mx-auto px-4 py-6">
+        <div className="bg-background rounded-2xl shadow-lg border border-border p-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* SERVING TAB */}
             <TabsContent value="serving" className="mt-0">
@@ -921,15 +921,16 @@ export default function MyChurch() {
 
             {/* CONNECTING TAB */}
             <TabsContent value="connecting" className="mt-0">
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {/* Featured Events Section */}
                 {featuredEvents.length > 0 && (
-                  <section className="space-y-6">
+                  <section className="space-y-4">
                     <div className="flex items-center justify-between">
                       <h2 className="text-2xl font-bold flex items-center gap-2">
                         <Star className="w-6 h-6 text-yellow-500" />
                         Featured Events
                       </h2>
+                      <EventCalendar events={allEventsWithSamples} />
                     </div>
                     
                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -952,12 +953,11 @@ export default function MyChurch() {
 
                  {/* Events Grid with Pagination */}
                 <section>
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold">
                       {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
                       <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
                     </h2>
-                    <EventCalendar events={allEventsWithSamples} />
                   </div>
 
                   {eventsLoading ? (
