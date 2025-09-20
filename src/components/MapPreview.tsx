@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Button } from '@/components/ui/button';
 import { MapPin, Maximize2 } from 'lucide-react';
 
@@ -16,38 +16,77 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
   className = ""
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
+  const map = useRef<L.Map | null>(null);
 
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // For demo purposes, using a default location (San Francisco)
+    // For demo purposes, using a default location (New York)
     // In a real app, you'd geocode the location string
-    const defaultCoordinates: [number, number] = [-122.4194, 37.7749];
+    const defaultCoordinates: [number, number] = [40.7589, -73.9851];
 
-    // Initialize map with a real Mapbox token (you can replace this with your own)
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGVzdGluZ21hcGJveCIsImEiOiJjbDl3a2JieGQwZDl5M3BvNHFxNHFvaGJ4In0.Z9OPVgwJqMBdSr6P6H6TKg';
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v11',
-      center: defaultCoordinates,
-      zoom: 13,
-      interactive: false, // Disable interaction for preview
+    // Initialize Leaflet map
+    map.current = L.map(mapContainer.current, {
+      zoomControl: false,
+      attributionControl: false,
+      dragging: false,
+      touchZoom: false,
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      boxZoom: false,
+      keyboard: false
+    }).setView(defaultCoordinates, 13);
+
+    // Add OpenStreetMap tiles (free)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(map.current);
+
+    // Custom marker icon
+    const customIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `
+        <div style="
+          background-color: #E91E63;
+          width: 20px;
+          height: 20px;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          border: 2px solid white;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        ">
+          <div style="
+            transform: rotate(45deg);
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            line-height: 16px;
+          ">📍</div>
+        </div>
+      `,
+      iconSize: [20, 20],
+      iconAnchor: [10, 20]
     });
 
-    // Add simple marker
-    new mapboxgl.Marker({
-      color: '#3b82f6',
-      scale: 0.8
-    })
-      .setLngLat(defaultCoordinates)
-      .addTo(map.current);
+    // Add marker
+    L.marker(defaultCoordinates, { icon: customIcon }).addTo(map.current);
+
+    // Add circle overlay
+    L.circle(defaultCoordinates, {
+      color: '#E91E63',
+      fillColor: '#E91E63',
+      fillOpacity: 0.2,
+      radius: 1500,
+      weight: 2
+    }).addTo(map.current);
 
     // Cleanup
     return () => {
-      map.current?.remove();
-      map.current = null;
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
     };
   }, [location]);
 

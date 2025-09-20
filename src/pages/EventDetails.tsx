@@ -429,10 +429,17 @@ export default function EventDetails() {
               )}
             </div>
             
-            <div className="grid lg:grid-cols-5 gap-6 items-end max-w-6xl">
+            <div className="flex items-end justify-between max-w-6xl w-full">
               {/* Title and subtitle - left aligned */}
-              <div className="lg:col-span-4">
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{event.title}</h1>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <h1 className="text-3xl md:text-4xl font-bold text-white">{event.title}</h1>
+                  {event.featured && (
+                    <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 border-yellow-300 text-xs font-semibold px-2 py-1">
+                      Featured
+                    </Badge>
+                  )}
+                </div>
                 <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-5 h-5" />
@@ -449,12 +456,12 @@ export default function EventDetails() {
                 </div>
               </div>
               
-              {/* Circular map panel */}
-              <div className="lg:col-span-1 flex justify-center lg:justify-end">
+              {/* Circular map panel - centered */}
+              <div className="flex justify-center items-center">
                 <MapPreview
                   location={event.location_text}
                   onExpand={() => setIsMapLightboxOpen(true)}
-                  className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-white/20"
+                  className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-3 border-white/30 shadow-lg"
                 />
               </div>
             </div>

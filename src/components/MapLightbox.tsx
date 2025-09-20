@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
@@ -19,55 +19,82 @@ export const MapLightbox: React.FC<MapLightboxProps> = ({
   eventTitle
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
+  const map = useRef<L.Map | null>(null);
 
   useEffect(() => {
     if (!isOpen || !mapContainer.current) return;
 
-    // For demo purposes, using a default location (San Francisco)
+    // For demo purposes, using a default location (New York)
     // In a real app, you'd geocode the location string
-    const defaultCoordinates: [number, number] = [-122.4194, 37.7749];
+    const defaultCoordinates: [number, number] = [40.7589, -73.9851];
 
-    // Initialize map with a real Mapbox token (you can replace this with your own)
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGVzdGluZ21hcGJveCIsImEiOiJjbDl3a2JieGQwZDl5M3BvNHFxNHFvaGJ4In0.Z9OPVgwJqMBdSr6P6H6TKg';
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: defaultCoordinates,
-      zoom: 14,
+    // Initialize Leaflet map
+    map.current = L.map(mapContainer.current).setView(defaultCoordinates, 14);
+
+    // Add OpenStreetMap tiles (free)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(map.current);
+
+    // Custom marker icon
+    const customIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `
+        <div style="
+          background-color: #E91E63;
+          width: 30px;
+          height: 30px;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          border: 3px solid white;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        ">
+          <div style="
+            transform: rotate(45deg);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            line-height: 24px;
+          ">📍</div>
+        </div>
+      `,
+      iconSize: [30, 30],
+      iconAnchor: [15, 30]
     });
 
-    // Add navigation controls
-    map.current.addControl(
-      new mapboxgl.NavigationControl(),
-      'top-right'
-    );
+    // Add marker with popup
+    const marker = L.marker(defaultCoordinates, { icon: customIcon })
+      .addTo(map.current)
+      .bindPopup(`
+        <div style="padding: 8px; text-align: center;">
+          <h3 style="font-weight: bold; margin: 0 0 4px 0;">${eventTitle}</h3>
+          <p style="margin: 0; color: #666; font-size: 12px;">${location}</p>
+          <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${defaultCoordinates[0]},${defaultCoordinates[1]}', '_blank')" 
+                  style="margin-top: 8px; padding: 4px 8px; background: #E91E63; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Get Directions
+          </button>
+        </div>
+      `);
 
-    // Add marker for event location
-    const marker = new mapboxgl.Marker({
-      color: '#3b82f6',
-      scale: 1.2
-    })
-      .setLngLat(defaultCoordinates)
-      .setPopup(
-        new mapboxgl.Popup({ offset: 25 })
-          .setHTML(`
-            <div class="p-2">
-              <h3 class="font-semibold text-sm">${eventTitle}</h3>
-              <p class="text-xs text-gray-600 mt-1">${location}</p>
-            </div>
-          `)
-      )
-      .addTo(map.current);
+    // Add circle overlay
+    L.circle(defaultCoordinates, {
+      color: '#E91E63',
+      fillColor: '#E91E63',
+      fillOpacity: 0.2,
+      radius: 2000,
+      weight: 2
+    }).addTo(map.current);
 
     // Show popup by default
-    marker.getPopup().addTo(map.current);
+    marker.openPopup();
 
     // Cleanup
     return () => {
-      map.current?.remove();
-      map.current = null;
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
     };
   }, [isOpen, location, eventTitle]);
 
