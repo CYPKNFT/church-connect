@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -14,8 +16,9 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 import { NeedCard } from "@/components/NeedCard";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
+import { useEvents } from "@/hooks/useEvents";
 import { toast } from "sonner";
 
 export default function MyChurch() {
@@ -24,12 +27,15 @@ export default function MyChurch() {
   const [activeTab, setActiveTab] = useState("serving");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [eventSearchQuery, setEventSearchQuery] = useState("");
+  const [selectedEventCategory, setSelectedEventCategory] = useState("all");
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [postType, setPostType] = useState<"give" | "wish">("give");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
   const [newItem, setNewItem] = useState({ title: "", description: "", category: "Household", contact: "message" });
   const { churchName: churchFromDB, memberName } = useMembership();
+  const { events, loading: eventsLoading } = useEvents();
 
   useEffect(() => {
     if (!user) {
@@ -163,6 +169,21 @@ export default function MyChurch() {
     }
   ];
 
+  // Event categories for filtering
+  const eventCategories = [
+    { id: "all", name: "All Events", icon: Calendar, color: "default" },
+    { id: "service", name: "Service", icon: HandHeart, color: "destructive" },
+    { id: "prayer", name: "Prayer", icon: Church, color: "secondary" },
+    { id: "social", name: "Social", icon: Coffee, color: "outline" },
+    { id: "fundraiser", name: "Fundraiser", icon: DollarSign, color: "default" },
+    { id: "workshops", name: "Workshops", icon: GraduationCap, color: "secondary" },
+    { id: "youth", name: "Youth", icon: Gamepad2, color: "outline" },
+    { id: "children", name: "Children", icon: Baby, color: "default" },
+    { id: "worship", name: "Worship", icon: Music, color: "secondary" },
+    { id: "study", name: "Study", icon: Book, color: "outline" },
+    { id: "leadership", name: "Leadership", icon: Briefcase, color: "default" }
+  ];
+
   const giveawayItems = [
     {
       id: 1,
@@ -220,52 +241,39 @@ export default function MyChurch() {
     }
   ];
 
-  const churchEvents = [
-    {
-      id: 1,
-      title: "Community Service Day",
-      description: "Join our church family as we serve at the local food bank and clean up the community park.",
-      date: "March 25, 2024",
-      time: "9:00 AM - 3:00 PM",
-      location: "Community Center",
-      attendees: 23,
-      category: "Service"
-    },
-    {
-      id: 2,
-      title: "Prayer & Fasting",
-      description: "Special prayer meeting for our church members in need. Let's come together in spiritual support.",
-      date: "March 28, 2024",
-      time: "7:00 PM - 9:00 PM",
-      location: "Church Sanctuary",
-      attendees: 45,
-      category: "Prayer"
-    }
-  ];
+  // Filter events based on search and category
+  const filteredEvents = events.filter(event => {
+    const matchesSearch = eventSearchQuery === "" || 
+      event.title.toLowerCase().includes(eventSearchQuery.toLowerCase()) ||
+      event.description.toLowerCase().includes(eventSearchQuery.toLowerCase());
+    const matchesCategory = selectedEventCategory === "all" || event.category === selectedEventCategory;
+    return matchesSearch && matchesCategory;
+  });
 
-  const recentActivity = [
-    {
-      id: 1,
-      action: "helped with",
-      need: "Grocery shopping for Mrs. Peterson",
-      time: "2 days ago",
-      member: "Mike Johnson"
-    },
-    {
-      id: 2,
-      action: "completed",
-      need: "Home repair for the Williams family",
-      time: "1 week ago",
-      member: "David Martinez"
-    },
-    {
-      id: 3,
-      action: "organized",
-      need: "Meal train for new parents",
-      time: "1 week ago",
-      member: "Sarah Miller"
+  const featuredEvents = events.filter(e => e.featured);
+
+  const getTimeUntilEvent = (startDatetime: string) => {
+    const now = new Date();
+    const eventDate = new Date(startDatetime);
+    const diffInHours = Math.ceil((eventDate.getTime() - now.getTime()) / (1000 * 60 * 60));
+    
+    if (diffInHours < 24) {
+      return `${diffInHours} hours`;
+    } else {
+      const days = Math.ceil(diffInHours / 24);
+      return `${days} days`;
     }
-  ];
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const cat = eventCategories.find(c => c.id === category);
+    return cat?.icon || Calendar;
+  };
+
+  const getCategoryColor = (category: string) => {
+    const cat = eventCategories.find(c => c.id === category);
+    return cat?.color || "default";
+  };
 
   const categories = ["All", "Groceries", "Home Repair", "Meals", "Transportation", "Childcare", "Home & Garden", "Technology", "Moving", "Prayer Support"];
   const itemCategories = ["Household", "Electronics", "Books", "Clothing", "Baby/Kids", "Furniture", "Garden"];
@@ -736,66 +744,255 @@ export default function MyChurch() {
 
             {/* CONNECTING TAB */}
             <TabsContent value="connecting" className="mt-0">
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Church Events */}
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-bold text-foreground">Church Events</h2>
-                  <div className="space-y-4">
-                    {churchEvents.map((event) => (
-                      <Card key={event.id} className="border border-border hover:shadow-lg transition-shadow">
-                        <CardContent className="p-6">
-                          <Badge variant="secondary" className="mb-3">{event.category}</Badge>
-                          <h3 className="text-lg font-bold text-foreground mb-2">{event.title}</h3>
-                          <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
-                          <div className="space-y-2 text-xs text-muted-foreground mb-4">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-3 h-3" />
-                              {event.date} at {event.time}
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-3 h-3" />
-                              {event.location}
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Users className="w-3 h-3" />
-                              {event.attendees} attending
-                            </div>
-                          </div>
-                           <Link to="/events">
-                            <Button size="sm" className="w-full">
-                              View All Events
-                            </Button>
-                          </Link>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
+              <div className="space-y-8">
+                {/* Featured Events Section */}
+                {featuredEvents.length > 0 && (
+                  <section className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl font-bold flex items-center gap-2">
+                        <Star className="w-6 h-6 text-yellow-500" />
+                        Featured Events
+                      </h2>
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {featuredEvents.map((event) => {
+                        const IconComponent = getCategoryIcon(event.category);
+                        const progressPercentage = (event.volunteer_slots_filled / event.volunteer_slots_total) * 100;
+                        
+                        return (
+                          <Card key={event.id} className="overflow-hidden border-0 shadow-elegant hover:shadow-accent hover-lift group">
+                            {event.banner_image_url && (
+                              <div className="relative h-48 bg-gradient-primary">
+                                <div className="absolute inset-0 bg-black/20"></div>
+                                <div className="absolute top-4 right-4">
+                                  <Badge className="bg-yellow-500 text-black">
+                                    <Star className="w-3 h-3 mr-1" />
+                                    Featured
+                                  </Badge>
+                                </div>
+                                <div className="absolute bottom-4 left-4 text-white">
+                                  <div className="text-sm opacity-90">Starts in {getTimeUntilEvent(event.start_datetime)}</div>
+                                </div>
+                              </div>
+                            )}
+                            
+                            <CardContent className="p-6">
+                              <div className="flex items-start justify-between mb-4">
+                                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                                  <IconComponent className="w-6 h-6 text-accent" />
+                                </div>
+                                <Badge variant={getCategoryColor(event.category) as any}>
+                                  {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+                                </Badge>
+                              </div>
+                              
+                              <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+                              <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
+                              
+                              <div className="space-y-2 text-sm mb-4">
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Calendar className="w-4 h-4" />
+                                  {new Date(event.start_datetime).toLocaleDateString()}
+                                </div>
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <MapPin className="w-4 h-4" />
+                                  {event.location_text}
+                                </div>
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Users className="w-4 h-4" />
+                                  {event.attending_count} attending • {event.interested_count} interested
+                                </div>
+                              </div>
 
-                {/* Community Activities */}
-                <div className="space-y-6">
-                  <h2 className="text-2xl font-bold text-foreground">Recent Activity</h2>
-                  <div className="space-y-4">
-                    {recentActivity.map((activity) => (
-                      <Card key={activity.id} className="border border-border">
-                        <CardContent className="p-4">
-                          <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
-                              <Activity className="w-4 h-4 text-accent" />
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-sm text-foreground">
-                                <span className="font-semibold">{activity.member}</span> {activity.action}{" "}
-                                <span className="text-muted-foreground">{activity.need}</span>
-                              </p>
-                              <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                              {/* Volunteer Progress */}
+                              {event.volunteer_slots_total > 0 && (
+                                <div className="mb-4">
+                                  <div className="flex justify-between text-sm mb-2">
+                                    <span>Volunteer Spots</span>
+                                    <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
+                                  </div>
+                                  <Progress value={progressPercentage} className="h-2" />
+                                </div>
+                              )}
+
+                              <Link to={`/events/${event.id}`}>
+                                <Button className="w-full group">
+                                  View Details
+                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                </Button>
+                              </Link>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  </section>
+                )}
+
+                {/* Search and Filter Bar */}
+                <Card className="border-0 shadow-elegant">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col lg:flex-row gap-4">
+                      <div className="flex-1">
+                        <div className="relative">
+                          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                          <Input
+                            placeholder="Search events by title or description..."
+                            value={eventSearchQuery}
+                            onChange={(e) => setEventSearchQuery(e.target.value)}
+                            className="pl-12 h-12"
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Category Filter Buttons */}
+                      <div className="flex flex-wrap gap-2">
+                        {eventCategories.slice(0, 6).map((category) => {
+                          const IconComponent = category.icon;
+                          const isActive = selectedEventCategory === category.id;
+                          
+                          return (
+                            <Button
+                              key={category.id}
+                              variant={isActive ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setSelectedEventCategory(category.id)}
+                              className="flex items-center gap-2"
+                            >
+                              <IconComponent className="w-4 h-4" />
+                              {category.name}
+                            </Button>
+                          );
+                        })}
+                        
+                        {eventCategories.length > 6 && (
+                          <Button variant="outline" size="sm" className="flex items-center gap-2">
+                            <Filter className="w-4 h-4" />
+                            More
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Events Grid */}
+                <section>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold">
+                      {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
+                      <span className="text-muted-foreground ml-2">({filteredEvents.length})</span>
+                    </h2>
                   </div>
-                </div>
+
+                  {eventsLoading ? (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {[...Array(6)].map((_, i) => (
+                        <Card key={i} className="border-0 shadow-card">
+                          <CardContent className="p-6">
+                            <div className="space-y-4 animate-pulse">
+                              <div className="w-12 h-12 bg-muted rounded-xl"></div>
+                              <div className="h-4 bg-muted rounded w-3/4"></div>
+                              <div className="h-3 bg-muted rounded w-full"></div>
+                              <div className="h-3 bg-muted rounded w-1/2"></div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : filteredEvents.length === 0 ? (
+                    <Card className="border-0 shadow-card">
+                      <CardContent className="p-12 text-center">
+                        <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-lg font-semibold mb-2">No events found</h3>
+                        <p className="text-muted-foreground mb-4">
+                          {eventSearchQuery || selectedEventCategory !== "all" 
+                            ? "Try adjusting your search or filter criteria." 
+                            : "There are no events scheduled at the moment."}
+                        </p>
+                        {(eventSearchQuery || selectedEventCategory !== "all") && (
+                          <Button 
+                            variant="outline" 
+                            onClick={() => {
+                              setEventSearchQuery("");
+                              setSelectedEventCategory("all");
+                            }}
+                          >
+                            Clear Filters
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {filteredEvents.map((event) => {
+                        const IconComponent = getCategoryIcon(event.category);
+                        const progressPercentage = event.volunteer_slots_total > 0 
+                          ? (event.volunteer_slots_filled / event.volunteer_slots_total) * 100 
+                          : 0;
+                        
+                        return (
+                          <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift group">
+                            <CardContent className="p-6">
+                              <div className="flex items-start justify-between mb-4">
+                                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                                  <IconComponent className="w-6 h-6 text-accent" />
+                                </div>
+                                <Badge variant={getCategoryColor(event.category) as any}>
+                                  {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+                                </Badge>
+                              </div>
+                              
+                              <h3 className="text-lg font-bold mb-2">{event.title}</h3>
+                              <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
+                              
+                              <div className="space-y-2 text-sm mb-4">
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Calendar className="w-4 h-4" />
+                                  {new Date(event.start_datetime).toLocaleDateString()}
+                                </div>
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <MapPin className="w-4 h-4" />
+                                  {event.location_text}
+                                </div>
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Users className="w-4 h-4" />
+                                  {event.attending_count} attending
+                                </div>
+                              </div>
+
+                              {/* Volunteer Progress */}
+                              {event.volunteer_slots_total > 0 && (
+                                <div className="mb-4">
+                                  <div className="flex justify-between text-sm mb-2">
+                                    <span>Volunteers</span>
+                                    <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
+                                  </div>
+                                  <Progress value={progressPercentage} className="h-2" />
+                                  {progressPercentage < 100 && (
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                      {event.volunteer_slots_total - event.volunteer_slots_filled} more needed
+                                    </p>
+                                  )}
+                                </div>
+                              )}
+
+                              <div className="flex gap-2">
+                                <Link to={`/events/${event.id}`} className="flex-1">
+                                  <Button className="w-full group">
+                                    View Details
+                                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                  </Button>
+                                </Link>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  )}
+                </section>
               </div>
             </TabsContent>
           </Tabs>
