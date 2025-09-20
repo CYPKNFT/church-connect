@@ -418,36 +418,89 @@ export default function MyChurch() {
               </TabsTrigger>
             </TabsList>
 
-            {/* Search Section - Inside Tabs but Separated */}
-            <div className="p-8 bg-gradient-to-br from-muted/30 to-muted/10 border-b border-border/10">
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex-1">
-                  <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative">
-                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5 group-hover:text-primary transition-colors duration-200" />
-                      <Input
-                        placeholder={activeTab === "serving" ? "Search church needs..." : activeTab === "giving" ? "Search items..." : "Search events..."}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-12 h-14 rounded-2xl bg-background/80 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 hover:border-border transition-all duration-200 text-base shadow-lg"
-                      />
-                    </div>
-                  </div>
+            {/* Unified Search Bar */}
+            <div className="p-6 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                {/* Search Input */}
+                <div className="relative flex-1 max-w-lg">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Input
+                    placeholder={
+                      activeTab === 'serving' ? "Search needs by title or description..." :
+                      activeTab === 'giving' ? "Search items by title or description..." :
+                      "Search events by title or description..."
+                    }
+                    value={
+                      activeTab === 'serving' ? searchQuery :
+                      activeTab === 'giving' ? searchQuery :
+                      eventSearchQuery
+                    }
+                    onChange={(e) => {
+                      if (activeTab === 'serving') setSearchQuery(e.target.value);
+                      else if (activeTab === 'giving') setSearchQuery(e.target.value);
+                      else setEventSearchQuery(e.target.value);
+                    }}
+                    className="pl-10 pr-4 py-3 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
+                  />
                 </div>
-                <div className="w-full md:w-64">
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="h-14 rounded-2xl bg-background/80 backdrop-blur-sm border-2 border-border/50 focus:border-primary/50 hover:border-border transition-all duration-200 text-base shadow-lg">
-                      <SelectValue placeholder="All Categories" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-xl border-border/50 shadow-2xl backdrop-blur-xl">
-                      {(activeTab === "serving" ? categories : itemCategories).map(category => (
-                        <SelectItem key={category} value={category} className="rounded-lg">
+
+                {/* Category Filter Buttons */}
+                <div className="flex flex-wrap gap-2">
+                  {activeTab === 'serving' && (
+                    <>
+                      {['All', 'Service', 'Prayer', 'Social', 'Fundraiser', 'Workshops', 'More'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
                           {category}
-                        </SelectItem>
+                        </Button>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </>
+                  )}
+
+                  {activeTab === 'giving' && (
+                    <>
+                      {['All', 'Furniture', 'Electronics', 'Baby/Kids', 'Household', 'Clothing', 'More'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
+
+                  {activeTab === 'connecting' && (
+                    <>
+                      {[
+                        { id: "all", name: "All Events" },
+                        { id: "service", name: "Service" },
+                        { id: "prayer", name: "Prayer" },
+                        { id: "social", name: "Social" },
+                        { id: "fundraiser", name: "Fundraiser" },
+                        { id: "workshops", name: "Workshops" },
+                        { id: "more", name: "More" }
+                      ].map((category) => (
+                        <Button
+                          key={category.id}
+                          variant={selectedEventCategory === category.id ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedEventCategory(category.id)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category.name}
+                        </Button>
+                      ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -830,52 +883,6 @@ export default function MyChurch() {
                   </section>
                 )}
 
-                {/* Search and Filter Bar */}
-                <Card className="border-0 shadow-elegant">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row gap-4">
-                      <div className="flex-1">
-                        <div className="relative">
-                          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                          <Input
-                            placeholder="Search events by title or description..."
-                            value={eventSearchQuery}
-                            onChange={(e) => setEventSearchQuery(e.target.value)}
-                            className="pl-12 h-12"
-                          />
-                        </div>
-                      </div>
-                      
-                      {/* Category Filter Buttons */}
-                      <div className="flex flex-wrap gap-2">
-                        {eventCategories.slice(0, 6).map((category) => {
-                          const IconComponent = category.icon;
-                          const isActive = selectedEventCategory === category.id;
-                          
-                          return (
-                            <Button
-                              key={category.id}
-                              variant={isActive ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setSelectedEventCategory(category.id)}
-                              className="flex items-center gap-2"
-                            >
-                              <IconComponent className="w-4 h-4" />
-                              {category.name}
-                            </Button>
-                          );
-                        })}
-                        
-                        {eventCategories.length > 6 && (
-                          <Button variant="outline" size="sm" className="flex items-center gap-2">
-                            <Filter className="w-4 h-4" />
-                            More
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
 
                 {/* Events Grid */}
                 <section>
