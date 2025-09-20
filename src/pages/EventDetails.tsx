@@ -402,17 +402,17 @@ export default function EventDetails() {
       {/* Hero Header */}
       <div className="relative overflow-hidden">
         {event.banner_image_url ? (
-          <div className="h-96 bg-gradient-primary relative">
+          <div className="h-80 bg-gradient-primary relative">
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
         ) : (
-          <div className="h-64 bg-gradient-primary"></div>
+          <div className="h-48 bg-gradient-primary"></div>
         )}
         
         <div className="absolute inset-0 flex items-end">
-          <div className="container mx-auto px-4 pb-8">
-            <div className="flex items-center gap-4 mb-4">
-              <Link to="/events">
+          <div className="container mx-auto px-4 pb-6">
+            <div className="flex items-center gap-4 mb-3">
+              <Link to="/my-church?tab=connecting">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Events
