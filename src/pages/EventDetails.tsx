@@ -428,17 +428,17 @@ export default function EventDetails() {
             
             <div className="max-w-4xl">
               <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{event.title}</h1>
-              <div className="flex flex-wrap items-center gap-4 text-white/90">
+              <div className="flex flex-wrap items-center gap-4 text-white/90 text-lg">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
+                  <Calendar className="w-6 h-6" />
                   {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5" />
+                  <MapPin className="w-6 h-6" />
                   {event.location_text}
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
+                  <Clock className="w-6 h-6" />
                   {getTimeUntilEvent(event.start_datetime)}
                 </div>
               </div>
