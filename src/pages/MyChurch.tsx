@@ -209,39 +209,63 @@ export default function MyChurch() {
   const giveawayItems = [
     {
       id: 1,
-      title: "Dining Table Set",
-      description: "Beautiful oak dining table with 6 chairs. Great condition, just downsizing!",
+      title: "Comfortable Living Room Sofa",
+      description: "Gray fabric sofa in excellent condition, perfect for families. Very comfortable and clean.",
       category: "Furniture",
       status: "Available",
-      postedBy: "John Smith",
-      timePosted: "3 hours ago",
-      image: "/placeholder.svg",
+      postedBy: "Sarah Johnson",
+      timePosted: "2 hours ago",
+      image: sofaImage,
       interested: 5,
-      images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"]
+      images: [sofaImage]
     },
     {
       id: 2,
-      title: "Baby Clothes Bundle",
-      description: "Gently used baby clothes, sizes newborn to 12 months. Includes onesies, sleepers, and outfits.",
-      category: "Baby/Kids",
+      title: "Laptop Computer - Perfect for Students",
+      description: "Dell laptop in great working condition. Includes charger and wireless mouse.",
+      category: "Electronics",
       status: "Available",
-      postedBy: "Maria Garcia",
-      timePosted: "1 day ago",
-      image: "/placeholder.svg",
+      postedBy: "Mike Davis",
+      timePosted: "5 hours ago",
+      image: laptopImage,
       interested: 8,
-      images: ["/placeholder.svg", "/placeholder.svg"]
+      images: [laptopImage]
     },
     {
       id: 3,
-      title: "Kitchen Appliances",
-      description: "Blender, toaster, and coffee maker. All working perfectly, just bought new ones.",
+      title: "Baby High Chair with Safety Straps",
+      description: "White and wood baby high chair with adjustable height and safety straps.",
+      category: "Baby/Kids",
+      status: "Available",
+      postedBy: "Jennifer Miller",
+      timePosted: "1 day ago",
+      image: babyChairImage,
+      interested: 4,
+      images: [babyChairImage]
+    },
+    {
+      id: 4,
+      title: "Complete Kitchen Dishes Set",
+      description: "White ceramic dishes and bowls set, perfect for a new home or replacement set.",
       category: "Household",
-      status: "Claimed",
-      postedBy: "David Lee",
+      status: "Available",
+      postedBy: "Maria Garcia",
       timePosted: "2 days ago",
-      image: "/placeholder.svg",
+      image: dishesImage,
+      interested: 6,
+      images: [dishesImage]
+    },
+    {
+      id: 5,
+      title: "Winter Clothes Bundle",
+      description: "Clean winter clothing in various sizes. Perfect for families in need during cold season.",
+      category: "Clothing", 
+      status: "Available",
+      postedBy: "David Wilson",
+      timePosted: "3 days ago",
+      image: clothesImage,
       interested: 12,
-      images: ["/placeholder.svg"]
+      images: [clothesImage]
     }
   ];
 
@@ -785,13 +809,13 @@ export default function MyChurch() {
                     postedBy: `Member ${i + 6}`,
                     timePosted: `${Math.floor(Math.random() * 7) + 1} days ago`,
                     image: [sofaImage, laptopImage, babyChairImage, dishesImage, clothesImage, booksToys][i % 6],
+                    images: [[sofaImage], [laptopImage], [babyChairImage], [dishesImage], [clothesImage], [booksToys]][i % 6],
                     interested: Math.floor(Math.random() * 10) + 1
-                  }))).slice((marketplaceCurrentPage - 1) * marketplacePerPage, marketplaceCurrentPage * marketplacePerPage).map((item) => (
                   }))).slice((marketplaceCurrentPage - 1) * marketplacePerPage, marketplaceCurrentPage * marketplacePerPage).map((item) => (
                     <Card key={item.id} className="border border-border hover:shadow-lg transition-shadow">
                       <div className="aspect-square bg-muted rounded-t-lg flex items-center justify-center cursor-pointer group relative overflow-hidden"
-                           onClick={() => setSelectedItemImages(item.images || ["/placeholder.svg"])}>
-                        <Camera className="w-8 h-8 text-muted-foreground group-hover:scale-110 transition-transform" />
+                           onClick={() => setSelectedItemImages([item.image])}>
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                           <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
