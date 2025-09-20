@@ -351,10 +351,11 @@ export default function MyChurch() {
         </div>
       </div>
 
-      {/* Three-Tab Navigation */}
-      <div className="container mx-auto px-4 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-muted/30 h-20 rounded-2xl border border-border/20 p-2 mb-8">
+      {/* Three-Tab Navigation - Separate Section */}
+      <div className="container mx-auto px-4 -mt-8 relative z-10">
+        <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
               <TabsTrigger 
                 value="serving" 
                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
@@ -450,7 +451,14 @@ export default function MyChurch() {
                 </div>
               </div>
             </div>
-            {/* SERVING TAB */}
+          </Tabs>
+        </div>
+      </div>
+
+      {/* Main Content Area - Separate Section */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-background rounded-2xl shadow-lg border border-border p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* SERVING TAB */}
             <TabsContent value="serving" className="mt-0">
               {/* Enhanced Church Family Needs Section */}
@@ -987,7 +995,8 @@ export default function MyChurch() {
                 </section>
               </div>
             </TabsContent>
-        </Tabs>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
