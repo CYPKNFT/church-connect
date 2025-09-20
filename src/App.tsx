@@ -36,6 +36,8 @@ import PendingApproval from "./pages/PendingApproval";
 import EmailVerification from "./pages/EmailVerification";
 import AllChurchNeeds from "./pages/AllChurchNeeds";
 import AllChurchEvents from "./pages/AllChurchEvents";
+import EventHub from "./pages/EventHub";
+import EventDetails from "./pages/EventDetails";
 import AllRecentActivity from "./pages/AllRecentActivity";
 import JoinMovement from "./pages/JoinMovement";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -87,6 +89,8 @@ const App = () => (
                     <Route path="/my-church" element={<MyChurch />} />
                     <Route path="/my-church/needs" element={<AllChurchNeeds />} />
                     <Route path="/my-church/events" element={<AllChurchEvents />} />
+                    <Route path="/events" element={<EventHub />} />
+                    <Route path="/events/:id" element={<EventDetails />} />
                     <Route path="/my-church/activity" element={<AllRecentActivity />} />
                     <Route path="/feedback" element={<Feedback />} />
                     <Route path="/template" element={<Template />} />

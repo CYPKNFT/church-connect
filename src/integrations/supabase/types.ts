@@ -594,6 +594,264 @@ export type Database = {
           },
         ]
       }
+      event_comments: {
+        Row: {
+          comment: string
+          created_at: string | null
+          event_id: string
+          id: string
+          member_id: string
+          parent_comment_id: string | null
+        }
+        Insert: {
+          comment: string
+          created_at?: string | null
+          event_id: string
+          id?: string
+          member_id: string
+          parent_comment_id?: string | null
+        }
+        Update: {
+          comment?: string
+          created_at?: string | null
+          event_id?: string
+          id?: string
+          member_id?: string
+          parent_comment_id?: string | null
+        }
+        Relationships: []
+      }
+      event_donations: {
+        Row: {
+          amount: number
+          created_at: string | null
+          donor_name: string | null
+          event_id: string
+          id: string
+          is_anonymous: boolean | null
+          member_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          donor_name?: string | null
+          event_id: string
+          id?: string
+          is_anonymous?: boolean | null
+          member_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          donor_name?: string | null
+          event_id?: string
+          id?: string
+          is_anonymous?: boolean | null
+          member_id?: string | null
+        }
+        Relationships: []
+      }
+      event_media: {
+        Row: {
+          caption: string | null
+          created_at: string | null
+          event_id: string
+          id: string
+          is_approved: boolean | null
+          media_type: string
+          media_url: string
+          member_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string | null
+          event_id: string
+          id?: string
+          is_approved?: boolean | null
+          media_type: string
+          media_url: string
+          member_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string | null
+          event_id?: string
+          id?: string
+          is_approved?: boolean | null
+          media_type?: string
+          media_url?: string
+          member_id?: string
+        }
+        Relationships: []
+      }
+      event_rsvps: {
+        Row: {
+          created_at: string | null
+          event_id: string
+          id: string
+          member_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string | null
+          event_id: string
+          id?: string
+          member_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string
+          id?: string
+          member_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      event_testimonies: {
+        Row: {
+          created_at: string | null
+          event_id: string
+          id: string
+          is_approved: boolean | null
+          member_id: string
+          testimony: string
+        }
+        Insert: {
+          created_at?: string | null
+          event_id: string
+          id?: string
+          is_approved?: boolean | null
+          member_id: string
+          testimony: string
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string
+          id?: string
+          is_approved?: boolean | null
+          member_id?: string
+          testimony?: string
+        }
+        Relationships: []
+      }
+      event_volunteer_roles: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          event_id: string
+          id: string
+          max_volunteers: number | null
+          requires_background_check: boolean | null
+          role_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          event_id: string
+          id?: string
+          max_volunteers?: number | null
+          requires_background_check?: boolean | null
+          role_name: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          event_id?: string
+          id?: string
+          max_volunteers?: number | null
+          requires_background_check?: boolean | null
+          role_name?: string
+        }
+        Relationships: []
+      }
+      event_volunteer_signups: {
+        Row: {
+          created_at: string | null
+          id: string
+          member_id: string
+          notes: string | null
+          role_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          member_id: string
+          notes?: string | null
+          role_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          member_id?: string
+          notes?: string | null
+          role_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          banner_image_url: string | null
+          category: string
+          church_id: string
+          created_at: string | null
+          description: string | null
+          end_datetime: string
+          featured: boolean | null
+          id: string
+          location_lat: number | null
+          location_lng: number | null
+          location_text: string | null
+          max_attendees: number | null
+          organizer_member_id: string
+          requires_rsvp: boolean | null
+          start_datetime: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          banner_image_url?: string | null
+          category?: string
+          church_id: string
+          created_at?: string | null
+          description?: string | null
+          end_datetime: string
+          featured?: boolean | null
+          id?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          location_text?: string | null
+          max_attendees?: number | null
+          organizer_member_id: string
+          requires_rsvp?: boolean | null
+          start_datetime: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          banner_image_url?: string | null
+          category?: string
+          church_id?: string
+          created_at?: string | null
+          description?: string | null
+          end_datetime?: string
+          featured?: boolean | null
+          id?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          location_text?: string | null
+          max_attendees?: number | null
+          organizer_member_id?: string
+          requires_rsvp?: boolean | null
+          start_datetime?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       favorites: {
         Row: {
           created_at: string
@@ -1944,6 +2202,16 @@ export type Database = {
       complete_signup: {
         Args: { p_signup: string }
         Returns: boolean
+      }
+      get_event_stats: {
+        Args: { p_event_id: string }
+        Returns: {
+          attending_count: number
+          donation_total: number
+          interested_count: number
+          volunteer_slots_filled: number
+          volunteer_slots_total: number
+        }[]
       }
       get_need_tags: {
         Args: { p_need: string }

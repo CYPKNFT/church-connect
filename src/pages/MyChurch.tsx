@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -760,9 +761,11 @@ export default function MyChurch() {
                               {event.attendees} attending
                             </div>
                           </div>
-                          <Button size="sm" className="w-full">
-                            Join Event
-                          </Button>
+                           <Link to="/events">
+                            <Button size="sm" className="w-full">
+                              View All Events
+                            </Button>
+                          </Link>
                         </CardContent>
                       </Card>
                     ))}
