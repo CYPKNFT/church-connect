@@ -64,13 +64,13 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        <Button variant="outline" size="sm" className="gap-2 bg-background/80 backdrop-blur-sm border-border/30 hover:bg-accent/50">
           <CalendarIcon className="w-4 h-4" />
           Calendar
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-7xl h-[90vh] flex flex-col">
-        <DialogHeader className="shrink-0">
+      <DialogContent className="max-w-7xl h-[85vh] flex flex-col p-0">
+        <DialogHeader className="shrink-0 p-6 pb-0">
           <DialogTitle className="flex items-center justify-between">
             <span className="text-2xl font-bold">Church Events Calendar</span>
             <div className="flex items-center gap-4">
@@ -87,9 +87,9 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
           </DialogTitle>
         </DialogHeader>
         
-        <div className="flex-1 grid grid-cols-1 xl:grid-cols-4 gap-8 min-h-0">
-          {/* Calendar - Takes up more space */}
-          <div className="xl:col-span-3 flex flex-col">
+        <div className="flex-1 grid grid-cols-12 gap-6 p-6 pt-4 min-h-0">
+          {/* Main Calendar Section */}
+          <div className="col-span-8 flex flex-col min-h-0">
             <div className="flex-1 flex items-center justify-center">
               <Calendar
                 mode="single"
@@ -97,16 +97,14 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                 onSelect={setSelectedDate}
                 month={currentMonth}
                 onMonthChange={setCurrentMonth}
-                className={cn("p-6 pointer-events-auto scale-125 origin-center")}
+                className={cn("p-6 pointer-events-auto scale-110 origin-center")}
                 classNames={{
                   months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                   month: "space-y-6",
                   caption: "flex justify-center pt-2 relative items-center mb-4",
                   caption_label: "text-lg font-semibold",
                   nav: "space-x-2 flex items-center",
-                  nav_button: cn(
-                    "h-8 w-8 bg-transparent p-0 opacity-70 hover:opacity-100 hover:bg-accent rounded-md transition-all"
-                  ),
+                  nav_button: cn("h-8 w-8 bg-transparent p-0 opacity-70 hover:opacity-100 hover:bg-accent rounded-md transition-all"),
                   nav_button_previous: "absolute left-2",
                   nav_button_next: "absolute right-2",
                   table: "w-full border-collapse space-y-2",
@@ -114,9 +112,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                   head_cell: "text-muted-foreground rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",
                   row: "flex w-full mt-2",
                   cell: "h-12 w-12 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                  day: cn(
-                    "h-12 w-12 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative"
-                  ),
+                  day: cn("h-12 w-12 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative"),
                   day_range_end: "day-range-end",
                   day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
                   day_today: "bg-accent text-accent-foreground font-bold border-2 border-primary",
@@ -135,36 +131,40 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
             </div>
             
             {/* Quick Actions Bar */}
-            <div className="shrink-0 flex items-center justify-between p-4 bg-accent/5 rounded-lg mt-4">
-              <div className="flex items-center gap-4">
-                <Button variant="outline" size="sm" onClick={() => setCurrentMonth(new Date())}>
+            <div className="shrink-0 flex items-center justify-between p-4 bg-accent/5 rounded-lg border mt-4">
+              <div className="flex items-center gap-3">
+                <Button variant="outline" size="sm" onClick={() => setCurrentMonth(new Date())} className="h-8">
                   Today
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="h-8">
                   <Plus className="w-4 h-4 mr-2" />
                   Add Event
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="h-8">
                   Export Calendar
                 </Button>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span>Events</span>
-                <div className="w-2 h-2 bg-accent rounded-full ml-4"></div>
-                <span>Today</span>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  <span>Events</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>Today</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Sidebar - Event Details and Controls */}
-          <div className="flex flex-col space-y-6 min-h-0">
+          {/* Right Sidebar */}
+          <div className="col-span-4 flex flex-col space-y-4 min-h-0">
             {/* Selected Date Events */}
             <Card className="flex-1 min-h-0">
-              <CardContent className="p-6 h-full flex flex-col">
-                <div className="shrink-0 mb-4">
-                  <h3 className="font-bold text-xl mb-2">
-                    {selectedDate ? format(selectedDate, "EEEE, MMMM d") : "Select a date"}
+              <CardContent className="p-4 h-full flex flex-col">
+                <div className="shrink-0 mb-3">
+                  <h3 className="font-bold text-lg mb-1">
+                    {selectedDate ? format(selectedDate, "EEEE, MMM d") : "Select a date"}
                   </h3>
                   {selectedDate && (
                     <p className="text-sm text-muted-foreground">
@@ -175,11 +175,11 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                 
                 <div className="flex-1 min-h-0 overflow-hidden">
                   {eventsOnSelectedDate.length > 0 ? (
-                    <div className="space-y-3 h-full overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
+                    <div className="space-y-2 h-full overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
                       {eventsOnSelectedDate.map((event) => (
-                        <Card key={event.id} className="border-l-4 border-l-primary hover:shadow-md transition-all">
-                          <CardContent className="p-4">
-                            <div className="space-y-3">
+                        <Card key={event.id} className="border-l-4 border-l-primary hover:shadow-sm transition-all bg-accent/5">
+                          <CardContent className="p-3">
+                            <div className="space-y-2">
                               <div className="flex items-start justify-between gap-2">
                                 <h4 className="font-semibold text-sm line-clamp-2 flex-1">{event.title}</h4>
                                 <Badge variant="secondary" className={cn("text-xs shrink-0", getCategoryColor(event.category))}>
@@ -190,10 +190,10 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                                 {format(new Date(event.start_datetime), "h:mm a")}
                               </div>
                               <div className="flex gap-2">
-                                <Button size="sm" variant="outline" className="text-xs h-7 flex-1">
-                                  View Details
+                                <Button size="sm" variant="outline" className="text-xs h-6 flex-1">
+                                  View
                                 </Button>
-                                <Button size="sm" className="text-xs h-7 flex-1">
+                                <Button size="sm" className="text-xs h-6 flex-1">
                                   RSVP
                                 </Button>
                               </div>
@@ -205,9 +205,9 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                   ) : (
                     <div className="flex items-center justify-center h-full text-center">
                       <div className="space-y-2">
-                        <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto opacity-50" />
-                        <p className="text-sm text-muted-foreground">No events scheduled for this date</p>
-                        <Button size="sm" variant="outline" className="text-xs">
+                        <CalendarIcon className="w-8 h-8 text-muted-foreground mx-auto opacity-50" />
+                        <p className="text-sm text-muted-foreground">No events this date</p>
+                        <Button size="sm" variant="outline" className="text-xs h-7">
                           <Plus className="w-3 h-3 mr-1" />
                           Add Event
                         </Button>
@@ -219,19 +219,19 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
             </Card>
 
             {/* Monthly Overview */}
-            <Card>
+            <Card className="shrink-0">
               <CardContent className="p-4">
-                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
                   <Activity className="w-4 h-4" />
-                  This Month's Activity
+                  This Month ({datesWithEvents.length} days)
                 </h4>
                 {datesWithEvents.length > 0 ? (
-                  <div className="space-y-2 max-h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
-                    {datesWithEvents.slice(0, 8).map((date) => (
+                  <div className="space-y-1 max-h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-accent/20 scrollbar-track-transparent">
+                    {datesWithEvents.slice(0, 6).map((date) => (
                       <button
                         key={date.toISOString()}
                         onClick={() => setSelectedDate(date)}
-                        className="w-full text-left p-2 text-xs hover:bg-accent rounded-md transition-colors flex items-center justify-between"
+                        className="w-full text-left p-2 text-xs hover:bg-accent/50 rounded-md transition-colors flex items-center justify-between group"
                       >
                         <div>
                           <div className="font-medium">{format(date, "MMM d")}</div>
@@ -239,17 +239,17 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                             {getEventsForDate(date).length} event{getEventsForDate(date).length !== 1 ? 's' : ''}
                           </div>
                         </div>
-                        <ChevronRight className="w-3 h-3 text-muted-foreground" />
+                        <ChevronRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </button>
                     ))}
-                    {datesWithEvents.length > 8 && (
+                    {datesWithEvents.length > 6 && (
                       <div className="text-xs text-muted-foreground p-2 text-center border-t">
-                        +{datesWithEvents.length - 8} more days with events
+                        +{datesWithEvents.length - 6} more days
                       </div>
                     )}
                   </div>
                 ) : (
-                  <p className="text-xs text-muted-foreground text-center py-4">
+                  <p className="text-xs text-muted-foreground text-center py-3">
                     No events this month
                   </p>
                 )}
@@ -257,21 +257,21 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
             </Card>
 
             {/* Calendar Settings */}
-            <Card>
+            <Card className="shrink-0">
               <CardContent className="p-4">
-                <h4 className="font-semibold mb-3 text-sm">Calendar Settings</h4>
-                <div className="space-y-2">
-                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8">
+                <h4 className="font-semibold mb-3 text-sm">Settings</h4>
+                <div className="space-y-1">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
                     <Bell className="w-3 h-3 mr-2" />
-                    Notification Settings
+                    Notifications
                   </Button>
-                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
                     <Filter className="w-3 h-3 mr-2" />
                     Filter Events
                   </Button>
-                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-8">
+                  <Button variant="ghost" size="sm" className="w-full justify-start text-xs h-7 hover:bg-accent/50">
                     <Calendar className="w-3 h-3 mr-2" />
-                    Subscribe to Calendar
+                    Subscribe
                   </Button>
                 </div>
               </CardContent>

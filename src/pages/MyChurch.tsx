@@ -457,35 +457,37 @@ export default function MyChurch() {
 
             {/* Unified Search Bar */}
             <div className="p-4 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
-              <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
-                {/* Search Input */}
-                <div className="relative w-full max-w-2xl">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder={
-                      activeTab === 'serving' ? "Search needs by title or description..." :
-                      activeTab === 'giving' ? "Search items by title or description..." :
-                      "Search events by title or description..."
-                    }
-                    value={
-                      activeTab === 'serving' ? searchQuery :
-                      activeTab === 'giving' ? searchQuery :
-                      eventSearchQuery
-                    }
-                    onChange={(e) => {
-                      if (activeTab === 'serving') setSearchQuery(e.target.value);
-                      else if (activeTab === 'giving') setSearchQuery(e.target.value);
-                      else setEventSearchQuery(e.target.value);
-                    }}
-                    className="pl-10 pr-4 py-2.5 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
-                  />
-                </div>
+              <div className="flex items-center gap-4 max-w-6xl mx-auto">
+                {/* Left side - Search and Filters */}
+                <div className="flex-1 flex flex-col gap-3">
+                  {/* Search Input */}
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      placeholder={
+                        activeTab === 'serving' ? "Search needs by title or description..." :
+                        activeTab === 'giving' ? "Search items by title or description..." :
+                        "Search events by title or description..."
+                      }
+                      value={
+                        activeTab === 'serving' ? searchQuery :
+                        activeTab === 'giving' ? searchQuery :
+                        eventSearchQuery
+                      }
+                      onChange={(e) => {
+                        if (activeTab === 'serving') setSearchQuery(e.target.value);
+                        else if (activeTab === 'giving') setSearchQuery(e.target.value);
+                        else setEventSearchQuery(e.target.value);
+                      }}
+                      className="pl-10 pr-4 py-2.5 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
+                    />
+                  </div>
 
-                {/* Category Filter Buttons */}
-                <div className="flex flex-wrap gap-2 justify-center">
+                {/* Filter Pills */}
+                <div className="flex flex-wrap gap-2">
                   {activeTab === 'serving' && (
                     <>
-                      {['All', 'Groceries', 'Home Repair', 'Meals', 'Transportation', 'Childcare', 'Home & Garden', 'Prayer Support'].map((category) => (
+                      {['All', 'Groceries', 'Transportation', 'Home Repair', 'Childcare', 'Meals', 'Prayer', 'Other'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
@@ -541,7 +543,15 @@ export default function MyChurch() {
                   )}
                 </div>
               </div>
+
+              {/* Right side - Calendar Button (only for connecting tab) */}
+              {activeTab === 'connecting' && (
+                <div className="flex items-center">
+                  <EventCalendar events={allEventsWithSamples} />
+                </div>
+              )}
             </div>
+          </div>
           </Tabs>
         </div>
       </div>
@@ -930,7 +940,6 @@ export default function MyChurch() {
                         <Star className="w-6 h-6 text-yellow-500" />
                         Featured Events
                       </h2>
-                      <EventCalendar events={allEventsWithSamples} />
                     </div>
                     
                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
