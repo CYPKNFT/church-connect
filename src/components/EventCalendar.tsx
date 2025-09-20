@@ -130,6 +130,9 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                   caption: "flex justify-center pt-2 relative items-center mb-4",
                   caption_label: "text-lg font-semibold",
                   nav: "hidden", // Hide the duplicate navigation
+                  nav_button: "hidden", // Hide navigation buttons
+                  nav_button_previous: "hidden",
+                  nav_button_next: "hidden",
                   table: "w-full border-collapse space-y-2",
                   head_row: "flex mb-2",
                   head_cell: "text-muted-foreground rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",

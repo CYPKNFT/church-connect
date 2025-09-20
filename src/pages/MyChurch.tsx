@@ -23,6 +23,14 @@ import { EventCard } from "@/components/EventCard";
 import { EventCalendar } from "@/components/EventCalendar";
 import { toast } from "sonner";
 
+// Import marketplace images
+import sofaImage from "@/assets/marketplace/sofa.jpg";
+import laptopImage from "@/assets/marketplace/laptop.jpg";
+import babyChairImage from "@/assets/marketplace/baby-chair.jpg";
+import dishesImage from "@/assets/marketplace/dishes.jpg";
+import clothesImage from "@/assets/marketplace/clothes.jpg";
+import booksToys from "@/assets/marketplace/books-toys.jpg";
+
 export default function MyChurch() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -670,7 +678,7 @@ export default function MyChurch() {
                 {/* Header with Post Button */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-3xl font-bold text-foreground">Item Marketplace</h2>
+                    <h2 className="text-3xl font-bold text-foreground">Giveaway Market</h2>
                     <p className="text-muted-foreground text-lg">Share and discover items within your church community</p>
                   </div>
                   <Dialog open={isPostModalOpen} onOpenChange={setIsPostModalOpen}>
@@ -768,17 +776,17 @@ export default function MyChurch() {
 
                 {/* Item Grid - 2 rows x 4 columns */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {giveawayItems.concat(Array(16).fill(null).map((_, i) => ({
-                    id: i + 10,
-                    title: `Sample Item ${i + 1}`,
-                    description: "Sample description for this marketplace item",
-                    category: "Household",
+                  {giveawayItems.concat(Array(11).fill(null).map((_, i) => ({
+                    id: i + 6,
+                    title: `${['Educational Toys Set', 'Garden Tools', 'Art Supplies Kit', 'Board Games Collection', 'Office Chair', 'Bookshelf', 'Exercise Equipment', 'Kitchen Utensils', 'Winter Coats', 'Sports Equipment', 'Craft Materials'][i % 11]}`,
+                    description: `${['Perfect for learning and development', 'Well-maintained garden tools', 'Great for creative projects', 'Family game night essentials', 'Comfortable office seating', 'Solid wood construction', 'Great for home workouts', 'Complete kitchen set', 'Various sizes available', 'Sports and recreation items', 'Arts and crafts supplies'][i % 11]}. Contact for more details!`,
+                    category: ['Baby/Kids', 'Garden', 'Youth', 'Youth', 'Furniture', 'Furniture', 'Sports', 'Household', 'Clothing', 'Sports', 'Youth'][i % 11],
                     status: "Available",
-                    postedBy: "Community Member",
-                    timePosted: "1 hour ago",
-                    image: "/placeholder.svg",
-                    interested: Math.floor(Math.random() * 10),
-                    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"]
+                    postedBy: `Member ${i + 6}`,
+                    timePosted: `${Math.floor(Math.random() * 7) + 1} days ago`,
+                    image: [sofaImage, laptopImage, babyChairImage, dishesImage, clothesImage, booksToys][i % 6],
+                    interested: Math.floor(Math.random() * 10) + 1
+                  }))).slice((marketplaceCurrentPage - 1) * marketplacePerPage, marketplaceCurrentPage * marketplacePerPage).map((item) => (
                   }))).slice((marketplaceCurrentPage - 1) * marketplacePerPage, marketplaceCurrentPage * marketplacePerPage).map((item) => (
                     <Card key={item.id} className="border border-border hover:shadow-lg transition-shadow">
                       <div className="aspect-square bg-muted rounded-t-lg flex items-center justify-center cursor-pointer group relative overflow-hidden"
@@ -815,7 +823,7 @@ export default function MyChurch() {
                 </div>
 
                 {/* Marketplace Pagination */}
-                {Math.ceil((giveawayItems.length + 16) / marketplacePerPage) > 1 && (
+                {Math.ceil((giveawayItems.length + 11) / marketplacePerPage) > 1 && (
                   <div className="flex justify-center">
                     <Pagination>
                       <PaginationContent>
@@ -825,7 +833,7 @@ export default function MyChurch() {
                             className={marketplaceCurrentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                           />
                         </PaginationItem>
-                        {Array.from({ length: Math.ceil((giveawayItems.length + 16) / marketplacePerPage) }, (_, i) => (
+                        {Array.from({ length: Math.ceil((giveawayItems.length + 11) / marketplacePerPage) }, (_, i) => (
                           <PaginationItem key={i + 1}>
                             <PaginationLink
                               onClick={() => setMarketplaceCurrentPage(i + 1)}
@@ -838,8 +846,8 @@ export default function MyChurch() {
                         ))}
                         <PaginationItem>
                           <PaginationNext 
-                            onClick={() => setMarketplaceCurrentPage(prev => Math.min(Math.ceil((giveawayItems.length + 16) / marketplacePerPage), prev + 1))}
-                            className={marketplaceCurrentPage === Math.ceil((giveawayItems.length + 16) / marketplacePerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                            onClick={() => setMarketplaceCurrentPage(prev => Math.min(Math.ceil((giveawayItems.length + 11) / marketplacePerPage), prev + 1))}
+                            className={marketplaceCurrentPage === Math.ceil((giveawayItems.length + 11) / marketplacePerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
                           />
                         </PaginationItem>
                       </PaginationContent>
