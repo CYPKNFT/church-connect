@@ -19,6 +19,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
 import { useEvents } from "@/hooks/useEvents";
+import { EventCard } from "@/components/EventCard";
 import { toast } from "sonner";
 
 export default function MyChurch() {
@@ -930,78 +931,20 @@ export default function MyChurch() {
                       </h2>
                     </div>
                     
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {featuredEvents.map((event) => {
-                        const IconComponent = getCategoryIcon(event.category);
-                        const progressPercentage = (event.volunteer_slots_filled / event.volunteer_slots_total) * 100;
-                        
-                        return (
-                          <Card key={event.id} className="overflow-hidden border-0 shadow-elegant hover:shadow-accent hover-lift group">
-                            {event.banner_image_url && (
-                              <div className="relative h-48 bg-gradient-primary">
-                                <div className="absolute inset-0 bg-black/20"></div>
-                                <div className="absolute top-4 right-4">
-                                  <Badge className="bg-yellow-500 text-black">
-                                    <Star className="w-3 h-3 mr-1" />
-                                    Featured
-                                  </Badge>
-                                </div>
-                                <div className="absolute bottom-4 left-4 text-white">
-                                  <div className="text-sm opacity-90">Starts in {getTimeUntilEvent(event.start_datetime)}</div>
-                                </div>
-                              </div>
-                            )}
-                            
-                            <CardContent className="p-6">
-                              <div className="flex items-start justify-between mb-4">
-                                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                                  <IconComponent className="w-6 h-6 text-accent" />
-                                </div>
-                                <Badge variant={getCategoryColor(event.category) as any}>
-                                  {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                                </Badge>
-                              </div>
-                              
-                              <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                              <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
-                              
-                              <div className="space-y-2 text-sm mb-4">
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Calendar className="w-4 h-4" />
-                                  {new Date(event.start_datetime).toLocaleDateString()}
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <MapPin className="w-4 h-4" />
-                                  {event.location_text}
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Users className="w-4 h-4" />
-                                  {event.attending_count} attending • {event.interested_count} interested
-                                </div>
-                              </div>
-
-                              {/* Volunteer Progress */}
-                              {event.volunteer_slots_total > 0 && (
-                                <div className="mb-4">
-                                  <div className="flex justify-between text-sm mb-2">
-                                    <span>Volunteer Spots</span>
-                                    <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
-                                  </div>
-                                  <Progress value={progressPercentage} className="h-2" />
-                                </div>
-                              )}
-
-                              <Link to={`/events/${event.id}`}>
-                                <Button className="w-full group">
-                                  View Details
-                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                </Button>
-                              </Link>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
+                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                       {featuredEvents.map((event) => {
+                         const IconComponent = getCategoryIcon(event.category);
+                         
+                         return (
+                           <EventCard
+                             key={event.id}
+                             event={event}
+                             categoryIcon={IconComponent}
+                             categoryColor={getCategoryColor(event.category)}
+                           />
+                         );
+                       })}
+                     </div>
                   </section>
                 )}
 
@@ -1058,66 +1001,14 @@ export default function MyChurch() {
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {currentEvents.map((event) => {
                           const IconComponent = getCategoryIcon(event.category);
-                          const progressPercentage = event.volunteer_slots_total > 0 
-                            ? (event.volunteer_slots_filled / event.volunteer_slots_total) * 100 
-                            : 0;
                           
                           return (
-                            <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift group">
-                              <CardContent className="p-6">
-                                <div className="flex items-start justify-between mb-4">
-                                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                                    <IconComponent className="w-6 h-6 text-accent" />
-                                  </div>
-                                  <Badge variant={getCategoryColor(event.category) as any}>
-                                    {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                                  </Badge>
-                                </div>
-                                
-                                <h3 className="text-lg font-bold mb-2">{event.title}</h3>
-                                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
-                                
-                                <div className="space-y-2 text-sm mb-4">
-                                  <div className="flex items-center gap-2 text-muted-foreground">
-                                    <Calendar className="w-4 h-4" />
-                                    {new Date(event.start_datetime).toLocaleDateString()}
-                                  </div>
-                                  <div className="flex items-center gap-2 text-muted-foreground">
-                                    <MapPin className="w-4 h-4" />
-                                    {event.location_text}
-                                  </div>
-                                  <div className="flex items-center gap-2 text-muted-foreground">
-                                    <Users className="w-4 h-4" />
-                                    {event.attending_count} attending
-                                  </div>
-                                </div>
-
-                                {/* Volunteer Progress */}
-                                {event.volunteer_slots_total > 0 && (
-                                  <div className="mb-4">
-                                    <div className="flex justify-between text-sm mb-2">
-                                      <span>Volunteers</span>
-                                      <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
-                                    </div>
-                                    <Progress value={progressPercentage} className="h-2" />
-                                    {progressPercentage < 100 && (
-                                      <p className="text-xs text-muted-foreground mt-1">
-                                        {event.volunteer_slots_total - event.volunteer_slots_filled} more needed
-                                      </p>
-                                    )}
-                                  </div>
-                                )}
-
-                                <div className="flex gap-2">
-                                  <Link to={`/events/${event.id}`} className="flex-1">
-                                    <Button className="w-full group">
-                                      View Details
-                                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                    </Button>
-                                  </Link>
-                                </div>
-                              </CardContent>
-                            </Card>
+                            <EventCard
+                              key={event.id}
+                              event={event}
+                              categoryIcon={IconComponent}
+                              categoryColor={getCategoryColor(event.category)}
+                            />
                           );
                         })}
                       </div>
