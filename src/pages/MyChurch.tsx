@@ -36,6 +36,12 @@ export default function MyChurch() {
   const [newItem, setNewItem] = useState({ title: "", description: "", category: "Household", contact: "message" });
   const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [eventsCurrentPage, setEventsCurrentPage] = useState(1);
+  const [marketplaceCurrentPage, setMarketplaceCurrentPage] = useState(1);
+  const [wishlistCurrentPage, setWishlistCurrentPage] = useState(1);
+  const eventsPerPage = 9; // 3 rows x 3 columns
+  const marketplacePerPage = 8; // 2 rows x 4 columns
+  const wishlistPerPage = 6; // 3 rows x 2 columns
   const { churchName: churchFromDB, memberName } = useMembership();
   const { events, loading: eventsLoading } = useEvents();
 
@@ -255,6 +261,30 @@ export default function MyChurch() {
     return matchesSearch && matchesCategory;
   });
 
+  // Add sample events for demonstration since we might not have enough real events
+  const allEventsWithSamples = [...filteredEvents, ...Array(15).fill(null).map((_, i) => ({
+    id: `sample-${i}`,
+    title: `Community Event ${i + 1}`,
+    description: `Join us for this wonderful community gathering. This is a sample event for demonstration purposes.`,
+    category: ['service', 'prayer', 'social', 'fundraiser', 'workshops'][i % 5],
+    start_datetime: new Date(Date.now() + (i + 1) * 24 * 60 * 60 * 1000).toISOString(),
+    end_datetime: new Date(Date.now() + (i + 1) * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000).toISOString(),
+    location_text: `Community Center ${i % 3 + 1}`,
+    church_id: 'sample',
+    organizer_member_id: 'sample',
+    featured: i < 3,
+    attending_count: Math.floor(Math.random() * 50),
+    interested_count: Math.floor(Math.random() * 30),
+    volunteer_slots_total: Math.floor(Math.random() * 10) + 5,
+    volunteer_slots_filled: Math.floor(Math.random() * 8)
+  }))];
+
+  // Events pagination
+  const totalEventsPages = Math.ceil(allEventsWithSamples.length / eventsPerPage);
+  const eventsStartIndex = (eventsCurrentPage - 1) * eventsPerPage;
+  const eventsEndIndex = eventsStartIndex + eventsPerPage;
+  const currentEvents = allEventsWithSamples.slice(eventsStartIndex, eventsEndIndex);
+
   const featuredEvents = events.filter(e => e.featured);
 
   const getTimeUntilEvent = (startDatetime: string) => {
@@ -280,7 +310,7 @@ export default function MyChurch() {
     return cat?.color || "default";
   };
 
-  const categories = ["All", "Groceries", "Home Repair", "Meals", "Transportation", "Childcare", "Home & Garden", "Technology", "Moving", "Prayer Support"];
+  const categories = ["All", "Groceries", "Home Repair", "Meals", "Transportation", "Childcare", "Home & Garden", "Prayer Support", "Other"];
   const itemCategories = ["Household", "Electronics", "Books", "Clothing", "Baby/Kids", "Furniture", "Garden"];
   
   // Filter needs based on search and category
@@ -453,7 +483,7 @@ export default function MyChurch() {
                 <div className="flex flex-wrap gap-2 justify-center">
                   {activeTab === 'serving' && (
                     <>
-                      {['All', 'Service', 'Prayer', 'Social', 'Fundraiser', 'Workshops', 'Sports', 'Youth'].map((category) => (
+                      {['All', 'Groceries', 'Home Repair', 'Meals', 'Transportation', 'Childcare', 'Home & Garden', 'Prayer Support'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
@@ -730,9 +760,9 @@ export default function MyChurch() {
                 </div>
 
 
-                {/* Item Grid - 3 rows x 4 columns */}
+                {/* Item Grid - 2 rows x 4 columns */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {giveawayItems.concat(Array(9).fill(null).map((_, i) => ({
+                  {giveawayItems.concat(Array(16).fill(null).map((_, i) => ({
                     id: i + 10,
                     title: `Sample Item ${i + 1}`,
                     description: "Sample description for this marketplace item",
@@ -743,7 +773,7 @@ export default function MyChurch() {
                     image: "/placeholder.svg",
                     interested: Math.floor(Math.random() * 10),
                     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"]
-                  }))).slice(0, 12).map((item) => (
+                  }))).slice((marketplaceCurrentPage - 1) * marketplacePerPage, marketplaceCurrentPage * marketplacePerPage).map((item) => (
                     <Card key={item.id} className="border border-border hover:shadow-lg transition-shadow">
                       <div className="aspect-square bg-muted rounded-t-lg flex items-center justify-center cursor-pointer group relative overflow-hidden"
                            onClick={() => setSelectedItemImages(item.images || ["/placeholder.svg"])}>
@@ -778,19 +808,52 @@ export default function MyChurch() {
                   ))}
                 </div>
 
-                {/* Wish List Section - Two Columns */}
+                {/* Marketplace Pagination */}
+                {Math.ceil((giveawayItems.length + 16) / marketplacePerPage) > 1 && (
+                  <div className="flex justify-center">
+                    <Pagination>
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationPrevious 
+                            onClick={() => setMarketplaceCurrentPage(prev => Math.max(1, prev - 1))}
+                            className={marketplaceCurrentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                          />
+                        </PaginationItem>
+                        {Array.from({ length: Math.ceil((giveawayItems.length + 16) / marketplacePerPage) }, (_, i) => (
+                          <PaginationItem key={i + 1}>
+                            <PaginationLink
+                              onClick={() => setMarketplaceCurrentPage(i + 1)}
+                              isActive={marketplaceCurrentPage === i + 1}
+                              className="cursor-pointer"
+                            >
+                              {i + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        ))}
+                        <PaginationItem>
+                          <PaginationNext 
+                            onClick={() => setMarketplaceCurrentPage(prev => Math.min(Math.ceil((giveawayItems.length + 16) / marketplacePerPage), prev + 1))}
+                            className={marketplaceCurrentPage === Math.ceil((giveawayItems.length + 16) / marketplacePerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                          />
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
+                  </div>
+                )}
+
+                {/* Wish List Section - Two Columns with Pagination */}
                 <div className="space-y-4">
                   <h3 className="text-xl font-semibold text-foreground">Community Wish List</h3>
                   <div className="grid md:grid-cols-2 gap-4">
-                    {wishListItems.concat(Array(6).fill(null).map((_, i) => ({
+                    {wishListItems.concat(Array(10).fill(null).map((_, i) => ({
                       id: i + 10,
-                      title: `Looking for ${['Tools', 'Baby Items', 'Furniture', 'Electronics', 'Books', 'Clothes'][i]}`,
-                      description: `In need of ${['tools for home repair', 'baby clothes and toys', 'living room furniture', 'kitchen appliances', 'children\'s books', 'winter clothing'][i]}. Any condition welcome!`,
-                      category: ['Tools', 'Baby/Kids', 'Furniture', 'Electronics', 'Books', 'Clothing'][i],
+                      title: `Looking for ${['Tools', 'Baby Items', 'Furniture', 'Electronics', 'Books', 'Clothes', 'Sports Equipment', 'Garden Supplies', 'Kitchen Items', 'Toys'][i]}`,
+                      description: `In need of ${['tools for home repair', 'baby clothes and toys', 'living room furniture', 'kitchen appliances', 'children\'s books', 'winter clothing', 'sports equipment for kids', 'garden tools and supplies', 'kitchen appliances', 'educational toys'][i]}. Any condition welcome!`,
+                      category: ['Tools', 'Baby/Kids', 'Furniture', 'Electronics', 'Books', 'Clothing', 'Sports', 'Garden', 'Kitchen', 'Toys'][i],
                       postedBy: `Member ${i + 1}`,
                       timePosted: `${i + 1} hours ago`,
                       responses: Math.floor(Math.random() * 5)
-                    }))).slice(0, 8).map((wish) => (
+                    }))).slice((wishlistCurrentPage - 1) * wishlistPerPage, wishlistCurrentPage * wishlistPerPage).map((wish) => (
                       <Card key={wish.id} className="border border-border">
                         <CardContent className="p-4">
                           <div className="flex items-start justify-between mb-2">
@@ -817,6 +880,39 @@ export default function MyChurch() {
                       </Card>
                     ))}
                   </div>
+
+                  {/* Wishlist Pagination */}
+                  {Math.ceil((wishListItems.length + 10) / wishlistPerPage) > 1 && (
+                    <div className="flex justify-center">
+                      <Pagination>
+                        <PaginationContent>
+                          <PaginationItem>
+                            <PaginationPrevious 
+                              onClick={() => setWishlistCurrentPage(prev => Math.max(1, prev - 1))}
+                              className={wishlistCurrentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                            />
+                          </PaginationItem>
+                          {Array.from({ length: Math.ceil((wishListItems.length + 10) / wishlistPerPage) }, (_, i) => (
+                            <PaginationItem key={i + 1}>
+                              <PaginationLink
+                                onClick={() => setWishlistCurrentPage(i + 1)}
+                                isActive={wishlistCurrentPage === i + 1}
+                                className="cursor-pointer"
+                              >
+                                {i + 1}
+                              </PaginationLink>
+                            </PaginationItem>
+                          ))}
+                          <PaginationItem>
+                            <PaginationNext 
+                              onClick={() => setWishlistCurrentPage(prev => Math.min(Math.ceil((wishListItems.length + 10) / wishlistPerPage), prev + 1))}
+                              className={wishlistCurrentPage === Math.ceil((wishListItems.length + 10) / wishlistPerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                            />
+                          </PaginationItem>
+                        </PaginationContent>
+                      </Pagination>
+                    </div>
+                  )}
                 </div>
               </div>
             </TabsContent>
@@ -910,18 +1006,18 @@ export default function MyChurch() {
                 )}
 
 
-                {/* Events Grid */}
+                {/* Events Grid with Pagination */}
                 <section>
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold">
                       {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
-                      <span className="text-muted-foreground ml-2">({filteredEvents.length})</span>
+                      <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
                     </h2>
                   </div>
 
                   {eventsLoading ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {[...Array(6)].map((_, i) => (
+                      {[...Array(9)].map((_, i) => (
                         <Card key={i} className="border-0 shadow-card">
                           <CardContent className="p-6">
                             <div className="space-y-4 animate-pulse">
@@ -934,7 +1030,7 @@ export default function MyChurch() {
                         </Card>
                       ))}
                     </div>
-                  ) : filteredEvents.length === 0 ? (
+                  ) : currentEvents.length === 0 ? (
                     <Card className="border-0 shadow-card">
                       <CardContent className="p-12 text-center">
                         <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -958,72 +1054,107 @@ export default function MyChurch() {
                       </CardContent>
                     </Card>
                   ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {filteredEvents.map((event) => {
-                        const IconComponent = getCategoryIcon(event.category);
-                        const progressPercentage = event.volunteer_slots_total > 0 
-                          ? (event.volunteer_slots_filled / event.volunteer_slots_total) * 100 
-                          : 0;
-                        
-                        return (
-                          <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift group">
-                            <CardContent className="p-6">
-                              <div className="flex items-start justify-between mb-4">
-                                <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                                  <IconComponent className="w-6 h-6 text-accent" />
-                                </div>
-                                <Badge variant={getCategoryColor(event.category) as any}>
-                                  {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                                </Badge>
-                              </div>
-                              
-                              <h3 className="text-lg font-bold mb-2">{event.title}</h3>
-                              <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
-                              
-                              <div className="space-y-2 text-sm mb-4">
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Calendar className="w-4 h-4" />
-                                  {new Date(event.start_datetime).toLocaleDateString()}
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <MapPin className="w-4 h-4" />
-                                  {event.location_text}
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Users className="w-4 h-4" />
-                                  {event.attending_count} attending
-                                </div>
-                              </div>
-
-                              {/* Volunteer Progress */}
-                              {event.volunteer_slots_total > 0 && (
-                                <div className="mb-4">
-                                  <div className="flex justify-between text-sm mb-2">
-                                    <span>Volunteers</span>
-                                    <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
+                    <>
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {currentEvents.map((event) => {
+                          const IconComponent = getCategoryIcon(event.category);
+                          const progressPercentage = event.volunteer_slots_total > 0 
+                            ? (event.volunteer_slots_filled / event.volunteer_slots_total) * 100 
+                            : 0;
+                          
+                          return (
+                            <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift group">
+                              <CardContent className="p-6">
+                                <div className="flex items-start justify-between mb-4">
+                                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                                    <IconComponent className="w-6 h-6 text-accent" />
                                   </div>
-                                  <Progress value={progressPercentage} className="h-2" />
-                                  {progressPercentage < 100 && (
-                                    <p className="text-xs text-muted-foreground mt-1">
-                                      {event.volunteer_slots_total - event.volunteer_slots_filled} more needed
-                                    </p>
-                                  )}
+                                  <Badge variant={getCategoryColor(event.category) as any}>
+                                    {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+                                  </Badge>
                                 </div>
-                              )}
+                                
+                                <h3 className="text-lg font-bold mb-2">{event.title}</h3>
+                                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{event.description}</p>
+                                
+                                <div className="space-y-2 text-sm mb-4">
+                                  <div className="flex items-center gap-2 text-muted-foreground">
+                                    <Calendar className="w-4 h-4" />
+                                    {new Date(event.start_datetime).toLocaleDateString()}
+                                  </div>
+                                  <div className="flex items-center gap-2 text-muted-foreground">
+                                    <MapPin className="w-4 h-4" />
+                                    {event.location_text}
+                                  </div>
+                                  <div className="flex items-center gap-2 text-muted-foreground">
+                                    <Users className="w-4 h-4" />
+                                    {event.attending_count} attending
+                                  </div>
+                                </div>
 
-                              <div className="flex gap-2">
-                                <Link to={`/events/${event.id}`} className="flex-1">
-                                  <Button className="w-full group">
-                                    View Details
-                                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                  </Button>
-                                </Link>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
+                                {/* Volunteer Progress */}
+                                {event.volunteer_slots_total > 0 && (
+                                  <div className="mb-4">
+                                    <div className="flex justify-between text-sm mb-2">
+                                      <span>Volunteers</span>
+                                      <span>{event.volunteer_slots_filled}/{event.volunteer_slots_total}</span>
+                                    </div>
+                                    <Progress value={progressPercentage} className="h-2" />
+                                    {progressPercentage < 100 && (
+                                      <p className="text-xs text-muted-foreground mt-1">
+                                        {event.volunteer_slots_total - event.volunteer_slots_filled} more needed
+                                      </p>
+                                    )}
+                                  </div>
+                                )}
+
+                                <div className="flex gap-2">
+                                  <Link to={`/events/${event.id}`} className="flex-1">
+                                    <Button className="w-full group">
+                                      View Details
+                                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                    </Button>
+                                  </Link>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          );
+                        })}
+                      </div>
+
+                      {/* Events Pagination */}
+                      {totalEventsPages > 1 && (
+                        <div className="flex justify-center mt-8">
+                          <Pagination>
+                            <PaginationContent>
+                              <PaginationItem>
+                                <PaginationPrevious 
+                                  onClick={() => setEventsCurrentPage(prev => Math.max(1, prev - 1))}
+                                  className={eventsCurrentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                />
+                              </PaginationItem>
+                              {Array.from({ length: totalEventsPages }, (_, i) => (
+                                <PaginationItem key={i + 1}>
+                                  <PaginationLink
+                                    onClick={() => setEventsCurrentPage(i + 1)}
+                                    isActive={eventsCurrentPage === i + 1}
+                                    className="cursor-pointer"
+                                  >
+                                    {i + 1}
+                                  </PaginationLink>
+                                </PaginationItem>
+                              ))}
+                              <PaginationItem>
+                                <PaginationNext 
+                                  onClick={() => setEventsCurrentPage(prev => Math.min(totalEventsPages, prev + 1))}
+                                  className={eventsCurrentPage === totalEventsPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                />
+                              </PaginationItem>
+                            </PaginationContent>
+                          </Pagination>
+                        </div>
+                      )}
+                    </>
                   )}
                 </section>
               </div>
