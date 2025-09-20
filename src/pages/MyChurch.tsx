@@ -391,19 +391,19 @@ export default function MyChurch() {
                 value="connecting" 
                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 to-muted/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'connecting' 
-                      ? 'bg-gradient-to-br from-secondary/40 to-secondary/30' 
+                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
                       : 'bg-muted/20 group-hover:bg-muted/40'
                   }`}>
                     <Users className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'connecting' ? 'text-secondary' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'connecting' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
-                    activeTab === 'connecting' ? 'text-secondary' : 'text-muted-foreground group-hover:text-foreground'
+                    activeTab === 'connecting' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
                   }`}>CONNECTING</span>
                 </div>
               </TabsTrigger>
