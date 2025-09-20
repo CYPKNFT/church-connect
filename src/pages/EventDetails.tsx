@@ -409,9 +409,9 @@ export default function EventDetails() {
           <div className="h-32 bg-gradient-primary"></div>
         )}
         
-        <div className="absolute inset-0 flex items-end">
-          <div className="container mx-auto px-4 pb-4">
-            <div className="flex items-center gap-4 mb-2">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="container mx-auto px-4 text-center">
+            <div className="flex items-center justify-center gap-4 mb-3">
               <Link to="/my-church?tab=connecting">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                   <ArrowLeft className="w-4 h-4 mr-2" />
@@ -426,9 +426,9 @@ export default function EventDetails() {
               )}
             </div>
             
-            <div className="max-w-4xl">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{event.title}</h1>
-              <div className="flex flex-wrap items-center gap-4 text-white/90 text-lg">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{event.title}</h1>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-white/90 text-lg">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-6 h-6" />
                   {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
