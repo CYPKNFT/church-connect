@@ -20,6 +20,7 @@ import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, Shoppi
 import { useMembership } from "@/hooks/useMembership";
 import { useEvents } from "@/hooks/useEvents";
 import { EventCard } from "@/components/EventCard";
+import { EventCalendar } from "@/components/EventCalendar";
 import { toast } from "sonner";
 
 export default function MyChurch() {
@@ -949,13 +950,14 @@ export default function MyChurch() {
                 )}
 
 
-                {/* Events Grid with Pagination */}
+                 {/* Events Grid with Pagination */}
                 <section>
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold">
                       {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
                       <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
                     </h2>
+                    <EventCalendar events={allEventsWithSamples} />
                   </div>
 
                   {eventsLoading ? (
