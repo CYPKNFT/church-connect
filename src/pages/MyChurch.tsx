@@ -831,51 +831,47 @@ export default function MyChurch() {
                 )}
 
                 {/* Search and Filter Bar */}
-                <Card className="border-0 shadow-elegant">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row gap-4">
-                      <div className="flex-1">
-                        <div className="relative">
-                          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                          <Input
-                            placeholder="Search events by title or description..."
-                            value={eventSearchQuery}
-                            onChange={(e) => setEventSearchQuery(e.target.value)}
-                            className="pl-12 h-12"
-                          />
-                        </div>
-                      </div>
-                      
-                      {/* Category Filter Buttons */}
-                      <div className="flex flex-wrap gap-2">
-                        {eventCategories.slice(0, 6).map((category) => {
-                          const IconComponent = category.icon;
-                          const isActive = selectedEventCategory === category.id;
-                          
-                          return (
-                            <Button
-                              key={category.id}
-                              variant={isActive ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setSelectedEventCategory(category.id)}
-                              className="flex items-center gap-2"
-                            >
-                              <IconComponent className="w-4 h-4" />
-                              {category.name}
-                            </Button>
-                          );
-                        })}
-                        
-                        {eventCategories.length > 6 && (
-                          <Button variant="outline" size="sm" className="flex items-center gap-2">
-                            <Filter className="w-4 h-4" />
-                            More
-                          </Button>
-                        )}
-                      </div>
+                <div className="flex flex-col lg:flex-row gap-4 p-6">
+                  <div className="flex-1">
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                      <Input
+                        placeholder="Search events by title or description..."
+                        value={eventSearchQuery}
+                        onChange={(e) => setEventSearchQuery(e.target.value)}
+                        className="pl-12 h-12"
+                      />
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                  
+                  {/* Category Filter Buttons */}
+                  <div className="flex flex-wrap gap-2">
+                    {eventCategories.slice(0, 6).map((category) => {
+                      const IconComponent = category.icon;
+                      const isActive = selectedEventCategory === category.id;
+                      
+                      return (
+                        <Button
+                          key={category.id}
+                          variant={isActive ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedEventCategory(category.id)}
+                          className="flex items-center gap-2"
+                        >
+                          <IconComponent className="w-4 h-4" />
+                          {category.name}
+                        </Button>
+                      );
+                    })}
+                    
+                    {eventCategories.length > 6 && (
+                      <Button variant="outline" size="sm" className="flex items-center gap-2">
+                        <Filter className="w-4 h-4" />
+                        More
+                      </Button>
+                    )}
+                  </div>
+                </div>
 
                 {/* Events Grid */}
                 <section>
