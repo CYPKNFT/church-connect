@@ -734,7 +734,7 @@ export default function EventDetails() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* RSVP Card */}
-            <Card className="border-0 shadow-elegant sticky top-4">
+            <Card className="border-0 shadow-elegant">
               <CardContent className="p-6">
                 <div className="text-center mb-6">
                   <div className="text-3xl font-bold text-primary mb-2">
@@ -852,7 +852,18 @@ export default function EventDetails() {
                     <Calendar className="w-4 h-4 mr-2" />
                     Add to Calendar
                   </Button>
-                  <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      // Open Google Maps with Jacksonville City Hall coordinates
+                      const lat = 30.3322;
+                      const lng = -81.6557;
+                      const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+                      window.open(url, '_blank');
+                    }}
+                  >
                     <MapPin className="w-4 h-4 mr-2" />
                     Get Directions
                   </Button>

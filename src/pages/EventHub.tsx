@@ -55,8 +55,9 @@ const categories = [
   { id: "prayer", name: "Prayer", icon: Church, color: "secondary" },
   { id: "social", name: "Social", icon: Coffee, color: "outline" },
   { id: "fundraiser", name: "Fundraiser", icon: DollarSign, color: "default" },
+  { id: "sports", name: "Sports", icon: Gamepad2, color: "outline" },
   { id: "workshops", name: "Workshops", icon: GraduationCap, color: "secondary" },
-  { id: "youth", name: "Youth", icon: Gamepad2, color: "outline" },
+  { id: "youth", name: "Youth", icon: Users, color: "outline" },
   { id: "children", name: "Children", icon: Baby, color: "default" },
   { id: "worship", name: "Worship", icon: Music, color: "secondary" },
   { id: "study", name: "Study", icon: Book, color: "outline" },
@@ -178,6 +179,22 @@ export default function EventHub() {
           volunteer_slots_total: 15,
           volunteer_slots_filled: 12,
           donation_total: 450.00
+        },
+        {
+          id: "7",
+          title: "Church Basketball Tournament",
+          description: "Join us for a friendly basketball tournament! All skill levels welcome. Teams will be formed on the day.",
+          category: "sports",
+          featured: false,
+          location_text: "Community Center Gym",
+          start_datetime: "2024-04-25T18:00:00Z",
+          end_datetime: "2024-04-25T21:00:00Z",
+          organizer_name: "Sports Ministry",
+          attending_count: 24,
+          interested_count: 8,
+          volunteer_slots_total: 6,
+          volunteer_slots_filled: 4,
+          donation_total: 0
         }
       ];
 
@@ -191,11 +208,12 @@ export default function EventHub() {
   };
 
   const filteredEvents = events.filter(event => {
-    const matchesSearch = searchQuery === "" || 
-      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || event.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+      const matchesSearch = searchQuery === "" || 
+        event.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        event.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === "all" || event.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
   });
 
   const getTimeUntilEvent = (startDatetime: string) => {
