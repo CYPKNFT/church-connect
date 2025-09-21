@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
 
 interface MapLightboxProps {
   isOpen: boolean;
@@ -115,7 +113,7 @@ export const MapLightbox: React.FC<MapLightboxProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="z-[100] max-w-3xl w-full p-0">
+      <DialogContent className="z-[100] max-w-3xl w-full p-0 [&>button]:hidden">
         <DialogHeader className="p-4 pb-2">
           <DialogTitle className="text-xl font-semibold">Event Location</DialogTitle>
           <p className="text-sm text-muted-foreground mt-2">{location}</p>
