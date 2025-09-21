@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -64,11 +65,18 @@ interface MarketplaceItemDetailsProps {
 
 export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }: MarketplaceItemDetailsProps) {
   const [userInterestStatus, setUserInterestStatus] = useState<'none' | 'interested' | 'applied'>('none');
+  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [requestMessage, setRequestMessage] = useState('');
 
   if (!item) return null;
 
   const handleRequestItem = () => {
+    setShowRequestForm(true);
+  };
+
+  const handleSubmitRequest = () => {
     setUserInterestStatus('applied');
+    setShowRequestForm(false);
     onRequestItem(item.title);
   };
 
@@ -278,32 +286,64 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
               {/* Interest Status & Actions */}
               <Card>
                 <CardContent className="p-6 space-y-4">
-                  <div>
-                    <p className="font-medium mb-3">Your Interest Status:</p>
-                    {userInterestStatus === 'none' && (
-                      <Button 
-                        onClick={handleRequestItem} 
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-                        size="lg"
-                      >
-                        Request This Item
-                      </Button>
-                    )}
-                    {userInterestStatus === 'interested' && (
-                      <Button 
-                        onClick={handleRequestItem} 
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-                        size="lg"
-                      >
-                        Request This Item
-                      </Button>
-                    )}
-                    {userInterestStatus === 'applied' && (
-                      <Button disabled className="w-full" size="lg">
-                        Application Submitted
-                      </Button>
-                    )}
-                  </div>
+                  {!showRequestForm ? (
+                    <div>
+                      <p className="font-medium mb-3">Your Interest Status:</p>
+                      {userInterestStatus === 'none' && (
+                        <Button 
+                          onClick={handleRequestItem} 
+                          className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+                          size="lg"
+                        >
+                          Request This Item
+                        </Button>
+                      )}
+                      {userInterestStatus === 'interested' && (
+                        <Button 
+                          onClick={handleRequestItem} 
+                          className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+                          size="lg"
+                        >
+                          Request This Item
+                        </Button>
+                      )}
+                      {userInterestStatus === 'applied' && (
+                        <Button disabled className="w-full" size="lg">
+                          Application Submitted
+                        </Button>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="font-medium mb-3">Request This Item</h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Tell the owner why you need this item and when you can pick it up.
+                        </p>
+                        <textarea
+                          value={requestMessage}
+                          onChange={(e) => setRequestMessage(e.target.value)}
+                          placeholder="Hi! I'm interested in this item because..."
+                          className="w-full min-h-[100px] p-3 border rounded-lg resize-none"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={handleSubmitRequest}
+                          className="flex-1 bg-orange-500 hover:bg-orange-600 text-white"
+                        >
+                          Send Request
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          onClick={() => setShowRequestForm(false)}
+                          className="flex-1"
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  )}
 
                   <Button 
                     variant="outline" 
