@@ -414,9 +414,9 @@ export default function EventDetails() {
         
         <div className="absolute inset-0 flex items-end pb-8">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col space-y-4 max-w-6xl w-full">
-              {/* Back button and feature badge stacked */}
-              <div className="flex items-center gap-4 mb-6">
+            <div className="max-w-6xl w-full">
+              {/* Back button and feature badge */}
+              <div className="flex items-center gap-4 mb-2">
                 <Link to="/my-church?tab=connecting">
                   <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                     <ArrowLeft className="w-4 h-4 mr-2" />
