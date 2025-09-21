@@ -14,7 +14,6 @@ import {
   Users, 
   Clock, 
   ArrowLeft,
-  Heart,
   UserPlus,
   MessageSquare,
   Camera,
@@ -54,7 +53,6 @@ interface EventDetails {
   agenda?: string[];
   volunteer_roles: VolunteerRole[];
   comments: Comment[];
-  testimonies: Testimony[];
   user_rsvp_status?: string;
   user_volunteer_signups: string[];
 }
@@ -82,19 +80,12 @@ interface Comment {
   created_at: string;
 }
 
-interface Testimony {
-  id: string;
-  member_name: string;
-  testimony: string;
-  created_at: string;
-}
 
 export default function EventDetails() {
   const { id } = useParams();
   const [event, setEvent] = useState<EventDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
-  const [newTestimony, setNewTestimony] = useState("");
   const [isMapLightboxOpen, setIsMapLightboxOpen] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
@@ -227,20 +218,6 @@ export default function EventDetails() {
             created_at: "2024-03-22T09:20:00Z"
           }
         ],
-        testimonies: [
-          {
-            id: "1",
-            member_name: "Sarah M.",
-            testimony: "Last year's community service day was life-changing. Seeing the joy on the faces of the families we helped reminded me why we're called to serve. Can't wait for this year!",
-            created_at: "2024-03-15T12:00:00Z"
-          },
-          {
-            id: "2",
-            member_name: "James R.",
-            testimony: "My kids still talk about the park cleanup we did last time. It taught them the value of taking care of our community. This event builds character and brings us together.",
-            created_at: "2024-03-18T15:30:00Z"
-          }
-        ],
         user_rsvp_status: "interested",
         user_volunteer_signups: ["2"]
       };
@@ -339,25 +316,6 @@ export default function EventDetails() {
     }
   };
 
-  const handleSubmitTestimony = async () => {
-    if (!newTestimony.trim() || !event || !user) return;
-    
-    try {
-      // In a real app, this would update the database
-      toast({
-        title: "Testimony Submitted",
-        description: "Your testimony has been submitted for review and will be published once approved."
-      });
-      setNewTestimony("");
-    } catch (error) {
-      console.error("Error submitting testimony:", error);
-      toast({
-        title: "Error",
-        description: "Failed to submit testimony",
-        variant: "destructive"
-      });
-    }
-  };
 
   const getTimeUntilEvent = (startDatetime: string) => {
     const now = new Date();
@@ -482,11 +440,10 @@ export default function EventDetails() {
 
             {/* Event Tabs */}
             <Tabs defaultValue="details" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="details">Details</TabsTrigger>
                 <TabsTrigger value="volunteers">Volunteers</TabsTrigger>
                 <TabsTrigger value="discussion">Discussion</TabsTrigger>
-                <TabsTrigger value="impact">Impact</TabsTrigger>
               </TabsList>
               
               <TabsContent value="details" className="mt-6">
@@ -674,60 +631,6 @@ export default function EventDetails() {
                 </Card>
               </TabsContent>
               
-              <TabsContent value="impact" className="mt-6">
-                <div className="space-y-6">
-                  {/* Impact Stories */}
-                  <Card className="border-0 shadow-card">
-                    <CardHeader>
-                      <CardTitle>Impact Stories</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-6">
-                        {event.testimonies.map((testimony) => (
-                          <div key={testimony.id} className="border-l-4 border-primary pl-4">
-                            <p className="text-muted-foreground italic mb-2">"{testimony.testimony}"</p>
-                            <div className="flex items-center gap-2">
-                              <span className="font-medium text-sm">— {testimony.member_name}</span>
-                              <span className="text-xs text-muted-foreground">
-                                {new Date(testimony.created_at).toLocaleDateString()}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Share Your Story */}
-                  {user && (
-                    <Card className="border-0 shadow-card">
-                      <CardHeader>
-                        <CardTitle>Share Your Story</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <Textarea 
-                            placeholder="How has this event or similar events impacted your life or faith journey?"
-                            value={newTestimony}
-                            onChange={(e) => setNewTestimony(e.target.value)}
-                            className="min-h-[120px]"
-                          />
-                          <Button 
-                            onClick={handleSubmitTestimony}
-                            disabled={!newTestimony.trim()}
-                          >
-                            <Heart className="w-4 h-4 mr-2" />
-                            Submit Testimony
-                          </Button>
-                          <p className="text-xs text-muted-foreground">
-                            Testimonies are reviewed before being published.
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
-              </TabsContent>
             </Tabs>
           </div>
 
