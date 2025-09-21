@@ -390,8 +390,8 @@ export default function MyChurch() {
     setNewItem({ title: "", description: "", category: "Household", contact: "message" });
   };
 
-  const handleWantItem = (itemTitle: string) => {
-    toast.success(`Interest expressed in "${itemTitle}"!`);
+  const handleWantItem = (itemId: number) => {
+    navigate(`/marketplace-item/${itemId}`);
   };
 
   return (
@@ -864,7 +864,7 @@ export default function MyChurch() {
                         <Button 
                           size="sm" 
                           className="w-full text-xs h-7"
-                          onClick={() => handleWantItem(item.title)}
+                          onClick={() => handleWantItem(item.id)}
                         >
                           Request This
                         </Button>
