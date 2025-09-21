@@ -132,7 +132,7 @@ export function EngagementAnalytics({ timeframe }: EngagementAnalyticsProps) {
                   />
                   <Tooltip 
                     contentStyle={{
-                      backgroundColor: "hsl(var(--card))",
+                      backgroundColor: "rgba(0, 0, 0, 0.8)",
                       border: "1px solid hsl(var(--border))",
                       borderRadius: "var(--radius)",
                     }}
@@ -186,7 +186,7 @@ export function EngagementAnalytics({ timeframe }: EngagementAnalyticsProps) {
                   />
                   <Tooltip 
                     contentStyle={{
-                      backgroundColor: "hsl(var(--card))",
+                      backgroundColor: "rgba(0, 0, 0, 0.8)",
                       border: "1px solid hsl(var(--border))",
                       borderRadius: "var(--radius)",
                     }}

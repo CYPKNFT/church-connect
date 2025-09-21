@@ -31,6 +31,14 @@ import dishesImage from "@/assets/marketplace/dishes.jpg";
 import clothesImage from "@/assets/marketplace/clothes.jpg";
 import booksToys from "@/assets/marketplace/books-toys.jpg";
 
+// Additional images for second photo
+import sofaImage2 from "@/assets/marketplace/sofa.jpg"; // Using same for demo
+import laptopImage2 from "@/assets/marketplace/laptop.jpg";
+import babyChairImage2 from "@/assets/marketplace/baby-chair.jpg";
+import dishesImage2 from "@/assets/marketplace/dishes.jpg";
+import clothesImage2 from "@/assets/marketplace/clothes.jpg";
+import booksToys2 from "@/assets/marketplace/books-toys.jpg";
+
 export default function MyChurch() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -393,9 +401,11 @@ export default function MyChurch() {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }} />
         <div className="relative">
           <div className="container mx-auto px-4 py-12 text-center animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
-              <Heart className="w-4 h-4" />
-              <span>My Church Community</span>
+            <div className="group inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm
+                         hover:bg-white/12 hover:border-white/25 hover:scale-[1.041] hover:shadow-md
+                         transition-all duration-150 ease-out cursor-default">
+              <Heart className="w-4 h-4 group-hover:scale-105 transition-transform duration-150" />
+              <span className="group-hover:text-white/90 transition-colors duration-150">My Church Community</span>
             </div>
             
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
@@ -410,12 +420,24 @@ export default function MyChurch() {
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
                 return (
-                  <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center">
-                    <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2">
-                      <IconComponent className="w-4 h-4 text-white" />
+                  <div 
+                    key={index} 
+                    className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center 
+                             hover:bg-white/12 hover:border-white/25 hover:scale-[1.041] hover:shadow-md
+                             transition-all duration-150 ease-out
+                             animate-in fade-in slide-in-from-bottom-2"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-2
+                                  group-hover:bg-white/25 transition-colors duration-150">
+                      <IconComponent className="w-4 h-4 text-white group-hover:scale-105 transition-transform duration-150" />
                     </div>
-                    <h3 className="text-xl font-bold text-white">{stat.value}</h3>
-                    <p className="text-white/80 text-xs">{stat.label}</p>
+                    <h3 className="text-xl font-bold text-white group-hover:text-white/90 transition-colors duration-150">
+                      {stat.value}
+                    </h3>
+                    <p className="text-white/80 text-xs group-hover:text-white/90 transition-colors duration-150">
+                      {stat.label}
+                    </p>
                   </div>
                 );
               })}
@@ -809,12 +831,22 @@ export default function MyChurch() {
                     postedBy: `Member ${i + 6}`,
                     timePosted: `${Math.floor(Math.random() * 7) + 1} days ago`,
                     image: [sofaImage, laptopImage, babyChairImage, dishesImage, clothesImage, booksToys][i % 6],
-                    images: [[sofaImage], [laptopImage], [babyChairImage], [dishesImage], [clothesImage], [booksToys]][i % 6],
+                    images: [
+                      [sofaImage, laptopImage], 
+                      [laptopImage, babyChairImage], 
+                      [babyChairImage, dishesImage], 
+                      [dishesImage, clothesImage], 
+                      [clothesImage, booksToys], 
+                      [booksToys, sofaImage]
+                    ][i % 6],
                     interested: Math.floor(Math.random() * 10) + 1
                   }))).slice((marketplaceCurrentPage - 1) * marketplacePerPage, marketplaceCurrentPage * marketplacePerPage).map((item) => (
                     <Card key={item.id} className="border border-border hover:shadow-lg transition-shadow">
-                      <div className="aspect-square bg-muted rounded-t-lg flex items-center justify-center cursor-pointer group relative overflow-hidden"
-                           onClick={() => setSelectedItemImages([item.image])}>
+                      <div className="aspect-square bg-muted rounded-t-lg cursor-pointer group relative overflow-hidden"
+                           onClick={() => {
+                             setSelectedItemImages(item.images);
+                             setCurrentImageIndex(0);
+                           }}>
                         <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                           <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -823,24 +855,19 @@ export default function MyChurch() {
                       <CardContent className="p-3">
                         <div className="flex items-start justify-between mb-2">
                           <h3 className="font-semibold text-foreground text-sm line-clamp-1">{item.title}</h3>
-                          <Badge variant={item.status === "Available" ? "default" : "secondary"} className="text-xs">
-                            {item.status}
-                          </Badge>
                         </div>
                         <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{item.description}</p>
                         <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
                           <Clock className="w-3 h-3" />
                           {item.timePosted}
                         </div>
-                        {item.status === "Available" && (
-                          <Button 
-                            size="sm" 
-                            className="w-full text-xs h-7"
-                            onClick={() => handleWantItem(item.title)}
-                          >
-                            I Want This
-                          </Button>
-                        )}
+                        <Button 
+                          size="sm" 
+                          className="w-full text-xs h-7"
+                          onClick={() => handleWantItem(item.title)}
+                        >
+                          Request This
+                        </Button>
                       </CardContent>
                     </Card>
                   ))}

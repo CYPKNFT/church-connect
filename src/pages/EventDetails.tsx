@@ -370,29 +370,29 @@ export default function EventDetails() {
           <div className="h-32 bg-gradient-primary"></div>
         )}
         
-        <div className="absolute inset-0 flex items-end pb-8">
+        <div className="absolute inset-0 flex items-end pb-12">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl w-full">
-              {/* Back button and feature badge */}
-              <div className="flex items-center gap-4 mb-2">
-                <Link to="/my-church?tab=connecting">
-                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Events
-                  </Button>
-                </Link>
-                {event.featured && (
-                  <Badge className="bg-yellow-500 text-black">
-                    <Star className="w-3 h-3 mr-1" />
-                    Featured Event
-                  </Badge>
-                )}
-              </div>
-              
               {/* Title and details */}
-              <div className="flex items-end justify-between w-full">
+              <div className="flex items-center w-full">
                 {/* Title and subtitle - left aligned */}
-                <div className="flex-1">
+                <div className="flex-shrink-0">
+                  {/* Back button and feature badge */}
+                  <div className="flex items-center gap-4 mb-2">
+                    <Link to="/my-church?tab=connecting">
+                      <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Events
+                      </Button>
+                    </Link>
+                    {event.featured && (
+                      <Badge className="bg-yellow-500 text-black">
+                        <Star className="w-3 h-3 mr-1" />
+                        Featured Event
+                      </Badge>
+                    )}
+                  </div>
+                  
                   <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{event.title}</h1>
                   <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
                     <div className="flex items-center gap-2">
@@ -411,7 +411,7 @@ export default function EventDetails() {
                 </div>
                 
                 {/* Circular map panel - centered */}
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center ml-16">
                   <MapPreview
                     location={event.location_text}
                     onExpand={() => setIsMapLightboxOpen(true)}

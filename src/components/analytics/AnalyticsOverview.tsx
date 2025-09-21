@@ -150,7 +150,7 @@ export function AnalyticsOverview({ timeframe }: AnalyticsOverviewProps) {
                   />
                   <Tooltip 
                     contentStyle={{
-                      backgroundColor: "hsl(var(--card))",
+                      backgroundColor: "rgba(0, 0, 0, 0.8)",
                       border: "1px solid hsl(var(--border))",
                       borderRadius: "var(--radius)",
                     }}
@@ -191,7 +191,7 @@ export function AnalyticsOverview({ timeframe }: AnalyticsOverviewProps) {
                   />
                   <Tooltip 
                     contentStyle={{
-                      backgroundColor: "hsl(var(--card))",
+                      backgroundColor: "rgba(0, 0, 0, 0.8)",
                       border: "1px solid hsl(var(--border))",
                       borderRadius: "var(--radius)",
                     }}
@@ -241,9 +241,14 @@ export function AnalyticsOverview({ timeframe }: AnalyticsOverviewProps) {
                     outerRadius={80}
                     paddingAngle={5}
                     dataKey="value"
+                    style={{ outline: 'none' }}
                   >
                     {mockCategoryData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={entry.color}
+                        style={{ outline: 'none' }}
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
