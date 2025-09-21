@@ -414,55 +414,52 @@ export default function EventDetails() {
         
         <div className="absolute inset-0 flex items-end pb-8">
           <div className="container mx-auto px-4">
-            <div className="flex items-center gap-4 mb-6">
-              <Link to="/my-church?tab=connecting">
-                <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Events
-                </Button>
-              </Link>
-              {event.featured && (
-                <Badge className="bg-yellow-500 text-black">
-                  <Star className="w-3 h-3 mr-1" />
-                  Featured Event
-                </Badge>
-              )}
-            </div>
-            
-            <div className="flex items-end justify-between max-w-6xl w-full">
-              {/* Title and subtitle - left aligned */}
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl md:text-4xl font-bold text-white">{event.title}</h1>
-                  {event.featured && (
-                    <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 border-yellow-300 text-xs font-semibold px-2 py-1">
-                      Featured
-                    </Badge>
-                  )}
-                </div>
-                <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
-                    {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5" />
-                    {event.location_text}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5" />
-                    {getTimeUntilEvent(event.start_datetime)}
-                  </div>
-                </div>
+            <div className="flex flex-col space-y-4 max-w-6xl w-full">
+              {/* Back button and feature badge stacked */}
+              <div className="flex items-center gap-4">
+                <Link to="/my-church?tab=connecting">
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Events
+                  </Button>
+                </Link>
+                {event.featured && (
+                  <Badge className="bg-yellow-500 text-black">
+                    <Star className="w-3 h-3 mr-1" />
+                    Featured Event
+                  </Badge>
+                )}
               </div>
               
-              {/* Circular map panel - centered */}
-              <div className="flex justify-center items-center">
-                <MapPreview
-                  location={event.location_text}
-                  onExpand={() => setIsMapLightboxOpen(true)}
-                  className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-3 border-white/30 shadow-lg"
-                />
+              {/* Title and details */}
+              <div className="flex items-end justify-between w-full">
+                {/* Title and subtitle - left aligned */}
+                <div className="flex-1">
+                  <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{event.title}</h1>
+                  <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-5 h-5" />
+                      {new Date(event.start_datetime).toLocaleDateString()} at {new Date(event.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-5 h-5" />
+                      {event.location_text}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-5 h-5" />
+                      {getTimeUntilEvent(event.start_datetime)}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Circular map panel - centered */}
+                <div className="flex justify-center items-center">
+                  <MapPreview
+                    location={event.location_text}
+                    onExpand={() => setIsMapLightboxOpen(true)}
+                    className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-3 border-white/30 shadow-lg"
+                  />
+                </div>
               </div>
             </div>
           </div>
