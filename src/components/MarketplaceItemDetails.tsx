@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -86,102 +86,126 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto p-0">
-        {/* Header */}
-        <div className="bg-primary text-primary-foreground p-6 relative">
-          <button 
-            onClick={onClose}
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </button>
+      <DialogContent className="max-w-7xl max-h-[95vh] overflow-y-auto p-0">
+        {/* Hero Header - Following EventDetails design */}
+        <div className="relative overflow-hidden">
+          <div className="h-48 bg-gradient-primary relative">
+            <div className="absolute inset-0 bg-black/40"></div>
+          </div>
           
-          <div className="flex items-start gap-4">
-            <div className="w-16 h-16 bg-white/20 rounded-lg flex items-center justify-center">
-              <Package className="w-8 h-8 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-2xl font-bold mb-2">{item.title}</h1>
-              <div className="flex flex-wrap gap-4 text-sm text-primary-foreground/80">
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  Posted {item.postedDate}
-                </div>
-                <div className="flex items-center gap-1">
-                  <MapPin className="w-4 h-4" />
-                  Riverside Community
-                </div>
-                <div className="flex items-center gap-1">
-                  <User className="w-4 h-4" />
-                  {item.owner} • Verified Giver
+          <div className="absolute inset-0 flex items-end pb-8">
+            <div className="container mx-auto px-6">
+              <div className="max-w-6xl w-full">
+                {/* Title and details */}
+                <div className="flex items-center w-full">
+                  {/* Title and subtitle - left aligned */}
+                  <div className="flex-shrink-0">
+                    {/* Back button and status badge */}
+                    <div className="flex items-center gap-4 mb-2">
+                      <button 
+                        onClick={onClose}
+                        className="flex items-center gap-2 text-white hover:bg-white/10 px-3 py-1 rounded-md transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                        Close
+                      </button>
+                      <Badge className="bg-orange-500 text-white border-none">
+                        {item.status.toUpperCase()}
+                      </Badge>
+                    </div>
+                    
+                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{item.title}</h1>
+                    <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-5 h-5" />
+                        Posted {item.postedDate}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-5 h-5" />
+                        Riverside Community
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <User className="w-5 h-5" />
+                        {item.owner} • Verified Giver
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Item image - right side */}
+                  <div className="flex justify-center items-center ml-16">
+                    <div className="w-32 h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-3 border-white/30 shadow-lg bg-white/20 flex items-center justify-center">
+                      <Package className="w-16 h-16 text-white/70" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <Badge variant={item.status === "Available" ? "secondary" : "outline"} className="bg-orange-500 text-white border-none">
-              {item.status.toUpperCase()}
-            </Badge>
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="container mx-auto px-6 py-6">
+          <div className="grid lg:grid-cols-3 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Item Details */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
+              {/* Item Overview */}
+              <Card className="border-0 shadow-elegant">
+                <CardHeader>
+                  <CardTitle>About This Item</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                </CardContent>
+              </Card>
+
+              {/* Item Details Card */}
+              <Card className="border-0 shadow-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
                     <Info className="w-5 h-5 text-orange-500" />
-                    <h3 className="text-lg font-semibold">Item Details</h3>
+                    Item Details
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="bg-muted/50 p-3 rounded-lg">
+                        <p className="text-sm font-medium text-muted-foreground mb-1">CONDITION</p>
+                        <p className="font-medium">{item.condition || "Good - Minor wear"}</p>
+                      </div>
+                      <div className="bg-muted/50 p-3 rounded-lg">
+                        <p className="text-sm font-medium text-muted-foreground mb-1">DIMENSIONS</p>
+                        <p className="font-medium">{item.dimensions || "6ft x 3ft table"}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="bg-muted/50 p-3 rounded-lg">
+                        <p className="text-sm font-medium text-muted-foreground mb-1">AGE</p>
+                        <p className="font-medium">{item.age || "3 years old"}</p>
+                      </div>
+                      <div className="bg-muted/50 p-3 rounded-lg">
+                        <p className="text-sm font-medium text-muted-foreground mb-1">MATERIAL</p>
+                        <p className="font-medium">{item.material || "Solid oak wood"}</p>
+                      </div>
+                    </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div>
-                      <p className="font-medium mb-2">Description:</p>
-                      <p className="text-muted-foreground">{item.description}</p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <div className="bg-muted/50 p-3 rounded-lg">
-                          <p className="text-sm font-medium text-muted-foreground mb-1">CONDITION</p>
-                          <p className="font-medium">{item.condition || "Good - Minor wear"}</p>
-                        </div>
-                        <div className="bg-muted/50 p-3 rounded-lg">
-                          <p className="text-sm font-medium text-muted-foreground mb-1">DIMENSIONS</p>
-                          <p className="font-medium">{item.dimensions || "6ft x 3ft table"}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="bg-muted/50 p-3 rounded-lg">
-                          <p className="text-sm font-medium text-muted-foreground mb-1">AGE</p>
-                          <p className="font-medium">{item.age || "3 years old"}</p>
-                        </div>
-                        <div className="bg-muted/50 p-3 rounded-lg">
-                          <p className="text-sm font-medium text-muted-foreground mb-1">MATERIAL</p>
-                          <p className="font-medium">{item.material || "Solid oak wood"}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <p className="font-medium mb-2">What's Included:</p>
-                      <p className="text-muted-foreground">{item.whatsIncluded || "Table, 6 chairs, table pads for protection"}</p>
-                    </div>
+                  <div className="mt-4">
+                    <p className="font-medium mb-2">What's Included:</p>
+                    <p className="text-muted-foreground">{item.whatsIncluded || "Table, 6 chairs, table pads for protection"}</p>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Requirements & Pickup */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
+              <Card className="border-0 shadow-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <h3 className="text-lg font-semibold">Requirements & Pickup</h3>
-                  </div>
-                  
+                    Requirements & Pickup
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
                   <div className="space-y-4">
                     <div>
                       <p className="font-medium mb-2">Who Can Apply:</p>
@@ -222,7 +246,7 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
 
               {/* Testimonial */}
               {item.testimonial && (
-                <Card className="border-primary/20 bg-primary/5">
+                <Card className="border-primary/20 bg-primary/5 border-0 shadow-card">
                   <CardContent className="p-6">
                     <div className="italic text-muted-foreground mb-3">
                       "{item.testimonial.text}"
@@ -244,13 +268,14 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Item Stats */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
+              <Card className="border-0 shadow-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
                     <Package className="w-5 h-5 text-blue-500" />
-                    <h3 className="text-lg font-semibold">Item Stats</h3>
-                  </div>
-                  
+                    Item Stats
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="text-center">
                       <p className="text-2xl font-bold text-orange-500">23</p>
@@ -284,7 +309,7 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
               </Card>
 
               {/* Interest Status & Actions */}
-              <Card>
+              <Card className="border-0 shadow-card">
                 <CardContent className="p-6 space-y-4">
                   {!showRequestForm ? (
                     <div>
@@ -320,11 +345,11 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
                         <p className="text-sm text-muted-foreground mb-4">
                           Tell the owner why you need this item and when you can pick it up.
                         </p>
-                        <textarea
+                        <Textarea
                           value={requestMessage}
                           onChange={(e) => setRequestMessage(e.target.value)}
                           placeholder="Hi! I'm interested in this item because..."
-                          className="w-full min-h-[100px] p-3 border rounded-lg resize-none"
+                          className="min-h-[100px] resize-none"
                         />
                       </div>
                       <div className="flex gap-2">
@@ -367,34 +392,33 @@ export function MarketplaceItemDetails({ item, isOpen, onClose, onRequestItem }:
               </Card>
 
               {/* Quick Actions */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
+              <Card className="border-0 shadow-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
                     <Users className="w-5 h-5 text-blue-500" />
-                    <h3 className="text-lg font-semibold">Quick Actions</h3>
-                  </div>
+                    Quick Actions
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button variant="outline" className="w-full justify-start">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Contact Giver
+                  </Button>
                   
-                  <div className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start">
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Contact Giver
-                    </Button>
-                    
-                    <Button variant="outline" className="w-full justify-start">
-                      <Navigation className="w-4 h-4 mr-2" />
-                      Get Pickup Directions
-                    </Button>
-                    
-                    <Button variant="outline" className="w-full justify-start">
-                      <Share className="w-4 h-4 mr-2" />
-                      Share Item
-                    </Button>
-                    
-                    <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700">
-                      <Flag className="w-4 h-4 mr-2" />
-                      Report Issue
-                    </Button>
-                  </div>
+                  <Button variant="outline" className="w-full justify-start">
+                    <Navigation className="w-4 h-4 mr-2" />
+                    Get Pickup Directions
+                  </Button>
+                  
+                  <Button variant="outline" className="w-full justify-start">
+                    <Share className="w-4 h-4 mr-2" />
+                    Share Item
+                  </Button>
+                  
+                  <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700">
+                    <Flag className="w-4 h-4 mr-2" />
+                    Report Issue
+                  </Button>
                 </CardContent>
               </Card>
             </div>
