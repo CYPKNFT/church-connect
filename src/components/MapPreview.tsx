@@ -21,9 +21,8 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // For demo purposes, using a default location (New York)
-    // In a real app, you'd geocode the location string
-    const defaultCoordinates: [number, number] = [40.7589, -73.9851];
+    // Jacksonville City Hall coordinates
+    const defaultCoordinates: [number, number] = [30.3321838, -81.655651];
 
     // Initialize Leaflet map
     map.current = L.map(mapContainer.current, {
@@ -94,12 +93,12 @@ export const MapPreview: React.FC<MapPreviewProps> = ({
     <div className={`relative z-10 group ${className}`}>
       <div 
         ref={mapContainer} 
-        className="w-full h-full rounded-lg border border-border overflow-hidden cursor-pointer"
+        className="w-full h-full rounded-full border-4 border-white shadow-lg overflow-hidden cursor-pointer"
         onClick={onExpand}
       />
       
       {/* Overlay with expand button */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg cursor-pointer" onClick={onExpand}>
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-full cursor-pointer" onClick={onExpand}>
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <Button
             size="sm"

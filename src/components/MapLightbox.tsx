@@ -33,9 +33,8 @@ export const MapLightbox: React.FC<MapLightboxProps> = ({
     const timeout = window.setTimeout(() => {
       if (!mapContainer.current) return;
 
-      // For demo purposes, using a default location (New York)
-      // In a real app, you'd geocode the location string
-      const defaultCoordinates: [number, number] = [40.7589, -73.9851];
+      // Jacksonville City Hall coordinates
+      const defaultCoordinates: [number, number] = [30.3321838, -81.655651];
 
       // Recreate the map fresh each open
       if (map.current) {
