@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Plus, Search, Heart, Package, TrendingUp, Users, Upload, Camera } from "lucide-react";
 import { toast } from "sonner";
+import { MarketplaceItemDetails } from "@/components/MarketplaceItemDetails";
 
 export default function Marketplace() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +18,8 @@ export default function Marketplace() {
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [selectedTimePosted, setSelectedTimePosted] = useState("any");
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [isItemDetailsOpen, setIsItemDetailsOpen] = useState(false);
   const [newItem, setNewItem] = useState({
     title: "",
     description: "",
@@ -81,8 +84,14 @@ export default function Marketplace() {
     });
   };
 
-  const handleWantItem = (itemTitle: string) => {
-    toast.success(`You've expressed interest in "${itemTitle}". The owner will be notified.`);
+  const handleItemClick = (item: any) => {
+    setSelectedItem(item);
+    setIsItemDetailsOpen(true);
+  };
+
+  const handleRequestItem = (itemTitle: string) => {
+    toast.success(`You've requested "${itemTitle}". The owner will be notified.`);
+    setIsItemDetailsOpen(false);
   };
 
   return (
@@ -257,7 +266,7 @@ export default function Marketplace() {
               {/* Item Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredItems.map((item) => (
-                  <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
+                <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer" onClick={() => handleItemClick(item)}>
                     <CardContent className="p-0">
                       {/* Item Image */}
                       <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
@@ -291,7 +300,10 @@ export default function Marketplace() {
                           {item.status === "Available" && (
                             <Button 
                               size="sm" 
-                              onClick={() => handleWantItem(item.title)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleItemClick(item);
+                              }}
                               className="flex items-center gap-1"
                             >
                               <Heart className="w-3 h-3" />
@@ -407,6 +419,14 @@ export default function Marketplace() {
           </div>
         </div>
       </div>
+
+      {/* Item Details Modal */}
+      <MarketplaceItemDetails
+        item={selectedItem}
+        isOpen={isItemDetailsOpen}
+        onClose={() => setIsItemDetailsOpen(false)}
+        onRequestItem={handleRequestItem}
+      />
     </CollapsibleSidebar>
   );
 }
