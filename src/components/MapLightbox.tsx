@@ -113,7 +113,7 @@ export const MapLightbox: React.FC<MapLightboxProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="z-[100] max-w-3xl w-full p-0 [&>button]:hidden">
+      <DialogContent className="z-[100] max-w-3xl w-full p-0">
         <DialogHeader className="p-4 pb-2">
           <DialogTitle className="text-xl font-semibold">Event Location</DialogTitle>
           <p className="text-sm text-muted-foreground mt-2">{location}</p>
