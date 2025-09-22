@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award } from "lucide-react";
 
@@ -13,6 +14,8 @@ export default function Community() {
   const [activeTab, setActiveTab] = useState("needs");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12; // 4 rows × 3 columns
 
   const communityNeeds = [
     {
@@ -224,6 +227,17 @@ export default function Community() {
     return matchesSearch && matchesCategory;
   });
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNeeds = filteredNeeds.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory]);
+
   return (
     <div className="min-h-screen bg-background pb-16">
       {/* Hero Section with Enhanced Design */}
@@ -266,31 +280,34 @@ export default function Community() {
             <h2 className="text-2xl font-bold text-foreground mb-2">Explore Community Impact</h2>
             <p className="text-muted-foreground">Search through real needs, inspiring stories, and upcoming opportunities</p>
           </div>
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Search community activities..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-10 rounded-xl"
-                />
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Input
+                    placeholder="Search community activities..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-10 rounded-xl"
+                  />
+                </div>
               </div>
+              <Select value={selectedCategory} onValueChange={(value) => {
+                setSelectedCategory(value);
+                setCurrentPage(1);
+              }}>
+                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
+                  {categories.map(category => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48 h-10 rounded-xl">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
-                {categories.map(category => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
         </div>
 
         {/* Enhanced Tabs System */}
@@ -358,15 +375,9 @@ export default function Community() {
               })}
             </div>
 
-            {/* Needs Grid - 2 rows x 3 columns */}
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 overflow-y-auto max-h-[600px] scroll-smooth pr-2 custom-scrollbar"
-              style={{
-                scrollbarWidth: 'thin',
-                scrollbarColor: '#aaa transparent',
-              }}
-            >
-              {filteredNeeds.slice(0, 12).map((need) => (
+            {/* Needs Grid - 4 rows x 3 columns with pagination */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {currentNeeds.map((need) => (
                 <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
@@ -430,6 +441,52 @@ export default function Community() {
                 </Card>
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex justify-center mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage > 1) setCurrentPage(currentPage - 1);
+                        }}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                      />
+                    </PaginationItem>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage(page);
+                          }}
+                          isActive={currentPage === page}
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                        }}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            )}
           </TabsContent>
 
           {/* Success Stories Tab */}
