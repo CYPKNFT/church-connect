@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Progress } from "@/components/ui/progress";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { 
   MapPin, 
@@ -21,7 +22,16 @@ import {
   Heart,
   AlertCircle,
   User,
-  Send
+  Send,
+  CheckCircle,
+  Car,
+  Shield,
+  Dumbbell,
+  Clock3,
+  UserCheck,
+  Stethoscope,
+  Phone,
+  Target
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -41,11 +51,26 @@ interface ServiceData {
   scheduledTime?: string;
   viewCount: number;
   volunteerCount: number;
+  interestedCount: number;
   requesterName: string;
   requesterAvatar?: string;
   requesterRating?: number;
   requesterVerified?: boolean;
   specialInstructions?: string;
+  paymentMethod?: string;
+  budget?: string;
+  commitmentLength?: string;
+  trialPeriod?: string;
+  essentialRequirements: string[];
+  preferredExperience: string[];
+  coordinatorName?: string;
+  coordinatorRole?: string;
+  coordinatorAvatar?: string;
+  coordinatorAvailable?: boolean;
+  matchScore?: number;
+  commitmentStart?: string;
+  commitmentGoal?: string;
+  commitmentProgress?: number;
 }
 
 export default function ServiceDetail() {
@@ -57,19 +82,45 @@ export default function ServiceDetail() {
   const getInitialServiceData = (): ServiceData => {
     const baseData = {
       id: id || "1",
-      title: "Weekly grocery shopping assistance",
-      description: "Need someone to help with grocery shopping every Tuesday morning. I have mobility issues and would appreciate the help with carrying bags and reaching items on high shelves. Looking for someone reliable and patient.",
+      title: "Weekly Grocery Shopping Assistance",
+      description: "I need someone to help with grocery shopping every Tuesday morning. I have mobility issues and would appreciate the help with carrying bags and reaching items on high shelves. Looking for someone reliable and patient who is comfortable helping seniors.",
       category: "Transportation & Errands",
       urgency: "This Week" as const,
-      location: "Downtown Market District",
-      duration: "2 hours",
+      location: "Publix Downtown Market District, 123 Main St entrance",
+      duration: "1.5-2 hours",
       postedAt: "2 days ago",
       viewCount: 45,
       volunteerCount: 5,
+      interestedCount: 8,
       requesterName: "Sarah Johnson",
       requesterRating: 4.8,
       requesterVerified: true,
-      specialInstructions: "Please bring your own car if possible. I can provide a grocery list in advance. Prefer someone comfortable helping seniors.",
+      specialInstructions: "Please bring your own car if possible. I can provide a grocery list in advance. I prefer someone comfortable helping seniors and familiar with mobility assistance. Parking is available near the store entrance. I have a small cart for easier transport.",
+      paymentMethod: "Cash provided for groceries",
+      budget: "Avg. budget: $75-100",
+      commitmentLength: "6 months minimum",
+      trialPeriod: "Trial period: 2 weeks",
+      essentialRequirements: [
+        "Reliable personal vehicle",
+        "Background check (church will provide)",
+        "Physical ability to lift 20+ lbs",
+        "Available Tuesday mornings",
+        "Patient and kind demeanor"
+      ],
+      preferredExperience: [
+        "Previous senior assistance experience",
+        "Church member or regular attendee",
+        "Comfortable with mobility aids",
+        "Familiar with dietary restrictions",
+        "Good communication skills"
+      ],
+      coordinatorName: "Mike Roberts",
+      coordinatorRole: "Senior Care Coordinator",
+      coordinatorAvailable: true,
+      matchScore: 87,
+      commitmentStart: "Next Tuesday",
+      commitmentGoal: "6 months",
+      commitmentProgress: 0,
       status: "active" as ServiceStatus
     };
 
@@ -232,7 +283,8 @@ export default function ServiceDetail() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 space-y-6">
+              {/* Header Card */}
               <Card>
                 <CardHeader>
                   <div className="flex flex-wrap items-start justify-between gap-4">
@@ -253,70 +305,136 @@ export default function ServiceDetail() {
                 
                 <CardContent className="space-y-6">
                   <div>
-                    <h3 className="font-semibold mb-2">Description</h3>
+                    <h3 className="font-semibold mb-2 flex items-center">
+                      <AlertCircle className="h-4 w-4 mr-2" />
+                      Description
+                    </h3>
                     <p className="text-muted-foreground leading-relaxed">
                       {serviceData.description}
                     </p>
                   </div>
 
-                  <Separator />
-
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <MapPin className="h-5 w-5 text-muted-foreground" />
+                      <div className="flex items-start space-x-3">
+                        <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
                         <div>
-                          <p className="font-medium">Location</p>
+                          <p className="font-medium">Meeting Location</p>
                           <p className="text-sm text-muted-foreground">{serviceData.location}</p>
                         </div>
                       </div>
                       
-                      <div className="flex items-center space-x-3">
-                        <Clock className="h-5 w-5 text-muted-foreground" />
-                        <div>
-                          <p className="font-medium">Duration</p>
-                          <p className="text-sm text-muted-foreground">{serviceData.duration}</p>
+                      {serviceData.paymentMethod && (
+                        <div className="flex items-start space-x-3">
+                          <AlertCircle className="h-5 w-5 text-muted-foreground mt-0.5" />
+                          <div>
+                            <p className="font-medium">Payment Method</p>
+                            <p className="text-sm text-muted-foreground">{serviceData.paymentMethod}</p>
+                            {serviceData.budget && (
+                              <p className="text-xs text-muted-foreground mt-1">{serviceData.budget}</p>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <Calendar className="h-5 w-5 text-muted-foreground" />
+                      <div className="flex items-start space-x-3">
+                        <Calendar className="h-5 w-5 text-muted-foreground mt-0.5" />
                         <div>
-                          <p className="font-medium">Posted</p>
-                          <p className="text-sm text-muted-foreground">{serviceData.postedAt}</p>
+                          <p className="font-medium">Schedule</p>
+                          <p className="text-sm text-muted-foreground">Every Tuesday, 9:00 AM</p>
+                          <p className="text-xs text-muted-foreground mt-1">Duration: {serviceData.duration}</p>
                         </div>
                       </div>
 
-                      {serviceData.scheduledDate && (
-                        <div className="flex items-center space-x-3">
-                          <Calendar className="h-5 w-5 text-muted-foreground" />
+                      {serviceData.commitmentLength && (
+                        <div className="flex items-start space-x-3">
+                          <Clock3 className="h-5 w-5 text-muted-foreground mt-0.5" />
                           <div>
-                            <p className="font-medium">Scheduled</p>
-                            <p className="text-sm text-muted-foreground">
-                              {serviceData.scheduledDate} at {serviceData.scheduledTime}
-                            </p>
+                            <p className="font-medium">Commitment Length</p>
+                            <p className="text-sm text-muted-foreground">{serviceData.commitmentLength}</p>
+                            {serviceData.trialPeriod && (
+                              <p className="text-xs text-muted-foreground mt-1">{serviceData.trialPeriod}</p>
+                            )}
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
+                </CardContent>
+              </Card>
 
-                  {serviceData.specialInstructions && (
-                    <>
-                      <Separator />
-                      <div>
-                        <h3 className="font-semibold mb-2 flex items-center">
-                          <AlertCircle className="h-4 w-4 mr-2" />
-                          Special Instructions
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {serviceData.specialInstructions}
-                        </p>
+              {/* Volunteer Requirements */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center text-lg">
+                    <CheckCircle className="h-5 w-5 mr-2 text-green-500" />
+                    Volunteer Requirements
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium mb-3">Essential Requirements</h4>
+                      <div className="space-y-2">
+                        {serviceData.essentialRequirements.map((req, index) => (
+                          <div key={index} className="flex items-start space-x-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground">{req}</span>
+                          </div>
+                        ))}
                       </div>
-                    </>
-                  )}
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-medium mb-3">Preferred Experience</h4>
+                      <div className="space-y-2">
+                        {serviceData.preferredExperience.map((exp, index) => (
+                          <div key={index} className="flex items-start space-x-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground">{exp}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Special Instructions */}
+              {serviceData.specialInstructions && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-lg">
+                      <AlertCircle className="h-5 w-5 mr-2 text-blue-500" />
+                      Special Instructions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {serviceData.specialInstructions}
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Commitment Timeline */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Commitment Timeline</CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    Looking for {serviceData.commitmentLength} with {serviceData.trialPeriod}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <Progress value={serviceData.commitmentProgress} className="w-full" />
+                    <div className="flex justify-between text-sm text-muted-foreground">
+                      <span>Start: {serviceData.commitmentStart}</span>
+                      <span>Goal: {serviceData.commitmentGoal}</span>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -326,10 +444,50 @@ export default function ServiceDetail() {
               {/* Requester Info */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Requester</CardTitle>
+                  <CardTitle className="flex items-center text-lg">
+                    <User className="h-5 w-5 mr-2" />
+                    Requester
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {getContactInfo()}
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-12 w-12">
+                        <AvatarImage src={serviceData.requesterAvatar} />
+                        <AvatarFallback className="bg-blue-500 text-white">
+                          {serviceData.requesterName.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <h3 className="font-semibold">{serviceData.requesterName}</h3>
+                          {serviceData.requesterVerified && (
+                            <Badge variant="secondary" className="text-xs bg-green-100 text-green-700">
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
+                        </div>
+                        {serviceData.requesterRating && (
+                          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <span>{serviceData.requesterRating}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                      <div>
+                        <div className="text-2xl font-bold text-primary">{serviceData.viewCount}</div>
+                        <div className="text-xs text-muted-foreground">VIEWS</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-primary">{serviceData.interestedCount}</div>
+                        <div className="text-xs text-muted-foreground">INTERESTED</div>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -340,7 +498,7 @@ export default function ServiceDetail() {
                     <>
                       <Dialog open={showVolunteerDialog} onOpenChange={setShowVolunteerDialog}>
                         <DialogTrigger asChild>
-                          <Button className="w-full" size="lg">
+                          <Button className="w-full bg-orange-500 hover:bg-orange-600" size="lg">
                             <UserPlus className="mr-2 h-4 w-4" />
                             I Can Help
                           </Button>
@@ -410,6 +568,89 @@ export default function ServiceDetail() {
                   </Button>
                 </CardContent>
               </Card>
+
+              {/* Volunteer Coordinator */}
+              {serviceData.coordinatorName && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-lg">
+                      <UserCheck className="h-5 w-5 mr-2" />
+                      Volunteer Coordinator
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-3">
+                        <Avatar className="h-10 w-10">
+                          <AvatarFallback className="bg-green-500 text-white">
+                            {serviceData.coordinatorName.split(' ').map(n => n[0]).join('')}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                          <h4 className="font-semibold">{serviceData.coordinatorName}</h4>
+                          <p className="text-sm text-muted-foreground">{serviceData.coordinatorRole}</p>
+                          {serviceData.coordinatorAvailable && (
+                            <div className="flex items-center space-x-1 text-xs text-green-600">
+                              <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                              <span>Available for questions</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Contact Mike for questions about volunteer requirements, background checks, or safety protocols.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Volunteer Matching */}
+              {serviceData.matchScore && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-lg">
+                      <Target className="h-5 w-5 mr-2" />
+                      Volunteer Matching
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-lg font-semibold">Match Score: {serviceData.matchScore}%</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Based on your profile, location, and availability. High compatibility for senior assistance.
+                        </p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-2 text-sm">
+                          <Car className="h-4 w-4 text-green-500" />
+                          <span className="text-muted-foreground">Transportation:</span>
+                          <span className="font-medium">Compatible</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-sm">
+                          <Clock3 className="h-4 w-4 text-green-500" />
+                          <span className="text-muted-foreground">Schedule:</span>
+                          <span className="font-medium">Tuesday AM available</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-sm">
+                          <Dumbbell className="h-4 w-4 text-green-500" />
+                          <span className="text-muted-foreground">Physical:</span>
+                          <span className="font-medium">Suitable</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-sm">
+                          <Stethoscope className="h-4 w-4 text-green-500" />
+                          <span className="text-muted-foreground">Experience:</span>
+                          <span className="font-medium">Senior-friendly</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
         </div>
