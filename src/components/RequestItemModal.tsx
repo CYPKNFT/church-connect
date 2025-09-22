@@ -31,8 +31,6 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
     transportation: "",
     pickupTimes: "",
     heavyLiftingHelp: "",
-    churchConnection: "",
-    reference: "",
     confirmCommitments: false
   });
 
@@ -59,7 +57,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
     // Validate required fields
     if (!formData.householdSize || !formData.livingSituation || !formData.needExplanation || 
         !formData.urgencyLevel || !formData.transportation || !formData.pickupTimes || 
-        !formData.churchConnection || !formData.confirmCommitments) {
+        !formData.confirmCommitments) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields",
@@ -81,8 +79,6 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
       transportation: "",
       pickupTimes: "",
       heavyLiftingHelp: "",
-      churchConnection: "",
-      reference: "",
       confirmCommitments: false
     });
     setCharCounts({
@@ -305,48 +301,6 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
               />
               <div className="text-right text-sm text-slate-400">
                 {charCounts.heavyLiftingHelp} / 200 characters
-              </div>
-            </div>
-          </div>
-
-          {/* Community Connection */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 mb-4">
-              <Users className="w-5 h-5 text-green-500" />
-              <h3 className="text-lg font-semibold text-white">Community Connection</h3>
-            </div>
-
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="churchConnection" className="text-slate-300">
-                  Are you connected to our church community?
-                </Label>
-                <Select value={formData.churchConnection} onValueChange={(value) => setFormData(prev => ({ ...prev, churchConnection: value }))}>
-                  <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-slate-700 border-slate-600">
-                    <SelectItem value="member">Member</SelectItem>
-                    <SelectItem value="visitor">Visitor</SelectItem>
-                    <SelectItem value="friend-referral">Recommended by friend</SelectItem>
-                    <SelectItem value="community-outreach">Community outreach</SelectItem>
-                    <SelectItem value="new-area">New to area</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="reference" className="text-slate-300">
-                  Reference (optional but helpful for high-value items)
-                </Label>
-                <Input
-                  id="reference"
-                  placeholder="Name of church member, community leader, or mutual connection"
-                  value={formData.reference}
-                  onChange={(e) => setFormData(prev => ({ ...prev, reference: e.target.value }))}
-                  className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                />
-                <p className="text-sm text-slate-400 italic">Having a reference helps build trust in our community</p>
               </div>
             </div>
           </div>
