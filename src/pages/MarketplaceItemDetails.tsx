@@ -247,9 +247,9 @@ export default function MarketplaceItemDetails() {
               <div className="flex items-center w-full">
                 {/* Title and subtitle - left aligned */}
                 <div className="flex-shrink-0">
-                  {/* Back button and status badge */}
+                  {/* Back button and feature badge */}
                   <div className="flex items-center gap-4 mb-2">
-                    <Link to="/my-church?tab=giving">
+                    <Link to="/marketplace">
                       <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Marketplace
@@ -278,39 +278,32 @@ export default function MarketplaceItemDetails() {
                   </div>
                 </div>
                 
-                {/* Item image panel - centered */}
+                {/* Image panel - centered */}
                 <div className="flex justify-center items-center ml-16">
                   <div 
-                    className="w-32 h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-3 border-white/30 shadow-lg cursor-pointer hover:scale-105 transition-transform duration-200"
+                    className="w-32 h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-3 border-white/30 shadow-lg cursor-pointer relative group"
                     onClick={() => setCurrentImageIndex((prev) => (prev + 1) % item.images.length)}
                   >
                     <img 
                       src={item.images[currentImageIndex]} 
                       alt={`${item.title} - Image ${currentImageIndex + 1} of ${item.images.length}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
+                    {item.images.length > 1 && (
+                      <div className="absolute bottom-1 right-1 flex gap-1">
+                        {item.images.map((_, index) => (
+                          <div
+                            key={index}
+                            className={`w-2 h-2 rounded-full transition-colors ${
+                              currentImageIndex === index ? "bg-white" : "bg-white/50"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              
-              {/* Image navigation dots */}
-              {item.images.length > 1 && (
-                <div className="flex justify-end mt-4 pr-4">
-                  <div className="flex gap-2">
-                    {item.images.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                          index === currentImageIndex 
-                            ? 'bg-white' 
-                            : 'bg-white/50 hover:bg-white/70'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
