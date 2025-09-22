@@ -236,7 +236,9 @@ export default function MarketplaceItemDetails() {
     <div className="min-h-screen bg-background">
       {/* Hero Header */}
       <div className="relative overflow-hidden">
-        <div className="h-32 bg-gradient-primary"></div>
+        <div className="h-64 bg-gradient-primary relative">
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
         
         <div className="absolute inset-0 flex items-end pb-12">
           <div className="container mx-auto px-4">
