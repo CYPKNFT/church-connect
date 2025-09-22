@@ -442,8 +442,8 @@ export default function Community() {
               ))}
             </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
+            {/* Pagination - Always show if there are items */}
+            {filteredNeeds.length > 0 && (
               <div className="flex justify-center mt-8">
                 <Pagination>
                   <PaginationContent>
