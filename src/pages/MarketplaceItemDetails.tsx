@@ -30,11 +30,14 @@ import {
   Shield,
   Eye,
   Heart,
-  Flag
+  Flag,
+  X,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { ImageLightbox } from "@/components/ImageLightbox";
+
 
 // Import marketplace images for demo
 import sofaImage from "@/assets/marketplace/sofa.jpg";
@@ -588,15 +591,59 @@ export default function MarketplaceItemDetails() {
         </div>
       </div>
       
-      {/* Image Lightbox */}
-      <ImageLightbox
-        isOpen={isImageLightboxOpen}
-        onClose={() => setIsImageLightboxOpen(false)}
-        images={item.images}
-        currentIndex={currentImageIndex}
-        onIndexChange={setCurrentImageIndex}
-        title={item.title}
-      />
+      {/* Image Overlay Modal */}
+      {isImageLightboxOpen && (
+        <Dialog open={isImageLightboxOpen} onOpenChange={() => setIsImageLightboxOpen(false)}>
+          <DialogContent className="max-w-4xl w-full p-0">
+            <div className="relative">
+              <button
+                onClick={() => setIsImageLightboxOpen(false)}
+                className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              
+              <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                <img
+                  src={item.images[currentImageIndex]}
+                  alt="Item preview"
+                  className="w-full h-full object-cover"
+                />
+                
+                {item.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : item.images.length - 1)}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => prev < item.images.length - 1 ? prev + 1 : 0)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                    
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {item.images.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
