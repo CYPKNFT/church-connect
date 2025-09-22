@@ -108,7 +108,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 bg-slate-800 border-slate-700 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-600 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent hover:[&::-webkit-scrollbar-thumb]:bg-slate-500">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 pr-3 bg-slate-800 border-slate-700 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-600 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent hover:[&::-webkit-scrollbar-thumb]:bg-slate-500">
         {/* Header */}
         <DialogHeader className="p-6 pb-4">
           <div className="flex items-start gap-4">
@@ -124,7 +124,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
           </div>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="px-6 pb-6 space-y-6">
+        <form onSubmit={handleSubmit} className="px-6 pb-6 pr-3 space-y-6">
           {/* Community Values Banner */}
           <div className="bg-blue-600 rounded-lg p-4">
             <p className="text-white text-sm leading-relaxed">
@@ -188,13 +188,13 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
               <Label htmlFor="needExplanation" className="text-slate-300">
                 Why do you need this item? <span className="text-red-400">*</span>
               </Label>
-              <Textarea
-                id="needExplanation"
-                placeholder="Share your situation and how this item would help your family. Be as specific as you're comfortable with - this helps givers understand the impact of their donation."
-                value={formData.needExplanation}
-                onChange={(e) => handleTextareaChange("needExplanation", e.target.value, 500)}
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 min-h-[100px] resize-none"
-              />
+                <Textarea
+                  id="needExplanation"
+                  placeholder="Share your situation and how this item would help your family. Be as specific as you're comfortable with - this helps givers understand the impact of their donation."
+                  value={formData.needExplanation}
+                  onChange={(e) => handleTextareaChange("needExplanation", e.target.value, 500)}
+                  className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 min-h-[100px] resize-none focus:outline-none focus:ring-0 focus:border-slate-600"
+                />
               <div className="text-right text-sm text-slate-400">
                 {charCounts.needExplanation} / 500 characters
               </div>
@@ -230,7 +230,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
                 placeholder="Optional: Share your story, express gratitude, or mention any special circumstances..."
                 value={formData.additionalInfo}
                 onChange={(e) => handleTextareaChange("additionalInfo", e.target.value, 300)}
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 min-h-[80px] resize-none"
+                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 min-h-[80px] resize-none focus:outline-none focus:ring-0 focus:border-slate-600"
               />
               <div className="text-right text-sm text-slate-400">
                 {charCounts.additionalInfo} / 300 characters
@@ -289,7 +289,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
                 placeholder="Let us know if you'll need assistance with heavy lifting or if you're bringing help..."
                 value={formData.heavyLiftingHelp}
                 onChange={(e) => handleTextareaChange("heavyLiftingHelp", e.target.value, 200)}
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 min-h-[60px] resize-none"
+                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 min-h-[60px] resize-none focus:outline-none focus:ring-0 focus:border-slate-600"
               />
               <div className="text-right text-sm text-slate-400">
                 {charCounts.heavyLiftingHelp} / 200 characters
