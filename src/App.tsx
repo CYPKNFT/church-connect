@@ -55,6 +55,7 @@ import StaffVerification from "./pages/StaffVerification";
 import ContentModeration from "./pages/ContentModeration";
 import Analytics from "./pages/Analytics";
 import SystemSettings from "./pages/SystemSettings";
+import ServiceDetail from "./pages/ServiceDetail";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 
@@ -96,6 +97,7 @@ const App = () => (
                     <Route path="/feedback" element={<Feedback />} />
                     <Route path="/template" element={<Template />} />
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
+                    <Route path="/service_detail/:id" element={<ServiceDetail />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
                     <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
