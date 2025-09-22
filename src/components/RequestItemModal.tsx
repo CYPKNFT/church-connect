@@ -256,7 +256,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="transportation" className="text-slate-300">
-                  Do you have reliable transportation for pickup? <span className="text-red-400">*</span>
+                  Transportation available? <span className="text-red-400">*</span>
                 </Label>
                 <Select value={formData.transportation} onValueChange={(value) => setFormData(prev => ({ ...prev, transportation: value }))}>
                   <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
