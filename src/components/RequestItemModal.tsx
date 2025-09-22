@@ -108,7 +108,7 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 bg-slate-800 border-slate-700">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 bg-slate-800 border-slate-700 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-600 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent hover:[&::-webkit-scrollbar-thumb]:bg-slate-500">
         {/* Header */}
         <DialogHeader className="p-6 pb-4">
           <div className="flex items-start gap-4">
@@ -121,14 +121,6 @@ export default function RequestItemModal({ open, onOpenChange, item, onSubmit }:
               </DialogTitle>
               <p className="text-slate-400">Complete this application to express your interest</p>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-slate-400 hover:text-white"
-              onClick={() => onOpenChange(false)}
-            >
-              <X className="w-5 h-5" />
-            </Button>
           </div>
         </DialogHeader>
 
