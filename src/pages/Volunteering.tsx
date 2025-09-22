@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award, ChevronLeft } from "lucide-react";
+import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
@@ -12,8 +12,6 @@ export default function Volunteering() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
 
   const userVolunteering = [
     {
@@ -63,28 +61,6 @@ export default function Volunteering() {
     
     return matchesSearch && matchesStatus && matchesCategory;
   });
-
-  // Pagination logic
-  const totalPages = Math.ceil(filteredVolunteering.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedVolunteering = filteredVolunteering.slice(startIndex, endIndex);
-
-  // Reset to first page when filters change
-  const handleFilterChange = (filterType: 'search' | 'status' | 'category', value: string) => {
-    setCurrentPage(1);
-    switch (filterType) {
-      case 'search':
-        setSearchTerm(value);
-        break;
-      case 'status':
-        setStatusFilter(value);
-        break;
-      case 'category':
-        setCategoryFilter(value);
-        break;
-    }
-  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -197,7 +173,7 @@ export default function Volunteering() {
                         <Input
                           placeholder="Search your volunteering activities..."
                           value={searchTerm}
-                          onChange={(e) => handleFilterChange('search', e.target.value)}
+                          onChange={(e) => setSearchTerm(e.target.value)}
                           className="pl-10 rounded-xl"
                         />
                       </div>
@@ -206,7 +182,7 @@ export default function Volunteering() {
                     <div className="flex gap-3">
                       <select
                         value={statusFilter}
-                        onChange={(e) => handleFilterChange('status', e.target.value)}
+                        onChange={(e) => setStatusFilter(e.target.value)}
                         className="px-4 py-2 border border-border rounded-xl bg-background text-sm"
                       >
                         {statuses.map(status => (
@@ -216,7 +192,7 @@ export default function Volunteering() {
                       
                       <select
                         value={categoryFilter}
-                        onChange={(e) => handleFilterChange('category', e.target.value)}
+                        onChange={(e) => setCategoryFilter(e.target.value)}
                         className="px-4 py-2 border border-border rounded-xl bg-background text-sm"
                       >
                         {categories.map(category => (
@@ -254,116 +230,63 @@ export default function Volunteering() {
                     </Button>
                   </CardContent>
                 </Card>
-                ) : (
-                <>
-                  {paginatedVolunteering.map((volunteer) => (
-                    <Card 
-                      key={volunteer.id} 
-                      className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
-                      onClick={() => navigate(`/volunteering/${volunteer.id}`)}
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
-                              <h3 className="text-xl font-semibold text-foreground">{volunteer.title}</h3>
-                              <Badge className={`${getStatusColor(volunteer.status)} rounded-full text-xs px-3 py-1`}>
-                                {volunteer.status}
-                              </Badge>
-                              <Badge className={`${getUrgencyColor(volunteer.urgency)} rounded-full text-xs px-3 py-1`}>
-                                {volunteer.urgency}
-                              </Badge>
-                            </div>
-                            
-                            <p className="text-muted-foreground mb-4 leading-relaxed">{volunteer.description}</p>
-                            
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-4">
-                              <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4" />
-                                <span>{volunteer.requester}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4" />
-                                <span>{volunteer.date}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4" />
-                                <span>{volunteer.location}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Timer className="w-4 h-4" />
-                                <span>{volunteer.estimatedTime}</span>
-                              </div>
-                            </div>
-
-                            {volunteer.status === "Completed" && volunteer.rating && (
-                              <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-4 mb-4">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <Award className="w-5 h-5 text-emerald-600" />
-                                  <span className="font-medium text-emerald-800">Completed with {volunteer.rating}★ rating</span>
-                                </div>
-                                {volunteer.feedback && (
-                                  <p className="text-emerald-700 text-sm italic">"{volunteer.feedback}"</p>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-
-                  {/* Pagination */}
-                  {totalPages > 1 && (
-                    <Card className="border-0 shadow-card bg-card rounded-2xl mt-6">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="text-sm text-muted-foreground">
-                            Showing {startIndex + 1}-{Math.min(endIndex, filteredVolunteering.length)} of {filteredVolunteering.length} results
+              ) : (
+                filteredVolunteering.map((volunteer) => (
+                  <Card 
+                    key={volunteer.id} 
+                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
+                    onClick={() => navigate(`/volunteering/${volunteer.id}`)}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-xl font-semibold text-foreground">{volunteer.title}</h3>
+                            <Badge className={`${getStatusColor(volunteer.status)} rounded-full text-xs px-3 py-1`}>
+                              {volunteer.status}
+                            </Badge>
+                            <Badge className={`${getUrgencyColor(volunteer.urgency)} rounded-full text-xs px-3 py-1`}>
+                              {volunteer.urgency}
+                            </Badge>
                           </div>
                           
-                          <div className="flex items-center space-x-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                              disabled={currentPage === 1}
-                              className="rounded-xl"
-                            >
-                              <ChevronLeft className="w-4 h-4" />
-                              Previous
-                            </Button>
-                            
-                            <div className="flex items-center space-x-1">
-                              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                                <Button
-                                  key={page}
-                                  variant={currentPage === page ? "default" : "outline"}
-                                  size="sm"
-                                  onClick={() => setCurrentPage(page)}
-                                  className="rounded-xl w-8 h-8 p-0"
-                                >
-                                  {page}
-                                </Button>
-                              ))}
+                          <p className="text-muted-foreground mb-4 leading-relaxed">{volunteer.description}</p>
+                          
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-4">
+                            <div className="flex items-center gap-2">
+                              <Users className="w-4 h-4" />
+                              <span>{volunteer.requester}</span>
                             </div>
-                            
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                              disabled={currentPage === totalPages}
-                              className="rounded-xl"
-                            >
-                              Next
-                              <ChevronRight className="w-4 h-4" />
-                            </Button>
+                            <div className="flex items-center gap-2">
+                              <Calendar className="w-4 h-4" />
+                              <span>{volunteer.date}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-4 h-4" />
+                              <span>{volunteer.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Timer className="w-4 h-4" />
+                              <span>{volunteer.estimatedTime}</span>
+                            </div>
                           </div>
+
+                          {volunteer.status === "Completed" && volunteer.rating && (
+                            <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-4 mb-4">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Award className="w-5 h-5 text-emerald-600" />
+                                <span className="font-medium text-emerald-800">Completed with {volunteer.rating}★ rating</span>
+                              </div>
+                              {volunteer.feedback && (
+                                <p className="text-emerald-700 text-sm italic">"{volunteer.feedback}"</p>
+                              )}
+                            </div>
+                          )}
                         </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
               )}
             </div>
           </div>
