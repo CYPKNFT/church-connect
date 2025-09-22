@@ -405,19 +405,6 @@ export default function MarketplaceItemDetails() {
               </CardContent>
             </Card>
 
-            {/* Giver's Story */}
-            {item.testimonial && (
-              <Card className="border-0 shadow-elegant bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20">
-                <CardContent className="p-6">
-                  <div className="italic text-foreground leading-relaxed mb-4">
-                    "{item.testimonial.text}"
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>— {item.testimonial.author}, Community Member since {item.testimonial.memberSince}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
           {/* Sidebar */}
