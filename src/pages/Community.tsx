@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye } from "lucide-react";
 
 export default function Community() {
   const [activeTab, setActiveTab] = useState("needs");
@@ -417,338 +417,202 @@ export default function Community() {
       {/* Main Content Area - Separate Section */}
       <div className="container mx-auto px-4 py-6">
         <div className="bg-background rounded-2xl shadow-lg border border-border p-4">
-           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
-              <TabsTrigger 
-                value="needs" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeTab === 'needs' 
-                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                      : 'bg-muted/30 group-hover:bg-muted/50'
-                  }`}>
-                    <Heart className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                    }`} />
-                  </div>
-                  <span className={`transition-colors duration-300 ${
-                    activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                  }`}>DISCOVERING</span>
-                </div>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="stories" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeTab === 'stories' 
-                      ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
-                      : 'bg-muted/30 group-hover:bg-muted/50'
-                  }`}>
-                    <Star className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                    }`} />
-                  </div>
-                  <span className={`transition-colors duration-300 ${
-                    activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                  }`}>INSPIRING</span>
-                </div>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="events" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeTab === 'events' 
-                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                      : 'bg-muted/20 group-hover:bg-muted/40'
-                  }`}>
-                    <Calendar className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                    }`} />
-                  </div>
-                  <span className={`transition-colors duration-300 ${
-                    activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                  }`}>CONNECTING</span>
-                </div>
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Unified Search Bar */}
-            <div className="p-4 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
-              <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
-                {/* Search Input */}
-                <div className="relative w-full max-w-2xl">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder={
-                      activeTab === 'needs' ? "Search needs by title or description..." :
-                      activeTab === 'stories' ? "Search stories by content or author..." :
-                      "Search events by title or description..."
-                    }
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 pr-4 py-2.5 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
-                  />
-                </div>
-
-                {/* Filter Pills */}
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {activeTab === 'needs' && (
-                    <>
-                      {['All', 'Groceries', 'Transportation', 'Home Repair', 'Childcare', 'Meals', 'Emergency Repair', 'Other'].map((category) => (
-                        <Button
-                          key={category}
-                          variant={selectedCategory === category ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedCategory(category)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
-                        >
-                          {category}
-                        </Button>
-                      ))}
-                    </>
-                  )}
-
-                  {activeTab === 'stories' && (
-                    <>
-                      {['All', 'Critical Support', 'Active Volunteer', 'Community Impact', 'Testimonials'].map((category) => (
-                        <Button
-                          key={category}
-                          variant={selectedCategory === category ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedCategory(category)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
-                        >
-                          {category}
-                        </Button>
-                      ))}
-                    </>
-                  )}
-
-                  {activeTab === 'events' && (
-                    <>
-                      {['All', 'Service', 'Community', 'Worship', 'Fellowship', 'Outreach'].map((category) => (
-                        <Button
-                          key={category}
-                          variant={selectedCategory === category ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedCategory(category)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
-                        >
-                          {category}
-                        </Button>
-                      ))}
-                    </>
-                  )}
+          {/* Content based on active tab */}
+          {activeTab === "needs" && (
+            <div className="space-y-8">
+              {/* Section Header */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-3xl font-bold text-foreground">Current Community Needs ({filteredNeeds.length} opportunities)</h2>
+                  <p className="text-muted-foreground text-lg">Real opportunities to make a difference in people's lives. Every act of service creates ripples of hope.</p>
                 </div>
               </div>
-            </div>
+              
+              {/* Needs Grid - 4 rows x 3 columns with pagination */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {currentNeeds.map((need) => (
+                  <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-1">
+                          <Badge variant="outline" className="text-xs">
+                            {need.category}
+                          </Badge>
+                          <Badge 
+                            className={
+                              need.urgency === "Immediate" 
+                                ? "bg-destructive text-destructive-foreground" 
+                                : need.urgency === "This Week"
+                                ? "bg-accent text-accent-foreground"
+                                : "bg-secondary text-secondary-foreground"
+                            }
+                          >
+                            {need.urgency}
+                          </Badge>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {need.timePosted}
+                        </div>
+                      </div>
+                      <CardTitle className="text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+                        {need.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4">
+                        {need.description}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                        <div className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          <span>{need.location}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Users className="w-3 h-3" />
+                          <span>{need.responses} responses</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" className="flex-1" asChild>
+                          <Link to={`/need/${need.id}`}>
+                            <Eye className="w-3 h-3 mr-1" />
+                            View Details
+                          </Link>
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Heart className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
 
-            {/* Active Needs Tab */}
-            <TabsContent value="needs" className="mt-0">
-              <div className="space-y-8">
-                {/* Section Header */}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-3xl font-bold text-foreground">Current Community Needs ({filteredNeeds.length} opportunities)</h2>
-                    <p className="text-muted-foreground text-lg">Real opportunities to make a difference in people's lives. Every act of service creates ripples of hope.</p>
-                  </div>
-                </div>
-                
-                {/* Needs Grid - 4 rows x 3 columns with pagination */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {currentNeeds.map((need) => (
-                <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-1">
-                        <Badge variant="outline" className="text-xs">
-                          {need.category}
-                        </Badge>
-                        <Badge 
-                          className={
-                            need.urgency === "Immediate" 
-                              ? "bg-destructive text-destructive-foreground" 
-                              : need.urgency === "This Week"
-                              ? "bg-accent text-accent-foreground"
-                              : "bg-secondary text-secondary-foreground"
-                          }
-                        >
-                          {need.urgency}
-                        </Badge>
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {need.timePosted}
-                      </div>
-                    </div>
-                    <CardTitle className="text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-                      {need.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                      {need.description}
-                    </p>
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        <span>{need.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        <span>2-3 hours estimated</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        <span>{need.church}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <div className="p-6 pt-0 space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">{need.responses} responses</span>
-                      {need.featured && <Badge variant="secondary" className="text-xs">Featured</Badge>}
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        View Details
-                      </Button>
-                      <Button variant="default" size="sm" className="flex-1">
-                        I Can Help
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
-            {/* Pagination - Always show if there are items */}
-            {filteredNeeds.length > 0 && (
-              <div className="flex justify-center mt-8">
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious 
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage > 1) setCurrentPage(currentPage - 1);
-                        }}
-                        className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                      />
-                    </PaginationItem>
-                    
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                      <PaginationItem key={page}>
-                        <PaginationLink
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="mt-8">
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
                           href="#"
                           onClick={(e) => {
                             e.preventDefault();
-                            setCurrentPage(page);
+                            if (currentPage > 1) setCurrentPage(currentPage - 1);
                           }}
-                          isActive={currentPage === page}
-                        >
-                          {page}
-                        </PaginationLink>
+                          className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                        />
                       </PaginationItem>
-                    ))}
-                    
-                    <PaginationItem>
-                      <PaginationNext 
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-                        }}
-                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </div>
-            )}
-              </div>
-            </TabsContent>
+                      
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        const page = i + 1;
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setCurrentPage(page);
+                              }}
+                              isActive={currentPage === page}
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      })}
+                      
+                      <PaginationItem>
+                        <PaginationNext 
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                          }}
+                          className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Success Stories Tab */}
-          <TabsContent value="stories" className="space-y-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-                Real testimonies from lives touched and communities strengthened through the power of connection.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {successStories.map((story) => (
-                <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      {[...Array(story.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
-                      "{story.content}"
-                    </blockquote>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
-                        <span className="text-xs font-bold text-accent">{story.avatar}</span>
+          {activeTab === "stories" && (
+            <div className="space-y-8">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
+                <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+                  Real testimonies from lives touched and communities strengthened through the power of connection.
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {successStories.map((story) => (
+                  <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        {[...Array(story.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                        ))}
                       </div>
-                      <div>
-                        <div className="font-semibold text-sm text-foreground">{story.author}</div>
-                        <div className="text-xs text-muted-foreground">{story.church}</div>
+                      <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
+                        "{story.content}"
+                      </blockquote>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                          <span className="text-xs font-bold text-accent">{story.avatar}</span>
+                        </div>
+                        <div>
+                          <div className="font-semibold text-sm text-foreground">{story.author}</div>
+                          <div className="text-xs text-muted-foreground">{story.church}</div>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
-          </TabsContent>
+          )}
 
           {/* Events Tab */}
-          <TabsContent value="events" className="space-y-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">Upcoming Events</h2>
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-                Join upcoming opportunities to serve and connect with your community.
-              </p>
+          {activeTab === "events" && (
+            <div className="space-y-8">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-foreground mb-4">Upcoming Events</h2>
+                <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+                  Join upcoming opportunities to serve and connect with your community.
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {upcomingEvents.map((event) => (
+                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
+                    <CardContent className="p-6">
+                      <h3 className="font-bold text-lg text-foreground mb-2">{event.title}</h3>
+                      <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
+                      <div className="space-y-2 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          <span>{event.date} at {event.time}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" />
+                          <span>{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4" />
+                          <span>{event.attendees} attending</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {upcomingEvents.map((event) => (
-                <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                  <CardContent className="p-6">
-                    <h3 className="font-bold text-lg text-foreground mb-2">{event.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        <span>{event.date} at {event.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        <span>{event.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        <span>{event.attendees} attending</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+          )}
         </div>
       </div>
     </div>
