@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { ImageLightbox } from "@/components/ImageLightbox";
 
 // Import marketplace images for demo
 import sofaImage from "@/assets/marketplace/sofa.jpg";
@@ -92,6 +93,7 @@ export default function MarketplaceItemDetails() {
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
+  const [isImageLightboxOpen, setIsImageLightboxOpen] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
   const [userInterestStatus, setUserInterestStatus] = useState<string | null>(null);
   const { user } = useAuth();
@@ -249,7 +251,7 @@ export default function MarketplaceItemDetails() {
                 <div className="flex-shrink-0">
                   {/* Back button and feature badge */}
                   <div className="flex items-center gap-4 mb-2">
-                    <Link to="/marketplace">
+                    <Link to="/my-church?tab=giving">
                       <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Marketplace
@@ -282,7 +284,7 @@ export default function MarketplaceItemDetails() {
                 <div className="flex justify-center items-center ml-16">
                   <div 
                     className="w-32 h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-3 border-white/30 shadow-lg cursor-pointer relative group"
-                    onClick={() => setCurrentImageIndex((prev) => (prev + 1) % item.images.length)}
+                    onClick={() => setIsImageLightboxOpen(true)}
                   >
                     <img 
                       src={item.images[currentImageIndex]} 
@@ -585,6 +587,16 @@ export default function MarketplaceItemDetails() {
           </div>
         </div>
       </div>
+      
+      {/* Image Lightbox */}
+      <ImageLightbox
+        isOpen={isImageLightboxOpen}
+        onClose={() => setIsImageLightboxOpen(false)}
+        images={item.images}
+        currentIndex={currentImageIndex}
+        onIndexChange={setCurrentImageIndex}
+        title={item.title}
+      />
     </div>
   );
 }
