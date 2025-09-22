@@ -274,76 +274,142 @@ export default function Community() {
       </section>
 
       <div className="container mx-auto px-4 -mt-12 relative z-20">
-        {/* Enhanced Search Section */}
-        <div className="bg-card backdrop-blur-xl rounded-2xl p-6 mb-12 shadow-2xl border border-border">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-foreground mb-2">Explore Community Impact</h2>
-            <p className="text-muted-foreground">Search through real needs, inspiring stories, and upcoming opportunities</p>
-          </div>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
+        {/* Three-Tab Navigation - Matching My Church Style */}
+        <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
+              <TabsTrigger 
+                value="needs" 
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    activeTab === 'needs' 
+                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                      : 'bg-muted/30 group-hover:bg-muted/50'
+                  }`}>
+                    <Heart className={`w-5 h-5 transition-colors duration-300 ${
+                      activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    }`} />
+                  </div>
+                  <span className={`transition-colors duration-300 ${
+                    activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                  }`}>DISCOVERING</span>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="stories" 
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    activeTab === 'stories' 
+                      ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                      : 'bg-muted/30 group-hover:bg-muted/50'
+                  }`}>
+                    <Star className={`w-5 h-5 transition-colors duration-300 ${
+                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                    }`} />
+                  </div>
+                  <span className={`transition-colors duration-300 ${
+                    activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                  }`}>INSPIRING</span>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="events" 
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    activeTab === 'events' 
+                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                      : 'bg-muted/20 group-hover:bg-muted/40'
+                  }`}>
+                    <Calendar className={`w-5 h-5 transition-colors duration-300 ${
+                      activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    }`} />
+                  </div>
+                  <span className={`transition-colors duration-300 ${
+                    activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                  }`}>CONNECTING</span>
+                </div>
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Unified Search Bar */}
+            <div className="p-4 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
+              <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
+                {/* Search Input */}
+                <div className="relative w-full max-w-2xl">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                   <Input
-                    placeholder="Search community activities..."
+                    placeholder={
+                      activeTab === 'needs' ? "Search needs by title or description..." :
+                      activeTab === 'stories' ? "Search stories by content or author..." :
+                      "Search events by title or description..."
+                    }
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-10 rounded-xl"
+                    className="pl-10 pr-4 py-2.5 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
                   />
                 </div>
-              </div>
-              <Select value={selectedCategory} onValueChange={(value) => {
-                setSelectedCategory(value);
-                setCurrentPage(1);
-              }}>
-                <SelectTrigger className="w-full md:w-48 h-10 rounded-xl">
-                  <SelectValue placeholder="All Categories" />
-                </SelectTrigger>
-                <SelectContent className="bg-card border-2 shadow-elegant rounded-xl z-50">
-                  {categories.map(category => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-        </div>
 
-        {/* Enhanced Tabs System */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-16 bg-card backdrop-blur-sm border-2 border-accent/20 rounded-3xl p-3 h-20">
-            <TabsTrigger 
-              value="needs" 
-              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white text-xl font-bold py-6 transition-all duration-300 hover:scale-105"
-            >
-              <Heart className="w-6 h-6 mr-3" />
-              Active Needs
-              <Badge variant="secondary" className="ml-3 bg-white/20 text-current">
-                {filteredNeeds.length}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger 
-              value="stories" 
-              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent data-[state=active]:to-primary data-[state=active]:text-white text-xl font-bold py-6 transition-all duration-300 hover:scale-105"
-            >
-              <Star className="w-6 h-6 mr-3" />
-              Success Stories
-              <Badge variant="secondary" className="ml-3 bg-white/20 text-current">
-                {successStories.length}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger 
-              value="events" 
-              className="rounded-2xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white text-xl font-bold py-6 transition-all duration-300 hover:scale-105"
-            >
-              <Calendar className="w-6 h-6 mr-3" />
-              Upcoming Events
-              <Badge variant="secondary" className="ml-3 bg-white/20 text-current">
-                {upcomingEvents.length}
-              </Badge>
-            </TabsTrigger>
-          </TabsList>
+                {/* Filter Pills */}
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {activeTab === 'needs' && (
+                    <>
+                      {['All', 'Groceries', 'Transportation', 'Home Repair', 'Childcare', 'Meals', 'Emergency Repair', 'Other'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
+
+                  {activeTab === 'stories' && (
+                    <>
+                      {['All', 'Critical Support', 'Active Volunteer', 'Community Impact', 'Testimonials'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
+
+                  {activeTab === 'events' && (
+                    <>
+                      {['All', 'Service', 'Community', 'Worship', 'Fellowship', 'Outreach'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
 
           {/* Active Needs Tab */}
           <TabsContent value="needs" className="space-y-8">
@@ -354,26 +420,6 @@ export default function Community() {
               </p>
             </div>
             
-            {/* Dashboard Stats - Glassmorphic Badges */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
-              {["All", ...categories.slice(1).filter(c => c !== "Food Drive")].map((category) => {
-                const categoryCount = category === "All"
-                  ? communityNeeds.length
-                  : communityNeeds.filter(need => need.category === category).length;
-                return (
-                  <div
-                    key={category}
-                    className="relative group cursor-pointer"
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    <div className={`relative flex items-center justify-between bg-white/15 border border-white/25 rounded-full px-6 py-3 shadow backdrop-blur-md transition-all duration-300 group-hover:border-white/40 group-hover:bg-white/25 ${selectedCategory === category ? 'border-white/60 bg-white/25' : ''}`}>
-                      <span className="text-base text-white font-medium">{category}</span>
-                      <span className="text-lg font-bold text-white ml-4">{categoryCount}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
 
             {/* Needs Grid - 4 rows x 3 columns with pagination */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -560,6 +606,7 @@ export default function Community() {
             </div>
           </TabsContent>
         </Tabs>
+        </div>
       </div>
     </div>
   );
