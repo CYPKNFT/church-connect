@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import RequestItemModal from "@/components/RequestItemModal";
 
 
 // Import marketplace images for demo
@@ -448,41 +449,13 @@ export default function MarketplaceItemDetails() {
                 
                 <div className="mt-6 text-center">
                   <div className="text-sm text-muted-foreground mb-2">Your Interest Status:</div>
-                  <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
-                    <DialogTrigger asChild>
-                      <Button 
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-                        disabled={userInterestStatus === "requested"}
-                      >
-                        {userInterestStatus === "requested" ? "Request Submitted" : "Request This Item"}
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Request "{item.title}"</DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="message">Tell the giver why you need this item:</Label>
-                          <Textarea
-                            id="message"
-                            value={requestMessage}
-                            onChange={(e) => setRequestMessage(e.target.value)}
-                            placeholder="Explain your situation and why this item would be helpful to you..."
-                            rows={4}
-                          />
-                        </div>
-                        <div className="flex gap-2">
-                          <Button onClick={handleRequestItem} className="flex-1">
-                            Submit Request
-                          </Button>
-                          <Button variant="outline" onClick={() => setIsRequestDialogOpen(false)}>
-                            Cancel
-                          </Button>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Button 
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+                    disabled={userInterestStatus === "requested"}
+                    onClick={() => setIsRequestDialogOpen(true)}
+                  >
+                    {userInterestStatus === "requested" ? "Request Submitted" : "Request This Item"}
+                  </Button>
                   
                   <Button 
                     variant="outline" 
@@ -563,6 +536,17 @@ export default function MarketplaceItemDetails() {
         </div>
       </div>
       
+      {/* Request Item Modal */}
+      <RequestItemModal
+        open={isRequestDialogOpen}
+        onOpenChange={setIsRequestDialogOpen}
+        item={{
+          title: item.title,
+          images: item.images
+        }}
+        onSubmit={handleRequestItem}
+      />
+
       {/* Image Overlay Modal */}
       {isImageLightboxOpen && (
         <Dialog open={isImageLightboxOpen} onOpenChange={() => setIsImageLightboxOpen(false)}>
