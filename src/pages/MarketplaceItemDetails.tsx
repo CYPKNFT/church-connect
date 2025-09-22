@@ -343,7 +343,7 @@ export default function MarketplaceItemDetails() {
                     <p className="text-foreground">{item.dimensions}</p>
                   </div>
                   <div className="bg-muted/50 rounded-lg p-4">
-                    <h4 className="font-semibold text-sm mb-2">MATERIAL</h4>
+                    <h4 className="font-semibold text-sm mb-2">WEIGHT</h4>
                     <p className="text-foreground">{item.material}</p>
                   </div>
                 </div>
@@ -370,7 +370,7 @@ export default function MarketplaceItemDetails() {
                     <p className="text-muted-foreground">{item.whoCanApply}</p>
                   </div>
                   
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-2 gap-2">
                     <div className="flex items-center gap-2 text-green-600">
                       <CheckCircle className="w-4 h-4" />
                       <span className="text-sm">Brief application explaining your need</span>
@@ -524,21 +524,6 @@ export default function MarketplaceItemDetails() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start"
-                  onClick={handleContactGiver}
-                >
-                  <Mail className="w-4 h-4 mr-2" />
-                  Contact Giver
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start"
-                >
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Get Pickup Directions
-                </Button>
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
