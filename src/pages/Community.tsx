@@ -474,7 +474,7 @@ export default function Community() {
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" className="flex-1" asChild>
-                          <Link to={`/need/${need.id}`}>
+                          <Link to="/service-detail">
                             <Eye className="w-3 h-3 mr-1" />
                             View Details
                           </Link>
