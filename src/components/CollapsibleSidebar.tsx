@@ -53,24 +53,17 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Only derive serving and giving modes from route; admin/adminCopy are click-controlled
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const gear = params.get('gear');
-    
-    // Don't switch to serving mode if we have gear=copy parameter
-    if (gear !== 'copy') {
-      setIsServingMode(
-        currentPath === '/dashboard' || 
-        currentPath === '/my-needs' || 
-        currentPath === '/volunteering' || 
-        currentPath === '/browse'
-      );
-    }
-    
+    setIsServingMode(
+      currentPath === '/dashboard' || 
+      currentPath === '/my-needs' || 
+      currentPath === '/volunteering' || 
+      currentPath === '/browse'
+    );
     setIsGivingMode(
       currentPath === '/marketplace' || 
       currentPath === '/my-dashboard'
     );
-  }, [currentPath, location.search]);
+  }, [currentPath]);
 
   // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
   useEffect(() => {
@@ -93,22 +86,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   }, [currentPath, location.search]);
 
 
-  // Reset admin modes when leaving admin routes, unless viewing copy gear
+  // Reset admin modes when leaving admin routes
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const gear = params.get('gear');
-
-    if (!currentPath.startsWith('/admin') && gear !== 'copy') {
+    if (!currentPath.startsWith('/admin')) {
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
     }
-
-    // Ensure Admin Copy stays active on serving routes when gear=copy
-    if (gear === 'copy') {
-      setIsAdminCopyMode(true);
-      setIsAdminMode(false);
-    }
-  }, [currentPath, location.search]);
+  }, [currentPath]);
 
   // Main navigation items
   const getMainNavItems = () => {
@@ -137,12 +121,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
-  // Admin copy submenu items (points to serving pages; gear added on link)
+  // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard" },
-    { icon: Plus, label: "My Needs", path: "/my-needs" },
-    { icon: Users, label: "Volunteering", path: "/volunteering" },
-    { icon: BookOpen, label: "Browse", path: "/browse" }
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
+    { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
+    { icon: BookOpen, label: "Browse", path: "/admin/analytics" }
   ];
 
   // Serving submenu items
