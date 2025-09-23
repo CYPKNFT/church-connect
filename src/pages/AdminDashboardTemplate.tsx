@@ -13,14 +13,6 @@ export default function AdminDashboardTemplate() {
       <div className="flex-1 min-h-screen">
         <AdminHeader church={mockChurch} />
         <div className="p-6">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-foreground mb-2">
-              Admin Dashboard
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Administrative dashboard template for admin functionality
-            </p>
-          </div>
           {/* Empty content area - template ready for customization */}
         </div>
       </div>
