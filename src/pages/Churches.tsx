@@ -254,7 +254,7 @@ export default function Churches() {
         </section>
 
         {/* Resources Section */}
-        <section className="space-y-8 mb-20 w-full max-w-4xl mx-auto">
+        <section className="space-y-8 mb-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Church Leader Resources</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -289,7 +289,7 @@ export default function Churches() {
         </section>
 
         {/* Leadership Stories Section */}
-  <section className="space-y-8 mb-20 w-full max-w-4xl mx-auto">
+  <section className="space-y-8 mb-20">`
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Leadership Testimonials</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
