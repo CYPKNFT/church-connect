@@ -51,19 +51,31 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Only derive serving and giving modes from route; admin/adminCopy are click-controlled
+  // Only derive serving and giving modes from route when not manually set
   useEffect(() => {
-    setIsServingMode(
-      currentPath === '/dashboard' || 
-      currentPath === '/my-needs' || 
-      currentPath === '/volunteering' || 
-      currentPath === '/browse'
-    );
-    setIsGivingMode(
-      currentPath === '/marketplace' || 
-      currentPath === '/my-dashboard'
-    );
-  }, [currentPath]);
+    // Only auto-set modes if we're on those routes AND not already in an admin mode
+    if (!isAdminMode && !isAdminCopyMode) {
+      const shouldBeServing = currentPath === '/dashboard' || 
+        currentPath === '/my-needs' || 
+        currentPath === '/volunteering' || 
+        currentPath === '/browse';
+      
+      const shouldBeGiving = currentPath === '/marketplace' || 
+        currentPath === '/my-dashboard';
+      
+      // Only update if the calculated state differs from current state
+      if (shouldBeServing && !isServingMode) {
+        setIsServingMode(true);
+        setIsGivingMode(false);
+      } else if (shouldBeGiving && !isGivingMode) {
+        setIsGivingMode(true);
+        setIsServingMode(false);
+      } else if (!shouldBeServing && !shouldBeGiving && (isServingMode || isGivingMode)) {
+        setIsServingMode(false);
+        setIsGivingMode(false);
+      }
+    }
+  }, [currentPath, isAdminMode, isAdminCopyMode, isServingMode, isGivingMode]);
 
   // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
   useEffect(() => {
