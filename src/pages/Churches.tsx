@@ -99,7 +99,8 @@ export default function Churches() {
             <span>For Church Leaders</span>
           </div>
           <h1 className="text-5xl lg:text-7xl font-bold text-foreground mb-8 leading-tight">
-            Empower Your <span className="bg-accent-gradient bg-clip-text text-transparent">Church Community</span>
+            Empower Your<br />
+            <span className="bg-accent-gradient bg-clip-text text-transparent">Church Community</span>
           </h1>
           <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Resources, tools, and support to help church leaders launch and manage successful community connection programs.
