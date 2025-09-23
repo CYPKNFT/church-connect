@@ -16,7 +16,7 @@ export default function Community() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [testimonialsPage, setTestimonialsPage] = useState(0);
-  const itemsPerPage = 12; // 4 rows × 3 columns
+  const itemsPerPage = 9; // 3 rows × 3 columns
   const testimonialsPerPage = 8;
 
   const communityNeeds = [
