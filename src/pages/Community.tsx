@@ -25,10 +25,10 @@ export default function Community() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [testimonialsPage, setTestimonialsPage] = useState(0);
-  const [giftingPage, setGiftingPage] = useState(1);
+  const [givingPage, setGivingPage] = useState(1);
   const itemsPerPage = 9; // 3 rows × 3 columns
   const testimonialsPerPage = 8;
-  const giftingPerPage = 6; // 2 rows × 3 columns
+  const givingPerPage = 6; // 2 rows × 3 columns
 
   const communityNeeds = [
     {
@@ -795,23 +795,23 @@ export default function Community() {
                  </div>
                </TabsTrigger>
                <TabsTrigger 
-                 value="gifting" 
-                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-               >
-                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                 <div className="relative z-10 flex items-center gap-3">
-                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                     activeTab === 'gifting' 
-                       ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                       : 'bg-muted/50 group-hover:bg-muted'
-                   }`}>
-                     <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                       activeTab === 'gifting' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                     }`} />
-                   </div>
-                   <span className={`transition-colors duration-300 ${
-                     activeTab === 'gifting' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                   }`}>GIFTING</span>
+                  value="giving" 
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                  <div className="relative z-10 flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      activeTab === 'giving' 
+                        ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                        : 'bg-muted/50 group-hover:bg-muted'
+                    }`}>
+                      <Gift className={`w-5 h-5 transition-colors duration-300 ${
+                        activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                      }`} />
+                    </div>
+                    <span className={`transition-colors duration-300 ${
+                      activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                    }`}>GIVING</span>
                 </div>
               </TabsTrigger>
                 <TabsTrigger 
@@ -937,11 +937,9 @@ export default function Community() {
           {activeTab === "needs" && (
             <div className="space-y-8">
               {/* Section Header */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-3xl font-bold text-foreground">Completed Community Needs ({filteredNeeds.length} opportunities)</h2>
-                  <p className="text-muted-foreground text-lg">Celebrating the completed acts of service that have made a difference in people's lives.</p>
-                </div>
+              <div className="text-center space-y-4 mb-8">
+                <h2 className="text-3xl font-bold text-foreground">Completed Community Needs</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">Celebrating the completed acts of service that have made a difference in people's lives.</p>
               </div>
               
               {/* Needs Grid - 4 rows x 3 columns with pagination */}
@@ -1273,20 +1271,48 @@ export default function Community() {
              </div>
            )}
 
-           {/* Gifting Tab */}
-           {activeTab === "gifting" && (
-             <div className="space-y-8">
-               <div className="text-center mb-12">
-                 <h2 className="text-4xl font-bold text-foreground mb-4">Items Shared with Love</h2>
-                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-                   Household goods, furniture, and resources that have been generously shared in fellowship with community members.
-                 </p>
-               </div>
+            {/* Giving Tab */}
+            {activeTab === "giving" && (
+              <div className="space-y-8">
+                <div className="text-center space-y-4 mb-8">
+                  <h2 className="text-3xl font-bold text-foreground">Items Shared with Love</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Household goods, furniture, and resources that have been generously shared in fellowship with community members.
+                  </p>
+                </div>
+
+                {/* Search Bar */}
+                <div className="flex flex-col md:flex-row gap-4 items-center">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      placeholder="Search items shared with love..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                </div>
+
+                {/* Filter tabs for Giving */}
+                <div className="flex flex-wrap justify-center gap-2">
+                  {["All", "Furniture", "Electronics", "Clothing", "Household", "Books & Toys"].map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedCategory === category ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedCategory(category)}
+                      className="h-8"
+                    >
+                      {category}
+                    </Button>
+                  ))}
+                </div>
 
                 {/* Items Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {giveawayItems
-                    .slice((giftingPage - 1) * giftingPerPage, giftingPage * giftingPerPage)
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                   {giveawayItems
+                     .slice((givingPage - 1) * givingPerPage, givingPage * givingPerPage)
                     .map((item) => (
                       <Card key={item.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group overflow-hidden">
                         {/* Image Section */}
@@ -1334,36 +1360,36 @@ export default function Community() {
                     ))}
                 </div>
 
-               {/* Pagination */}
-               {Math.ceil(giveawayItems.length / giftingPerPage) > 1 && (
-                 <div className="flex justify-center mt-8">
-                   <Pagination>
-                     <PaginationContent>
-                       <PaginationItem>
-                         <PaginationPrevious 
-                           onClick={() => setGiftingPage(Math.max(1, giftingPage - 1))}
-                           className={giftingPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                         />
-                       </PaginationItem>
-                       
-                       {Array.from({ length: Math.ceil(giveawayItems.length / giftingPerPage) }, (_, i) => i + 1).map(page => (
-                         <PaginationItem key={page}>
-                           <PaginationLink
-                             onClick={() => setGiftingPage(page)}
-                             isActive={page === giftingPage}
-                             className="cursor-pointer"
-                           >
-                             {page}
-                           </PaginationLink>
-                         </PaginationItem>
-                       ))}
-                       
-                       <PaginationItem>
-                         <PaginationNext 
-                           onClick={() => setGiftingPage(Math.min(Math.ceil(giveawayItems.length / giftingPerPage), giftingPage + 1))}
-                           className={giftingPage === Math.ceil(giveawayItems.length / giftingPerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                         />
-                       </PaginationItem>
+                {/* Pagination */}
+                {Math.ceil(giveawayItems.length / givingPerPage) > 1 && (
+                  <div className="flex justify-center mt-8">
+                    <Pagination>
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationPrevious 
+                            onClick={() => setGivingPage(Math.max(1, givingPage - 1))}
+                            className={givingPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                          />
+                        </PaginationItem>
+                        
+                        {Array.from({ length: Math.ceil(giveawayItems.length / givingPerPage) }, (_, i) => i + 1).map(page => (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              onClick={() => setGivingPage(page)}
+                              isActive={page === givingPage}
+                              className="cursor-pointer"
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        ))}
+                        
+                        <PaginationItem>
+                          <PaginationNext 
+                            onClick={() => setGivingPage(Math.min(Math.ceil(giveawayItems.length / givingPerPage), givingPage + 1))}
+                            className={givingPage === Math.ceil(giveawayItems.length / givingPerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                          />
+                        </PaginationItem>
                      </PaginationContent>
                    </Pagination>
                  </div>
