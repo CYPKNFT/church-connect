@@ -51,42 +51,46 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Derive modes from route paths
+  // Only derive serving and giving modes from route; admin/adminCopy are click-controlled
   useEffect(() => {
-    if (currentPath.startsWith('/admin-copy/')) {
-      setIsAdminCopyMode(true);
-      setIsAdminMode(false);
-      setIsServingMode(false);
-      setIsGivingMode(false);
-    } else if (currentPath.startsWith('/admin/')) {
-      setIsAdminMode(true);
-      setIsAdminCopyMode(false);
-      setIsServingMode(false);
-      setIsGivingMode(false);
-    } else if (
+    setIsServingMode(
       currentPath === '/dashboard' || 
       currentPath === '/my-needs' || 
       currentPath === '/volunteering' || 
       currentPath === '/browse'
-    ) {
-      setIsServingMode(true);
-      setIsAdminMode(false);
-      setIsAdminCopyMode(false);
-      setIsGivingMode(false);
-    } else if (
+    );
+    setIsGivingMode(
       currentPath === '/marketplace' || 
       currentPath === '/my-dashboard'
-    ) {
-      setIsGivingMode(true);
+    );
+  }, [currentPath]);
+
+  // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
+  useEffect(() => {
+    if (currentPath.startsWith('/admin')) {
+      const params = new URLSearchParams(location.search);
+      const gear = params.get('gear');
+      if (gear === 'copy') {
+        setIsAdminCopyMode(true);
+        setIsAdminMode(false);
+        setIsServingMode(false);
+        setIsGivingMode(false);
+      } else {
+        // default to primary admin gear
+        setIsAdminMode(true);
+        setIsAdminCopyMode(false);
+        setIsServingMode(false);
+        setIsGivingMode(false);
+      }
+    }
+  }, [currentPath, location.search]);
+
+
+  // Reset admin modes when leaving admin routes
+  useEffect(() => {
+    if (!currentPath.startsWith('/admin')) {
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
-      setIsServingMode(false);
-    } else {
-      // Reset all modes for other routes
-      setIsAdminMode(false);
-      setIsAdminCopyMode(false);
-      setIsServingMode(false);
-      setIsGivingMode(false);
     }
   }, [currentPath]);
 
@@ -96,7 +100,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
     if (isChurchAdmin) {
       baseItems.push({ icon: Settings, label: "Admin", path: "/admin/dashboard", isAdmin: true });
-      baseItems.push({ icon: HeartHandshake, label: "Admin Copy", path: "/admin-copy/dashboard", isAdminCopy: true });
+      baseItems.push({ icon: HeartHandshake, label: "Admin Copy", path: "/admin/dashboard", isAdminCopy: true });
     }
 
     baseItems.push(
@@ -117,12 +121,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
-  // Admin copy submenu items (points to dedicated admin-copy pages)
+  // Admin copy submenu items (points to same pages)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin-copy/dashboard" },
-    { icon: Plus, label: "My Needs", path: "/admin-copy/my-needs" },
-    { icon: Users, label: "Volunteering", path: "/admin-copy/volunteering" },
-    { icon: BookOpen, label: "Browse", path: "/admin-copy/browse" }
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/admin/staff-verification" },
+    { icon: Users, label: "Volunteering", path: "/admin/content-moderation" },
+    { icon: BookOpen, label: "Browse", path: "/admin/analytics" }
   ];
 
   // Serving submenu items
@@ -249,7 +253,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     return (
                       <div key={`${item.isAdmin ? 'admin' : 'admin-copy'}-${item.path}`}>
                         <Link
-                          to={item.path}
+                          to={`${item.path}${item.isAdminCopy ? '?gear=copy' : '?gear=primary'}`}
                           onClick={() => handleNavItemClick(item)}
                           className={`
                             w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
@@ -338,7 +342,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                   if (item.isAdmin || item.isAdminCopy) {
                     return (
                       <div key={`${item.isAdmin ? 'admin' : 'admin-copy'}-${item.path}`}>
-                        <Link to={item.path} onClick={() => handleNavItemClick(item)}>
+                        <Link to={item.isAdminCopy ? "/admin/dashboard?gear=copy" : "/admin/dashboard?gear=primary"} onClick={() => handleNavItemClick(item)}>
                           <div className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 ${isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'}`}>
                             <item.icon className="w-5 h-5" />
                           </div>
@@ -415,7 +419,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     
                     const linkContent = (
                       <Link
-                        to={item.path}
+                        to={`${item.path}?gear=primary`}
                         className={`
                           w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
@@ -561,7 +565,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     
                     const linkContent = (
                       <Link
-                        to={item.path}
+                        to={`${item.path}?gear=copy`}
                         className={`
                           w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
                           ${isActive
