@@ -1072,9 +1072,9 @@ export default function Community() {
           {/* Success Stories Tab */}
           {activeTab === "stories" && (
             <div className="space-y-8">
-              <div className="text-center py-12 mb-12">
-                <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
-                <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+              <div className="text-center space-y-4 py-12 mb-8">
+                <h2 className="text-3xl font-bold text-foreground">Transformational Stories</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
                   Real testimonies from lives touched and communities strengthened through the power of connection.
                 </p>
               </div>
@@ -1142,9 +1142,9 @@ export default function Community() {
           {/* Events Tab */}
           {activeTab === "events" && (
             <div className="space-y-8">
-              <div className="text-center py-12 mb-12">
-                <h2 className="text-4xl font-bold text-foreground mb-4">Church Events</h2>
-                <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+              <div className="text-center space-y-4 py-12 mb-8">
+                <h2 className="text-3xl font-bold text-foreground">Church Events</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
                   Connect through church activities and gatherings.
                 </p>
               </div>
