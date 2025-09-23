@@ -28,7 +28,7 @@ export default function Community() {
   const [giftingPage, setGiftingPage] = useState(1);
   const itemsPerPage = 9; // 3 rows × 3 columns
   const testimonialsPerPage = 8;
-  const giftingPerPage = 9; // 3 rows × 3 columns
+  const giftingPerPage = 6; // 2 rows × 3 columns
 
   const communityNeeds = [
     {
@@ -814,46 +814,46 @@ export default function Community() {
                    }`}>GIFTING</span>
                 </div>
               </TabsTrigger>
-               <TabsTrigger 
-                 value="stories" 
-                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-               >
-                 <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                 <div className="relative z-10 flex items-center gap-3">
-                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                     activeTab === 'stories' 
-                       ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
-                       : 'bg-muted/30 group-hover:bg-muted/50'
-                   }`}>
-                     <Star className={`w-5 h-5 transition-colors duration-300 ${
-                       activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                     }`} />
-                   </div>
-                   <span className={`transition-colors duration-300 ${
-                     activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                   }`}>TESTIMONIALS</span>
-                 </div>
-               </TabsTrigger>
-               <TabsTrigger 
-                 value="events" 
-                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-               >
-                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                 <div className="relative z-10 flex items-center gap-3">
-                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                     activeTab === 'events' 
-                       ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                       : 'bg-muted/20 group-hover:bg-muted/40'
-                   }`}>
-                     <Calendar className={`w-5 h-5 transition-colors duration-300 ${
-                       activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                     }`} />
-                   </div>
-                   <span className={`transition-colors duration-300 ${
-                     activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                   }`}>EVENTS</span>
-                 </div>
-               </TabsTrigger>
+                <TabsTrigger 
+                  value="events" 
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                  <div className="relative z-10 flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      activeTab === 'events' 
+                        ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                        : 'bg-muted/20 group-hover:bg-muted/40'
+                    }`}>
+                      <Calendar className={`w-5 h-5 transition-colors duration-300 ${
+                        activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                      }`} />
+                    </div>
+                    <span className={`transition-colors duration-300 ${
+                      activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    }`}>EVENTS</span>
+                  </div>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="stories" 
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                  <div className="relative z-10 flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      activeTab === 'stories' 
+                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                        : 'bg-muted/30 group-hover:bg-muted/50'
+                    }`}>
+                      <Star className={`w-5 h-5 transition-colors duration-300 ${
+                        activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                      }`} />
+                    </div>
+                    <span className={`transition-colors duration-300 ${
+                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                    }`}>TESTIMONIALS</span>
+                  </div>
+                </TabsTrigger>
             </TabsList>
 
             {/* Unified Search Bar */}
