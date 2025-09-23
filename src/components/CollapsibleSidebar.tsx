@@ -51,31 +51,19 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     setMounted(true);
   }, []);
 
-  // Only derive serving and giving modes from route when not manually set
+  // Only derive serving and giving modes from route; admin/adminCopy are click-controlled
   useEffect(() => {
-    // Only auto-set modes if we're on those routes AND not already in an admin mode
-    if (!isAdminMode && !isAdminCopyMode) {
-      const shouldBeServing = currentPath === '/dashboard' || 
-        currentPath === '/my-needs' || 
-        currentPath === '/volunteering' || 
-        currentPath === '/browse';
-      
-      const shouldBeGiving = currentPath === '/marketplace' || 
-        currentPath === '/my-dashboard';
-      
-      // Only update if the calculated state differs from current state
-      if (shouldBeServing && !isServingMode) {
-        setIsServingMode(true);
-        setIsGivingMode(false);
-      } else if (shouldBeGiving && !isGivingMode) {
-        setIsGivingMode(true);
-        setIsServingMode(false);
-      } else if (!shouldBeServing && !shouldBeGiving && (isServingMode || isGivingMode)) {
-        setIsServingMode(false);
-        setIsGivingMode(false);
-      }
-    }
-  }, [currentPath, isAdminMode, isAdminCopyMode, isServingMode, isGivingMode]);
+    setIsServingMode(
+      currentPath === '/dashboard' || 
+      currentPath === '/my-needs' || 
+      currentPath === '/volunteering' || 
+      currentPath === '/browse'
+    );
+    setIsGivingMode(
+      currentPath === '/marketplace' || 
+      currentPath === '/my-dashboard'
+    );
+  }, [currentPath]);
 
   // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
   useEffect(() => {
@@ -645,14 +633,14 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                   if (item.category === 'serving') {
                     return (
-                      <div key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
+                      <div key={item.path}>
                         {iconButton}
                       </div>
                     );
                   }
 
                   return (
-                    <Tooltip key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
+                    <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.isAdminCopy ? "/admin/dashboard?gear=copy" : item.isAdmin ? "/admin/dashboard?gear=primary" : item.path} onClick={() => handleNavItemClick(item)}>
                           <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
@@ -787,14 +775,14 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                   if (item.category === 'giving') {
                     return (
-                      <div key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
+                      <div key={item.path}>
                         {iconButton}
                       </div>
                     );
                   }
 
                   return (
-                    <Tooltip key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
+                    <Tooltip key={item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.isAdminCopy ? "/admin/dashboard?gear=copy" : item.isAdmin ? "/admin/dashboard?gear=primary" : item.path} onClick={() => handleNavItemClick(item)}>
                           <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
