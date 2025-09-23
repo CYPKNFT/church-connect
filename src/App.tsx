@@ -51,6 +51,10 @@ import MarketplaceItemDetails from "./pages/MarketplaceItemDetails";
 import MyDashboard from "./pages/MyDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
+import AdminCopyDashboard from "./pages/AdminCopyDashboard";
+import AdminCopyMyNeeds from "./pages/AdminCopyMyNeeds";
+import AdminCopyVolunteering from "./pages/AdminCopyVolunteering";
+import AdminCopyBrowse from "./pages/AdminCopyBrowse";
 import StaffVerification from "./pages/StaffVerification";
 import ContentModeration from "./pages/ContentModeration";
 import Analytics from "./pages/Analytics";
@@ -101,6 +105,10 @@ const App = () => (
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
                     <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
+                    <Route path="/admin-copy/dashboard" element={<AdminCopyDashboard />} />
+                    <Route path="/admin-copy/my-needs" element={<AdminCopyMyNeeds />} />
+                    <Route path="/admin-copy/volunteering" element={<AdminCopyVolunteering />} />
+                    <Route path="/admin-copy/browse" element={<AdminCopyBrowse />} />
                     <Route path="/admin/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
                     <Route path="/admin/content-moderation" element={<AdminLayout><ContentModeration /></AdminLayout>} />
                     <Route path="/admin/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
