@@ -26,7 +26,6 @@ export default function Community() {
   const [currentPage, setCurrentPage] = useState(1);
   const [testimonialsPage, setTestimonialsPage] = useState(0);
   const [giftingPage, setGiftingPage] = useState(1);
-  const [giftingCategory, setGiftingCategory] = useState("All");
   const itemsPerPage = 9; // 3 rows × 3 columns
   const testimonialsPerPage = 8;
   const giftingPerPage = 6; // 2 rows × 3 columns
@@ -940,8 +939,8 @@ export default function Community() {
               {/* Section Header */}
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold text-foreground text-center">Completed Community Needs</h2>
-                  <p className="text-muted-foreground text-lg text-center">Celebrating the completed acts of service that have made a difference in people's lives.</p>
+                  <h2 className="text-3xl font-bold text-foreground">Completed Community Needs ({filteredNeeds.length} opportunities)</h2>
+                  <p className="text-muted-foreground text-lg">Celebrating the completed acts of service that have made a difference in people's lives.</p>
                 </div>
               </div>
               
@@ -1277,34 +1276,12 @@ export default function Community() {
            {/* Gifting Tab */}
            {activeTab === "gifting" && (
              <div className="space-y-8">
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl font-bold text-foreground mb-4">Items Shared with Love</h2>
-                  <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-                    Household goods, furniture, and resources that have been generously shared in fellowship with community members.
-                  </p>
-                </div>
-
-                {/* Filter Tabs */}
-                <div className="flex justify-center mb-6">
-                  <div className="flex bg-muted rounded-lg p-1">
-                    {["All", "Groceries", "Transportation", "Home Repair", "Childcare", "Meals"].map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => {
-                          setGiftingCategory(category);
-                          setGiftingPage(1);
-                        }}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                          giftingCategory === category
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+               <div className="text-center mb-12">
+                 <h2 className="text-4xl font-bold text-foreground mb-4">Items Shared with Love</h2>
+                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+                   Household goods, furniture, and resources that have been generously shared in fellowship with community members.
+                 </p>
+               </div>
 
                 {/* Items Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
