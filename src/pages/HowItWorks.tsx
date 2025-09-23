@@ -244,7 +244,7 @@ export default function HowItWorks() {
                   className="bg-accent hover:bg-accent/90 text-foreground font-bold px-12 py-6 text-xl rounded-xl shadow-lg hover-lift" 
                   asChild
                 >
-                  <Link to="/register">Join Free Today</Link>
+                  <Link to="/member-signup">Join Free Today</Link>
                 </Button>
                 <Button 
                   variant="outline" 

@@ -1309,12 +1309,13 @@ export default function Community() {
                           <img 
                             src={item.image} 
                             alt={item.title}
+                            loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           <div className="absolute top-3 left-3">
                             <Badge 
-                              variant="secondary" 
-                              className="bg-primary/10 text-primary backdrop-blur-sm"
+                              variant="default" 
+                              className="bg-accent text-accent-foreground"
                             >
                               {item.category}
                             </Badge>
