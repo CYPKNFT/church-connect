@@ -851,7 +851,9 @@ export default function Community() {
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
-                {upcomingEvents.map((event) => (
+                {upcomingEvents
+                  .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+                  .map((event) => (
                   <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                     <CardContent className="p-6">
                       <h3 className="font-bold text-lg text-foreground mb-2">{event.title}</h3>
@@ -874,6 +876,37 @@ export default function Community() {
                   </Card>
                 ))}
               </div>
+
+              {/* Events Pagination */}
+              {Math.ceil(upcomingEvents.length / itemsPerPage) > 1 && (
+                <div className="flex justify-center items-center gap-4 mt-8">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
+                    disabled={currentPage === 0}
+                    className="flex items-center gap-2"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    Previous
+                  </Button>
+                  
+                  <span className="text-sm text-muted-foreground px-4">
+                    Page {currentPage + 1} of {Math.ceil(upcomingEvents.length / itemsPerPage)}
+                  </span>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setCurrentPage(Math.min(Math.ceil(upcomingEvents.length / itemsPerPage) - 1, currentPage + 1))}
+                    disabled={currentPage >= Math.ceil(upcomingEvents.length / itemsPerPage) - 1}
+                    className="flex items-center gap-2"
+                  >
+                    Next
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </div>
