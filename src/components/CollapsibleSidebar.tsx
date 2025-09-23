@@ -93,13 +93,22 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   }, [currentPath, location.search]);
 
 
-  // Reset admin modes when leaving admin routes
+  // Reset admin modes when leaving admin routes, unless viewing copy gear
   useEffect(() => {
-    if (!currentPath.startsWith('/admin')) {
+    const params = new URLSearchParams(location.search);
+    const gear = params.get('gear');
+
+    if (!currentPath.startsWith('/admin') && gear !== 'copy') {
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
     }
-  }, [currentPath]);
+
+    // Ensure Admin Copy stays active on serving routes when gear=copy
+    if (gear === 'copy') {
+      setIsAdminCopyMode(true);
+      setIsAdminMode(false);
+    }
+  }, [currentPath, location.search]);
 
   // Main navigation items
   const getMainNavItems = () => {
@@ -128,12 +137,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: Settings, label: "System Settings", path: "/admin/settings" }
   ];
 
-  // Admin copy submenu items (points to serving pages with gear=copy)
+  // Admin copy submenu items (points to serving pages; gear added on link)
   const adminCopySubmenuItems = [
-    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard?gear=copy" },
-    { icon: Plus, label: "My Needs", path: "/my-needs?gear=copy" },
-    { icon: Users, label: "Volunteering", path: "/volunteering?gear=copy" },
-    { icon: BookOpen, label: "Browse", path: "/browse?gear=copy" }
+    { icon: PanelsTopLeft, label: "Dashboard", path: "/dashboard" },
+    { icon: Plus, label: "My Needs", path: "/my-needs" },
+    { icon: Users, label: "Volunteering", path: "/volunteering" },
+    { icon: BookOpen, label: "Browse", path: "/browse" }
   ];
 
   // Serving submenu items
