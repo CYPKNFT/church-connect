@@ -91,7 +91,7 @@ export default function Churches() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="w-full max-w-5xl mx-auto px-4 py-24 flex flex-col gap-16">
+      <div className="container mx-auto px-4 py-24 flex flex-col gap-16">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-8">

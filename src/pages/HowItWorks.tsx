@@ -249,7 +249,7 @@ export default function HowItWorks() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-xl" 
+                  className="border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground backdrop-blur-sm px-12 py-6 text-xl rounded-xl" 
                   asChild
                 >
                   <Link to="/about">Learn More</Link>
