@@ -1075,7 +1075,7 @@ export default function Community() {
               <div className="text-center space-y-4 py-12 mb-8">
                 <h2 className="text-3xl font-bold text-foreground">Transformational Stories</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Real testimonies from lives touched and communities strengthened through the power of connection.
+                  Real testimonies from lives touched through community connection.
                 </p>
               </div>
 
@@ -1293,7 +1293,7 @@ export default function Community() {
                 <div className="text-center space-y-4 py-12 mb-8">
                   <h2 className="text-3xl font-bold text-foreground">Items Shared with Love</h2>
                   <p className="text-muted-foreground max-w-2xl mx-auto">
-                    Household goods, furniture, and resources that have been generously shared in fellowship with community members.
+                    Household goods and resources generously shared in fellowship.
                   </p>
                 </div>
 
