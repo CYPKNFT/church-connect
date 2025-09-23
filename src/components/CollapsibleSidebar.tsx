@@ -645,14 +645,14 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                   if (item.category === 'serving') {
                     return (
-                      <div key={item.path}>
+                      <div key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
                         {iconButton}
                       </div>
                     );
                   }
 
                   return (
-                    <Tooltip key={item.path}>
+                    <Tooltip key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.isAdminCopy ? "/admin/dashboard?gear=copy" : item.isAdmin ? "/admin/dashboard?gear=primary" : item.path} onClick={() => handleNavItemClick(item)}>
                           <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
@@ -787,14 +787,14 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
                   if (item.category === 'giving') {
                     return (
-                      <div key={item.path}>
+                      <div key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
                         {iconButton}
                       </div>
                     );
                   }
 
                   return (
-                    <Tooltip key={item.path}>
+                    <Tooltip key={item.isAdmin ? `admin-${item.path}` : item.isAdminCopy ? `admin-copy-${item.path}` : item.path}>
                       <TooltipTrigger asChild>
                         <Link to={item.isAdminCopy ? "/admin/dashboard?gear=copy" : item.isAdmin ? "/admin/dashboard?gear=primary" : item.path} onClick={() => handleNavItemClick(item)}>
                           <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
