@@ -9,7 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye, ChevronLeft, ChevronRight, HandHeart, Church, Coffee, DollarSign, GraduationCap, Gamepad2, Baby, Music, Book, Briefcase, ArrowRight, Gift } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye, ChevronLeft, ChevronRight, HandHeart, Church, Coffee, DollarSign, GraduationCap, Gamepad2, Baby, Music, Book, Briefcase, ArrowRight, Gift, CheckCircle } from "lucide-react";
+
+// Import marketplace images
+import sofaImage from "@/assets/marketplace/sofa.jpg";
+import laptopImage from "@/assets/marketplace/laptop.jpg";
+import babyChairImage from "@/assets/marketplace/baby-chair.jpg";
+import dishesImage from "@/assets/marketplace/dishes.jpg";
+import clothesImage from "@/assets/marketplace/clothes.jpg";
+import booksToys from "@/assets/marketplace/books-toys.jpg";
 
 export default function Community() {
   const [activeTab, setActiveTab] = useState("needs");
@@ -432,100 +440,99 @@ export default function Community() {
       title: "Comfortable Living Room Sofa",
       description: "Gray fabric sofa in excellent condition, perfect for families. Very comfortable and clean.",
       category: "Furniture",
-      status: "Available",
+      status: "Completed",
       postedBy: "Sarah Johnson",
-      timePosted: "2 hours ago",
-      interested: 5
+      timePosted: "2 weeks ago",
+      image: sofaImage,
+      receivedBy: "Mark & Lisa Thompson"
     },
     {
       id: 2,
       title: "Laptop Computer - Perfect for Students",
       description: "Dell laptop in great working condition. Includes charger and wireless mouse.",
       category: "Electronics",
-      status: "Available",
+      status: "Completed",
       postedBy: "Mike Davis",
-      timePosted: "5 hours ago",
-      interested: 8
+      timePosted: "1 month ago",
+      image: laptopImage,
+      receivedBy: "Jessica Rivera"
     },
     {
       id: 3,
       title: "Baby High Chair with Safety Straps",
       description: "White and wood baby high chair with adjustable height and safety straps.",
       category: "Baby/Kids",
-      status: "Available",
+      status: "Completed",
       postedBy: "Jennifer Miller",
-      timePosted: "1 day ago",
-      interested: 4
+      timePosted: "3 weeks ago",
+      image: babyChairImage,
+      receivedBy: "The Martinez Family"
     },
     {
       id: 4,
       title: "Complete Kitchen Dishes Set",
       description: "White ceramic dishes and bowls set, perfect for a new home or replacement set.",
       category: "Household",
-      status: "Available",
+      status: "Completed",
       postedBy: "Maria Garcia",
-      timePosted: "2 days ago",
-      interested: 6
+      timePosted: "2 months ago",
+      image: dishesImage,
+      receivedBy: "College Ministry"
     },
     {
       id: 5,
       title: "Winter Clothes Bundle",
       description: "Clean winter clothing in various sizes. Perfect for families in need during cold season.",
       category: "Clothing", 
-      status: "Available",
+      status: "Completed",
       postedBy: "David Wilson",
-      timePosted: "3 days ago",
-      interested: 12
+      timePosted: "4 months ago",
+      image: clothesImage,
+      receivedBy: "Local Shelter"
     },
     {
       id: 6,
-      title: "Children's Books Collection",
-      description: "A wonderful collection of children's books and educational toys for ages 3-8.",
-      category: "Books",
-      status: "Available",
-      postedBy: "Lisa Chen",
-      timePosted: "4 days ago",
-      interested: 7
+      title: "Children's Books and Educational Toys",
+      description: "Collection of age-appropriate books and educational toys for young children.",
+      category: "Education",
+      status: "Completed",
+      postedBy: "Rachel Green",
+      timePosted: "6 weeks ago",
+      image: booksToys,
+      receivedBy: "Community Daycare"
     },
     {
       id: 7,
       title: "Kitchen Appliance Set",
       description: "Blender, toaster, and coffee maker in working condition. Perfect for new homeowners.",
       category: "Household",
-      status: "Available",
+      status: "Completed",
       postedBy: "Tom Wilson",
-      timePosted: "1 week ago",
-      interested: 3
+      timePosted: "3 months ago",
+      image: dishesImage,
+      receivedBy: "Young Adults Ministry"
     },
     {
       id: 8,
       title: "Garden Tools and Supplies",
       description: "Complete set of garden tools including shovels, rake, and watering can.",
       category: "Garden",
-      status: "Available",
+      status: "Completed",
       postedBy: "Nancy Brown",
-      timePosted: "1 week ago",
-      interested: 5
+      timePosted: "5 months ago",
+      image: clothesImage,
+      receivedBy: "Community Garden"
     },
     {
       id: 9,
       title: "Office Desk and Chair",
       description: "Wooden desk with matching office chair. Great for home office or student workspace.",
       category: "Furniture",
-      status: "Available",
+      status: "Completed",
       postedBy: "Mark Rodriguez",
-      timePosted: "2 weeks ago",
-      interested: 2
-    },
-    {
-      id: 10,
-      title: "Baby Stroller and Car Seat",
-      description: "Safe and clean baby stroller with matching car seat. Perfect for new parents.",
-      category: "Baby/Kids",
-      status: "Available",
-      postedBy: "Amanda Taylor",
-      timePosted: "2 weeks ago",
-      interested: 9
+      timePosted: "8 weeks ago",
+      image: sofaImage,
+      receivedBy: "Student Housing"
     }
   ];
 
@@ -722,25 +729,25 @@ export default function Community() {
                  </div>
                </TabsTrigger>
                <TabsTrigger 
-                 value="events" 
+                 value="gifting" 
                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
                >
                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                  <div className="relative z-10 flex items-center gap-3">
                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                     activeTab === 'events' 
+                     activeTab === 'gifting' 
                        ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                       : 'bg-muted/20 group-hover:bg-muted/40'
+                       : 'bg-muted/50 group-hover:bg-muted'
                    }`}>
-                     <Calendar className={`w-5 h-5 transition-colors duration-300 ${
-                       activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                     <Gift className={`w-5 h-5 transition-colors duration-300 ${
+                       activeTab === 'gifting' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
                      }`} />
                    </div>
                    <span className={`transition-colors duration-300 ${
-                     activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                   }`}>EVENTS</span>
-                 </div>
-               </TabsTrigger>
+                     activeTab === 'gifting' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                   }`}>GIFTING</span>
+                </div>
+              </TabsTrigger>
                <TabsTrigger 
                  value="stories" 
                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
@@ -762,25 +769,25 @@ export default function Community() {
                  </div>
                </TabsTrigger>
                <TabsTrigger 
-                 value="gifting" 
+                 value="events" 
                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
                >
                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                  <div className="relative z-10 flex items-center gap-3">
                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                     activeTab === 'gifting' 
+                     activeTab === 'events' 
                        ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                       : 'bg-muted/50 group-hover:bg-muted'
+                       : 'bg-muted/20 group-hover:bg-muted/40'
                    }`}>
-                     <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                       activeTab === 'gifting' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                     <Calendar className={`w-5 h-5 transition-colors duration-300 ${
+                       activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
                      }`} />
                    </div>
                    <span className={`transition-colors duration-300 ${
-                     activeTab === 'gifting' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                   }`}>GIFTING</span>
-                </div>
-              </TabsTrigger>
+                     activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                   }`}>EVENTS</span>
+                 </div>
+               </TabsTrigger>
             </TabsList>
 
             {/* Unified Search Bar */}
@@ -1210,63 +1217,78 @@ export default function Community() {
                  </p>
                </div>
 
-               {/* Items Grid */}
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 {giveawayItems
-                   .slice((giftingPage - 1) * giftingPerPage, giftingPage * giftingPerPage)
-                   .map((item) => (
-                     <Card key={item.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                       <CardHeader className="pb-4">
-                         <div className="flex items-start justify-between">
-                           <Badge 
-                             variant="secondary" 
-                             className="mb-2 bg-primary/10 text-primary hover:bg-primary/20"
-                           >
-                             {item.category}
-                           </Badge>
-                           <Badge 
-                             variant="outline" 
-                             className="text-emerald-600 border-emerald-200 bg-emerald-50"
-                           >
-                             {item.status}
-                           </Badge>
-                         </div>
-                         <CardTitle className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
-                           {item.title}
-                         </CardTitle>
-                       </CardHeader>
-                       <CardContent className="space-y-4">
-                         <p className="text-muted-foreground leading-relaxed">
-                           {item.description}
-                         </p>
-                         
-                         <div className="flex items-center justify-between pt-4 border-t border-border/10">
-                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                             <Clock className="w-4 h-4" />
-                             {item.timePosted}
-                           </div>
-                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                             <Heart className="w-4 h-4" />
-                             {item.interested} interested
-                           </div>
-                         </div>
-                         
-                         <div className="flex items-center justify-between pt-2">
-                           <div className="text-sm text-muted-foreground">
-                             By {item.postedBy}
-                           </div>
-                           <Button 
-                             size="sm" 
-                             className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300"
-                           >
-                             <Gift className="w-4 h-4 mr-2" />
-                             Request
-                           </Button>
-                         </div>
-                       </CardContent>
-                     </Card>
-                   ))}
-               </div>
+                {/* Items Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {giveawayItems
+                    .slice((giftingPage - 1) * giftingPerPage, giftingPage * giftingPerPage)
+                    .map((item) => (
+                      <Card key={item.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group overflow-hidden">
+                        {/* Image Section */}
+                        <div className="relative h-48 overflow-hidden">
+                          <img 
+                            src={item.image} 
+                            alt={item.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute top-3 right-3">
+                            <Badge 
+                              variant="outline" 
+                              className="text-emerald-600 border-emerald-200 bg-emerald-50/90 backdrop-blur-sm"
+                            >
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              {item.status}
+                            </Badge>
+                          </div>
+                          <div className="absolute top-3 left-3">
+                            <Badge 
+                              variant="secondary" 
+                              className="bg-primary/10 text-primary backdrop-blur-sm"
+                            >
+                              {item.category}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <CardHeader className="pb-4">
+                          <CardTitle className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
+                            {item.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <p className="text-muted-foreground leading-relaxed line-clamp-2">
+                            {item.description}
+                          </p>
+                          
+                          <div className="flex items-center justify-between pt-4 border-t border-border/10">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <Clock className="w-4 h-4" />
+                              {item.timePosted}
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-emerald-600">
+                              <CheckCircle className="w-4 h-4" />
+                              Completed
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between pt-2">
+                            <div className="text-sm text-muted-foreground">
+                              <div>Given by {item.postedBy}</div>
+                              <div className="text-xs font-medium text-accent">Received by {item.receivedBy}</div>
+                            </div>
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                              disabled
+                            >
+                              <CheckCircle className="w-4 h-4 mr-2" />
+                              Completed
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                </div>
 
                {/* Pagination */}
                {Math.ceil(giveawayItems.length / giftingPerPage) > 1 && (
