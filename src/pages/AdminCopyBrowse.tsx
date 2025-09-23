@@ -1,7 +1,7 @@
 import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 
-export default function AdminDashboardTemplate() {
+export default function AdminCopyBrowse() {
   // Mock church data for template display
   const mockChurch = {
     id: "template-church",
@@ -15,10 +15,10 @@ export default function AdminDashboardTemplate() {
         <div className="p-6">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-2">
-              Admin Dashboard
+              Admin Copy Browse
             </h1>
             <p className="text-lg text-muted-foreground">
-              Administrative dashboard template for admin functionality
+              Administrative browse management template for admin copy functionality
             </p>
           </div>
           {/* Empty content area - template ready for customization */}
