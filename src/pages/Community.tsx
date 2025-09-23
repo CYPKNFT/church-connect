@@ -17,7 +17,7 @@ export default function Community() {
   const [currentPage, setCurrentPage] = useState(1);
   const [testimonialsPage, setTestimonialsPage] = useState(0);
   const itemsPerPage = 12; // 4 rows × 3 columns
-  const testimonialsPerPage = 12;
+  const testimonialsPerPage = 8;
 
   const communityNeeds = [
     {
@@ -609,7 +609,7 @@ export default function Community() {
 
                   {activeTab === 'stories' && (
                     <>
-                      {['All', 'Transportation', 'Church Leadership', 'Ministry Director', 'Special Situations', 'Emergency Response', 'Active Donor', 'Coordination', 'Family Service', 'Skills Teaching', 'Meal Ministry', 'Healthcare Support', 'Home Maintenance', 'Life Skills', 'Family Support', 'Financial Services', 'Music Ministry', 'Organization Services', 'Education Support', 'Medical Recovery', 'Childcare Support', 'Skills Learning', 'Career Support'].map((category) => (
+                      {['All', 'Transportation', 'Church Leadership', 'Special Situations', 'Coordination', 'Family Service', 'Skills Teaching', 'Meal Ministry', 'Healthcare Support', 'Home Maintenance', 'Life Skills', 'Family Support', 'Organization Services', 'Education Support', 'Medical Recovery', 'Childcare Support', 'Skills Learning', 'Career Support'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
