@@ -8,14 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Community() {
   const [activeTab, setActiveTab] = useState("needs");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [testimonialsPage, setTestimonialsPage] = useState(0);
   const itemsPerPage = 12; // 4 rows × 3 columns
+  const testimonialsPerPage = 12;
 
   const communityNeeds = [
     {
@@ -772,36 +774,68 @@ export default function Community() {
           {activeTab === "stories" && (
             <div className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories ({filteredStories.length} testimonials)</h2>
+                <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
                   Real testimonies from lives touched and communities strengthened through the power of connection.
                 </p>
               </div>
+
+              {/* Navigation Arrows */}
+              <div className="flex justify-center items-center gap-4 mb-8">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setTestimonialsPage(Math.max(0, testimonialsPage - 1))}
+                  disabled={testimonialsPage === 0}
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </Button>
+                
+                <span className="text-sm text-muted-foreground px-4">
+                  Page {testimonialsPage + 1} of {Math.ceil(filteredStories.length / testimonialsPerPage)}
+                </span>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setTestimonialsPage(Math.min(Math.ceil(filteredStories.length / testimonialsPerPage) - 1, testimonialsPage + 1))}
+                  disabled={testimonialsPage >= Math.ceil(filteredStories.length / testimonialsPerPage) - 1}
+                  className="flex items-center gap-2"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredStories.map((story) => (
-                  <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        {[...Array(story.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                        ))}
-                      </div>
-                      <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
-                        "{story.content}"
-                      </blockquote>
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-bold text-accent">{story.avatar}</span>
+              {/* Two Column Testimonials Grid */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {filteredStories
+                  .slice(testimonialsPage * testimonialsPerPage, (testimonialsPage + 1) * testimonialsPerPage)
+                  .map((story) => (
+                    <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-2 mb-4">
+                          {[...Array(story.rating)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                          ))}
                         </div>
-                        <div>
-                          <div className="font-semibold text-sm text-foreground">{story.author}</div>
-                          <div className="text-xs text-muted-foreground">{story.church}</div>
+                        <blockquote className="text-muted-foreground leading-relaxed mb-4 italic text-sm">
+                          "{story.content}"
+                        </blockquote>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                            <span className="text-xs font-bold text-accent">{story.avatar}</span>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-sm text-foreground">{story.author}</div>
+                            <div className="text-xs text-muted-foreground">{story.church}</div>
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  ))}
               </div>
             </div>
           )}
