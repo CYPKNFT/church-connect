@@ -179,25 +179,245 @@ export default function Community() {
   const successStories = [
     {
       id: 1,
-      content: "When my husband was hospitalized for weeks, our church family coordinated everything - meals, childcare, even house cleaning. ChurchConnect made it seamless. We felt completely surrounded by love.",
-      author: "Sarah Mitchell",
-      church: "Grace Community Church",
+      content: "I help with transportation requests weekly. Whether it's doctor visits or job interviews, giving someone a ride can literally change the trajectory of their day - and sometimes their life.",
+      author: "Maria Williams", 
+      church: "St. Luke's Community",
       rating: 5,
-      avatar: "SM",
-      impact: "14 meals delivered",
-      timeframe: "3 weeks ago",
-      category: "Critical Support"
+      avatar: "MW",
+      impact: "Weekly transportation",
+      timeframe: "Ongoing",
+      category: "Transportation"
     },
     {
       id: 2,
-      content: "I've helped 8 families this quarter through the platform. From grocery runs to home repairs, it's incredible how technology connects us to serve with such efficiency and heart.",
-      author: "Michael Rodriguez",
-      church: "First Baptist Church",
+      content: "ChurchConnect has revolutionized how our congregation connects and serves. We've facilitated over 200 acts of service this quarter alone. It's like having a full-time ministry coordinator in everyone's pocket.",
+      author: "Pastor Tom Richards",
+      church: "Hillside Christian Church",
       rating: 5,
-      avatar: "MR",
-      impact: "8 families helped",
+      avatar: "PT",
+      impact: "200+ acts of service",
       timeframe: "This quarter",
-      category: "Active Volunteer"
+      category: "Church Leadership"
+    },
+    {
+      id: 3,
+      content: "The transparency and ease of the platform has increased our community engagement by 300%. Members who never participated before are now actively giving and receiving help regularly.",
+      author: "Lisa Stevens",
+      church: "Covenant Community Church", 
+      rating: 5,
+      avatar: "LS",
+      impact: "300% engagement increase",
+      timeframe: "This year",
+      category: "Ministry Director"
+    },
+    {
+      id: 4,
+      content: "When my teenage son needed a laptop for college applications, I hesitated to ask. A church family donated their extra MacBook within hours. He's now enrolled at his dream school.",
+      author: "Carlos Delgado",
+      church: "Faith Community Church",
+      rating: 5,
+      avatar: "CD", 
+      impact: "College success",
+      timeframe: "Last year",
+      category: "Special Situations"
+    },
+    {
+      id: 5,
+      content: "Hurricane damage left us without basic appliances. Through ChurchConnect, our church family furnished our entire kitchen in three days. We were able to host Thanksgiving after all.",
+      author: "Nancy Kim",
+      church: "Seaside Chapel",
+      rating: 4,
+      avatar: "NK",
+      impact: "Full kitchen replacement",
+      timeframe: "Last month",
+      category: "Emergency Response"
+    },
+    {
+      id: 6,
+      content: "I've donated over 20 items this year through the platform. Seeing families receive exactly what they need, when they need it most, reminds me that our excess can be someone else's miracle.",
+      author: "Kevin Carter",
+      church: "Cornerstone Baptist",
+      rating: 5,
+      avatar: "KC",
+      impact: "20+ donations",
+      timeframe: "This year",
+      category: "Active Donor"
+    },
+    {
+      id: 7,
+      content: "I coordinate our monthly grocery drives through the app. Last month we organized 50 volunteers across 8 churches to serve 200 families. The efficiency of connecting so many willing hearts in one place is remarkable.",
+      author: "Amanda Lopez",
+      church: "Riverside Community Church",
+      rating: 5,
+      avatar: "AL",
+      impact: "200 families served",
+      timeframe: "Monthly",
+      category: "Coordination"
+    },
+    {
+      id: 8,
+      content: "When Mrs. Patterson needed her yard cleaned before winter, I saw her request and spent my Saturday morning raking leaves with my kids. Teaching them to serve while building relationships - that's what community is about.",
+      author: "David Wilson",
+      church: "New Hope Fellowship",
+      rating: 4,
+      avatar: "DW",
+      impact: "Family service learning",
+      timeframe: "Last month",
+      category: "Family Service"
+    },
+    {
+      id: 9,
+      content: "I teach basic computer skills to seniors every Tuesday through the app. Watching 73-year-old Frank learn to email his grandson in college was worth every minute I've invested.",
+      author: "Jennifer Chen",
+      church: "CrossPoint Church",
+      rating: 5,
+      avatar: "JC",
+      impact: "Weekly tech tutoring",
+      timeframe: "Ongoing",
+      category: "Skills Teaching"
+    },
+    {
+      id: 10,
+      content: "Our neighborhood food prep team meets weekly to make meals for new moms. Through ChurchConnect, we've coordinated 150 home-cooked meals this quarter. It's fellowship with a purpose.",
+      author: "Betty Thompson",
+      church: "Grace Community Church",
+      rating: 4,
+      avatar: "BT",
+      impact: "150 meals coordinated",
+      timeframe: "This quarter",
+      category: "Meal Ministry"
+    },
+    {
+      id: 11,
+      content: "I help drive church members to medical appointments twice a week. Being the friendly face in the waiting room or helping someone navigate their insurance forms - these small acts create lasting bonds.",
+      author: "Sofia Patel",
+      church: "Unity Christian Church",
+      rating: 4,
+      avatar: "SP",
+      impact: "Medical transport support",
+      timeframe: "Twice weekly",
+      category: "Healthcare Support"
+    },
+    {
+      id: 12,
+      content: "Every Saturday, I help elderly members with basic home maintenance - changing light bulbs, unclogging drains, fixing squeaky doors. My toolbox has become my ministry toolkit.",
+      author: "James Robinson",
+      church: "First Methodist",
+      rating: 5,
+      avatar: "JR",
+      impact: "Weekly home repairs",
+      timeframe: "Saturdays",
+      category: "Home Maintenance"
+    },
+    {
+      id: 13,
+      content: "I teach cooking classes for college students and young adults through the platform. Nothing beats seeing someone master their grandmother's recipe or learn to meal prep for the week.",
+      author: "Tom Richards",
+      church: "Hillside Christian Church",
+      rating: 4,
+      avatar: "TR",
+      impact: "Cooking education",
+      timeframe: "Weekly classes",
+      category: "Life Skills"
+    },
+    {
+      id: 14,
+      content: "Our carpool network for after-school activities has been a game-changer. Working parents support each other seamlessly, and the kids have built friendships across church families.",
+      author: "Emily Rodriguez",
+      church: "Grace Fellowship",
+      rating: 5,
+      avatar: "ER",
+      impact: "Carpool coordination",
+      timeframe: "School year",
+      category: "Family Support"
+    },
+    {
+      id: 15,
+      content: "I offer free tax preparation for church families during tax season. It's incredible how helping someone navigate their finances becomes an opportunity for deeper conversations about stewardship and planning.",
+      author: "Mark Harris",
+      church: "Community Baptist",
+      rating: 4,
+      avatar: "MH",
+      impact: "Tax preparation",
+      timeframe: "Tax season",
+      category: "Financial Services"
+    },
+    {
+      id: 16,
+      content: "Teaching guitar lessons to teenagers through the app has been amazing. Music brings us together across generations, and now we have a youth band that plays monthly at service.",
+      author: "Janet Kim",
+      church: "Riverside Community",
+      rating: 5,
+      avatar: "JK",
+      impact: "Youth band formation",
+      timeframe: "Monthly lessons",
+      category: "Music Ministry"
+    },
+    {
+      id: 17,
+      content: "I help families organize their homes and create functional spaces. Decluttering isn't just about stuff - it's about creating peaceful environments where families can thrive together.",
+      author: "Tyler Jackson",
+      church: "Mountain View Church",
+      rating: 4,
+      avatar: "TJ",
+      impact: "Home organization",
+      timeframe: "As needed",
+      category: "Organization Services"
+    },
+    {
+      id: 18,
+      content: "Our reading tutoring program connects literacy volunteers with struggling students. Watching kids gain confidence with each book we read together reminds me why education is so powerful.",
+      author: "Amanda Lopez",
+      church: "Riverside Community Church",
+      rating: 5,
+      avatar: "AL",
+      impact: "Reading improvement",
+      timeframe: "Weekly tutoring",
+      category: "Education Support"
+    },
+    {
+      id: 19,
+      content: "When I was recovering from surgery, church members rotated helping with my dog walks and grocery runs. The coordination was flawless, and I felt so supported during a vulnerable time.",
+      author: "Jennifer Chen",
+      church: "CrossPoint Church",
+      rating: 5,
+      avatar: "JC",
+      impact: "Recovery support",
+      timeframe: "Recovery period",
+      category: "Medical Recovery"
+    },
+    {
+      id: 20,
+      content: "The childcare swap network has been incredible for our family. Parents help each other with date nights and errands, and our kids have formed the sweetest friendships.",
+      author: "David Wilson", 
+      church: "New Hope Fellowship",
+      rating: 4,
+      avatar: "DW",
+      impact: "Childcare network",
+      timeframe: "Ongoing",
+      category: "Childcare Support"
+    },
+    {
+      id: 21,
+      content: "Learning to garden from experienced church members has transformed my backyard and my perspective. Now I'm teaching my neighbor kids how to grow their own vegetables.",
+      author: "Carlos Delgado",
+      church: "Faith Community Church",
+      rating: 4,
+      avatar: "CD",
+      impact: "Gardening mentorship",
+      timeframe: "Growing season",
+      category: "Skills Learning"
+    },
+    {
+      id: 22,
+      content: "The resume writing and interview prep I received helped me land my current job. But more than that, it taught me how to present my best self with confidence.",
+      author: "Nancy Kim",
+      church: "Seaside Chapel",
+      rating: 5,
+      avatar: "NK",
+      impact: "Career advancement",
+      timeframe: "Job search period",
+      category: "Career Support"
     }
   ];
 
@@ -224,6 +444,15 @@ export default function Community() {
       need.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       need.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "All" || need.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const filteredStories = successStories.filter(story => {
+    const matchesSearch = searchQuery === "" || 
+      story.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.church.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || story.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -378,7 +607,7 @@ export default function Community() {
 
                   {activeTab === 'stories' && (
                     <>
-                      {['All', 'Critical Support', 'Active Volunteer', 'Community Impact', 'Testimonials'].map((category) => (
+                      {['All', 'Transportation', 'Church Leadership', 'Ministry Director', 'Special Situations', 'Emergency Response', 'Active Donor', 'Coordination', 'Family Service', 'Skills Teaching', 'Meal Ministry', 'Healthcare Support', 'Home Maintenance', 'Life Skills', 'Family Support', 'Financial Services', 'Music Ministry', 'Organization Services', 'Education Support', 'Medical Recovery', 'Childcare Support', 'Skills Learning', 'Career Support'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
@@ -543,14 +772,14 @@ export default function Community() {
           {activeTab === "stories" && (
             <div className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
+                <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories ({filteredStories.length} testimonials)</h2>
                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
                   Real testimonies from lives touched and communities strengthened through the power of connection.
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                {successStories.map((story) => (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredStories.map((story) => (
                   <Card key={story.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 mb-4">
