@@ -441,10 +441,10 @@ export default function Community() {
       description: "Gray fabric sofa in excellent condition, perfect for families. Very comfortable and clean.",
       category: "Furniture",
       status: "Completed",
-      postedBy: "Sarah Johnson",
-      timePosted: "2 weeks ago",
+      postedBy: "Sarah J.",
+      timePosted: "completed 2 weeks ago",
       image: sofaImage,
-      receivedBy: "Mark & Lisa Thompson"
+      receivedBy: "Mark & Lisa T."
     },
     {
       id: 2,
@@ -452,10 +452,10 @@ export default function Community() {
       description: "Dell laptop in great working condition. Includes charger and wireless mouse.",
       category: "Electronics",
       status: "Completed",
-      postedBy: "Mike Davis",
-      timePosted: "1 month ago",
+      postedBy: "Mike D.",
+      timePosted: "completed 1 month ago",
       image: laptopImage,
-      receivedBy: "Jessica Rivera"
+      receivedBy: "Jessica R."
     },
     {
       id: 3,
@@ -463,8 +463,8 @@ export default function Community() {
       description: "White and wood baby high chair with adjustable height and safety straps.",
       category: "Baby/Kids",
       status: "Completed",
-      postedBy: "Jennifer Miller",
-      timePosted: "3 weeks ago",
+      postedBy: "Jennifer M.",
+      timePosted: "completed 3 weeks ago",
       image: babyChairImage,
       receivedBy: "The Martinez Family"
     },
@@ -474,8 +474,8 @@ export default function Community() {
       description: "White ceramic dishes and bowls set, perfect for a new home or replacement set.",
       category: "Household",
       status: "Completed",
-      postedBy: "Maria Garcia",
-      timePosted: "2 months ago",
+      postedBy: "Maria G.",
+      timePosted: "completed 2 months ago",
       image: dishesImage,
       receivedBy: "College Ministry"
     },
@@ -485,8 +485,8 @@ export default function Community() {
       description: "Clean winter clothing in various sizes. Perfect for families in need during cold season.",
       category: "Clothing", 
       status: "Completed",
-      postedBy: "David Wilson",
-      timePosted: "4 months ago",
+      postedBy: "David W.",
+      timePosted: "completed 4 months ago",
       image: clothesImage,
       receivedBy: "Local Shelter"
     },
@@ -496,8 +496,8 @@ export default function Community() {
       description: "Collection of age-appropriate books and educational toys for young children.",
       category: "Education",
       status: "Completed",
-      postedBy: "Rachel Green",
-      timePosted: "6 weeks ago",
+      postedBy: "Rachel G.",
+      timePosted: "completed 6 weeks ago",
       image: booksToys,
       receivedBy: "Community Daycare"
     },
@@ -507,8 +507,8 @@ export default function Community() {
       description: "Blender, toaster, and coffee maker in working condition. Perfect for new homeowners.",
       category: "Household",
       status: "Completed",
-      postedBy: "Tom Wilson",
-      timePosted: "3 months ago",
+      postedBy: "Tom W.",
+      timePosted: "completed 3 months ago",
       image: dishesImage,
       receivedBy: "Young Adults Ministry"
     },
@@ -518,8 +518,8 @@ export default function Community() {
       description: "Complete set of garden tools including shovels, rake, and watering can.",
       category: "Garden",
       status: "Completed",
-      postedBy: "Nancy Brown",
-      timePosted: "5 months ago",
+      postedBy: "Nancy B.",
+      timePosted: "completed 5 months ago",
       image: clothesImage,
       receivedBy: "Community Garden"
     },
@@ -529,10 +529,76 @@ export default function Community() {
       description: "Wooden desk with matching office chair. Great for home office or student workspace.",
       category: "Furniture",
       status: "Completed",
-      postedBy: "Mark Rodriguez",
-      timePosted: "8 weeks ago",
+      postedBy: "Mark R.",
+      timePosted: "completed 8 weeks ago",
       image: sofaImage,
       receivedBy: "Student Housing"
+    },
+    {
+      id: 10,
+      title: "Exercise Equipment Bundle",
+      description: "Set of dumbbells, yoga mat, and resistance bands. Perfect for home workouts.",
+      category: "Sports",
+      status: "Completed",
+      postedBy: "Lisa K.",
+      timePosted: "completed 1 week ago",
+      image: laptopImage,
+      receivedBy: "Community Fitness Group"
+    },
+    {
+      id: 11,
+      title: "Art Supplies for Kids",
+      description: "Crayons, markers, paper, and craft supplies for creative children's activities.",
+      category: "Education",
+      status: "Completed",
+      postedBy: "Amanda T.",
+      timePosted: "completed 3 days ago",
+      image: booksToys,
+      receivedBy: "Sunday School"
+    },
+    {
+      id: 12,
+      title: "Professional Work Clothes",
+      description: "Business attire in various sizes, perfect for job interviews and professional settings.",
+      category: "Clothing",
+      status: "Completed",
+      postedBy: "Robert S.",
+      timePosted: "completed 2 weeks ago",
+      image: clothesImage,
+      receivedBy: "Job Training Center"
+    },
+    {
+      id: 13,
+      title: "Kitchen Cookware Set",
+      description: "Pots, pans, and cooking utensils in excellent condition for new households.",
+      category: "Household",
+      status: "Completed",
+      postedBy: "Carol H.",
+      timePosted: "completed 5 weeks ago",
+      image: dishesImage,
+      receivedBy: "Transitional Housing"
+    },
+    {
+      id: 14,
+      title: "Children's Bicycle Collection",
+      description: "Various sizes of kids' bikes, all in working condition with safety equipment.",
+      category: "Recreation",
+      status: "Completed",
+      postedBy: "James P.",
+      timePosted: "completed 1 month ago",
+      image: babyChairImage,
+      receivedBy: "Foster Care Network"
+    },
+    {
+      id: 15,
+      title: "Board Games and Puzzles",
+      description: "Family-friendly games and puzzles for entertainment and bonding time.",
+      category: "Entertainment",
+      status: "Completed",
+      postedBy: "Michelle L.",
+      timePosted: "completed 10 days ago",
+      image: booksToys,
+      receivedBy: "Community Center"
     }
   ];
 
@@ -1230,15 +1296,6 @@ export default function Community() {
                             alt={item.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
-                          <div className="absolute top-3 right-3">
-                            <Badge 
-                              variant="outline" 
-                              className="text-emerald-600 border-emerald-200 bg-emerald-50/90 backdrop-blur-sm"
-                            >
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              {item.status}
-                            </Badge>
-                          </div>
                           <div className="absolute top-3 left-3">
                             <Badge 
                               variant="secondary" 
@@ -1264,10 +1321,6 @@ export default function Community() {
                               <Clock className="w-4 h-4" />
                               {item.timePosted}
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-emerald-600">
-                              <CheckCircle className="w-4 h-4" />
-                              Completed
-                            </div>
                           </div>
                           
                           <div className="flex items-center justify-between pt-2">
@@ -1275,15 +1328,6 @@ export default function Community() {
                               <div>Given by {item.postedBy}</div>
                               <div className="text-xs font-medium text-accent">Received by {item.receivedBy}</div>
                             </div>
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              className="border-emerald-200 text-emerald-600 hover:bg-emerald-50"
-                              disabled
-                            >
-                              <CheckCircle className="w-4 h-4 mr-2" />
-                              Completed
-                            </Button>
                           </div>
                         </CardContent>
                       </Card>
