@@ -609,7 +609,7 @@ export default function Community() {
 
                   {activeTab === 'stories' && (
                     <>
-                      {['All', 'Transportation', 'Church Leadership', 'Special Situations', 'Coordination', 'Family Service', 'Skills Teaching', 'Meal Ministry', 'Healthcare Support', 'Home Maintenance', 'Life Skills', 'Family Support', 'Organization Services', 'Education Support', 'Medical Recovery', 'Childcare Support', 'Skills Learning', 'Career Support'].map((category) => (
+                      {['All', 'Transportation', 'Church Leadership', 'Special Situations', 'Family Service', 'Skills Teaching', 'Meal Ministry', 'Healthcare Support', 'Home Maintenance', 'Life Skills', 'Medical Recovery', 'Career Support'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
@@ -780,35 +780,6 @@ export default function Community() {
                 </p>
               </div>
 
-              {/* Navigation Arrows */}
-              <div className="flex justify-center items-center gap-4 mb-8">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => setTestimonialsPage(Math.max(0, testimonialsPage - 1))}
-                  disabled={testimonialsPage === 0}
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  Previous
-                </Button>
-                
-                <span className="text-sm text-muted-foreground px-4">
-                  Page {testimonialsPage + 1} of {Math.ceil(filteredStories.length / testimonialsPerPage)}
-                </span>
-                
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => setTestimonialsPage(Math.min(Math.ceil(filteredStories.length / testimonialsPerPage) - 1, testimonialsPage + 1))}
-                  disabled={testimonialsPage >= Math.ceil(filteredStories.length / testimonialsPerPage) - 1}
-                  className="flex items-center gap-2"
-                >
-                  Next
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-              
               {/* Two Column Testimonials Grid */}
               <div className="grid md:grid-cols-2 gap-6">
                 {filteredStories
@@ -836,6 +807,35 @@ export default function Community() {
                       </CardContent>
                     </Card>
                   ))}
+              </div>
+
+              {/* Navigation Arrows - Bottom */}
+              <div className="flex justify-center items-center gap-4 mt-8">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setTestimonialsPage(Math.max(0, testimonialsPage - 1))}
+                  disabled={testimonialsPage === 0}
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </Button>
+                
+                <span className="text-sm text-muted-foreground px-4">
+                  Page {testimonialsPage + 1} of {Math.ceil(filteredStories.length / testimonialsPerPage)}
+                </span>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setTestimonialsPage(Math.min(Math.ceil(filteredStories.length / testimonialsPerPage) - 1, testimonialsPage + 1))}
+                  disabled={testimonialsPage >= Math.ceil(filteredStories.length / testimonialsPerPage) - 1}
+                  className="flex items-center gap-2"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           )}
