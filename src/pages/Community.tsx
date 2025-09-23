@@ -953,7 +953,7 @@ export default function Community() {
           {activeTab === "needs" && (
             <div className="space-y-8">
               {/* Section Header */}
-              <div className="text-center space-y-4 mb-8">
+              <div className="text-center space-y-4 py-12 mb-8">
                 <h2 className="text-3xl font-bold text-foreground">Completed Community Needs</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">Celebrating the completed acts of service that have made a difference in people's lives.</p>
               </div>
@@ -1072,7 +1072,7 @@ export default function Community() {
           {/* Success Stories Tab */}
           {activeTab === "stories" && (
             <div className="space-y-8">
-              <div className="text-center mb-12">
+              <div className="text-center py-12 mb-12">
                 <h2 className="text-4xl font-bold text-foreground mb-4">Transformational Stories</h2>
                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
                   Real testimonies from lives touched and communities strengthened through the power of connection.
@@ -1142,7 +1142,7 @@ export default function Community() {
           {/* Events Tab */}
           {activeTab === "events" && (
             <div className="space-y-8">
-              <div className="text-center mb-12">
+              <div className="text-center py-12 mb-12">
                 <h2 className="text-4xl font-bold text-foreground mb-4">Church Events</h2>
                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
                   Connect through church activities and gatherings.
@@ -1290,7 +1290,7 @@ export default function Community() {
             {/* Giving Tab */}
             {activeTab === "giving" && (
               <div className="space-y-8">
-                <div className="text-center space-y-4 mb-8">
+                <div className="text-center space-y-4 py-12 mb-8">
                   <h2 className="text-3xl font-bold text-foreground">Items Shared with Love</h2>
                   <p className="text-muted-foreground max-w-2xl mx-auto">
                     Household goods, furniture, and resources that have been generously shared in fellowship with community members.
