@@ -923,6 +923,22 @@ export default function Community() {
                       ))}
                     </>
                   )}
+
+                  {activeTab === 'giving' && (
+                    <>
+                      {['All', 'Furniture', 'Electronics', 'Clothing', 'Household', 'Books & Toys'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -1281,33 +1297,6 @@ export default function Community() {
                   </p>
                 </div>
 
-                {/* Search Bar */}
-                <div className="flex flex-col md:flex-row gap-4 items-center">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                    <Input
-                      placeholder="Search items shared with love..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                </div>
-
-                {/* Filter tabs for Giving */}
-                <div className="flex flex-wrap justify-center gap-2">
-                  {["All", "Furniture", "Electronics", "Clothing", "Household", "Books & Toys"].map((category) => (
-                    <Button
-                      key={category}
-                      variant={selectedCategory === category ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedCategory(category)}
-                      className="h-8"
-                    >
-                      {category}
-                    </Button>
-                  ))}
-                </div>
 
                 {/* Items Grid */}
                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
