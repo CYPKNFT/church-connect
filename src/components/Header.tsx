@@ -44,9 +44,9 @@ export function Header() {
           <Link to="/churches" className="text-foreground hover:text-primary transition-colors font-medium">
             Churches
           </Link>
-          <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
-            Support
-          </Link>
+           <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
+             Guide
+           </Link>
         </nav>
 
         {/* Desktop CTA Buttons */}
@@ -173,13 +173,13 @@ export function Header() {
             >
               Churches
             </Link>
-            <Link 
-              to="/support" 
-              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Support
-            </Link>
+             <Link 
+               to="/support" 
+               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+               onClick={() => setIsMenuOpen(false)}
+             >
+               Guide
+             </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               {user && (
                 <Button 
