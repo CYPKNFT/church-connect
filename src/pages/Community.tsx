@@ -7,8 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserPlus, Sparkles, TrendingUp, Award, Eye, ChevronLeft, ChevronRight, HandHeart, Church, Coffee, DollarSign, GraduationCap, Gamepad2, Baby, Music, Book, Briefcase, ArrowRight } from "lucide-react";
 
 export default function Community() {
   const [activeTab, setActiveTab] = useState("needs");
@@ -426,16 +427,102 @@ export default function Community() {
   const upcomingEvents = [
     {
       id: 1,
-      title: "Community-Wide Service Day",
-      description: "Unite with 12 local churches for our biggest service day yet! We'll tackle food bank sorting, park beautification, and elderly home visits.",
-      date: "March 25, 2024",
-      time: "8:00 AM - 4:00 PM",
-      location: "Multiple Locations",
-      church: "Multi-Church Coalition",
-      attendees: 247,
-      category: "Service",
-      featured: true,
-      coordinator: "Pastor Alliance"
+      title: "Community Service Marathon",
+      description: "Join us for a full day of serving our community through multiple service projects.",
+      category: "service",
+      start_datetime: "2024-04-15T09:00:00Z",
+      location_text: "Multiple Locations",
+      attending_count: 127,
+      volunteer_slots_total: 50,
+      volunteer_slots_filled: 38
+    },
+    {
+      id: 2,
+      title: "Youth Leadership Workshop",
+      description: "Empowering our young leaders with practical skills for ministry and life.",
+      category: "youth",
+      start_datetime: "2024-04-12T14:00:00Z",
+      location_text: "Youth Center",
+      attending_count: 34,
+      volunteer_slots_total: 8,
+      volunteer_slots_filled: 6
+    },
+    {
+      id: 3,
+      title: "Prayer & Fasting Retreat",
+      description: "A powerful time of prayer, fasting, and seeking God's face together.",
+      category: "prayer",
+      start_datetime: "2024-04-08T18:00:00Z",
+      location_text: "Church Sanctuary",
+      attending_count: 89,
+      volunteer_slots_total: 12,
+      volunteer_slots_filled: 10
+    },
+    {
+      id: 4,
+      title: "Community Fundraiser Dinner",
+      description: "Raising funds for local homeless shelter through a fellowship dinner.",
+      category: "fundraiser",
+      start_datetime: "2024-04-20T17:00:00Z",
+      location_text: "Fellowship Hall",
+      attending_count: 156,
+      volunteer_slots_total: 25,
+      volunteer_slots_filled: 20
+    },
+    {
+      id: 5,
+      title: "Worship Night Under the Stars",
+      description: "An outdoor worship experience celebrating God's creation.",
+      category: "worship",
+      start_datetime: "2024-04-25T19:00:00Z",
+      location_text: "Church Grounds",
+      attending_count: 203,
+      volunteer_slots_total: 15,
+      volunteer_slots_filled: 12
+    },
+    {
+      id: 6,
+      title: "Bible Study Workshop",
+      description: "Learn effective Bible study methods and deepen your understanding.",
+      category: "study",
+      start_datetime: "2024-04-18T18:30:00Z",
+      location_text: "Education Building",
+      attending_count: 67,
+      volunteer_slots_total: 5,
+      volunteer_slots_filled: 4
+    },
+    {
+      id: 7,
+      title: "Coffee & Fellowship Morning",
+      description: "Start your day with great coffee and even better fellowship.",
+      category: "social",
+      start_datetime: "2024-04-14T08:00:00Z",
+      location_text: "Church Café",
+      attending_count: 78,
+      volunteer_slots_total: 8,
+      volunteer_slots_filled: 6
+    },
+    {
+      id: 8,
+      title: "Children's Ministry Training",
+      description: "Equipping volunteers to serve effectively in children's ministry.",
+      category: "children",
+      start_datetime: "2024-04-22T10:00:00Z",
+      location_text: "Children's Wing",
+      attending_count: 23,
+      volunteer_slots_total: 6,
+      volunteer_slots_filled: 5
+    },
+    {
+      id: 9,
+      title: "Leadership Development Summit",
+      description: "Developing the next generation of church leaders through practical training.",
+      category: "leadership",
+      start_datetime: "2024-04-30T09:00:00Z",
+      location_text: "Conference Room",
+      attending_count: 45,
+      volunteer_slots_total: 10,
+      volunteer_slots_filled: 8
     }
   ];
 
@@ -526,47 +613,47 @@ export default function Community() {
                   </div>
                   <span className={`transition-colors duration-300 ${
                     activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                  }`}>DISCOVERING</span>
-                </div>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="stories" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeTab === 'stories' 
-                      ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
-                      : 'bg-muted/30 group-hover:bg-muted/50'
-                  }`}>
-                    <Star className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                    }`} />
-                  </div>
-                  <span className={`transition-colors duration-300 ${
-                    activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
-                  }`}>INSPIRING</span>
-                </div>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="events" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeTab === 'events' 
-                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                      : 'bg-muted/20 group-hover:bg-muted/40'
-                  }`}>
-                    <Calendar className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                    }`} />
-                  </div>
-                  <span className={`transition-colors duration-300 ${
-                    activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                  }`}>CONNECTING</span>
+                   }`}>SERVICE</span>
+                 </div>
+               </TabsTrigger>
+               <TabsTrigger 
+                 value="events" 
+                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+               >
+                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                 <div className="relative z-10 flex items-center gap-3">
+                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                     activeTab === 'events' 
+                       ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                       : 'bg-muted/20 group-hover:bg-muted/40'
+                   }`}>
+                     <Calendar className={`w-5 h-5 transition-colors duration-300 ${
+                       activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                     }`} />
+                   </div>
+                   <span className={`transition-colors duration-300 ${
+                     activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                   }`}>EVENTS</span>
+                 </div>
+               </TabsTrigger>
+               <TabsTrigger 
+                 value="stories" 
+                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+               >
+                 <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                 <div className="relative z-10 flex items-center gap-3">
+                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                     activeTab === 'stories' 
+                       ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                       : 'bg-muted/30 group-hover:bg-muted/50'
+                   }`}>
+                     <Star className={`w-5 h-5 transition-colors duration-300 ${
+                       activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                     }`} />
+                   </div>
+                   <span className={`transition-colors duration-300 ${
+                     activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                   }`}>TESTIMONIALS</span>
                 </div>
               </TabsTrigger>
             </TabsList>
@@ -844,68 +931,146 @@ export default function Community() {
           {activeTab === "events" && (
             <div className="space-y-8">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-foreground mb-4">Upcoming Events</h2>
+                <h2 className="text-4xl font-bold text-foreground mb-4">Church Events</h2>
                 <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-                  Join upcoming opportunities to serve and connect with your community.
+                  Connect through church activities and gatherings.
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {upcomingEvents
-                  .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-                  .map((event) => (
-                  <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group">
-                    <CardContent className="p-6">
-                      <h3 className="font-bold text-lg text-foreground mb-2">{event.title}</h3>
-                      <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
-                      <div className="space-y-2 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>{event.date} at {event.time}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" />
-                          <span>{event.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4" />
-                          <span>{event.attendees} attending</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                  .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                  .map((event) => {
+                    const getCategoryIcon = (category: string) => {
+                      const icons = {
+                        service: HandHeart,
+                        prayer: Church,
+                        social: Coffee,
+                        fundraiser: DollarSign,
+                        workshops: GraduationCap,
+                        youth: Gamepad2,
+                        children: Baby,
+                        worship: Music,
+                        study: Book,
+                        leadership: Briefcase
+                      };
+                      return icons[category as keyof typeof icons] || Calendar;
+                    };
+
+                    const getCategoryColor = (category: string) => {
+                      const colors = {
+                        service: "destructive",
+                        prayer: "secondary",
+                        social: "outline",
+                        fundraiser: "default",
+                        workshops: "secondary",
+                        youth: "outline",
+                        children: "default",
+                        worship: "secondary",
+                        study: "outline",
+                        leadership: "default"
+                      };
+                      return colors[category as keyof typeof colors] || "default";
+                    };
+
+                    const IconComponent = getCategoryIcon(event.category);
+                    
+                    return (
+                      <Card key={event.id} className="border-0 shadow-card hover:shadow-accent hover-lift group h-full">
+                        <CardContent className="p-6 h-full flex flex-col">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                                <IconComponent className="w-6 h-6 text-accent" />
+                              </div>
+                              <Badge variant={getCategoryColor(event.category) as any} className="shrink-0">
+                                {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+                              </Badge>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                                {new Date(event.start_datetime).toLocaleDateString('en-US', { month: 'short' })}
+                              </div>
+                              <div className="text-lg font-bold text-foreground">
+                                {new Date(event.start_datetime).getDate()}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex-1 flex flex-col">
+                            <h3 className="text-lg font-bold mb-2 line-clamp-2">{event.title}</h3>
+                            <p className="text-muted-foreground text-sm mb-4 line-clamp-2 flex-1">{event.description}</p>
+                            
+                            <div className="space-y-2 text-sm mb-4">
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Calendar className="w-4 h-4 shrink-0" />
+                                <span className="truncate">{new Date(event.start_datetime).toLocaleDateString()}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <MapPin className="w-4 h-4 shrink-0" />
+                                <span className="truncate">{event.location_text}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Users className="w-4 h-4 shrink-0" />
+                                <span>{event.attending_count} attending</span>
+                              </div>
+                            </div>
+
+                            {(event.volunteer_slots_total || 0) > 0 && (
+                              <div className="mb-4">
+                                <div className="flex justify-between text-sm mb-2">
+                                  <span>Volunteers</span>
+                                  <span>{event.volunteer_slots_filled || 0}/{event.volunteer_slots_total}</span>
+                                </div>
+                                <Progress value={((event.volunteer_slots_filled || 0) / event.volunteer_slots_total) * 100} className="h-2" />
+                                {((event.volunteer_slots_filled || 0) / event.volunteer_slots_total) * 100 < 100 && (
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    {(event.volunteer_slots_total || 0) - (event.volunteer_slots_filled || 0)} more needed
+                                  </p>
+                                )}
+                              </div>
+                            )}
+
+                            <Button className="w-full group mt-auto">
+                              View Details
+                              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
               </div>
 
               {/* Events Pagination */}
               {Math.ceil(upcomingEvents.length / itemsPerPage) > 1 && (
-                <div className="flex justify-center items-center gap-4 mt-8">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
-                    disabled={currentPage === 0}
-                    className="flex items-center gap-2"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                    Previous
-                  </Button>
-                  
-                  <span className="text-sm text-muted-foreground px-4">
-                    Page {currentPage + 1} of {Math.ceil(upcomingEvents.length / itemsPerPage)}
-                  </span>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={() => setCurrentPage(Math.min(Math.ceil(upcomingEvents.length / itemsPerPage) - 1, currentPage + 1))}
-                    disabled={currentPage >= Math.ceil(upcomingEvents.length / itemsPerPage) - 1}
-                    className="flex items-center gap-2"
-                  >
-                    Next
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
-                </div>
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      />
+                    </PaginationItem>
+                    {Array.from({ length: Math.ceil(upcomingEvents.length / itemsPerPage) }, (_, i) => (
+                      <PaginationItem key={i + 1}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(i + 1)}
+                          isActive={currentPage === i + 1}
+                          className="cursor-pointer"
+                        >
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => setCurrentPage(prev => Math.min(Math.ceil(upcomingEvents.length / itemsPerPage), prev + 1))}
+                        className={currentPage === Math.ceil(upcomingEvents.length / itemsPerPage) ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               )}
             </div>
           )}
