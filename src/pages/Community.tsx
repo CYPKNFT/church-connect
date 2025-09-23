@@ -894,7 +894,7 @@ export default function Community() {
 
                   {activeTab === 'stories' && (
                     <>
-                      {['All', 'Transportation', 'Church Leadership', 'Special Situations', 'Family Service', 'Skills Teaching', 'Meal Ministry', 'Healthcare Support', 'Home Maintenance', 'Life Skills', 'Medical Recovery', 'Career Support'].map((category) => (
+                      {['All', 'Church Leadership', 'Church Staff', 'Members', 'Volunteers', 'Family Members', 'Serving', 'Giving', 'Events'].map((category) => (
                         <Button
                           key={category}
                           variant={selectedCategory === category ? "default" : "outline"}
