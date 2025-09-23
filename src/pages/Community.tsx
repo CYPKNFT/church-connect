@@ -939,6 +939,22 @@ export default function Community() {
                       ))}
                     </>
                   )}
+
+                  {activeTab === 'stories' && (
+                    <>
+                      {['All', 'Church Leadership', 'Members', 'Volunteers', 'Family Members', 'Serving', 'Giving'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
