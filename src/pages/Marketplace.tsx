@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Plus, Search, Heart, Package, TrendingUp, Users, Upload, Camera, Eye, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, Search, Heart, Package, TrendingUp, Users, Upload, Camera } from "lucide-react";
 import { toast } from "sonner";
 import { Header } from "@/components/Header";
 
@@ -25,8 +25,6 @@ export default function Marketplace() {
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [selectedTimePosted, setSelectedTimePosted] = useState("any");
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
-  const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [newItem, setNewItem] = useState({
     title: "",
     description: "",
@@ -43,7 +41,7 @@ export default function Marketplace() {
       category: "Furniture",
       postedDate: "2 days ago",
       status: "Available",
-      images: [sofaImage, babyChairImage, dishesImage],
+      
       owner: "Sarah Johnson"
     },
     {
@@ -53,7 +51,7 @@ export default function Marketplace() {
       category: "Books",
       postedDate: "1 week ago", 
       status: "Available",
-      images: [booksToys, clothesImage, laptopImage],
+      
       owner: "Michael Chen"
     },
     {
@@ -63,7 +61,7 @@ export default function Marketplace() {
       category: "Electronics",
       postedDate: "3 days ago",
       status: "Claimed",
-      images: [dishesImage, laptopImage, babyChairImage],
+      
       owner: "Emma Davis"
     }
   ];
@@ -267,21 +265,8 @@ export default function Marketplace() {
                 <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer bg-slate-800 border-slate-700">
                   <CardContent className="p-4">
                     {/* Item Image */}
-                    <div 
-                      className="aspect-video bg-slate-700 rounded-lg mb-4 overflow-hidden cursor-pointer group relative"
-                      onClick={() => {
-                        setSelectedItemImages(item.images);
-                        setCurrentImageIndex(0);
-                      }}
-                    >
-                      <img 
-                        src={item.images[0]} 
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                        <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </div>
+                    <div className="aspect-video bg-slate-700 rounded-lg mb-4 flex items-center justify-center">
+                      <Package className="w-12 h-12 text-slate-500" />
                     </div>
 
                     {/* Item Details */}
@@ -339,59 +324,6 @@ export default function Marketplace() {
               </Card>
             )}
 
-            {/* Image Overlay Modal */}
-            {selectedItemImages.length > 0 && (
-              <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
-                <DialogContent className="max-w-4xl w-full p-0">
-                  <div className="relative">
-                    <button
-                      onClick={() => setSelectedItemImages([])}
-                      className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                    
-                    <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-                      <img
-                        src={selectedItemImages[currentImageIndex]}
-                        alt="Item preview"
-                        className="w-full h-full object-cover"
-                      />
-                      
-                      {selectedItemImages.length > 1 && (
-                        <>
-                          <button
-                            onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                          >
-                            <ChevronLeft className="w-5 h-5" />
-                          </button>
-                          
-                          <button
-                            onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                          >
-                            <ChevronRight className="w-5 h-5" />
-                          </button>
-                          
-                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                            {selectedItemImages.map((_, index) => (
-                              <button
-                                key={index}
-                                onClick={() => setCurrentImageIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-colors ${
-                                  index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
           </div>
         </div>
 
