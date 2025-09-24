@@ -168,56 +168,77 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
   }
 
   .dark {
-    --background: 220 13% 9%;
+    /* Core Colors - Refined dark theme */
+    --background: 224 71% 4%;
     --foreground: 210 40% 98%;
 
-    --card: 220 13% 15%;
+    --card: 224 71% 5%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 220 13% 15%;
+    --popover: 224 71% 5%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 45 90% 55%;
-    --primary-foreground: 220 13% 9%;
+    /* Primary System - Refined blue with better contrast */
+    --primary: 213 94% 68%;
+    --primary-foreground: 224 71% 4%;
 
-    --secondary: 220 13% 18%;
-    --secondary-foreground: 210 40% 98%;
+    /* Secondary System - Warmer, more accessible orange */
+    --secondary: 24 100% 58%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 13% 18%;
-    --muted-foreground: 215 20% 65%;
+    /* Muted Colors - Better contrast */
+    --muted: 220 32% 10%;
+    --muted-foreground: 215 25% 70%;
 
-    --accent: 45 90% 55%;
-    --accent-foreground: 220 13% 9%;
+    /* Accent System - Softer cyan with better readability */
+    --accent: 190 95% 65%;
+    --accent-foreground: 224 71% 4%;
 
-    --destructive: 0 62% 50%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
     --success: 120 60% 50%;
-    --success-foreground: 220 13% 9%;
+    --success-foreground: 224 71% 4%;
 
     --warning: 38 92% 50%;
-    --warning-foreground: 220 13% 9%;
+    --warning-foreground: 224 71% 4%;
 
     --info: 215 85% 60%;
-    --info-foreground: 220 13% 9%;
+    --info-foreground: 224 71% 4%;
 
-    --border: 220 13% 20%;
-    --border-light: 220 13% 25%;
-    --border-dark: 220 13% 15%;
-    --input: 220 13% 18%;
-    --ring: 220 13% 20%;
+    /* Border & Input - Softer, more elegant */
+    --border: 220 32% 12%;
+    --border-light: 220 32% 15%;
+    --border-dark: 220 32% 8%;
+    --input: 220 32% 12%;
+    --ring: 213 94% 68%;
 
-    --sidebar-background: 220 13% 12%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 45 90% 55%;
-    --sidebar-primary-foreground: 220 13% 9%;
-    --sidebar-accent: 220 13% 18%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 220 13% 20%;
-    --sidebar-ring: 220 13% 20%;
+    /* Sidebar - Refined dark theme */
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 210 40% 95%;
+    --sidebar-primary: 213 94% 68%;
+    --sidebar-primary-foreground: 224 71% 4%;
+    --sidebar-accent: 190 95% 65%;
+    --sidebar-accent-foreground: 224 71% 4%;
+    --sidebar-border: 220 32% 10%;
+    --sidebar-ring: 213 94% 68%;
 
     /* Footer System */
-    --footer-bg: 215 28% 17%; /* Medium grey footer background */
+    --footer-bg: 224 71% 6%;
+
+    /* Gradients - Smoother, more sophisticated */
+    --gradient-primary: linear-gradient(135deg, hsl(213 94% 65%), hsl(225 100% 72%));
+    --gradient-secondary: linear-gradient(135deg, hsl(24 100% 55%), hsl(30 100% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(190 95% 62%), hsl(200 100% 70%));
+    --gradient-warm: linear-gradient(135deg, hsl(213 94% 60%), hsl(24 100% 55%));
+    --gradient-cool: linear-gradient(135deg, hsl(190 95% 60%), hsl(213 94% 65%));
+    --gradient-subtle: linear-gradient(180deg, hsl(224 71% 4%), hsl(224 71% 6%));
+
+    /* Shadows - Deeper, more elegant */
+    --shadow-card: 0 6px 25px -6px hsl(224 71% 2% / 0.8);
+    --shadow-elegant: 0 12px 35px -12px hsl(213 94% 20% / 0.5);
+    --shadow-accent: 0 10px 30px -10px hsl(190 95% 30% / 0.4);
+    --shadow-glow: 0 0 45px hsl(213 94% 50% / 0.25);
   }
 }
 
