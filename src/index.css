@@ -169,33 +169,33 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
 
   .dark {
     /* Core Colors */
-    --background: 215 28% 17%;
-    --foreground: 213 31% 91%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 217 33% 17%;
-    --card-foreground: 213 31% 91%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 217 33% 17%;
-    --popover-foreground: 213 31% 91%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
     /* Primary System */
-    --primary: 213 94% 68%;
-    --primary-foreground: 215 28% 17%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
 
     /* Secondary System */
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 213 31% 91%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
     /* Muted Colors */
-    --muted: 215 28% 23%;
-    --muted-foreground: 217 11% 65%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
     /* Accent System */
-    --accent: 213 94% 68%;
-    --accent-foreground: 215 28% 17%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 213 31% 91%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
     --success: 120 60% 50%;
     --success-foreground: 224 71% 4%;
