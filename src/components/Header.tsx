@@ -45,7 +45,7 @@ export function Header() {
             Churches
           </Link>
            <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
-             Guide
+             Guides
            </Link>
         </nav>
 
@@ -178,7 +178,7 @@ export function Header() {
                className="block text-foreground hover:text-primary transition-colors font-medium py-3"
                onClick={() => setIsMenuOpen(false)}
              >
-               Guide
+                Guides
              </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               {user && (

@@ -65,7 +65,7 @@ export default function Giving() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">Items I've Given</h1>
-            <p className="text-muted-foreground">Sharing in fellowship</p>
+            <p className="text-muted-foreground">Community Marketplace</p>
           </div>
 
           {/* Content */}

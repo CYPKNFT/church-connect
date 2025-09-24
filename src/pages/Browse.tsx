@@ -43,7 +43,7 @@ export default function Browse() {
       category: "Furniture",
       postedDate: "2 days ago",
       status: "Available",
-      images: [sofaImage, babyChairImage, dishesImage],
+      images: [sofaImage, babyChairImage, dishesImage, laptopImage, clothesImage, booksToys],
       owner: "Sarah Johnson"
     },
     {
@@ -53,7 +53,7 @@ export default function Browse() {
       category: "Books",
       postedDate: "1 week ago",
       status: "Available",
-      images: [booksToys, clothesImage, laptopImage],
+      images: [booksToys, clothesImage, laptopImage, sofaImage, babyChairImage, dishesImage],
       owner: "Michael Chen"
     },
     {
@@ -63,7 +63,7 @@ export default function Browse() {
       category: "Electronics",
       postedDate: "3 days ago",
       status: "Claimed",
-      images: [laptopImage, dishesImage, babyChairImage],
+      images: [laptopImage, dishesImage, babyChairImage, clothesImage, booksToys, sofaImage],
       owner: "Emma Davis"
     }
   ];

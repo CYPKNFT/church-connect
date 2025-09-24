@@ -844,7 +844,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                 {!isGivingCollapsed && (
                   <div className="p-4 border-b border-sidebar-border">
                     <h2 className="font-semibold text-sidebar-foreground">Giving</h2>
-                    <p className="text-sm text-sidebar-foreground/70">Community Marketplace</p>
+                    <p className="text-sm text-sidebar-foreground/70">Sharing in fellowship</p>
                   </div>
                 )}
 
