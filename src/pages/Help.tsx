@@ -163,24 +163,26 @@ export default function Help() {
 
         {/* Contact Support */}
         <section className="animate-scale-in">
-          <div className="bg-warm-gradient rounded-3xl p-12 text-center text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
-            <div className="relative z-10">
-              <MessageSquare className="w-16 h-16 mx-auto mb-6 text-white" />
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-                Still Need Help?
-              </h2>
-              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Sign in to send us a message directly from your profile
-              </p>
-              
-              <Button 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10" 
-                asChild
-              >
-                <a href="/login">Sign In to Contact Support</a>
-              </Button>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-warm-gradient rounded-3xl p-12 text-center text-white relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
+              <div className="relative z-10">
+                <MessageSquare className="w-16 h-16 mx-auto mb-6 text-white" />
+                <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+                  Still Need Help?
+                </h2>
+                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                  Sign in to send your Church Leadership a message directly from your profile
+                </p>
+                
+                <Button 
+                  variant="outline" 
+                  className="border-white/30 text-white hover:bg-white/10" 
+                  asChild
+                >
+                  <a href="/login">Sign In to Contact Support</a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
