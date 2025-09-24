@@ -137,12 +137,12 @@ export default function Giving() {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-col gap-2 md:w-auto w-full">
+                        <div className="flex flex-col gap-2 md:w-32 w-full">
                           <Button 
                             variant="outline" 
                             size="sm"
                             onClick={() => handleEditItem(item.title)}
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 w-full justify-center"
                           >
                             <Edit className="w-4 h-4" />
                             Edit
@@ -153,7 +153,7 @@ export default function Giving() {
                               variant="outline" 
                               size="sm"
                               onClick={() => handleMarkAsGiven(item.title)}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-2 w-full justify-center"
                             >
                               <Gift className="w-4 h-4" />
                               Mark as Given
@@ -164,7 +164,7 @@ export default function Giving() {
                             variant="outline" 
                             size="sm"
                             onClick={() => handleDeleteItem(item.title)}
-                            className="flex items-center gap-2 text-destructive hover:text-destructive"
+                            className="flex items-center gap-2 w-full justify-center text-destructive hover:text-destructive"
                           >
                             <Trash2 className="w-4 h-4" />
                             Delete
