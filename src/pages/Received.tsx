@@ -1,9 +1,6 @@
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Heart, Package, Gift, Calendar, User, X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { Heart, Package, Gift, Calendar, User, Search, Eye } from "lucide-react";
 import { toast } from "sonner";
 
 // Import marketplace images
@@ -14,11 +11,25 @@ import dishesImage from "@/assets/marketplace/dishes.jpg";
 import clothesImage from "@/assets/marketplace/clothes.jpg";
 import booksToys from "@/assets/marketplace/books-toys.jpg";
 
-export default function Received() {
-  const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+type ItemStatus = "Received" | "Thanked";
 
-  const itemsReceived = [
+interface ReceivedItem {
+  id: number;
+  title: string;
+  description: string;
+  previousOwner: string;
+  pickupDate: string;
+  category: string;
+  status: ItemStatus;
+  images: string[];
+}
+
+export default function Received() {
+  const [tab, setTab] = useState<string>("all");
+  const [query, setQuery] = useState("");
+
+  // Mock data for demonstration
+  const items: ReceivedItem[] = [
     {
       id: 1,
       title: "Children's Books Collection",
@@ -26,6 +37,7 @@ export default function Received() {
       previousOwner: "Sarah Johnson",
       pickupDate: "2024-01-15",
       category: "Books",
+      status: "Received",
       images: [booksToys, clothesImage, dishesImage]
     },
     {
@@ -35,151 +47,186 @@ export default function Received() {
       previousOwner: "Michael Chen",
       pickupDate: "2024-01-10",
       category: "Baby/Kids",
+      status: "Thanked",
       images: [babyChairImage, sofaImage, laptopImage]
     }
   ];
 
-  const handleSendThankYou = (owner: string) => {
-    toast.success(`Thank you message sent to ${owner}`);
+  const tabs = [
+    { key: "all", label: "All" },
+    { key: "received", label: "Received" },
+    { key: "thanked", label: "Thanked" }
+  ];
+
+  const impact = useMemo(() => {
+    const received = items.filter(item => item.status === "Received").length;
+    const thanked = items.filter(item => item.status === "Thanked").length;
+    return { received, thanked, total: items.length };
+  }, [items]);
+
+  const filtered = useMemo(() => {
+    let result = items;
+    
+    if (tab === "received") result = result.filter(item => item.status === "Received");
+    if (tab === "thanked") result = result.filter(item => item.status === "Thanked");
+    
+    if (query) {
+      result = result.filter(item => 
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase()) ||
+        item.previousOwner.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    
+    return result;
+  }, [items, tab, query]);
+
+  const updateItem = (id: number, updates: Partial<ReceivedItem>) => {
+    toast.success("Item updated successfully");
+  };
+
+  const ItemCard = ({ item, onUpdate }: { item: ReceivedItem; onUpdate: (id: number, updates: Partial<ReceivedItem>) => void; }) => {
+    const getStatusColor = (status: ItemStatus) => {
+      switch (status) {
+        case "Received": return "text-accent";
+        case "Thanked": return "text-success";
+        default: return "text-muted-foreground";
+      }
+    };
+
+    const getStatusText = (status: ItemStatus) => {
+      switch (status) {
+        case "Received": return "Received";
+        case "Thanked": return "Thanked";
+        default: return status;
+      }
+    };
+
+    return (
+      <div className="rounded-2xl border border-border bg-card/60 p-6">
+        <div className="flex gap-4">
+          {/* Image */}
+          <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-xl">
+            <img
+              src={item.images[0]}
+              alt={item.title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+
+          {/* Content */}
+          <div className="flex flex-1 flex-col justify-between">
+            <div>
+              <div className="mb-2 flex items-start justify-between">
+                <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+                <span className={`rounded-lg bg-muted px-2 py-1 text-sm font-medium ${getStatusColor(item.status)}`}>
+                  {getStatusText(item.status)}
+                </span>
+              </div>
+              <p className="mb-3 text-muted-foreground">{item.description}</p>
+              
+              {/* Stats */}
+              <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <User className="h-4 w-4" />
+                  From: {item.previousOwner}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Calendar className="h-4 w-4" />
+                  Received: {new Date(item.pickupDate).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-2">
+              {item.status === "Received" && (
+                <button
+                  onClick={() => onUpdate(item.id, { status: "Thanked" })}
+                  className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+                >
+                  <Heart className="mr-1 inline h-4 w-4" />
+                  Send Thank You
+                </button>
+              )}
+              <button
+                onClick={() => toast.info(`Viewing details for ${item.title}`)}
+                className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
+              >
+                <Eye className="mr-1 inline h-4 w-4" />
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="min-h-screen w-full bg-background p-6 text-foreground">
+        <div className="mx-auto max-w-6xl">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Items I've Received</h1>
-            <p className="text-muted-foreground">Sharing in fellowship</p>
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Received</h1>
+              <p className="text-muted-foreground">Sharing in fellowship • Items you've received</p>
+            </div>
+            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+              <span className="text-accent">🎁</span>
+              <span className="text-sm text-muted-foreground">Received: {impact.received}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Thanked: {impact.thanked}</span>
+            </div>
           </div>
 
-          {/* Content */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Items I've Received</h2>
-            
-            {itemsReceived.length > 0 ? (
-              <div className="space-y-4">
-                {itemsReceived.map((item) => (
-                  <Card key={item.id}>
-                    <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row gap-4">
-                        {/* Item Thumbnail */}
-                        <div 
-                          className="w-full md:w-32 h-24 bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity group relative"
-                          onClick={() => {
-                            setSelectedItemImages(item.images);
-                            setCurrentImageIndex(0);
-                          }}
-                        >
-                          <img 
-                            src={item.images[0]} 
-                            alt={item.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                            <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                          </div>
-                        </div>
+          {/* Controls */}
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
+              {tabs.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    tab === t.key ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
 
-                        {/* Item Details */}
-                        <div className="flex-1 space-y-2">
-                          <h3 className="font-semibold text-lg">{item.title}</h3>
-                          <p className="text-muted-foreground">{item.description}</p>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <User className="w-4 h-4" />
-                              From: {item.previousOwner}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-4 h-4" />
-                              Received: {new Date(item.pickupDate).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+                <Search className="h-4 w-4 text-muted-foreground" />
+                <input
+                  placeholder="Search received items…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                />
+              </div>
+            </div>
+          </div>
 
-                        {/* Action Button */}
-                        <div className="md:w-auto w-full">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleSendThankYou(item.previousOwner)}
-                            className="flex items-center gap-2"
-                          >
-                            <Heart className="w-4 h-4" />
-                            Send Thank You
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+          {/* List */}
+          <div className="grid gap-4">
+            {filtered.length === 0 ? (
+              <div className="rounded-2xl border border-border bg-card/60 p-10 text-center text-muted-foreground">
+                No items found.
               </div>
             ) : (
-              <Card>
-                <CardContent className="p-12 text-center">
-                  <Gift className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-                  <h3 className="text-lg font-semibold mb-2">No items received yet</h3>
-                  <p className="text-muted-foreground">
-                    Browse the marketplace to find items you need from fellow church members.
-                  </p>
-                </CardContent>
-              </Card>
+              filtered.map((item) => (
+                <ItemCard key={item.id} item={item} onUpdate={updateItem} />
+              ))
             )}
           </div>
 
-          {/* Image Overlay Modal */}
-          {selectedItemImages.length > 0 && (
-            <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
-              <DialogContent className="max-w-4xl w-full p-0">
-                <div className="relative">
-                  <button
-                    onClick={() => setSelectedItemImages([])}
-                    className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                  
-                  <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-                    <img
-                      src={selectedItemImages[currentImageIndex]}
-                      alt="Item preview"
-                      className="w-full h-full object-cover"
-                    />
-                    
-                    {selectedItemImages.length > 1 && (
-                      <>
-                        <button
-                          onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                        >
-                          <ChevronLeft className="w-5 h-5" />
-                        </button>
-                        
-                        <button
-                          onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                        >
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
-                        
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                          {selectedItemImages.map((_, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full transition-colors ${
-                                index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-          )}
+          {/* Footer note */}
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Tip: Express gratitude to fellow church members who have blessed you with these items.
+          </p>
         </div>
       </div>
     </DashboardLayout>
