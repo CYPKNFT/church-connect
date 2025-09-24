@@ -254,7 +254,7 @@ export default function Guides() {
 
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-secondary">🛡️ Respecting Privacy & Dignity</CardTitle>
+                        <CardTitle className="text-lg text-primary">🛡️ Respecting Privacy & Dignity</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -492,10 +492,10 @@ export default function Guides() {
 
                 <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/30">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-accent-foreground">
-                      <BookOpen className="w-5 h-5 text-accent" />
-                      Church Leadership Support
-                    </CardTitle>
+                       <CardTitle className="flex items-center gap-2 text-lg text-primary">
+                         <BookOpen className="w-5 h-5 text-primary" />
+                         Church Leadership Support
+                       </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
@@ -620,7 +620,7 @@ export default function Guides() {
 
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-secondary">⏰ Response Times & Reliability</CardTitle>
+                        <CardTitle className="text-lg text-primary">⏰ Response Times & Reliability</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -838,10 +838,10 @@ export default function Guides() {
 
                 <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/30">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-accent-foreground">
-                      <Wrench className="w-5 h-5 text-accent" />
-                      Technical & Browser Issues
-                    </CardTitle>
+                       <CardTitle className="flex items-center gap-2 text-lg text-primary">
+                         <Wrench className="w-5 h-5 text-primary" />
+                         Technical & Browser Issues
+                       </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
@@ -906,10 +906,10 @@ export default function Guides() {
 
                 <Card className="bg-gradient-to-r from-secondary/10 to-secondary/5 border-secondary/30">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-secondary">
-                      <AlertCircle className="w-5 h-5" />
-                      When to Contact Support
-                    </CardTitle>
+                       <CardTitle className="flex items-center gap-2 text-primary">
+                         <AlertCircle className="w-5 h-5 text-primary" />
+                         When to Contact Support
+                       </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <p className="text-sm text-muted-foreground">Contact our support team if you experience:</p>
