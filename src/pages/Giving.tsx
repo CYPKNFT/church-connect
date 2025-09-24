@@ -97,10 +97,10 @@ export default function Giving() {
   const ItemCard = ({ item, onUpdate, onDelete }: { item: Item; onUpdate: (id: number, updates: Partial<Item>) => void; onDelete: (id: number) => void; }) => {
     const getStatusColor = (status: ItemStatus) => {
       switch (status) {
-        case "Available": return "text-yellow-400";
-        case "Claimed": return "text-yellow-400";
-        case "Given": return "text-slate-400";
-        default: return "text-slate-400";
+        case "Available": return "text-accent";
+        case "Claimed": return "text-accent";
+        case "Given": return "text-muted-foreground";
+        default: return "text-muted-foreground";
       }
     };
 
@@ -114,7 +114,7 @@ export default function Giving() {
     };
 
     return (
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+      <div className="rounded-2xl border border-border bg-card/60 p-6">
         <div className="flex gap-4">
           {/* Image */}
           <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-xl">
@@ -129,15 +129,15 @@ export default function Giving() {
           <div className="flex flex-1 flex-col justify-between">
             <div>
               <div className="mb-2 flex items-start justify-between">
-                <h3 className="text-xl font-semibold text-slate-100">{item.title}</h3>
-                <span className={`rounded-lg bg-slate-800 px-2 py-1 text-sm font-medium ${getStatusColor(item.status)}`}>
+                <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+                <span className={`rounded-lg bg-muted px-2 py-1 text-sm font-medium ${getStatusColor(item.status)}`}>
                   {getStatusText(item.status)}
                 </span>
               </div>
-              <p className="mb-3 text-slate-300">{item.description}</p>
+              <p className="mb-3 text-muted-foreground">{item.description}</p>
               
               {/* Stats */}
-              <div className="mb-4 flex items-center gap-4 text-sm text-slate-400">
+              <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Eye className="h-4 w-4" />
                   {item.views} views
@@ -153,14 +153,14 @@ export default function Giving() {
 
               {/* Status Progress */}
               <div className="mb-4 flex items-center gap-2">
-                <div className={`h-2 w-2 rounded-full ${item.status === "Available" ? "bg-yellow-400" : "bg-slate-600"}`} />
-                <span className="text-xs text-slate-400">Available</span>
-                <div className="h-px w-6 bg-slate-700" />
-                <div className={`h-2 w-2 rounded-full ${item.status === "Claimed" ? "bg-yellow-400" : "bg-slate-600"}`} />
-                <span className="text-xs text-slate-400">Claimed</span>
-                <div className="h-px w-6 bg-slate-700" />
-                <div className={`h-2 w-2 rounded-full ${item.status === "Given" ? "bg-yellow-400" : "bg-slate-600"}`} />
-                <span className="text-xs text-slate-400">Given</span>
+                <div className={`h-2 w-2 rounded-full ${item.status === "Available" ? "bg-accent" : "bg-muted-dark"}`} />
+                <span className="text-xs text-muted-foreground">Available</span>
+                <div className="h-px w-6 bg-border" />
+                <div className={`h-2 w-2 rounded-full ${item.status === "Claimed" ? "bg-accent" : "bg-muted-dark"}`} />
+                <span className="text-xs text-muted-foreground">Claimed</span>
+                <div className="h-px w-6 bg-border" />
+                <div className={`h-2 w-2 rounded-full ${item.status === "Given" ? "bg-accent" : "bg-muted-dark"}`} />
+                <span className="text-xs text-muted-foreground">Given</span>
               </div>
             </div>
 
@@ -169,7 +169,7 @@ export default function Giving() {
               {item.status === "Available" && (
                 <button
                   onClick={() => onUpdate(item.id, { status: "Claimed" })}
-                  className="rounded-xl bg-yellow-500 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+                  className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
                 >
                   Mark as Claimed
                 </button>
@@ -177,26 +177,26 @@ export default function Giving() {
               {item.status === "Claimed" && (
                 <button
                   onClick={() => onUpdate(item.id, { status: "Given" })}
-                  className="rounded-xl bg-yellow-500 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+                  className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
                 >
                   Mark as Given
                 </button>
               )}
               {item.interested > 0 && (
-                <button className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800">
+                <button className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
                   <MessageCircle className="mr-1 inline h-4 w-4" />
                   Message Interested
                 </button>
               )}
               <button
                 onClick={() => toast.info(`Editing ${item.title}`)}
-                className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800"
+                className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
               >
                 Edit
               </button>
               <button
                 onClick={() => onDelete(item.id)}
-                className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800"
+                className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
               >
                 Delete
               </button>
@@ -209,33 +209,33 @@ export default function Giving() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen w-full bg-slate-950/95 p-6 text-slate-100">
+      <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
           <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Giving</h1>
-              <p className="text-slate-300">Sharing in fellowship • Manage your posted items</p>
+              <p className="text-muted-foreground">Sharing in fellowship • Manage your posted items</p>
             </div>
-            <div className="flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-900 px-3 py-2">
-              <span className="text-yellow-400">📦</span>
-              <span className="text-sm text-slate-300">Available: {impact.available}</span>
-              <span className="text-slate-700">•</span>
-              <span className="text-sm text-slate-300">Claimed: {impact.claimed}</span>
-              <span className="text-slate-700">•</span>
-              <span className="text-sm text-slate-300">Given: {impact.given}</span>
+            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+              <span className="text-accent">📦</span>
+              <span className="text-sm text-muted-foreground">Available: {impact.available}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Claimed: {impact.claimed}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Given: {impact.given}</span>
             </div>
           </div>
 
           {/* Controls */}
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="inline-flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-900 p-1">
+            <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
               {tabs.map((t) => (
                 <button
                   key={t.key}
                   onClick={() => setTab(t.key)}
                   className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                    tab === t.key ? "bg-yellow-500 text-black" : "text-slate-300 hover:bg-slate-800"
+                    tab === t.key ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
                   }`}
                 >
                   {t.label}
@@ -244,18 +244,18 @@ export default function Giving() {
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-900 px-3 py-2">
-                <Search className="h-4 w-4 text-slate-400" />
+              <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+                <Search className="h-4 w-4 text-muted-foreground" />
                 <input
                   placeholder="Search my items…"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="w-64 bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none"
+                  className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
                 />
               </div>
               <button
                 onClick={() => toast.info("Opening post item modal")}
-                className="rounded-xl border border-yellow-500 bg-yellow-500 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+                className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
               >
                 + Post New Item
               </button>
@@ -265,7 +265,7 @@ export default function Giving() {
           {/* List */}
           <div className="grid gap-4">
             {filtered.length === 0 ? (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-10 text-center text-slate-300">
+              <div className="rounded-2xl border border-border bg-card/60 p-10 text-center text-muted-foreground">
                 No items found.
               </div>
             ) : (
@@ -276,7 +276,7 @@ export default function Giving() {
           </div>
 
           {/* Footer note */}
-          <p className="mt-8 text-center text-xs text-slate-500">
+          <p className="mt-8 text-center text-xs text-muted-foreground">
             Tip: Keep communications inside the platform. Meet in public church spaces. Verify item condition before pickup.
           </p>
         </div>
