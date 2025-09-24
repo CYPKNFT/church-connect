@@ -4,16 +4,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Edit, Trash2, Eye, Heart, Package, Gift, Plus, X } from "lucide-react";
+import { Edit, Trash2, Eye, Heart, Package, Gift, Plus, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 
 // Import marketplace images
 import sofaImage from "@/assets/marketplace/sofa.jpg";
 import laptopImage from "@/assets/marketplace/laptop.jpg";
+import babyChairImage from "@/assets/marketplace/baby-chair.jpg";
+import dishesImage from "@/assets/marketplace/dishes.jpg";
+import clothesImage from "@/assets/marketplace/clothes.jpg";
+import booksToys from "@/assets/marketplace/books-toys.jpg";
 
 export default function Giving() {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Mock data for demonstration
   const myPostedItems = [
@@ -26,7 +31,7 @@ export default function Giving() {
       views: 23,
       interested: 3,
       postedDate: "2 days ago",
-      image: sofaImage
+      images: [sofaImage, babyChairImage, dishesImage]
     },
     {
       id: 2,
@@ -37,7 +42,7 @@ export default function Giving() {
       views: 18,
       interested: 5,
       postedDate: "1 week ago",
-      image: laptopImage
+      images: [laptopImage, clothesImage, booksToys]
     }
   ];
 
@@ -93,14 +98,20 @@ export default function Giving() {
                       <div className="flex flex-col md:flex-row gap-4">
                         {/* Item Thumbnail */}
                         <div 
-                          className="w-full md:w-32 h-24 bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
-                          onClick={() => setSelectedImage(item.image)}
+                          className="w-full md:w-32 h-24 bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity group relative"
+                          onClick={() => {
+                            setSelectedItemImages(item.images);
+                            setCurrentImageIndex(0);
+                          }}
                         >
                           <img 
-                            src={item.image} 
+                            src={item.images[0]} 
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
                         </div>
 
                         {/* Item Details */}
@@ -181,28 +192,59 @@ export default function Giving() {
             )}
           </div>
 
-          {/* Image Lightbox */}
-          <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-            <DialogContent className="max-w-4xl max-h-[90vh] p-0 [&>button]:hidden">
-              <div className="relative">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white"
-                  onClick={() => setSelectedImage(null)}
-                >
-                  <X className="w-4 h-4" />
-                </Button>
-                {selectedImage && (
-                  <img
-                    src={selectedImage}
-                    alt="Item preview"
-                    className="w-full h-auto max-h-[85vh] object-contain"
-                  />
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
+          {/* Image Overlay Modal */}
+          {selectedItemImages.length > 0 && (
+            <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
+              <DialogContent className="max-w-4xl w-full p-0">
+                <div className="relative">
+                  <button
+                    onClick={() => setSelectedItemImages([])}
+                    className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                  
+                  <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                    <img
+                      src={selectedItemImages[currentImageIndex]}
+                      alt="Item preview"
+                      className="w-full h-full object-cover"
+                    />
+                    
+                    {selectedItemImages.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        
+                        <button
+                          onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                        
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                          {selectedItemImages.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setCurrentImageIndex(index)}
+                              className={`w-2 h-2 rounded-full transition-colors ${
+                                index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
       </div>
     </DashboardLayout>
