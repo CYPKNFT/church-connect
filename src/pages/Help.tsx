@@ -58,16 +58,16 @@ export default function Help() {
       path: "/guides?tab=safety"
     },
     {
-      icon: MessageSquare,
-      title: "Communication Etiquette",
-      description: "How to communicate effectively and respectfully through the platform",
-      path: "/guides?tab=communication"
-    },
-    {
       icon: Heart,
       title: "Best Practices for Volunteers",
       description: "Tips for being an effective and trusted volunteer in your community",
       path: "/guides?tab=volunteers"
+    },
+    {
+      icon: HelpCircle,
+      title: "View All Guides",
+      description: "Browse our complete collection of guides and tutorials",
+      path: "/guides"
     }
   ];
 
@@ -81,7 +81,7 @@ export default function Help() {
             <span>We're Here to Help</span>
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Help & Support
+            Support Articles
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Find answers to common questions and learn how to make the most of ChurchConnect
@@ -102,7 +102,7 @@ export default function Help() {
         {/* Quick Guides */}
         <section className="mb-16 animate-slide-up">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
-            Quick Start Guides
+            ChurchConnect Guides
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {guides.map((guide, index) => {
