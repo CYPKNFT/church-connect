@@ -81,10 +81,10 @@ export default function Help() {
             <span>We're Here to Help</span>
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Support Articles
+            ChurchConnect Guides
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Find answers to common questions and learn how to make the most of ChurchConnect
+            Learn how to make the most of ChurchConnect with our step-by-step guides
           </p>
         </div>
 
@@ -99,11 +99,8 @@ export default function Help() {
           </div>
         </div>
 
-        {/* Quick Guides */}
+        {/* Main Guides */}
         <section className="mb-16 animate-slide-up">
-          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
-            ChurchConnect Guides
-          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {guides.map((guide, index) => {
               const Icon = guide.icon;
@@ -126,11 +123,11 @@ export default function Help() {
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* Support Articles Section */}
         <section className="mb-16 animate-fade-in">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Frequently Asked Questions
+              Support Articles
             </h2>
             <p className="text-xl text-muted-foreground">
               Find quick answers to the most common questions
