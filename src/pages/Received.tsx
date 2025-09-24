@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { Heart, Package, Gift, Calendar, User, Search, Eye } from "lucide-react";
+import { Heart, Package, Gift, Calendar, User, Search, Eye, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
 // Import marketplace images
@@ -11,7 +11,7 @@ import dishesImage from "@/assets/marketplace/dishes.jpg";
 import clothesImage from "@/assets/marketplace/clothes.jpg";
 import booksToys from "@/assets/marketplace/books-toys.jpg";
 
-type ItemStatus = "Received" | "Thanked";
+type ItemStatus = "Claimed" | "Received" | "Thanked";
 
 interface ReceivedItem {
   id: number;
@@ -49,24 +49,37 @@ export default function Received() {
       category: "Baby/Kids",
       status: "Thanked",
       images: [babyChairImage, sofaImage, laptopImage]
+    },
+    {
+      id: 3,
+      title: "Wooden High Chair",
+      description: "Adjustable wooden high chair in excellent condition",
+      previousOwner: "David Wilson",
+      pickupDate: "2024-01-20",
+      category: "Baby/Kids",
+      status: "Claimed",
+      images: [babyChairImage, sofaImage, laptopImage]
     }
   ];
 
   const tabs = [
     { key: "all", label: "All" },
+    { key: "claimed", label: "Claimed" },
     { key: "received", label: "Received" },
     { key: "thanked", label: "Thanked" }
   ];
 
   const impact = useMemo(() => {
+    const claimed = items.filter(item => item.status === "Claimed").length;
     const received = items.filter(item => item.status === "Received").length;
     const thanked = items.filter(item => item.status === "Thanked").length;
-    return { received, thanked, total: items.length };
+    return { claimed, received, thanked, total: items.length };
   }, [items]);
 
   const filtered = useMemo(() => {
     let result = items;
     
+    if (tab === "claimed") result = result.filter(item => item.status === "Claimed");
     if (tab === "received") result = result.filter(item => item.status === "Received");
     if (tab === "thanked") result = result.filter(item => item.status === "Thanked");
     
@@ -88,18 +101,56 @@ export default function Received() {
   const ItemCard = ({ item, onUpdate }: { item: ReceivedItem; onUpdate: (id: number, updates: Partial<ReceivedItem>) => void; }) => {
     const getStatusColor = (status: ItemStatus) => {
       switch (status) {
+        case "Claimed": return "text-yellow-500";
         case "Received": return "text-accent";
-        case "Thanked": return "text-success";
+        case "Thanked": return "text-emerald-500";
         default: return "text-muted-foreground";
       }
     };
 
     const getStatusText = (status: ItemStatus) => {
       switch (status) {
+        case "Claimed": return "Claimed";
         case "Received": return "Received";
         case "Thanked": return "Thanked";
         default: return status;
       }
+    };
+
+    const StatusTimeline = ({ currentStatus }: { currentStatus: ItemStatus }) => {
+      const statuses: ItemStatus[] = ["Claimed", "Received", "Thanked"];
+      const currentIndex = statuses.indexOf(currentStatus);
+
+      return (
+        <div className="flex items-center gap-2 mb-3">
+          {statuses.map((status, index) => {
+            const isActive = index <= currentIndex;
+            const isCurrent = index === currentIndex;
+            
+            return (
+              <React.Fragment key={status}>
+                <div 
+                  className={`flex items-center gap-2 ${isActive ? getStatusColor(status) : "text-muted-foreground"}`}
+                >
+                  <div 
+                    className={`h-2 w-2 rounded-full transition-colors ${
+                      isActive 
+                        ? (status === "Claimed" ? "bg-yellow-500" : status === "Received" ? "bg-accent" : "bg-emerald-500")
+                        : "bg-muted-foreground/30"
+                    }`}
+                  />
+                  <span className={`text-xs font-medium ${isCurrent ? "font-semibold" : ""}`}>
+                    {status}
+                  </span>
+                </div>
+                {index < statuses.length - 1 && (
+                  <div className={`h-px w-4 ${isActive ? "bg-accent/30" : "bg-muted-foreground/20"}`} />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
+      );
     };
 
     return (
@@ -125,6 +176,9 @@ export default function Received() {
               </div>
               <p className="mb-3 text-muted-foreground">{item.description}</p>
               
+              {/* Status Timeline */}
+              <StatusTimeline currentStatus={item.status} />
+              
               {/* Stats */}
               <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
@@ -133,22 +187,38 @@ export default function Received() {
                 </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
-                  Received: {new Date(item.pickupDate).toLocaleDateString()}
+                  {item.status === "Claimed" ? "Claimed" : "Received"}: {new Date(item.pickupDate).toLocaleDateString()}
                 </span>
               </div>
             </div>
 
             {/* Actions */}
             <div className="flex gap-2">
+              {item.status === "Claimed" && (
+                <button
+                  onClick={() => onUpdate(item.id, { status: "Received" })}
+                  className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent/90"
+                >
+                  <Package className="mr-1 inline h-4 w-4" />
+                  Mark as Received
+                </button>
+              )}
               {item.status === "Received" && (
                 <button
                   onClick={() => onUpdate(item.id, { status: "Thanked" })}
-                  className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+                  className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
                 >
                   <Heart className="mr-1 inline h-4 w-4" />
                   Send Thank You
                 </button>
               )}
+              <button
+                onClick={() => toast.info(`Opening message thread with ${item.previousOwner}`)}
+                className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
+              >
+                <MessageCircle className="mr-1 inline h-4 w-4" />
+                Message
+              </button>
               <button
                 onClick={() => toast.info(`Viewing details for ${item.title}`)}
                 className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
@@ -175,6 +245,8 @@ export default function Received() {
             </div>
             <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
               <span className="text-accent">🎁</span>
+              <span className="text-sm text-muted-foreground">Claimed: {impact.claimed}</span>
+              <span className="text-border">•</span>
               <span className="text-sm text-muted-foreground">Received: {impact.received}</span>
               <span className="text-border">•</span>
               <span className="text-sm text-muted-foreground">Thanked: {impact.thanked}</span>
