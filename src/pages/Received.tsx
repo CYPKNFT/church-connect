@@ -144,7 +144,7 @@ export default function Received() {
                   </span>
                 </div>
                 {index < statuses.length - 1 && (
-                  <div className={`h-px w-4 ${isActive ? "bg-accent/30" : "bg-muted-foreground/20"}`} />
+                  <div className={`h-px w-4 ${index < currentIndex ? "bg-accent" : "bg-muted-foreground/20"}`} />
                 )}
               </React.Fragment>
             );
