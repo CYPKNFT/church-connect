@@ -21,6 +21,7 @@ import { useMembership } from "@/hooks/useMembership";
 import { useEvents } from "@/hooks/useEvents";
 import { EventCard } from "@/components/EventCard";
 import { EventCalendar } from "@/components/EventCalendar";
+import { CompactEventCalendar } from "@/components/CompactEventCalendar";
 import { toast } from "sonner";
 
 // Import marketplace images
@@ -1016,11 +1017,13 @@ export default function MyChurch() {
                  {/* Events Grid with Pagination */}
                 <section>
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">
-                      {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
-                      <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
-                    </h2>
-                    <EventCalendar events={allEventsWithSamples} />
+                    <div>
+                      <h2 className="text-2xl font-bold">
+                        {selectedEventCategory === "all" ? "All Events" : eventCategories.find(c => c.id === selectedEventCategory)?.name}
+                        <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
+                      </h2>
+                    </div>
+                    <CompactEventCalendar events={allEventsWithSamples} />
                   </div>
 
                   {eventsLoading ? (
