@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -96,7 +96,7 @@ export default function Browse() {
   };
 
   return (
-    <DashboardLayout>
+    <CollapsibleSidebar>
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           {/* Header */}
@@ -196,9 +196,12 @@ export default function Browse() {
             </div>
           </div>
 
-          {/* Search & Filters */}
-          <Card>
-            <CardContent className="p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-6">
+              {/* Search & Filters */}
+              <Card>
+                <CardContent className="p-6">
                   <div className="space-y-4">
                     {/* Search Bar */}
                     <div className="relative">
@@ -261,8 +264,8 @@ export default function Browse() {
                 </CardContent>
               </Card>
 
-          {/* Item Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {/* Item Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredItems.map((item) => (
                   <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                     <CardContent className="p-0">
@@ -321,24 +324,108 @@ export default function Browse() {
                     </CardContent>
                   </Card>
                 ))}
-          </div>
+              </div>
 
-          {filteredItems.length === 0 && (
-            <Card>
-              <CardContent className="p-12 text-center">
-                <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-                <h3 className="text-lg font-semibold mb-2">No items found</h3>
-                <p className="text-muted-foreground mb-4">
-                  Try adjusting your search terms or filters, or be the first to post an item!
-                </p>
-                <Button onClick={() => setIsPostModalOpen(true)}>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Post the First Item
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-          
+              {filteredItems.length === 0 && (
+                <Card>
+                  <CardContent className="p-12 text-center">
+                    <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                    <h3 className="text-lg font-semibold mb-2">No items found</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Try adjusting your search terms or filters, or be the first to post an item!
+                    </p>
+                    <Button onClick={() => setIsPostModalOpen(true)}>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Post the First Item
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Community Stats */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Community Impact</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Package className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">234</p>
+                      <p className="text-sm text-muted-foreground">Items Shared</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center">
+                      <Users className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">156</p>
+                      <p className="text-sm text-muted-foreground">Families Helped</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
+                      <TrendingUp className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">89%</p>
+                      <p className="text-sm text-muted-foreground">Success Rate</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Quick Actions */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => setIsPostModalOpen(true)}
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Post New Item
+                  </Button>
+                  
+                  <Button variant="outline" className="w-full justify-start">
+                    <Heart className="w-4 h-4 mr-2" />
+                    My Watchlist
+                  </Button>
+                  
+                  <Button variant="outline" className="w-full justify-start">
+                    <Package className="w-4 h-4 mr-2" />
+                    My Posted Items
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Safety Guidelines */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Safety Guidelines</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li>• Meet in public church spaces</li>
+                    <li>• Verify item condition before pickup</li>
+                    <li>• Communicate through our platform</li>
+                    <li>• Report any concerning behavior</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            </div>
 
           {/* Image Overlay Modal */}
           {selectedItemImages.length > 0 && (
@@ -395,6 +482,6 @@ export default function Browse() {
           )}
         </div>
       </div>
-    </DashboardLayout>
+    </CollapsibleSidebar>
   );
 }

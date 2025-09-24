@@ -46,7 +46,7 @@ import Feedback from "./pages/Feedback";
 import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
-import Marketplace from "./pages/Marketplace";
+import Marketplace from "./pages/Browse";
 import MarketplaceItemDetails from "./pages/MarketplaceItemDetails";
 import MyDashboard from "./pages/MyDashboard";
 import Giving from "./pages/Giving";
