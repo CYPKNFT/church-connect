@@ -88,16 +88,6 @@ export default function Help() {
           </p>
         </div>
 
-        {/* Search */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-            <Input 
-              placeholder="Search for help articles..." 
-              className="pl-12 h-14 text-lg bg-card border-2 shadow-card"
-            />
-          </div>
-        </div>
 
         {/* Main Guides */}
         <section className="mb-16 animate-slide-up">
@@ -129,9 +119,26 @@ export default function Help() {
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Support Articles
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-muted-foreground mb-8">
               Find quick answers to the most common questions
             </p>
+            
+            {/* Search */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                <Input 
+                  placeholder="Search for help articles..." 
+                  className="pl-12 h-14 text-lg bg-card border-2 shadow-card"
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-semibold text-foreground">
+              Frequently Asked Questions
+            </h3>
           </div>
           
           <div className="max-w-4xl mx-auto">
