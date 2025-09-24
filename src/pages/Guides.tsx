@@ -407,8 +407,11 @@ export default function Guides() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground mb-8">
+                  <p className="text-lg text-muted-foreground mb-4">
                     Creating a safe environment for everyone in our church community
+                  </p>
+                  <p className="text-base text-muted-foreground mb-8">
+                    Safety is foundational to building trust and meaningful connections. These guidelines help ensure that every interaction, whether helping or receiving help, honors Christ and protects the dignity and wellbeing of all community members.
                   </p>
                 </CardContent>
               </Card>
