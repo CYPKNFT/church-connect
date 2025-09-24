@@ -30,24 +30,24 @@ export default function Guides() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card/80 backdrop-blur-sm border border-border/50 shadow-card rounded-xl p-2">
-            <TabsTrigger value="getting-started" className="flex items-center gap-2 rounded-lg transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-elegant hover:bg-muted/50">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8">
+            <TabsTrigger value="getting-started" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
               Getting Started
             </TabsTrigger>
-            <TabsTrigger value="safety" className="flex items-center gap-2 rounded-lg transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-elegant hover:bg-muted/50">
+            <TabsTrigger value="safety" className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
               Safety & Trust
             </TabsTrigger>
-            <TabsTrigger value="communication" className="flex items-center gap-2 rounded-lg transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-elegant hover:bg-muted/50">
+            <TabsTrigger value="communication" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />
               Communication
             </TabsTrigger>
-            <TabsTrigger value="volunteers" className="flex items-center gap-2 rounded-lg transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-elegant hover:bg-muted/50">
+            <TabsTrigger value="volunteers" className="flex items-center gap-2">
               <Heart className="w-4 h-4" />
               Serving Well
             </TabsTrigger>
-            <TabsTrigger value="troubleshooting" className="flex items-center gap-2 rounded-lg transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-elegant hover:bg-muted/50">
+            <TabsTrigger value="troubleshooting" className="flex items-center gap-2">
               <HelpCircle className="w-4 h-4" />
               Troubleshooting
             </TabsTrigger>
@@ -66,7 +66,7 @@ export default function Guides() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                       <div className="space-y-4">
-                        <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-border/50 shadow-card hover:shadow-elegant transition-all duration-300">
+                        <div className="bg-card rounded-lg p-4 border">
                           <h5 className="font-semibold mb-2 flex items-center gap-2">
                             <CheckCircle className="w-4 h-4 text-primary" />
                             Complete Profile Setup
@@ -114,7 +114,7 @@ export default function Guides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-secondary/10 to-secondary/5 border-secondary/30 shadow-card hover:shadow-elegant transition-all duration-300 backdrop-blur-sm">
+                <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-foreground">
                       <Users className="w-5 h-5 text-secondary" />
@@ -172,7 +172,7 @@ export default function Guides() {
                 </Card>
               </div>
 
-              <Card className="bg-gradient-to-r from-accent/10 to-accent/5 border-accent/30 shadow-card hover:shadow-accent transition-all duration-300 backdrop-blur-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle className="text-accent">🌟 Universal Success Tips</CardTitle>
                 </CardHeader>
