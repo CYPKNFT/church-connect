@@ -1,10 +1,6 @@
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Edit, Trash2, Eye, Heart, Package, Gift, Plus, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Edit, Trash2, Eye, Heart, MessageCircle, Search } from "lucide-react";
 import { toast } from "sonner";
 
 // Import marketplace images
@@ -15,13 +11,26 @@ import dishesImage from "@/assets/marketplace/dishes.jpg";
 import clothesImage from "@/assets/marketplace/clothes.jpg";
 import booksToys from "@/assets/marketplace/books-toys.jpg";
 
+type ItemStatus = "Available" | "Claimed" | "Given";
+
+interface Item {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  status: ItemStatus;
+  views: number;
+  interested: number;
+  postedDate: string;
+  images: string[];
+}
+
 export default function Giving() {
-  const [isPostModalOpen, setIsPostModalOpen] = useState(false);
-  const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [tab, setTab] = useState<string>("all");
+  const [query, setQuery] = useState("");
 
   // Mock data for demonstration
-  const myPostedItems = [
+  const items: Item[] = [
     {
       id: 1,
       title: "Dining Table Set",
@@ -41,210 +50,235 @@ export default function Giving() {
       status: "Claimed",
       views: 18,
       interested: 5,
-      postedDate: "1 week ago",
+      postedDate: "7 days ago",
       images: [laptopImage, clothesImage, booksToys]
     }
   ];
 
-  const handleEditItem = (itemTitle: string) => {
-    toast.info(`Editing "${itemTitle}"`);
+  const tabs = [
+    { key: "all", label: "All" },
+    { key: "active", label: "Active" },
+    { key: "claimed", label: "Claimed" },
+    { key: "completed", label: "Completed" }
+  ];
+
+  const impact = useMemo(() => {
+    const available = items.filter(item => item.status === "Available").length;
+    const claimed = items.filter(item => item.status === "Claimed").length;
+    const given = items.filter(item => item.status === "Given").length;
+    return { given, claimed, available, total: items.length };
+  }, [items]);
+
+  const filtered = useMemo(() => {
+    let result = items;
+    
+    if (tab === "active") result = result.filter(item => item.status === "Available");
+    if (tab === "claimed") result = result.filter(item => item.status === "Claimed");
+    if (tab === "completed") result = result.filter(item => item.status === "Given");
+    
+    if (query) {
+      result = result.filter(item => 
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    
+    return result;
+  }, [items, tab, query]);
+
+  const updateItem = (id: number, updates: Partial<Item>) => {
+    toast.success("Item updated successfully");
   };
 
-  const handleDeleteItem = (itemTitle: string) => {
-    toast.success(`"${itemTitle}" has been deleted`);
+  const deleteItem = (id: number) => {
+    toast.success("Item deleted successfully");
   };
 
-  const handleMarkAsGiven = (itemTitle: string) => {
-    toast.success(`"${itemTitle}" has been marked as given away`);
+  const ItemCard = ({ item, onUpdate, onDelete }: { item: Item; onUpdate: (id: number, updates: Partial<Item>) => void; onDelete: (id: number) => void; }) => {
+    const getStatusColor = (status: ItemStatus) => {
+      switch (status) {
+        case "Available": return "text-yellow-400";
+        case "Claimed": return "text-yellow-400";
+        case "Given": return "text-slate-400";
+        default: return "text-slate-400";
+      }
+    };
+
+    const getStatusText = (status: ItemStatus) => {
+      switch (status) {
+        case "Available": return "Available";
+        case "Claimed": return "Claimed";
+        case "Given": return "Given";
+        default: return status;
+      }
+    };
+
+    return (
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+        <div className="flex gap-4">
+          {/* Image */}
+          <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-xl">
+            <img
+              src={item.images[0]}
+              alt={item.title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+
+          {/* Content */}
+          <div className="flex flex-1 flex-col justify-between">
+            <div>
+              <div className="mb-2 flex items-start justify-between">
+                <h3 className="text-xl font-semibold text-slate-100">{item.title}</h3>
+                <span className={`rounded-lg bg-slate-800 px-2 py-1 text-sm font-medium ${getStatusColor(item.status)}`}>
+                  {getStatusText(item.status)}
+                </span>
+              </div>
+              <p className="mb-3 text-slate-300">{item.description}</p>
+              
+              {/* Stats */}
+              <div className="mb-4 flex items-center gap-4 text-sm text-slate-400">
+                <span className="flex items-center gap-1">
+                  <Eye className="h-4 w-4" />
+                  {item.views} views
+                </span>
+                <span className="flex items-center gap-1">
+                  <Heart className="h-4 w-4" />
+                  {item.interested} interested
+                </span>
+                <span className="flex items-center gap-1">
+                  🕐 {item.postedDate}
+                </span>
+              </div>
+
+              {/* Status Progress */}
+              <div className="mb-4 flex items-center gap-2">
+                <div className={`h-2 w-2 rounded-full ${item.status === "Available" ? "bg-yellow-400" : "bg-slate-600"}`} />
+                <span className="text-xs text-slate-400">Available</span>
+                <div className="h-px w-6 bg-slate-700" />
+                <div className={`h-2 w-2 rounded-full ${item.status === "Claimed" ? "bg-yellow-400" : "bg-slate-600"}`} />
+                <span className="text-xs text-slate-400">Claimed</span>
+                <div className="h-px w-6 bg-slate-700" />
+                <div className={`h-2 w-2 rounded-full ${item.status === "Given" ? "bg-yellow-400" : "bg-slate-600"}`} />
+                <span className="text-xs text-slate-400">Given</span>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-2">
+              {item.status === "Available" && (
+                <button
+                  onClick={() => onUpdate(item.id, { status: "Claimed" })}
+                  className="rounded-xl bg-yellow-500 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+                >
+                  Mark as Claimed
+                </button>
+              )}
+              {item.status === "Claimed" && (
+                <button
+                  onClick={() => onUpdate(item.id, { status: "Given" })}
+                  className="rounded-xl bg-yellow-500 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+                >
+                  Mark as Given
+                </button>
+              )}
+              {item.interested > 0 && (
+                <button className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800">
+                  <MessageCircle className="mr-1 inline h-4 w-4" />
+                  Message Interested
+                </button>
+              )}
+              <button
+                onClick={() => toast.info(`Editing ${item.title}`)}
+                className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => onDelete(item.id)}
+                className="rounded-xl border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="min-h-screen w-full bg-slate-950/95 p-6 text-slate-100">
+        <div className="mx-auto max-w-6xl">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Items I've Given</h1>
-            <p className="text-muted-foreground">Community Marketplace</p>
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Giving</h1>
+              <p className="text-slate-300">Sharing in fellowship • Manage your posted items</p>
+            </div>
+            <div className="flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-900 px-3 py-2">
+              <span className="text-yellow-400">📦</span>
+              <span className="text-sm text-slate-300">Available: {impact.available}</span>
+              <span className="text-slate-700">•</span>
+              <span className="text-sm text-slate-300">Claimed: {impact.claimed}</span>
+              <span className="text-slate-700">•</span>
+              <span className="text-sm text-slate-300">Given: {impact.given}</span>
+            </div>
           </div>
 
-          {/* Content */}
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold">Items I've Posted</h2>
-              <Dialog open={isPostModalOpen} onOpenChange={setIsPostModalOpen}>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Post New Item
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Post New Item</DialogTitle>
-                  </DialogHeader>
-                  <div className="p-4">
-                    <p className="text-muted-foreground">This would open the same post item modal from the Marketplace page.</p>
-                  </div>
-                </DialogContent>
-              </Dialog>
+          {/* Controls */}
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="inline-flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-900 p-1">
+              {tabs.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    tab === t.key ? "bg-yellow-500 text-black" : "text-slate-300 hover:bg-slate-800"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
             </div>
 
-            {myPostedItems.length > 0 ? (
-              <div className="space-y-4">
-                {myPostedItems.map((item) => (
-                  <Card key={item.id}>
-                    <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row gap-4">
-                        {/* Item Thumbnail */}
-                        <div 
-                          className="w-full md:w-32 h-24 bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity group relative"
-                          onClick={() => {
-                            setSelectedItemImages(item.images);
-                            setCurrentImageIndex(0);
-                          }}
-                        >
-                          <img 
-                            src={item.images[0]} 
-                            alt={item.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                            <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                          </div>
-                        </div>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-900 px-3 py-2">
+                <Search className="h-4 w-4 text-slate-400" />
+                <input
+                  placeholder="Search my items…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-64 bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none"
+                />
+              </div>
+              <button
+                onClick={() => toast.info("Opening post item modal")}
+                className="rounded-xl border border-yellow-500 bg-yellow-500 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400"
+              >
+                + Post New Item
+              </button>
+            </div>
+          </div>
 
-                        {/* Item Details */}
-                        <div className="flex-1 space-y-2">
-                          <div className="flex items-start justify-between">
-                            <h3 className="font-semibold text-lg">{item.title}</h3>
-                            <Badge variant={item.status === "Available" ? "default" : "secondary"}>
-                              {item.status}
-                            </Badge>
-                          </div>
-                          <p className="text-muted-foreground">{item.description}</p>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Eye className="w-4 h-4" />
-                              {item.views} views
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Heart className="w-4 h-4" />
-                              {item.interested} interested
-                            </span>
-                            <span>{item.postedDate}</span>
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex flex-col gap-2 md:w-32 w-full">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleEditItem(item.title)}
-                            className="flex items-center gap-2 w-full justify-center"
-                          >
-                            <Edit className="w-4 h-4" />
-                            Edit
-                          </Button>
-                          
-                          {item.status === "Available" && (
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              onClick={() => handleMarkAsGiven(item.title)}
-                              className="flex items-center gap-2 w-full justify-center"
-                            >
-                              <Gift className="w-4 h-4" />
-                              Mark as Given
-                            </Button>
-                          )}
-                          
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleDeleteItem(item.title)}
-                            className="flex items-center gap-2 w-full justify-center text-destructive hover:text-destructive"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                            Delete
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+          {/* List */}
+          <div className="grid gap-4">
+            {filtered.length === 0 ? (
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-10 text-center text-slate-300">
+                No items found.
               </div>
             ) : (
-              <Card>
-                <CardContent className="p-12 text-center">
-                  <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-                  <h3 className="text-lg font-semibold mb-2">No items posted yet</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Start sharing with your community by posting your first item!
-                  </p>
-                  <Button onClick={() => setIsPostModalOpen(true)}>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Post Your First Item
-                  </Button>
-                </CardContent>
-              </Card>
+              filtered.map((item) => (
+                <ItemCard key={item.id} item={item} onUpdate={updateItem} onDelete={deleteItem} />
+              ))
             )}
           </div>
 
-          {/* Image Overlay Modal */}
-          {selectedItemImages.length > 0 && (
-            <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
-              <DialogContent className="max-w-4xl w-full p-0">
-                <div className="relative">
-                  <button
-                    onClick={() => setSelectedItemImages([])}
-                    className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                  
-                  <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-                    <img
-                      src={selectedItemImages[currentImageIndex]}
-                      alt="Item preview"
-                      className="w-full h-full object-cover"
-                    />
-                    
-                    {selectedItemImages.length > 1 && (
-                      <>
-                        <button
-                          onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                        >
-                          <ChevronLeft className="w-5 h-5" />
-                        </button>
-                        
-                        <button
-                          onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                        >
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
-                        
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                          {selectedItemImages.map((_, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full transition-colors ${
-                                index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-          )}
+          {/* Footer note */}
+          <p className="mt-8 text-center text-xs text-slate-500">
+            Tip: Keep communications inside the platform. Meet in public church spaces. Verify item condition before pickup.
+          </p>
         </div>
       </div>
     </DashboardLayout>
