@@ -1012,14 +1012,12 @@ export default function MyChurch() {
                       })}
 
                       {/* Event Calendar - Third Column */}
-                      <div className="space-y-4">
-                        <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <div className="rounded-lg bg-card/50 p-4">
+                        <h2 className="text-2xl font-bold flex items-center gap-2 mb-4">
                           <Calendar className="w-6 h-6 text-primary" />
                           Event Calendar
                         </h2>
-                        <div className="h-full">
-                          <CompactEventCalendar events={allEventsWithSamples} />
-                        </div>
+                        <CompactEventCalendar events={allEventsWithSamples} />
                       </div>
                     </div>
                   </section>
