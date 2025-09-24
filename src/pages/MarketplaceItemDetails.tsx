@@ -550,7 +550,7 @@ export default function MarketplaceItemDetails() {
       {/* Image Overlay Modal */}
       {isImageLightboxOpen && (
         <Dialog open={isImageLightboxOpen} onOpenChange={() => setIsImageLightboxOpen(false)}>
-          <DialogContent className="max-w-4xl w-full p-0">
+          <DialogContent className="max-w-4xl w-full p-0 [&>button]:hidden">
             <div className="relative">
               <button
                 onClick={() => setIsImageLightboxOpen(false)}

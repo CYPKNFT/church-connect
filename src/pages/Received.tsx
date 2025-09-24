@@ -1,10 +1,18 @@
+import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, Package, Gift, Calendar, User } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Heart, Package, Gift, Calendar, User, X } from "lucide-react";
 import { toast } from "sonner";
 
+// Import marketplace images
+import sofaImage from "@/assets/marketplace/sofa.jpg";
+import laptopImage from "@/assets/marketplace/laptop.jpg";
+
 export default function Received() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const itemsReceived = [
     {
       id: 1,
@@ -12,7 +20,8 @@ export default function Received() {
       description: "Over 50 picture books and early readers",
       previousOwner: "Sarah Johnson",
       pickupDate: "2024-01-15",
-      category: "Books"
+      category: "Books",
+      image: sofaImage
     },
     {
       id: 2,
@@ -20,7 +29,8 @@ export default function Received() {
       description: "0-12 months clothing bundle",
       previousOwner: "Michael Chen",
       pickupDate: "2024-01-10",
-      category: "Baby/Kids"
+      category: "Baby/Kids",
+      image: laptopImage
     }
   ];
 
@@ -49,8 +59,15 @@ export default function Received() {
                     <CardContent className="p-6">
                       <div className="flex flex-col md:flex-row gap-4">
                         {/* Item Thumbnail */}
-                        <div className="w-full md:w-32 h-24 bg-muted rounded-lg flex items-center justify-center">
-                          <Package className="w-8 h-8 text-muted-foreground" />
+                        <div 
+                          className="w-full md:w-32 h-24 bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => setSelectedImage(item.image)}
+                        >
+                          <img 
+                            src={item.image} 
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
 
                         {/* Item Details */}
@@ -98,6 +115,29 @@ export default function Received() {
               </Card>
             )}
           </div>
+
+          {/* Image Lightbox */}
+          <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+            <DialogContent className="max-w-4xl max-h-[90vh] p-0 [&>button]:hidden">
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white"
+                  onClick={() => setSelectedImage(null)}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+                {selectedImage && (
+                  <img
+                    src={selectedImage}
+                    alt="Item preview"
+                    className="w-full h-auto max-h-[85vh] object-contain"
+                  />
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </DashboardLayout>

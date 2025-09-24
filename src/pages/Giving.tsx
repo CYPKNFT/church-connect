@@ -183,7 +183,7 @@ export default function Giving() {
 
           {/* Image Lightbox */}
           <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-            <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+            <DialogContent className="max-w-4xl max-h-[90vh] p-0 [&>button]:hidden">
               <div className="relative">
                 <Button
                   variant="ghost"
