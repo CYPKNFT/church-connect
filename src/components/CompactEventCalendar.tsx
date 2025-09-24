@@ -50,10 +50,10 @@ export function CompactEventCalendar({ events }: CompactEventCalendarProps) {
 
   return (
     <>
-      <Card className="w-full max-w-sm bg-card border border-border">
-        <CardContent className="p-4">
+      <Card className="w-full h-full bg-card border border-border">
+        <CardContent className="p-6 h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-6">
             <Button
               variant="ghost"
               size="sm"
@@ -76,42 +76,44 @@ export function CompactEventCalendar({ events }: CompactEventCalendarProps) {
           </div>
 
           {/* Compact Calendar Grid */}
-          <div className="grid grid-cols-7 gap-1 mb-4">
-            {/* Day headers */}
-            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
-              <div key={i} className="text-center text-xs font-medium text-muted-foreground p-1">
-                {day}
-              </div>
-            ))}
-            
-            {/* Calendar days */}
-            {eachDayOfInterval({
-              start: startOfMonth(currentMonth),
-              end: endOfMonth(currentMonth)
-            }).map((day, i) => {
-              const hasEvents = getEventsForDate(day).length > 0;
-              const isToday = isSameDay(day, new Date());
-              
-              return (
-                <div
-                  key={i}
-                  className={`
-                    relative text-center p-1 text-sm cursor-pointer rounded-sm
-                    ${isSameMonth(day, currentMonth) ? 'text-foreground' : 'text-muted-foreground/50'}
-                    ${isToday ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}
-                  `}
-                  onClick={() => {
-                    setSelectedDate(day);
-                    if (hasEvents) setIsOpen(true);
-                  }}
-                >
-                  {format(day, 'd')}
-                  {hasEvents && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></div>
-                  )}
+          <div className="flex-1 mb-6">
+            <div className="grid grid-cols-7 gap-1 mb-4">
+              {/* Day headers */}
+              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
+                <div key={i} className="text-center text-xs font-medium text-muted-foreground p-1">
+                  {day}
                 </div>
-              );
-            })}
+              ))}
+              
+              {/* Calendar days */}
+              {eachDayOfInterval({
+                start: startOfMonth(currentMonth),
+                end: endOfMonth(currentMonth)
+              }).map((day, i) => {
+                const hasEvents = getEventsForDate(day).length > 0;
+                const isToday = isSameDay(day, new Date());
+                
+                return (
+                  <div
+                    key={i}
+                    className={`
+                      relative text-center p-1 text-sm cursor-pointer rounded-sm
+                      ${isSameMonth(day, currentMonth) ? 'text-foreground' : 'text-muted-foreground/50'}
+                      ${isToday ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}
+                    `}
+                    onClick={() => {
+                      setSelectedDate(day);
+                      if (hasEvents) setIsOpen(true);
+                    }}
+                  >
+                    {format(day, 'd')}
+                    {hasEvents && (
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Calendar Button */}
