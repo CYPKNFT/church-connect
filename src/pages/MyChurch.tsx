@@ -986,35 +986,72 @@ export default function MyChurch() {
             {/* CONNECTING TAB */}
             <TabsContent value="connecting" className="mt-0">
               <div className="space-y-6">
-                {/* Featured Events Section */}
-                {featuredEvents.length > 0 && (
-                  <section className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <Star className="w-6 h-6 text-yellow-500" />
-                        Featured Events
-                      </h2>
+                {/* First Row - Three Columns */}
+                <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {/* Featured Events */}
+                  <div className="space-y-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <Star className="w-6 h-6 text-yellow-500" />
+                      Featured Events
+                    </h2>
+                    {featuredEvents.length > 0 ? (
+                      <div className="space-y-4">
+                        {featuredEvents.slice(0, 2).map((event) => {
+                          const IconComponent = getCategoryIcon(event.category);
+                          
+                          return (
+                            <EventCard
+                              key={event.id}
+                              event={event}
+                              categoryIcon={IconComponent}
+                              categoryColor={getCategoryColor(event.category)}
+                            />
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <Card className="border-0 shadow-card">
+                        <CardContent className="p-8 text-center">
+                          <Star className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                          <p className="text-muted-foreground">No featured events at the moment</p>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
+
+                  {/* Upcoming Events */}
+                  <div className="space-y-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <Clock className="w-6 h-6 text-blue-500" />
+                      Upcoming Events
+                    </h2>
+                    <div className="space-y-4">
+                      {allEventsWithSamples.slice(0, 2).map((event) => {
+                        const IconComponent = getCategoryIcon(event.category);
+                        
+                        return (
+                          <EventCard
+                            key={event.id}
+                            event={event}
+                            categoryIcon={IconComponent}
+                            categoryColor={getCategoryColor(event.category)}
+                          />
+                        );
+                      })}
                     </div>
-                    
-                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                       {featuredEvents.map((event) => {
-                         const IconComponent = getCategoryIcon(event.category);
-                         
-                         return (
-                           <EventCard
-                             key={event.id}
-                             event={event}
-                             categoryIcon={IconComponent}
-                             categoryColor={getCategoryColor(event.category)}
-                           />
-                         );
-                       })}
-                     </div>
-                  </section>
-                )}
+                  </div>
 
+                  {/* Event Calendar */}
+                  <div className="space-y-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      <Calendar className="w-6 h-6 text-primary" />
+                      Event Calendar
+                    </h2>
+                    <CompactEventCalendar events={allEventsWithSamples} />
+                  </div>
+                </section>
 
-                 {/* Events Grid with Pagination */}
+                {/* Events Grid with Pagination */}
                 <section>
                   <div className="flex items-center justify-between mb-4">
                     <div>
@@ -1023,7 +1060,6 @@ export default function MyChurch() {
                         <span className="text-muted-foreground ml-2">({allEventsWithSamples.length})</span>
                       </h2>
                     </div>
-                    <CompactEventCalendar events={allEventsWithSamples} />
                   </div>
 
                   {eventsLoading ? (
