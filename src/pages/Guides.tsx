@@ -30,24 +30,24 @@ export default function Guides() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8">
-            <TabsTrigger value="getting-started" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card border">
+            <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Users className="w-4 h-4" />
               Getting Started
             </TabsTrigger>
-            <TabsTrigger value="safety" className="flex items-center gap-2">
+            <TabsTrigger value="safety" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Shield className="w-4 h-4" />
               Safety & Trust
             </TabsTrigger>
-            <TabsTrigger value="communication" className="flex items-center gap-2">
+            <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <MessageSquare className="w-4 h-4" />
               Communication
             </TabsTrigger>
-            <TabsTrigger value="volunteers" className="flex items-center gap-2">
+            <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Heart className="w-4 h-4" />
               Serving Well
             </TabsTrigger>
-            <TabsTrigger value="troubleshooting" className="flex items-center gap-2">
+            <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <HelpCircle className="w-4 h-4" />
               Troubleshooting
             </TabsTrigger>
@@ -65,12 +65,12 @@ export default function Guides() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                      <div className="space-y-4">
-                        <div className="bg-card rounded-lg p-4 border">
-                          <h5 className="font-semibold mb-2 flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-primary" />
-                            Complete Profile Setup
-                          </h5>
+                    <div className="space-y-4">
+                      <div className="bg-card rounded-lg p-4 border">
+                        <h5 className="font-semibold mb-2 flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-primary" />
+                          Complete Profile Setup
+                        </h5>
                         <p className="text-sm text-muted-foreground mb-3">Your profile helps neighbors trust you and understand your abilities.</p>
                         <ul className="text-xs text-muted-foreground space-y-1 ml-4">
                           <li>• Add a clear, friendly profile photo</li>
@@ -114,9 +114,9 @@ export default function Guides() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-xl text-secondary-foreground">
                       <Users className="w-5 h-5 text-secondary" />
                       For Neighbors (Receivers)
                     </CardTitle>
@@ -172,7 +172,7 @@ export default function Guides() {
                 </Card>
               </div>
 
-              <Card>
+              <Card className="bg-gradient-to-r from-accent/10 to-accent/5 border-accent/30">
                 <CardHeader>
                   <CardTitle className="text-accent">🌟 Universal Success Tips</CardTitle>
                 </CardHeader>
