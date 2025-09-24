@@ -49,6 +49,9 @@ import VolunteeringDetails from "./pages/VolunteeringDetails";
 import Marketplace from "./pages/Marketplace";
 import MarketplaceItemDetails from "./pages/MarketplaceItemDetails";
 import MyDashboard from "./pages/MyDashboard";
+import Giving from "./pages/Giving";
+import Received from "./pages/Received";
+import Watchlist from "./pages/Watchlist";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
 import StaffVerification from "./pages/StaffVerification";
@@ -123,9 +126,12 @@ const App = () => (
                     <Route path="/churches" element={<Churches />} />
                     <Route path="/support" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
-                    <Route path="/marketplace" element={<Marketplace />} />
-                    <Route path="/marketplace-item/:id" element={<MarketplaceItemDetails />} />
-                    <Route path="/my-dashboard" element={<MyDashboard />} />
+                     <Route path="/marketplace" element={<Marketplace />} />
+                     <Route path="/marketplace-item/:id" element={<MarketplaceItemDetails />} />
+                     <Route path="/my-dashboard" element={<MyDashboard />} />
+                     <Route path="/giving" element={<Giving />} />
+                     <Route path="/received" element={<Received />} />
+                     <Route path="/watchlist" element={<Watchlist />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>

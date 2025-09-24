@@ -18,7 +18,8 @@ import {
   Package,
   HeartHandshake,
   Gift,
-  TrendingUp
+  TrendingUp,
+  ShoppingBag
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -61,7 +62,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     );
     setIsGivingMode(
       currentPath === '/marketplace' || 
-      currentPath === '/my-dashboard'
+      currentPath === '/my-dashboard' ||
+      currentPath === '/giving' ||
+      currentPath === '/received' ||
+      currentPath === '/watchlist'
     );
   }, [currentPath]);
 
@@ -139,8 +143,10 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
 
   // Giving submenu items
   const givingSubmenuItems = [
-    { icon: Gift, label: "Marketplace", path: "/marketplace" },
-    { icon: TrendingUp, label: "My Dashboard", path: "/my-dashboard" }
+    { icon: Gift, label: "Giving", path: "/giving" },
+    { icon: Package, label: "Received", path: "/received" },
+    { icon: Heart, label: "Watchlist", path: "/watchlist" },
+    { icon: ShoppingBag, label: "Marketplace", path: "/marketplace" }
   ];
 
   const mainNavItems = getMainNavItems();
