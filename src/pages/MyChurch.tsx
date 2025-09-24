@@ -988,29 +988,38 @@ export default function MyChurch() {
               <div className="space-y-6">
                 {/* First Row - Featured Events and Calendar */}
                 {featuredEvents.length > 0 && (
-                  <section className="grid lg:grid-cols-3 gap-6 mb-8">
-                    {/* Featured Events - First Two Columns */}
-                    {featuredEvents.slice(0, 2).map((event) => {
-                      const IconComponent = getCategoryIcon(event.category);
-                      
-                      return (
-                        <EventCard
-                          key={event.id}
-                          event={event}
-                          categoryIcon={IconComponent}
-                          categoryColor={getCategoryColor(event.category)}
-                        />
-                      );
-                    })}
-
-                    {/* Event Calendar - Third Column */}
-                    <div className="space-y-4">
-                      <h2 className="text-xl font-bold flex items-center gap-2">
-                        <Calendar className="w-5 h-5 text-primary" />
-                        Event Calendar
+                  <section className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl font-bold flex items-center gap-2">
+                        <Star className="w-6 h-6 text-yellow-500" />
+                        Featured Events
                       </h2>
-                      <div className="h-full">
-                        <CompactEventCalendar events={allEventsWithSamples} />
+                    </div>
+                    
+                    <div className="grid lg:grid-cols-3 gap-6">
+                      {/* Featured Events - First Two Columns */}
+                      {featuredEvents.slice(0, 2).map((event) => {
+                        const IconComponent = getCategoryIcon(event.category);
+                        
+                        return (
+                          <EventCard
+                            key={event.id}
+                            event={event}
+                            categoryIcon={IconComponent}
+                            categoryColor={getCategoryColor(event.category)}
+                          />
+                        );
+                      })}
+
+                      {/* Event Calendar - Third Column */}
+                      <div className="space-y-4">
+                        <h2 className="text-xl font-bold flex items-center gap-2">
+                          <Calendar className="w-5 h-5 text-primary" />
+                          Event Calendar
+                        </h2>
+                        <div className="h-full">
+                          <CompactEventCalendar events={allEventsWithSamples} />
+                        </div>
                       </div>
                     </div>
                   </section>
