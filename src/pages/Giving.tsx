@@ -154,13 +154,13 @@ export default function Giving() {
               {/* Status Progress */}
               <div className="mb-4 flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-accent" />
-                <span className="text-xs text-muted-foreground">Available</span>
+                <span className="text-xs text-accent">Available</span>
                 <div className={`h-px w-6 ${item.status === "Claimed" || item.status === "Given" ? "bg-accent" : "bg-border"}`} />
                 <div className={`h-2 w-2 rounded-full ${item.status === "Claimed" || item.status === "Given" ? "bg-accent" : "bg-muted-dark"}`} />
-                <span className="text-xs text-muted-foreground">Claimed</span>
+                <span className={`text-xs ${item.status === "Claimed" || item.status === "Given" ? "text-accent" : "text-muted-foreground"}`}>Claimed</span>
                 <div className={`h-px w-6 ${item.status === "Given" ? "bg-accent" : "bg-border"}`} />
                 <div className={`h-2 w-2 rounded-full ${item.status === "Given" ? "bg-accent" : "bg-muted-dark"}`} />
-                <span className="text-xs text-muted-foreground">Given</span>
+                <span className={`text-xs ${item.status === "Given" ? "text-accent" : "text-muted-foreground"}`}>Given</span>
               </div>
             </div>
 
