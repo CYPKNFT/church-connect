@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { Heart, Search, Plus, MapPin, Timer, Eye, Users, MessageSquare } from "lucide-react";
+import { Heart, Search, Plus, MapPin, Timer, Eye, Users, MessageSquare, ChevronRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -150,13 +150,13 @@ export default function MyNeeds() {
       <div className="rounded-2xl border border-border bg-card/60 p-6 cursor-pointer hover:shadow-lg transition-shadow" onClick={() => navigate(`/needs_details/${need.id}`)}>
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center justify-between mb-2">
               <h3 className="text-xl font-semibold text-foreground">{need.title}</h3>
               <span className={`rounded-lg bg-muted px-2 py-1 text-sm font-medium ${getStatusColor(need.status)}`}>
                 {need.status}
               </span>
             </div>
-            <p className="text-muted-foreground mb-4">{need.description}</p>
+            <p className="text-muted-foreground mb-3">{need.description}</p>
             
             {/* Stats */}
             <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
@@ -189,6 +189,7 @@ export default function MyNeeds() {
               </span>
             </div>
           </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground" />
         </div>
       </div>
     );

@@ -52,7 +52,6 @@ export default function BrowseDashboard() {
 
   const [filteredNeeds, setFilteredNeeds] = useState(churchNeeds);
 
-  // Auto-search when filters change
   const handleSearch = () => {
     let filtered = churchNeeds;
 
@@ -81,124 +80,225 @@ export default function BrowseDashboard() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen w-full bg-background p-6 text-foreground">
-        <div className="mx-auto max-w-6xl">
+      <div className="min-h-screen bg-background">
+        <div className="flex-1 p-8">
           {/* Header */}
-          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight">Find Service Opportunities</h1>
-              <p className="text-muted-foreground">Community service • Make a difference in your community</p>
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-4xl font-bold text-foreground mb-2">
+                  Browse {churchName} Needs
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                  Discover ways to serve {churchName} family and community
+                </p>
+              </div>
+              <Button asChild className="bg-primary hover:bg-primary-hover shadow-accent rounded-xl px-6">
+                <Link to="/post">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Post New Need
+                </Link>
+              </Button>
             </div>
-            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
-              <span className="text-accent">🤝</span>
-              <span className="text-sm text-muted-foreground">Active: {filteredNeeds.length}</span>
-              <span className="text-border">•</span>
-              <span className="text-sm text-muted-foreground">Urgent: {filteredNeeds.filter(need => need.urgency === "Immediate").length}</span>
+
+            {/* Church-specific Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-rose-600 mb-1">Active Needs</p>
+                      <p className="text-3xl font-bold text-rose-700">{filteredNeeds.length}</p>
+                      <p className="text-xs text-rose-500 mt-1">In our church</p>
+                    </div>
+                    <div className="w-14 h-14 bg-rose-200/50 rounded-2xl flex items-center justify-center">
+                      <Heart className="w-7 h-7 text-rose-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-amber-600 mb-1">Urgent Needs</p>
+                      <p className="text-3xl font-bold text-amber-700">
+        {filteredNeeds.filter(need => need.urgency === "Immediate").length}
+                      </p>
+                      <p className="text-xs text-amber-500 mt-1">Need immediate help</p>
+                    </div>
+                    <div className="w-14 h-14 bg-amber-200/50 rounded-2xl flex items-center justify-center">
+                      <Clock className="w-7 h-7 text-amber-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-emerald-600 mb-1">Members Helped</p>
+                      <p className="text-3xl font-bold text-emerald-700">23</p>
+                      <p className="text-xs text-emerald-500 mt-1">This month</p>
+                    </div>
+                    <div className="w-14 h-14 bg-emerald-200/50 rounded-2xl flex items-center justify-center">
+                      <Users className="w-7 h-7 text-emerald-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600 mb-1">Volunteers</p>
+                      <p className="text-3xl font-bold text-blue-700">12</p>
+                      <p className="text-xs text-blue-500 mt-1">Active this week</p>
+                    </div>
+                    <div className="w-14 h-14 bg-blue-200/50 rounded-2xl flex items-center justify-center">
+                      <HandHeart className="w-7 h-7 text-blue-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
 
-          {/* Compact Search & Filters */}
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            {/* Left side - Category Filter */}
-            <div className="flex items-center gap-4">
-              <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      handleSearch();
-                    }}
-                    className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                      selectedCategory === category ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
+          {/* Search and Filter Section */}
+          <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="w-8 h-8 bg-primary/10 rounded-xl flex items-center justify-center">
+                  <Search className="w-4 h-4 text-primary" />
+                </div>
+                Find Service Opportunities
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="md:col-span-2">
+                  <Label htmlFor="search" className="text-sm font-medium mb-2 block">Search Needs</Label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      id="search"
+                      placeholder="Search by keywords, location, or type..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10 h-10 bg-muted/50 border-2"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Category</Label>
+                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <SelectTrigger className="h-10 bg-muted/50 border-2">
+                      <SelectValue placeholder="All Categories" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map(category => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Urgency</Label>
+                  <Select value={selectedUrgency} onValueChange={setSelectedUrgency}>
+                    <SelectTrigger className="h-10 bg-muted/50 border-2">
+                      <SelectValue placeholder="All Urgency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {urgencyLevels.map(urgency => (
+                        <SelectItem key={urgency} value={urgency}>
+                          {urgency}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
               
-              {/* Urgency Filter */}
-              <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
-                {urgencyLevels.map((urgency) => (
-                  <button
-                    key={urgency}
-                    onClick={() => {
-                      setSelectedUrgency(urgency);
-                      handleSearch();
-                    }}
-                    className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                      selectedUrgency === urgency ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {urgency === "All" ? "Any Urgency" : urgency}
-                  </button>
+              <Button onClick={handleSearch} className="mt-4 w-full md:w-auto">
+                <Filter className="w-4 h-4 mr-2" />
+                Apply Filters
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Results Section */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">
+                  Community Needs ({filteredNeeds.length} opportunities)
+                </h2>
+                <p className="text-muted-foreground">
+                  Help make a difference in your community
+                </p>
+              </div>
+            </div>
+
+            {filteredNeeds.length === 0 ? (
+              <Card className="border-0 shadow-card bg-card rounded-2xl">
+                <CardContent className="p-12 text-center">
+                  <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-foreground mb-4">No matching opportunities</h3>
+                  <p className="text-lg text-muted-foreground mb-8">
+                    Try adjusting your search criteria or check back later for new needs.
+                  </p>
+                  <Button asChild size="lg">
+                    <Link to="/post">
+                      <Plus className="w-5 h-5 mr-2" />
+                      Post a New Need
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {filteredNeeds.map((need) => (
+                  <Card key={need.id} className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors mb-2">{need.title}</h3>
+                          <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">{need.description}</p>
+                          
+                          <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-4">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-4 h-4" />
+                              <span>{need.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Timer className="w-4 h-4" />
+                              <span>{need.estimatedTime}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <Badge variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"} className="rounded-full text-xs px-3 py-1">
+                              {need.urgency}
+                            </Badge>
+                            <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs group-hover:bg-primary group-hover:text-white" onClick={() => handleVolunteer(need.id)}>
+                              Help
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
-            </div>
-
-            {/* Right side - Search */}
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
-                <Search className="h-4 w-4 text-muted-foreground" />
-                <input
-                  placeholder="Search opportunities…"
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    handleSearch();
-                  }}
-                  className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-                />
-              </div>
-            </div>
+            )}
           </div>
-
-          {/* Results Counter */}
-          <p className="mb-4 text-sm text-muted-foreground">
-            Found {filteredNeeds.length} opportunity{filteredNeeds.length !== 1 ? 's' : ''} to serve your community
-          </p>
-
-          {/* Results Grid */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredNeeds.map((need) => (
-              <NeedCard
-                key={need.id}
-                {...need}
-                onVolunteer={handleVolunteer}
-              />
-            ))}
-          </div>
-
-          {filteredNeeds.length === 0 && (
-            <div className="rounded-2xl border border-border bg-card/60 p-10 text-center text-muted-foreground">
-              <div className="w-24 h-24 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-8">
-                <Search className="w-12 h-12 text-muted-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                No opportunities match your search
-              </h3>
-              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Try adjusting your search criteria or clearing the filters to discover more ways to serve your community.
-              </p>
-              <button 
-                className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedCategory("All");
-                  setSelectedUrgency("All");
-                  setFilteredNeeds(churchNeeds);
-                }}
-              >
-                Clear All Filters
-              </button>
-            </div>
-          )}
-
-          {/* Footer note */}
-          <p className="mt-8 text-center text-xs text-muted-foreground">
-            Every volunteer makes a lasting impact. Your willingness to serve changes lives and strengthens our community.
-          </p>
         </div>
       </div>
     </DashboardLayout>
