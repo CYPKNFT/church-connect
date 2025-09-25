@@ -15,9 +15,10 @@ interface Event {
 
 interface CompactEventCalendarProps {
   events: Event[];
+  showCard?: boolean;
 }
 
-export function CompactEventCalendar({ events }: CompactEventCalendarProps) {
+export function CompactEventCalendar({ events, showCard = true }: CompactEventCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
@@ -48,85 +49,97 @@ export function CompactEventCalendar({ events }: CompactEventCalendarProps) {
 
   const daysWithEvents = getDaysWithEvents();
 
+  const calendarContent = (
+    <div className="h-full flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigateMonth('prev')}
+          className="h-8 w-8 p-0"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        <h3 className="text-lg font-semibold text-foreground">
+          {format(currentMonth, 'MMM yyyy')}
+        </h3>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigateMonth('next')}
+          className="h-8 w-8 p-0"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+
+      {/* Compact Calendar Grid */}
+      <div className="flex-1 mb-6">
+        <div className="grid grid-cols-7 gap-1 mb-4">
+          {/* Day headers */}
+          {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
+            <div key={i} className="text-center text-xs font-medium text-muted-foreground p-1">
+              {day}
+            </div>
+          ))}
+          
+          {/* Calendar days */}
+          {eachDayOfInterval({
+            start: startOfMonth(currentMonth),
+            end: endOfMonth(currentMonth)
+          }).map((day, i) => {
+            const hasEvents = getEventsForDate(day).length > 0;
+            const isToday = isSameDay(day, new Date());
+            
+            return (
+              <div
+                key={i}
+                className={`
+                  relative text-center p-1 text-sm cursor-pointer rounded-sm
+                  ${isSameMonth(day, currentMonth) ? 'text-foreground' : 'text-muted-foreground/50'}
+                  ${isToday ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}
+                `}
+                onClick={() => {
+                  setSelectedDate(day);
+                  if (hasEvents) setIsOpen(true);
+                }}
+              >
+                {format(day, 'd')}
+                {hasEvents && (
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Calendar Button */}
+      <Button
+        onClick={() => setIsOpen(true)}
+        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+        size="sm"
+      >
+        <CalendarIcon className="h-4 w-4 mr-2" />
+        Calendar
+      </Button>
+    </div>
+  );
+
   return (
     <>
-      <Card className="w-full h-full bg-card border border-border">
-        <CardContent className="p-6 h-full flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-6">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigateMonth('prev')}
-              className="h-8 w-8 p-0"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <h3 className="text-lg font-semibold text-foreground">
-              {format(currentMonth, 'MMM yyyy')}
-            </h3>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigateMonth('next')}
-              className="h-8 w-8 p-0"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Compact Calendar Grid */}
-          <div className="flex-1 mb-6">
-            <div className="grid grid-cols-7 gap-1 mb-4">
-              {/* Day headers */}
-              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
-                <div key={i} className="text-center text-xs font-medium text-muted-foreground p-1">
-                  {day}
-                </div>
-              ))}
-              
-              {/* Calendar days */}
-              {eachDayOfInterval({
-                start: startOfMonth(currentMonth),
-                end: endOfMonth(currentMonth)
-              }).map((day, i) => {
-                const hasEvents = getEventsForDate(day).length > 0;
-                const isToday = isSameDay(day, new Date());
-                
-                return (
-                  <div
-                    key={i}
-                    className={`
-                      relative text-center p-1 text-sm cursor-pointer rounded-sm
-                      ${isSameMonth(day, currentMonth) ? 'text-foreground' : 'text-muted-foreground/50'}
-                      ${isToday ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}
-                    `}
-                    onClick={() => {
-                      setSelectedDate(day);
-                      if (hasEvents) setIsOpen(true);
-                    }}
-                  >
-                    {format(day, 'd')}
-                    {hasEvents && (
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Calendar Button */}
-          <Button
-            onClick={() => setIsOpen(true)}
-            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-            size="sm"
-          >
-            <CalendarIcon className="h-4 w-4 mr-2" />
-            Calendar
-          </Button>
-        </CardContent>
-      </Card>
+      {showCard ? (
+        <Card className="w-full h-full bg-card border border-border">
+          <CardContent className="p-6 h-full flex flex-col">
+            {calendarContent}
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="w-full h-full">
+          {calendarContent}
+        </div>
+      )}
 
       {/* Full Calendar Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
