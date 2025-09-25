@@ -52,7 +52,7 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
   const calendarContent = (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <Button
           variant="ghost"
           size="sm"
@@ -75,8 +75,8 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
       </div>
 
       {/* Compact Calendar Grid */}
-      <div className="flex-1">
-        <div className="grid grid-cols-7 gap-1 mb-4">
+      <div className="flex-1 mb-4">
+        <div className="grid grid-cols-7 gap-1">
           {/* Day headers */}
           {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
             <div key={i} className="text-center text-xs font-medium text-muted-foreground p-1">
@@ -116,16 +116,14 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
       </div>
 
       {/* Calendar Button - positioned to align with event card buttons */}
-      <div className="mt-auto">
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-          size="default"
-        >
-          <CalendarIcon className="h-4 w-4 mr-2" />
-          Calendar
-        </Button>
-      </div>
+      <Button
+        onClick={() => setIsOpen(true)}
+        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-auto"
+        size="default"
+      >
+        <CalendarIcon className="h-4 w-4 mr-2" />
+        Calendar
+      </Button>
     </div>
   );
 
