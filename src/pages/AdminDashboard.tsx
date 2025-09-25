@@ -88,7 +88,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Admin Feature Cards */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             <AdminCard
               title="Staff Verification"
               description="Review and approve ministry staff applications, manage background checks, and verify credentials."
@@ -121,17 +121,6 @@ export default function AdminDashboard() {
               ]}
               icon={Users}
               primaryLabel="View Reports"
-            />
-            <AdminCard
-              title="System Settings"
-              description="Configure platform settings, manage integrations, and control permissions."
-              stats={[
-                { label: "Admins", value: "12" },
-                { label: "Uptime", value: "99.9%" },
-                { label: "Version", value: "v2.1" },
-              ]}
-              icon={Settings}
-              primaryLabel="Manage Settings"
             />
           </div>
       </div>
