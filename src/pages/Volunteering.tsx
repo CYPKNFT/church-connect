@@ -1,17 +1,13 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { HandHeart, Search, Filter, Calendar, MapPin, Clock, Users, MessageSquare, CheckCircle, Star, ChevronRight, Timer, Eye, Award } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { HandHeart, Search, Calendar, MapPin, Timer, Users, MessageSquare, ChevronRight, Award } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function Volunteering() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("All");
-  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [tab, setTab] = useState<string>("all");
+  const [query, setQuery] = useState("");
 
   const userVolunteering = [
     {
@@ -49,247 +45,200 @@ export default function Volunteering() {
     // ... more volunteering items
   ];
 
-  const categories = ["All", "Transportation", "Meals", "Education", "Home & Garden", "Pet Care", "Moving", "Groceries"];
-  const statuses = ["All", "Confirmed", "Pending", "Scheduled", "Completed"];
+  const tabs = [
+    { key: "all", label: "All" },
+    { key: "confirmed", label: "Confirmed" },
+    { key: "pending", label: "Pending" },
+    { key: "scheduled", label: "Scheduled" },
+    { key: "completed", label: "Completed" }
+  ];
 
-  const filteredVolunteering = userVolunteering.filter(volunteer => {
-    const matchesSearch = volunteer.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         volunteer.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         volunteer.requester.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "All" || volunteer.status === statusFilter;
-    const matchesCategory = categoryFilter === "All" || volunteer.category === categoryFilter;
+  const impact = useMemo(() => {
+    const completed = userVolunteering.filter(v => v.status === "Completed").length;
+    const upcoming = userVolunteering.filter(v => v.status === "Confirmed" || v.status === "Scheduled").length;
+    return { completed, upcoming, total: userVolunteering.length };
+  }, [userVolunteering]);
+
+  const filtered = useMemo(() => {
+    let result = userVolunteering;
     
-    return matchesSearch && matchesStatus && matchesCategory;
-  });
+    if (tab === "confirmed") result = result.filter(v => v.status === "Confirmed");
+    if (tab === "pending") result = result.filter(v => v.status === "Pending");
+    if (tab === "scheduled") result = result.filter(v => v.status === "Scheduled");
+    if (tab === "completed") result = result.filter(v => v.status === "Completed");
+    
+    if (query) {
+      result = result.filter(volunteer => 
+        volunteer.title.toLowerCase().includes(query.toLowerCase()) ||
+        volunteer.description.toLowerCase().includes(query.toLowerCase()) ||
+        volunteer.requester.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    
+    return result;
+  }, [userVolunteering, tab, query]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Confirmed": return "bg-green-100 text-green-700 border-green-200";
-      case "Pending": return "bg-amber-100 text-amber-700 border-amber-200";
-      case "Scheduled": return "bg-blue-100 text-blue-700 border-blue-200";
-      case "Completed": return "bg-emerald-100 text-emerald-700 border-emerald-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
+      case "Confirmed": return "text-accent";
+      case "Pending": return "text-accent";
+      case "Scheduled": return "text-accent";
+      case "Completed": return "text-muted-foreground";
+      default: return "text-muted-foreground";
     }
   };
 
   const getUrgencyColor = (urgency: string) => {
     switch (urgency) {
-      case "Immediate": return "bg-red-100 text-red-700 border-red-200";
-      case "This Week": return "bg-amber-100 text-amber-700 border-amber-200";
-      case "Flexible": return "bg-blue-100 text-blue-700 border-blue-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
+      case "Immediate": return "text-red-600";
+      case "This Week": return "text-amber-600";
+      case "Flexible": return "text-blue-600";
+      default: return "text-muted-foreground";
     }
   };
 
-  const totalVolunteering = userVolunteering.length;
-  const completedVolunteering = userVolunteering.filter(v => v.status === "Completed").length;
-  const upcomingVolunteering = userVolunteering.filter(v => v.status === "Confirmed" || v.status === "Scheduled").length;
-  const averageRating = userVolunteering.filter(v => v.rating).reduce((sum, v) => sum + (v.rating || 0), 0) / userVolunteering.filter(v => v.rating).length;
+  const VolunteerCard = ({ volunteer }: { volunteer: typeof userVolunteering[0] }) => {
+    return (
+      <div className="rounded-2xl border border-border bg-card/60 p-6 cursor-pointer hover:shadow-lg transition-shadow" onClick={() => navigate(`/volunteering/${volunteer.id}`)}>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-semibold text-foreground">{volunteer.title}</h3>
+              <div className="flex gap-2">
+                <span className={`rounded-lg bg-muted px-2 py-1 text-sm font-medium ${getStatusColor(volunteer.status)}`}>
+                  {volunteer.status}
+                </span>
+                <span className={`rounded-lg bg-muted px-2 py-1 text-sm font-medium ${getUrgencyColor(volunteer.urgency)}`}>
+                  {volunteer.urgency}
+                </span>
+              </div>
+            </div>
+            <p className="text-muted-foreground mb-3">{volunteer.description}</p>
+            
+            {/* Stats */}
+            <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Users className="h-4 w-4" />
+                {volunteer.requester}
+              </span>
+              <span className="flex items-center gap-1">
+                <Calendar className="h-4 w-4" />
+                {volunteer.date}
+              </span>
+              <span className="flex items-center gap-1">
+                <MapPin className="h-4 w-4" />
+                {volunteer.location}
+              </span>
+              <span className="flex items-center gap-1">
+                <Timer className="h-4 w-4" />
+                {volunteer.estimatedTime}
+              </span>
+            </div>
+
+            {volunteer.status === "Completed" && volunteer.rating && (
+              <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-4 mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Award className="w-5 h-5 text-emerald-600" />
+                  <span className="font-medium text-emerald-800">Completed with {volunteer.rating}★ rating</span>
+                </div>
+                {volunteer.feedback && (
+                  <p className="text-emerald-700 text-sm italic">"{volunteer.feedback}"</p>
+                )}
+              </div>
+            )}
+          </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-background">
-        <div className="flex-1 p-6 lg:p-8">
-          <div className="mx-auto">
-            {/* Header */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h1 className="text-4xl font-bold text-foreground mb-2">
-                    My Volunteering
-                  </h1>
-                  <p className="text-lg text-muted-foreground">
-                    Track your community service and impact
-                  </p>
-                </div>
-                <Button asChild className="bg-primary hover:bg-primary-hover shadow-accent rounded-xl px-6">
-                  <Link to="/browse">
-                    <Search className="w-4 h-4 mr-2" />
-                    Find More Ways to Help
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-emerald-600">Total Volunteering</p>
-                        <p className="text-2xl font-bold text-emerald-700">{totalVolunteering}</p>
-                      </div>
-                      <HandHeart className="w-8 h-8 text-emerald-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-blue-600">Completed</p>
-                        <p className="text-2xl font-bold text-blue-700">{completedVolunteering}</p>
-                      </div>
-                      <CheckCircle className="w-8 h-8 text-blue-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-amber-600">Upcoming</p>
-                        <p className="text-2xl font-bold text-amber-700">{upcomingVolunteering}</p>
-                      </div>
-                      <Calendar className="w-8 h-8 text-amber-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-rose-600">Avg Rating</p>
-                        <p className="text-2xl font-bold text-rose-700">
-                          {averageRating ? averageRating.toFixed(1) : "N/A"}
-                        </p>
-                      </div>
-                      <Star className="w-8 h-8 text-rose-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Filters and Search */}
-              <Card className="border-0 shadow-card bg-card rounded-2xl mb-6">
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row gap-4">
-                    <div className="flex-1">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                        <Input
-                          placeholder="Search your volunteering activities..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="pl-10 rounded-xl"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-3">
-                      <select
-                        value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
-                        className="px-4 py-2 border border-border rounded-xl bg-background text-sm"
-                      >
-                        {statuses.map(status => (
-                          <option key={status} value={status}>{status}</option>
-                        ))}
-                      </select>
-                      
-                      <select
-                        value={categoryFilter}
-                        onChange={(e) => setCategoryFilter(e.target.value)}
-                        className="px-4 py-2 border border-border rounded-xl bg-background text-sm"
-                      >
-                        {categories.map(category => (
-                          <option key={category} value={category}>{category}</option>
-                        ))}
-                      </select>
-                      
-                      <Button variant="outline" size="sm" className="rounded-xl">
-                        <Filter className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+      <div className="min-h-screen w-full bg-background p-6 text-foreground">
+        <div className="mx-auto max-w-6xl">
+          {/* Header */}
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">My Volunteering</h1>
+              <p className="text-muted-foreground">Community service • Track your impact and commitments</p>
             </div>
-
-            {/* Volunteering List */}
-            <div className="space-y-4">
-              {filteredVolunteering.length === 0 ? (
-                <Card className="border-0 shadow-card bg-card rounded-2xl">
-                  <CardContent className="p-12 text-center">
-                    <HandHeart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-foreground mb-2">No volunteering activities found</h3>
-                    <p className="text-muted-foreground mb-6">
-                      {searchTerm || statusFilter !== "All" || categoryFilter !== "All" 
-                        ? "Try adjusting your filters or search terms"
-                        : "You haven't volunteered for anything yet. Start making a difference in your community!"
-                      }
-                    </p>
-                    <Button asChild>
-                      <Link to="/browse">
-                        <Search className="w-4 h-4 mr-2" />
-                        Find Ways to Help
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ) : (
-                filteredVolunteering.map((volunteer) => (
-                  <Card 
-                    key={volunteer.id} 
-                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
-                    onClick={() => navigate(`/volunteering/${volunteer.id}`)}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-xl font-semibold text-foreground">{volunteer.title}</h3>
-                            <Badge className={`${getStatusColor(volunteer.status)} rounded-full text-xs px-3 py-1`}>
-                              {volunteer.status}
-                            </Badge>
-                            <Badge className={`${getUrgencyColor(volunteer.urgency)} rounded-full text-xs px-3 py-1`}>
-                              {volunteer.urgency}
-                            </Badge>
-                          </div>
-                          
-                          <p className="text-muted-foreground mb-4 leading-relaxed">{volunteer.description}</p>
-                          
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-4">
-                            <div className="flex items-center gap-2">
-                              <Users className="w-4 h-4" />
-                              <span>{volunteer.requester}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4" />
-                              <span>{volunteer.date}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4" />
-                              <span>{volunteer.location}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Timer className="w-4 h-4" />
-                              <span>{volunteer.estimatedTime}</span>
-                            </div>
-                          </div>
-
-                          {volunteer.status === "Completed" && volunteer.rating && (
-                            <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-4 mb-4">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Award className="w-5 h-5 text-emerald-600" />
-                                <span className="font-medium text-emerald-800">Completed with {volunteer.rating}★ rating</span>
-                              </div>
-                              {volunteer.feedback && (
-                                <p className="text-emerald-700 text-sm italic">"{volunteer.feedback}"</p>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              )}
+            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+              <span className="text-accent">🤝</span>
+              <span className="text-sm text-muted-foreground">Total: {impact.total}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Completed: {impact.completed}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Upcoming: {impact.upcoming}</span>
             </div>
           </div>
+
+          {/* Controls */}
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
+              {tabs.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    tab === t.key ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+                <Search className="h-4 w-4 text-muted-foreground" />
+                <input
+                  placeholder="Search my volunteering…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                />
+              </div>
+              <Link
+                to="/browse"
+                className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+              >
+                + Find More Ways to Help
+              </Link>
+            </div>
+          </div>
+
+          {/* List */}
+          <div className="grid gap-4">
+            {filtered.length === 0 ? (
+              <div className="rounded-2xl border border-border bg-card/60 p-10 text-center text-muted-foreground">
+                <HandHeart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">No volunteering activities found</h3>
+                <p className="text-muted-foreground mb-6">
+                  {query || tab !== "all" 
+                    ? "Try adjusting your filters or search terms"
+                    : "You haven't volunteered for anything yet. Start making a difference in your community!"
+                  }
+                </p>
+                <Link
+                  to="/browse"
+                  className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover inline-flex items-center"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Find Ways to Help
+                </Link>
+              </div>
+            ) : (
+              filtered.map((volunteer) => (
+                <VolunteerCard key={volunteer.id} volunteer={volunteer} />
+              ))
+            )}
+          </div>
+
+          {/* Footer note */}
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Stay committed to your volunteer pledges. Communicate promptly if plans change.
+          </p>
         </div>
       </div>
     </DashboardLayout>

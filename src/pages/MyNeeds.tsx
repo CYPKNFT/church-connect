@@ -1,20 +1,13 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Heart, Search, Filter, Plus, MapPin, Clock, Users, MessageSquare, Edit, Archive, ChevronRight, Calendar, Timer, Eye, AlertTriangle, FileText } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { Heart, Search, Plus, MapPin, Timer, Eye, Users, MessageSquare, ChevronRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function MyNeeds() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("All");
-  const [categoryFilter, setCategoryFilter] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 7;
+  const [tab, setTab] = useState<string>("all");
+  const [query, setQuery] = useState("");
 
   const userNeeds = [
     {
@@ -109,237 +102,185 @@ export default function MyNeeds() {
     }
   ];
 
-  const categories = ["All", "Groceries", "Home & Garden", "Pet Care", "Technology", "Transportation", "Moving"];
-  const statuses = ["All", "Active", "In Progress", "Fulfilled", "Completed"];
+  const tabs = [
+    { key: "all", label: "All" },
+    { key: "active", label: "Active" },
+    { key: "progress", label: "In Progress" },
+    { key: "fulfilled", label: "Fulfilled" },
+    { key: "completed", label: "Completed" }
+  ];
 
-  const filteredNeeds = userNeeds.filter(need => {
-    const matchesSearch = need.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         need.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "All" || need.status === statusFilter;
-    const matchesCategory = categoryFilter === "All" || need.category === categoryFilter;
+  const impact = useMemo(() => {
+    const active = userNeeds.filter(need => need.status === "Active").length;
+    const fulfilled = userNeeds.filter(need => need.status === "Fulfilled").length;
+    const totalViews = userNeeds.reduce((sum, need) => sum + need.views, 0);
+    return { active, fulfilled, totalViews, total: userNeeds.length };
+  }, [userNeeds]);
+
+  const filtered = useMemo(() => {
+    let result = userNeeds;
     
-    return matchesSearch && matchesStatus && matchesCategory;
-  });
+    if (tab === "active") result = result.filter(need => need.status === "Active");
+    if (tab === "progress") result = result.filter(need => need.status === "In Progress");
+    if (tab === "fulfilled") result = result.filter(need => need.status === "Fulfilled");
+    if (tab === "completed") result = result.filter(need => need.status === "Completed");
+    
+    if (query) {
+      result = result.filter(need => 
+        need.title.toLowerCase().includes(query.toLowerCase()) ||
+        need.description.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    
+    return result;
+  }, [userNeeds, tab, query]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Active": return "bg-green-100 text-green-700 border-green-200";
-      case "In Progress": return "bg-blue-100 text-blue-700 border-blue-200";
-      case "Fulfilled": return "bg-emerald-100 text-emerald-700 border-emerald-200";
-      case "Completed": return "bg-gray-100 text-gray-700 border-gray-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
+      case "Active": return "text-accent";
+      case "In Progress": return "text-accent";
+      case "Fulfilled": return "text-accent";
+      case "Completed": return "text-muted-foreground";
+      default: return "text-muted-foreground";
     }
+  };
+
+  const NeedCard = ({ need }: { need: typeof userNeeds[0] }) => {
+    return (
+      <div className="rounded-2xl border border-border bg-card/60 p-6 cursor-pointer hover:shadow-lg transition-shadow" onClick={() => navigate(`/needs_details/${need.id}`)}>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-semibold text-foreground">{need.title}</h3>
+              <span className={`rounded-lg bg-muted px-2 py-1 text-sm font-medium ${getStatusColor(need.status)}`}>
+                {need.status}
+              </span>
+            </div>
+            <p className="text-muted-foreground mb-3">{need.description}</p>
+            
+            {/* Stats */}
+            <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <MapPin className="h-4 w-4" />
+                {need.location}
+              </span>
+              <span className="flex items-center gap-1">
+                <Timer className="h-4 w-4" />
+                {need.estimatedTime}
+              </span>
+              <span className="flex items-center gap-1">
+                <Eye className="h-4 w-4" />
+                {need.views} views
+              </span>
+              <span className="flex items-center gap-1">
+                🕐 {need.posted}
+              </span>
+            </div>
+
+            {/* Additional Stats */}
+            <div className="flex items-center gap-6 text-sm">
+              <span className="flex items-center gap-2 text-foreground font-medium">
+                <Users className="w-4 h-4" />
+                {need.volunteers} volunteers
+              </span>
+              <span className="flex items-center gap-2 text-foreground font-medium">
+                <MessageSquare className="w-4 h-4" />
+                {need.responses} responses
+              </span>
+            </div>
+          </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+        </div>
+      </div>
+    );
   };
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-background">
-        <div className="flex-1 p-6 lg:p-8">
-          <div className="mx-auto">
-            {/* Header */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h1 className="text-4xl font-bold text-foreground mb-2">
-                    My Needs
-                  </h1>
-                  <p className="text-lg text-muted-foreground">
-                    Manage and track all your community requests
-                  </p>
-                </div>
-                <Button asChild className="bg-primary hover:bg-primary-hover shadow-accent rounded-xl px-6">
-                  <Link to="/post">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Post New Need
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-rose-600">Total Posted</p>
-                        <p className="text-2xl font-bold text-rose-700">{userNeeds.length}</p>
-                      </div>
-                      <Heart className="w-8 h-8 text-rose-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-green-600">Active</p>
-                        <p className="text-2xl font-bold text-green-700">
-                          {userNeeds.filter(n => n.status === "Active").length}
-                        </p>
-                      </div>
-                      <Clock className="w-8 h-8 text-green-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-blue-600">Fulfilled</p>
-                        <p className="text-2xl font-bold text-blue-700">
-                          {userNeeds.filter(n => n.status === "Fulfilled").length}
-                        </p>
-                      </div>
-                      <Users className="w-8 h-8 text-blue-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-amber-600">Total Views</p>
-                        <p className="text-2xl font-bold text-amber-700">
-                          {userNeeds.reduce((sum, need) => sum + need.views, 0)}
-                        </p>
-                      </div>
-                      <Eye className="w-8 h-8 text-amber-600" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Filters and Search */}
-              <Card className="border-0 shadow-card bg-card rounded-2xl mb-6">
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row gap-4">
-                    <div className="flex-1">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                        <Input
-                          placeholder="Search your needs..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="pl-10 rounded-xl"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-3">
-                      <select
-                        value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
-                        className="px-4 py-2 border border-border rounded-xl bg-background text-sm"
-                      >
-                        {statuses.map(status => (
-                          <option key={status} value={status}>{status}</option>
-                        ))}
-                      </select>
-                      
-                      <select
-                        value={categoryFilter}
-                        onChange={(e) => setCategoryFilter(e.target.value)}
-                        className="px-4 py-2 border border-border rounded-xl bg-background text-sm"
-                      >
-                        {categories.map(category => (
-                          <option key={category} value={category}>{category}</option>
-                        ))}
-                      </select>
-                      
-                      <Button variant="outline" size="sm" className="rounded-xl">
-                        <Filter className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+      <div className="min-h-screen w-full bg-background p-6 text-foreground">
+        <div className="mx-auto max-w-6xl">
+          {/* Header */}
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">My Needs</h1>
+              <p className="text-muted-foreground">Community support • Manage your posted requests</p>
             </div>
-
-            {/* Needs List */}
-            <div className="space-y-4">
-              {filteredNeeds.length === 0 ? (
-                <Card className="border-0 shadow-card bg-card rounded-2xl">
-                  <CardContent className="p-12 text-center">
-                    <Heart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-foreground mb-2">No needs found</h3>
-                    <p className="text-muted-foreground mb-6">
-                      {searchTerm || statusFilter !== "All" || categoryFilter !== "All" 
-                        ? "Try adjusting your filters or search terms"
-                        : "You haven't posted any needs yet. Get started by posting your first need!"
-                      }
-                    </p>
-                    <Button asChild>
-                      <Link to="/post">
-                        <Plus className="w-4 h-4 mr-2" />
-                        Post Your First Need
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ) : (
-                filteredNeeds.map((need) => (
-                  <Card 
-                    key={need.id} 
-                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
-                    onClick={() => navigate(`/needs_details/${need.id}`)}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                              <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">{need.title}</h3>
-                              <Badge className={`${getStatusColor(need.status)} rounded-full text-xs px-3 py-1`}>
-                                {need.status}
-                              </Badge>
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                              <span>Manage</span>
-                              <ChevronRight className="w-4 h-4" />
-                            </div>
-                          </div>
-                          <p className="text-muted-foreground mb-4 leading-relaxed">{need.description}</p>
-                          
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-4">
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4" />
-                              <span>{need.location}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Timer className="w-4 h-4" />
-                              <span>{need.estimatedTime}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4" />
-                              <span>Posted {need.posted}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Eye className="w-4 h-4" />
-                              <span>{need.views} views</span>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center gap-6 text-sm">
-                            <span className="flex items-center gap-2 text-foreground font-medium">
-                              <Users className="w-4 h-4" />
-                              {need.volunteers} volunteers
-                            </span>
-                            <span className="flex items-center gap-2 text-foreground font-medium">
-                              <MessageSquare className="w-4 h-4" />
-                              {need.responses} responses
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              )}
+            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+              <span className="text-accent">📋</span>
+              <span className="text-sm text-muted-foreground">Total Posted: {impact.total}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Active: {impact.active}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Fulfilled: {impact.fulfilled}</span>
             </div>
           </div>
+
+          {/* Controls */}
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
+              {tabs.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    tab === t.key ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+                <Search className="h-4 w-4 text-muted-foreground" />
+                <input
+                  placeholder="Search my needs…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                />
+              </div>
+              <button
+                onClick={() => navigate("/post")}
+                className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+              >
+                + Post New Need
+              </button>
+            </div>
+          </div>
+
+          {/* List */}
+          <div className="grid gap-4">
+            {filtered.length === 0 ? (
+              <div className="rounded-2xl border border-border bg-card/60 p-10 text-center text-muted-foreground">
+                <Heart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">No needs found</h3>
+                <p className="text-muted-foreground mb-6">
+                  {query || tab !== "all" 
+                    ? "Try adjusting your filters or search terms"
+                    : "You haven't posted any needs yet. Get started by posting your first need!"
+                  }
+                </p>
+                <button
+                  onClick={() => navigate("/post")}
+                  className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+                >
+                  <Plus className="w-4 h-4 mr-2 inline" />
+                  Post Your First Need
+                </button>
+              </div>
+            ) : (
+              filtered.map((need) => (
+                <NeedCard key={need.id} need={need} />
+              ))
+            )}
+          </div>
+
+          {/* Footer note */}
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Keep communications safe and within the platform. Meet in public church spaces for exchanges.
+          </p>
         </div>
       </div>
     </DashboardLayout>
