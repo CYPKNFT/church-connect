@@ -121,8 +121,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: PanelsTopLeft, label: "Dashboard", path: "/admin/dashboard" },
     { icon: ShieldCheck, label: "Staff Verification", path: "/admin/staff-verification" },
     { icon: FolderOpen, label: "Content Moderation", path: "/admin/content-moderation" },
-    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
-    { icon: Settings, label: "System Settings", path: "/admin/settings" }
+    { icon: BarChart3, label: "Analytics", path: "/admin/analytics" }
   ];
 
   // Admin copy submenu items (points to same pages)
