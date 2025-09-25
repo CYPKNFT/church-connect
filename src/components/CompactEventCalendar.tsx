@@ -75,7 +75,7 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
       </div>
 
       {/* Compact Calendar Grid */}
-      <div className="flex-1 mb-6">
+      <div className="flex-1">
         <div className="grid grid-cols-7 gap-1 mb-4">
           {/* Day headers */}
           {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
@@ -115,15 +115,17 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
         </div>
       </div>
 
-      {/* Calendar Button */}
-      <Button
-        onClick={() => setIsOpen(true)}
-        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-        size="sm"
-      >
-        <CalendarIcon className="h-4 w-4 mr-2" />
-        Calendar
-      </Button>
+      {/* Calendar Button - positioned to align with event card buttons */}
+      <div className="mt-auto">
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+          size="default"
+        >
+          <CalendarIcon className="h-4 w-4 mr-2" />
+          Calendar
+        </Button>
+      </div>
     </div>
   );
 
