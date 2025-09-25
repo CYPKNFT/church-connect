@@ -308,9 +308,9 @@ export default function MyChurch() {
     return matchesSearch && matchesCategory;
   });
 
-  // Add sample events for demonstration with October dates in chronological order
+  // Add sample events for demonstration with October 2025 dates in chronological order
   const sampleEvents = Array(15).fill(null).map((_, i) => {
-    const baseDate = new Date('2024-10-01T00:00:00Z');
+    const baseDate = new Date('2025-10-01T00:00:00Z');
     const eventDate = new Date(baseDate.getTime() + (i + 2) * 24 * 60 * 60 * 1000 + (i * 2) * 60 * 60 * 1000);
     return {
       id: `sample-${i}`,
