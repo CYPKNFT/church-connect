@@ -10,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Plus, Search, Heart, Package, TrendingUp, Users, Upload, Camera, Eye, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
+import { PhotoUpload } from "@/components/PhotoUpload";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Import marketplace images
 import sofaImage from "@/assets/marketplace/sofa.jpg";
@@ -33,6 +36,9 @@ export default function Browse() {
     category: "household",
     contactPreference: "in_app"
   });
+  const [selectedPhotos, setSelectedPhotos] = useState<File[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
 
   // Mock data for demonstration
   const mockItems = [
@@ -75,20 +81,76 @@ export default function Browse() {
     return matchesSearch && matchesCategory;
   });
 
-  const handlePostItem = () => {
+  const uploadPhotos = async (): Promise<string[]> => {
+    if (!user || selectedPhotos.length === 0) return [];
+    
+    const uploadedPaths: string[] = [];
+    
+    for (let i = 0; i < selectedPhotos.length; i++) {
+      const photo = selectedPhotos[i];
+      const fileExt = photo.name.split('.').pop();
+      const fileName = `${user.id}/${Date.now()}_${i}.${fileExt}`;
+      
+      const { data, error } = await supabase.storage
+        .from('item_photos')
+        .upload(fileName, photo);
+        
+      if (error) {
+        console.error('Upload error:', error);
+        throw new Error(`Failed to upload photo ${i + 1}`);
+      }
+      
+      uploadedPaths.push(data.path);
+    }
+    
+    return uploadedPaths;
+  };
+
+  const handlePostItem = async () => {
+    if (!user) {
+      toast.error("Please sign in to post an item");
+      return;
+    }
+
     if (!newItem.title || !newItem.description) {
       toast.error("Please fill in all required fields");
       return;
     }
+
+    if (selectedPhotos.length === 0) {
+      toast.error("Please add at least one photo");
+      return;
+    }
     
-    toast.success("Item posted successfully! It will be reviewed and published soon.");
-    setIsPostModalOpen(false);
-    setNewItem({
-      title: "",
-      description: "",
-      category: "household",
-      contactPreference: "in_app"
-    });
+    setIsSubmitting(true);
+    
+    try {
+      // Upload photos first
+      const photoPaths = await uploadPhotos();
+      
+      // Here you would typically save the item data to your database
+      // For now, we'll just simulate success
+      console.log('Item data:', {
+        ...newItem,
+        photos: photoPaths,
+        userId: user.id
+      });
+      
+      toast.success("Item posted successfully! It will be reviewed and published soon.");
+      setIsPostModalOpen(false);
+      setNewItem({
+        title: "",
+        description: "",
+        category: "household",
+        contactPreference: "in_app"
+      });
+      setSelectedPhotos([]);
+    } catch (error) {
+      console.error('Error posting item:', error);
+      toast.error("Failed to post item. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleWantItem = (itemTitle: string) => {
@@ -121,12 +183,12 @@ export default function Browse() {
                   <div className="space-y-4">
                     {/* Photo Upload */}
                     <div className="space-y-2">
-                      <Label>Item Photo</Label>
-                      <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-muted-foreground/50 transition-colors cursor-pointer">
-                        <Camera className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-                        <p className="text-sm text-muted-foreground">Click to upload or drag and drop</p>
-                        <p className="text-xs text-muted-foreground mt-1">PNG, JPG up to 5MB</p>
-                      </div>
+                      <Label>Item Photos *</Label>
+                      <PhotoUpload 
+                        onPhotosChange={setSelectedPhotos}
+                        maxPhotos={5}
+                        maxFileSize={5}
+                      />
                     </div>
 
                     {/* Title */}
@@ -187,8 +249,24 @@ export default function Browse() {
                     </div>
 
                     <div className="flex gap-2 pt-4">
-                      <Button onClick={handlePostItem} className="flex-1">Post Item</Button>
-                      <Button variant="outline" onClick={() => setIsPostModalOpen(false)} className="flex-1">Cancel</Button>
+                      <Button 
+                        onClick={handlePostItem} 
+                        className="flex-1"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Posting..." : "Post Item"}
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => {
+                          setIsPostModalOpen(false);
+                          setSelectedPhotos([]);
+                        }} 
+                        className="flex-1"
+                        disabled={isSubmitting}
+                      >
+                        Cancel
+                      </Button>
                     </div>
                   </div>
                 </DialogContent>

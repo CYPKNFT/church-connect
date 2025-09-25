@@ -985,6 +985,42 @@ export type Database = {
           },
         ]
       }
+      item_photos: {
+        Row: {
+          content_type: string
+          created_at: string
+          file_size: number
+          filename: string
+          id: string
+          item_id: string
+          sort_order: number | null
+          storage_path: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          content_type: string
+          created_at?: string
+          file_size: number
+          filename: string
+          id?: string
+          item_id: string
+          sort_order?: number | null
+          storage_path: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          content_type?: string
+          created_at?: string
+          file_size?: number
+          filename?: string
+          id?: string
+          item_id?: string
+          sort_order?: number | null
+          storage_path?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       member_badges: {
         Row: {
           awarded_at: string
