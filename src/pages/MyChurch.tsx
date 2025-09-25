@@ -1018,7 +1018,7 @@ export default function MyChurch() {
                           Event Calendar
                         </h2>
                         <div className="flex-1 flex flex-col">
-                          <CompactEventCalendar events={allEventsWithSamples} showCard={false} />
+                          <CompactEventCalendar events={events} showCard={false} />
                         </div>
                       </div>
                     </div>
