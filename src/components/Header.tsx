@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { AuthDialog } from "./AuthDialog";
 import {
   DropdownMenu,
@@ -17,6 +18,7 @@ export function Header() {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const { user, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   return (
@@ -69,7 +71,7 @@ export function Header() {
                   <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-background border border-border shadow-lg">
+              <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
                 <DropdownMenuItem asChild>
                   <Link to="/my-church" className="flex items-center cursor-pointer">
                     <Heart className="w-4 h-4 mr-2" />
@@ -88,6 +90,30 @@ export function Header() {
                     Profile
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={toggleTheme}
+                  className="cursor-pointer flex items-center justify-between px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors"
+                >
+                  <div className="flex items-center">
+                    {theme === 'light' ? (
+                      <Moon className="w-4 h-4 mr-2 text-blue-600" />
+                    ) : (
+                      <Sun className="w-4 h-4 mr-2 text-amber-500" />
+                    )}
+                    <span className="font-medium">
+                      {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                    </span>
+                  </div>
+                  <div className={`w-10 h-5 rounded-full transition-colors duration-200 relative ${
+                    theme === 'dark' ? 'bg-blue-500' : 'bg-gray-300'
+                  }`}>
+                    <div className={`w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-200 absolute top-0.5 ${
+                      theme === 'dark' ? 'translate-x-5' : 'translate-x-0.5'
+                    }`} />
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/settings" className="flex items-center cursor-pointer">
                     <Settings className="w-4 h-4 mr-2" />
