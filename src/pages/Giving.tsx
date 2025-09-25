@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Edit, Trash2, Eye, Heart, MessageCircle, Search } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
 // Import marketplace images
@@ -253,12 +254,21 @@ export default function Giving() {
                   className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
                 />
               </div>
-              <button
-                onClick={() => toast.info("Opening post item modal")}
-                className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
-              >
-                + Post New Item
-              </button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
+                  >
+                    + Post New Item
+                  </button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Post New Item</DialogTitle>
+                  </DialogHeader>
+                  <p>Post item dialog would go here...</p>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
 

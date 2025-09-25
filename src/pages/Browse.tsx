@@ -159,22 +159,84 @@ export default function Browse() {
 
   return (
     <CollapsibleSidebar>
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="min-h-screen w-full bg-background p-6 text-foreground">
+        <div className="mx-auto max-w-6xl">
           {/* Header */}
-          <div className="mb-8">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">Browse</h1>
-                <p className="text-muted-foreground mt-2">Sharing in fellowship</p>
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Browse</h1>
+              <p className="text-muted-foreground">Sharing in fellowship • Discover items from your community</p>
+            </div>
+            <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+              <span className="text-accent">📦</span>
+              <span className="text-sm text-muted-foreground">Available: {filteredItems.filter(i => i.status === "Available").length}</span>
+              <span className="text-border">•</span>
+              <span className="text-sm text-muted-foreground">Total: {filteredItems.length}</span>
+            </div>
+          </div>
+
+          {/* Compact Search & Filters */}
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            {/* Left side - Filters as tabs */}
+            <div className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card p-1">
+              <button
+                onClick={() => setSelectedCategory("all")}
+                className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === "all" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setSelectedCategory("household")}
+                className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === "household" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                Household
+              </button>
+              <button
+                onClick={() => setSelectedCategory("electronics")}
+                className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === "electronics" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                Electronics
+              </button>
+              <button
+                onClick={() => setSelectedCategory("furniture")}
+                className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === "furniture" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                Furniture
+              </button>
+              <button
+                onClick={() => setSelectedCategory("books")}
+                className={`rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === "books" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                Books
+              </button>
+            </div>
+
+            {/* Right side - Search + Action */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-3 py-2">
+                <Search className="h-4 w-4 text-muted-foreground" />
+                <input
+                  placeholder="Search items…"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-64 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                />
               </div>
-              
               <Dialog open={isPostModalOpen} onOpenChange={setIsPostModalOpen}>
                 <DialogTrigger asChild>
-                  <Button className="flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    Post New Item
-                  </Button>
+                  <button className="rounded-xl border border-accent bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover">
+                    + Post New Item
+                  </button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
@@ -274,291 +336,136 @@ export default function Browse() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-3 space-y-6">
-              {/* Search & Filters */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    {/* Search Bar */}
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Search items..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10"
-                      />
-                    </div>
+          {/* Results Counter */}
+          <p className="mb-4 text-sm text-muted-foreground">
+            Showing {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}
+          </p>
 
-                    {/* Filters */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="All Categories" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All Categories</SelectItem>
-                          <SelectItem value="household">Household</SelectItem>
-                          <SelectItem value="electronics">Electronics</SelectItem>
-                          <SelectItem value="books">Books</SelectItem>
-                          <SelectItem value="clothing">Clothing</SelectItem>
-                          <SelectItem value="baby">Baby/Kids</SelectItem>
-                          <SelectItem value="furniture">Furniture</SelectItem>
-                          <SelectItem value="garden">Garden</SelectItem>
-                        </SelectContent>
-                      </Select>
-
-                      <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Any Location" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">Any Location</SelectItem>
-                          <SelectItem value="nearby">Nearby</SelectItem>
-                          <SelectItem value="same_neighborhood">Same Neighborhood</SelectItem>
-                        </SelectContent>
-                      </Select>
-
-                      <Select value={selectedTimePosted} onValueChange={setSelectedTimePosted}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Anytime" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="any">Anytime</SelectItem>
-                          <SelectItem value="today">Today</SelectItem>
-                          <SelectItem value="week">This Week</SelectItem>
-                          <SelectItem value="month">This Month</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Results Counter */}
-                    <p className="text-sm text-muted-foreground">
-                      Showing {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Item Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredItems.map((item) => (
-                  <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-0">
-                      {/* Item Image */}
-                      <div 
-                        className="aspect-video bg-muted rounded-t-lg overflow-hidden cursor-pointer group relative"
-                        onClick={() => {
-                          setSelectedItemImages(item.images);
-                          setCurrentImageIndex(0);
-                        }}
-                      >
-                        <img 
-                          src={item.images[0]} 
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                          <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                      </div>
-
-                      {/* Item Details */}
-                      <div className="p-4 space-y-3">
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                            {item.title}
-                          </h3>
-                          <Badge variant={item.status === "Available" ? "default" : "secondary"}>
-                            {item.status}
-                          </Badge>
-                        </div>
-
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {item.description}
-                        </p>
-
-                        <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <span>{item.category}</span>
-                          <span>{item.postedDate}</span>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-2">
-                          <span className="text-sm text-muted-foreground">by {item.owner}</span>
-                          {item.status === "Available" && (
-                            <Button 
-                              size="sm" 
-                              onClick={() => handleWantItem(item.title)}
-                              className="flex items-center gap-1"
-                            >
-                              <Heart className="w-3 h-3" />
-                              I Want This
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {filteredItems.length === 0 && (
-                <Card>
-                  <CardContent className="p-12 text-center">
-                    <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-                    <h3 className="text-lg font-semibold mb-2">No items found</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Try adjusting your search terms or filters, or be the first to post an item!
-                    </p>
-                    <Button onClick={() => setIsPostModalOpen(true)}>
-                      <Plus className="w-4 h-4 mr-2" />
-                      Post the First Item
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Community Stats */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Community Impact</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Package className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">234</p>
-                      <p className="text-sm text-muted-foreground">Items Shared</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center">
-                      <Users className="w-5 h-5 text-green-600" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">156</p>
-                      <p className="text-sm text-muted-foreground">Families Helped</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">89%</p>
-                      <p className="text-sm text-muted-foreground">Success Rate</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Quick Actions */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Quick Actions</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start"
-                    onClick={() => setIsPostModalOpen(true)}
+          {/* Item Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredItems.map((item) => (
+              <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
+                <CardContent className="p-0">
+                  {/* Item Image */}
+                  <div 
+                    className="aspect-video bg-muted rounded-t-lg overflow-hidden cursor-pointer group relative"
+                    onClick={() => {
+                      setSelectedItemImages(item.images);
+                      setCurrentImageIndex(0);
+                    }}
                   >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Post New Item
-                  </Button>
-                  
-                  <Button variant="outline" className="w-full justify-start">
-                    <Heart className="w-4 h-4 mr-2" />
-                    My Watchlist
-                  </Button>
-                  
-                  <Button variant="outline" className="w-full justify-start">
-                    <Package className="w-4 h-4 mr-2" />
-                    My Posted Items
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Safety Guidelines */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Safety Guidelines</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="text-sm text-muted-foreground space-y-2">
-                    <li>• Meet in public church spaces</li>
-                    <li>• Verify item condition before pickup</li>
-                    <li>• Communicate through our platform</li>
-                    <li>• Report any concerning behavior</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-            </div>
-
-          {/* Image Overlay Modal */}
-          {selectedItemImages.length > 0 && (
-            <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
-              <DialogContent className="max-w-4xl w-full p-0">
-                <div className="relative">
-                  <button
-                    onClick={() => setSelectedItemImages([])}
-                    className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                  
-                  <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-                    <img
-                      src={selectedItemImages[currentImageIndex]}
-                      alt="Item preview"
+                    <img 
+                      src={item.images[0]} 
+                      alt={item.title}
                       className="w-full h-full object-cover"
                     />
-                    
-                    {selectedItemImages.length > 1 && (
-                      <>
-                        <button
-                          onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                        >
-                          <ChevronLeft className="w-5 h-5" />
-                        </button>
-                        
-                        <button
-                          onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
-                        >
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
-                        
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                          {selectedItemImages.map((_, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full transition-colors ${
-                                index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                      <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
                   </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+
+                  {/* Item Details */}
+                  <div className="p-4 space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                        {item.title}
+                      </h3>
+                      <Badge variant={item.status === "Available" ? "default" : "secondary"}>
+                        {item.status}
+                      </Badge>
+                    </div>
+
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {item.description}
+                    </p>
+
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>{item.category}</span>
+                      <span>{item.postedDate}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="text-sm text-muted-foreground">by {item.owner}</span>
+                      {item.status === "Available" && (
+                        <Button 
+                          size="sm" 
+                          onClick={() => handleWantItem(item.title)}
+                          className="flex items-center gap-1"
+                        >
+                          <Heart className="w-3 h-3" />
+                          I Want This
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {filteredItems.length === 0 && (
+            <Card>
+              <CardContent className="p-12 text-center">
+                <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
+                <h3 className="text-lg font-semibold mb-2">No items found</h3>
+                <p className="text-muted-foreground mb-4">
+                  Try adjusting your search terms or browse different categories
+                </p>
+                <Button onClick={() => setSearchTerm("")}>
+                  Clear Search
+                </Button>
+              </CardContent>
+            </Card>
           )}
+
+          {/* Footer note */}
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Keep communications safe and within the platform. Meet in public church spaces for item exchanges.
+          </p>
         </div>
+
+        {/* Image Gallery Modal */}
+        {selectedItemImages.length > 0 && (
+          <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+            <div className="relative max-w-4xl w-full h-full flex items-center justify-center">
+              <button
+                onClick={() => setSelectedItemImages([])}
+                className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
+              >
+                <X className="w-8 h-8" />
+              </button>
+              
+              <img
+                src={selectedItemImages[currentImageIndex]}
+                alt={`Image ${currentImageIndex + 1}`}
+                className="max-h-full max-w-full object-contain"
+              />
+              
+              {selectedItemImages.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
+                    disabled={currentImageIndex === 0}
+                  >
+                    <ChevronLeft className="w-8 h-8" />
+                  </button>
+                  <button
+                    onClick={() => setCurrentImageIndex(Math.min(selectedItemImages.length - 1, currentImageIndex + 1))}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
+                    disabled={currentImageIndex === selectedItemImages.length - 1}
+                  >
+                    <ChevronRight className="w-8 h-8" />
+                  </button>
+                  
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm">
+                    {currentImageIndex + 1} / {selectedItemImages.length}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </CollapsibleSidebar>
   );

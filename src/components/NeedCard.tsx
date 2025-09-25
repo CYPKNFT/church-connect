@@ -38,7 +38,7 @@ export function NeedCard({
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/service_detail/${id}`);
+    navigate(`/needs/${id}`);
   };
 
   return (
