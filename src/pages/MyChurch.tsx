@@ -308,23 +308,31 @@ export default function MyChurch() {
     return matchesSearch && matchesCategory;
   });
 
-  // Add sample events for demonstration since we might not have enough real events
-  const allEventsWithSamples = [...filteredEvents, ...Array(15).fill(null).map((_, i) => ({
-    id: `sample-${i}`,
-    title: `Community Event ${i + 1}`,
-    description: `Join us for this wonderful community gathering. This is a sample event for demonstration purposes.`,
-    category: ['service', 'prayer', 'social', 'fundraiser', 'workshops'][i % 5],
-    start_datetime: new Date(Date.now() + (i + 1) * 24 * 60 * 60 * 1000).toISOString(),
-    end_datetime: new Date(Date.now() + (i + 1) * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000).toISOString(),
-    location_text: `Community Center ${i % 3 + 1}`,
-    church_id: 'sample',
-    organizer_member_id: 'sample',
-    featured: i < 3,
-    attending_count: Math.floor(Math.random() * 50),
-    interested_count: Math.floor(Math.random() * 30),
-    volunteer_slots_total: Math.floor(Math.random() * 10) + 5,
-    volunteer_slots_filled: Math.floor(Math.random() * 8)
-  }))];
+  // Add sample events for demonstration with October dates in chronological order
+  const sampleEvents = Array(15).fill(null).map((_, i) => {
+    const baseDate = new Date('2024-10-01T00:00:00Z');
+    const eventDate = new Date(baseDate.getTime() + (i + 2) * 24 * 60 * 60 * 1000 + (i * 2) * 60 * 60 * 1000);
+    return {
+      id: `sample-${i}`,
+      title: `Community Event ${i + 1}`,
+      description: `Join us for this wonderful community gathering. This is a sample event for demonstration purposes.`,
+      category: ['service', 'prayer', 'social', 'fundraiser', 'workshops'][i % 5],
+      start_datetime: eventDate.toISOString(),
+      end_datetime: new Date(eventDate.getTime() + 2 * 60 * 60 * 1000).toISOString(),
+      location_text: `Community Center ${i % 3 + 1}`,
+      church_id: 'sample',
+      organizer_member_id: 'sample',
+      featured: i < 3,
+      attending_count: Math.floor(Math.random() * 50),
+      interested_count: Math.floor(Math.random() * 30),
+      volunteer_slots_total: Math.floor(Math.random() * 10) + 5,
+      volunteer_slots_filled: Math.floor(Math.random() * 8)
+    };
+  });
+
+  const allEventsWithSamples = [...filteredEvents, ...sampleEvents].sort((a, b) => 
+    new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime()
+  );
 
   // Events pagination
   const totalEventsPages = Math.ceil(allEventsWithSamples.length / eventsPerPage);

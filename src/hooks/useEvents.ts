@@ -45,30 +45,14 @@ export function useEvents(churchId?: string) {
       // In a real implementation, this would query the events table
       const mockEvents: Event[] = [
         {
-          id: "1",
-          title: "Community Service Marathon",
-          description: "Join us for a full day of serving our community through multiple service projects.",
-          category: "service",
-          featured: true,
-          location_text: "Multiple Locations",
-          start_datetime: "2024-04-15T09:00:00Z",
-          end_datetime: "2024-04-15T17:00:00Z",
-          organizer_name: "Community Outreach Team",
-          attending_count: 127,
-          interested_count: 45,
-          volunteer_slots_total: 50,
-          volunteer_slots_filled: 38,
-          donation_total: 2450.00
-        },
-        {
           id: "2",
           title: "Prayer & Fasting Retreat",
           description: "A powerful time of prayer, fasting, and seeking God's face together.",
           category: "prayer",
           featured: false,
           location_text: "Church Sanctuary",
-          start_datetime: "2024-04-08T18:00:00Z",
-          end_datetime: "2024-04-08T21:00:00Z",
+          start_datetime: "2024-10-08T18:00:00Z",
+          end_datetime: "2024-10-08T21:00:00Z",
           organizer_name: "Prayer Ministry",
           attending_count: 89,
           interested_count: 23,
@@ -83,14 +67,30 @@ export function useEvents(churchId?: string) {
           category: "youth",
           featured: true,
           location_text: "Youth Center",
-          start_datetime: "2024-04-12T10:00:00Z",
-          end_datetime: "2024-04-12T16:00:00Z",
+          start_datetime: "2024-10-12T10:00:00Z",
+          end_datetime: "2024-10-12T16:00:00Z",
           organizer_name: "Youth Pastor Mike",
           attending_count: 34,
           interested_count: 12,
           volunteer_slots_total: 8,
           volunteer_slots_filled: 6,
           donation_total: 890.00
+        },
+        {
+          id: "1",
+          title: "Community Service Marathon",
+          description: "Join us for a full day of serving our community through multiple service projects.",
+          category: "service",
+          featured: true,
+          location_text: "Multiple Locations",
+          start_datetime: "2024-10-15T09:00:00Z",
+          end_datetime: "2024-10-15T17:00:00Z",
+          organizer_name: "Community Outreach Team",
+          attending_count: 127,
+          interested_count: 45,
+          volunteer_slots_total: 50,
+          volunteer_slots_filled: 38,
+          donation_total: 2450.00
         }
       ];
 
