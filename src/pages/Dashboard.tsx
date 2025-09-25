@@ -323,7 +323,7 @@ export default function Dashboard() {
                           </span>
                         </div>
                         <Button variant="ghost" size="sm" className="rounded-full h-6 px-3 text-xs group-hover:bg-primary group-hover:text-white" asChild>
-                          <Link to={`/needs/${need.id}`}>
+                          <Link to={`/needs_details/${need.id}`}>
                             View <ChevronRight className="w-3 h-3 ml-1" />
                           </Link>
                         </Button>
