@@ -20,9 +20,10 @@ interface CompactEventCalendarProps {
 }
 
 export function CompactEventCalendar({ events, showCard = true }: CompactEventCalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  // Set initial month to October 2024 where our events are
+  const [currentMonth, setCurrentMonth] = useState(new Date('2024-10-01'));
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date('2024-10-01'));
 
   const getEventsForDate = (date: Date) => {
     return events.filter(event => 
