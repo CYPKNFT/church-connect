@@ -7,13 +7,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { NeedCard } from "@/components/NeedCard";
 import { Heart, Clock, Users, Plus, Search, Filter, MapPin, Timer, MessageSquare, ChevronRight, HandHeart, Target, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function BrowseDashboard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedUrgency, setSelectedUrgency] = useState("All");
@@ -76,6 +77,10 @@ export default function BrowseDashboard() {
 
   const handleVolunteer = (needId: string) => {
     alert(`Thanks for volunteering to help with need ${needId}!`);
+  };
+
+  const handleCardClick = (needId: string) => {
+    navigate(`/needs/${needId}`);
   };
 
   return (
@@ -265,7 +270,11 @@ export default function BrowseDashboard() {
             ) : (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {filteredNeeds.map((need) => (
-                  <Card key={need.id} className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group">
+                  <Card 
+                    key={need.id} 
+                    className="border-0 shadow-card bg-card hover:shadow-gentle transition-all duration-300 rounded-2xl cursor-pointer hover:scale-[1.02] group"
+                    onClick={() => handleCardClick(need.id)}
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
@@ -287,7 +296,15 @@ export default function BrowseDashboard() {
                             <Badge variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"} className="rounded-full text-xs px-3 py-1">
                               {need.urgency}
                             </Badge>
-                            <Button variant="ghost" size="sm" className="rounded-full h-8 px-4 text-xs group-hover:bg-primary group-hover:text-white" onClick={() => handleVolunteer(need.id)}>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="rounded-full h-8 px-4 text-xs group-hover:bg-primary group-hover:text-white" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleVolunteer(need.id);
+                              }}
+                            >
                               Help
                             </Button>
                           </div>
