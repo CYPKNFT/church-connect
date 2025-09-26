@@ -80,7 +80,7 @@ export default function BrowseDashboard() {
   };
 
   const handleCardClick = (needId: string) => {
-    navigate(`/needs/${needId}`);
+    navigate(`/service_detail/${needId}`);
   };
 
   return (
@@ -296,17 +296,6 @@ export default function BrowseDashboard() {
                             <Badge variant={need.urgency === "Immediate" ? "destructive" : need.urgency === "This Week" ? "default" : "secondary"} className="rounded-full text-xs px-3 py-1">
                               {need.urgency}
                             </Badge>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
-                              className="rounded-full h-8 px-4 text-xs group-hover:bg-primary group-hover:text-white" 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleVolunteer(need.id);
-                              }}
-                            >
-                              Help
-                            </Button>
                           </div>
                         </div>
                       </div>
