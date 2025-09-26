@@ -378,7 +378,7 @@ export default function Guides() {
         </section>
 
         {/* For Church Leaders Section */}
-        <section className="mb-16 bg-gradient-to-r from-muted/20 to-muted/30 rounded-2xl p-8">
+        <section className="mb-16 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">FOR CHURCH LEADERS</h2>
             <p className="text-lg text-muted-foreground">Launch and manage ChurchConnect in your congregation</p>
