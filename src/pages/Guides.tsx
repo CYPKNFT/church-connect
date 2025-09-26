@@ -48,7 +48,7 @@ export default function Guides() {
         </div>
 
         {/* Serving Others Section */}
-        <section className="mb-20 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-r from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">SERVING OTHERS</h2>
             <p className="text-lg text-muted-foreground">Learn how to effectively help your church community</p>
@@ -105,7 +105,7 @@ export default function Guides() {
         </section>
 
         {/* Asking for Help Section */}
-        <section className="mb-20 bg-gradient-to-r from-secondary/5 to-accent/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-l from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">ASKING FOR HELP</h2>
             <p className="text-lg text-muted-foreground">Post requests that get results and build community</p>
@@ -162,7 +162,7 @@ export default function Guides() {
         </section>
 
         {/* App Features Section */}
-        <section className="mb-20 bg-gradient-to-r from-accent/5 to-primary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-r from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">APP FEATURES</h2>
             <p className="text-lg text-muted-foreground">Master the tools that make ChurchConnect work</p>
@@ -219,7 +219,7 @@ export default function Guides() {
         </section>
 
         {/* Prayer & Spiritual Support Section */}
-        <section className="mb-20 bg-gradient-to-r from-violet/5 to-purple/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-l from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">PRAYER & SPIRITUAL SUPPORT</h2>
             <p className="text-lg text-muted-foreground">Connect spiritually and offer encouragement</p>
@@ -276,7 +276,7 @@ export default function Guides() {
         </section>
 
         {/* Staying Safe Section */}
-        <section className="mb-20 bg-gradient-to-r from-red/5 to-orange/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-r from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">STAYING SAFE</h2>
             <p className="text-lg text-muted-foreground">Protect yourself and your family while serving</p>
@@ -333,13 +333,13 @@ export default function Guides() {
         </section>
 
         {/* Building Community Section */}
-        <section className="mb-16">
+        <section className="mb-20 bg-gradient-to-l from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">BUILDING COMMUNITY</h2>
             <p className="text-lg text-muted-foreground">Turn one-time help into lasting relationships</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Heart className="w-8 h-8 text-primary" />
@@ -351,7 +351,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-secondary" />
@@ -363,7 +363,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Star className="w-8 h-8 text-accent" />
@@ -378,13 +378,13 @@ export default function Guides() {
         </section>
 
         {/* For Church Leaders Section */}
-        <section className="mb-16">
+        <section className="mb-20 bg-gradient-to-r from-muted/30 to-transparent rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">FOR CHURCH LEADERS</h2>
             <p className="text-lg text-muted-foreground">Launch and manage ChurchConnect in your congregation</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-primary" />
@@ -396,7 +396,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <BarChart3 className="w-8 h-8 text-secondary" />
@@ -408,7 +408,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Target className="w-8 h-8 text-accent" />
@@ -420,7 +420,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white border border-border/50 hover:shadow-lg transition-shadow">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Phone className="w-8 h-8 text-destructive" />
