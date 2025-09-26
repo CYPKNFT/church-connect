@@ -48,7 +48,7 @@ export default function Guides() {
         </div>
 
         {/* Serving Others Section */}
-        <section className="mb-20 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-r from-white/10 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">SERVING OTHERS</h2>
             <p className="text-lg text-muted-foreground">Learn how to effectively help your church community</p>
@@ -105,7 +105,7 @@ export default function Guides() {
         </section>
 
         {/* Asking for Help Section */}
-        <section className="mb-20 bg-gradient-to-l from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-l from-white/10 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">ASKING FOR HELP</h2>
             <p className="text-lg text-muted-foreground">Post requests that get results and build community</p>
@@ -162,7 +162,7 @@ export default function Guides() {
         </section>
 
         {/* App Features Section */}
-        <section className="mb-20 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-r from-white/10 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">APP FEATURES</h2>
             <p className="text-lg text-muted-foreground">Master the tools that make ChurchConnect work</p>
@@ -219,7 +219,7 @@ export default function Guides() {
         </section>
 
         {/* Prayer & Spiritual Support Section */}
-        <section className="mb-20 bg-gradient-to-l from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-l from-white/10 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">PRAYER & SPIRITUAL SUPPORT</h2>
             <p className="text-lg text-muted-foreground">Connect spiritually and offer encouragement</p>
@@ -276,7 +276,7 @@ export default function Guides() {
         </section>
 
         {/* Staying Safe Section */}
-        <section className="mb-20 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-20 bg-gradient-to-r from-white/10 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">STAYING SAFE</h2>
             <p className="text-lg text-muted-foreground">Protect yourself and your family while serving</p>
@@ -333,7 +333,7 @@ export default function Guides() {
         </section>
 
         {/* Building Community Section */}
-        <section className="mb-16 bg-gradient-to-l from-primary/5 to-secondary/5 rounded-2xl p-8">
+        <section className="mb-16 bg-gradient-to-l from-white/10 to-secondary/5 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-4">BUILDING COMMUNITY</h2>
             <p className="text-lg text-muted-foreground">Turn one-time help into lasting relationships</p>
