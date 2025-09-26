@@ -180,7 +180,7 @@ export default function Help() {
                   className="border-white/30 text-white hover:bg-white/10" 
                   asChild
                 >
-                  <a href="/login">Sign In to Contact Support</a>
+                  <a href="/login">Sign in for more resources</a>
                 </Button>
               </div>
             </div>
