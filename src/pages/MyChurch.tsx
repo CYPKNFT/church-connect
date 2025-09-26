@@ -627,8 +627,8 @@ export default function MyChurch() {
                     <h2 className="text-3xl font-bold text-foreground">Community Needs ({filteredNeeds.length} opportunities)</h2>
                     <p className="text-muted-foreground text-lg">Help make a difference in your church family</p>
                   </div>
-                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-black shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
-                    <Plus className="w-5 h-5 mr-2" />
+                  <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12 px-6 rounded-xl">
+                    <Plus className="w-5 h-5 mr-2 text-white" />
                     Post New Need
                   </Button>
                 </div>
