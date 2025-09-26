@@ -47,9 +47,9 @@ export default function Volunteering() {
 
   const tabs = [
     { key: "all", label: "All" },
-    { key: "confirmed", label: "Confirmed" },
     { key: "pending", label: "Pending" },
     { key: "scheduled", label: "Scheduled" },
+    { key: "active", label: "Active" },
     { key: "completed", label: "Completed" }
   ];
 
@@ -62,9 +62,9 @@ export default function Volunteering() {
   const filtered = useMemo(() => {
     let result = userVolunteering;
     
-    if (tab === "confirmed") result = result.filter(v => v.status === "Confirmed");
     if (tab === "pending") result = result.filter(v => v.status === "Pending");
     if (tab === "scheduled") result = result.filter(v => v.status === "Scheduled");
+    if (tab === "active") result = result.filter(v => v.status === "Active" || v.status === "Confirmed");
     if (tab === "completed") result = result.filter(v => v.status === "Completed");
     
     if (query) {

@@ -104,9 +104,9 @@ export default function MyNeeds() {
 
   const tabs = [
     { key: "all", label: "All" },
+    { key: "pending", label: "Pending" },
+    { key: "scheduled", label: "Scheduled" },
     { key: "active", label: "Active" },
-    { key: "progress", label: "In Progress" },
-    { key: "fulfilled", label: "Fulfilled" },
     { key: "completed", label: "Completed" }
   ];
 
@@ -120,10 +120,10 @@ export default function MyNeeds() {
   const filtered = useMemo(() => {
     let result = userNeeds;
     
-    if (tab === "active") result = result.filter(need => need.status === "Active");
-    if (tab === "progress") result = result.filter(need => need.status === "In Progress");
-    if (tab === "fulfilled") result = result.filter(need => need.status === "Fulfilled");
-    if (tab === "completed") result = result.filter(need => need.status === "Completed");
+    if (tab === "pending") result = result.filter(need => need.status === "Pending");
+    if (tab === "scheduled") result = result.filter(need => need.status === "Scheduled");
+    if (tab === "active") result = result.filter(need => need.status === "Active" || need.status === "In Progress");
+    if (tab === "completed") result = result.filter(need => need.status === "Completed" || need.status === "Fulfilled");
     
     if (query) {
       result = result.filter(need => 
