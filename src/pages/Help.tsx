@@ -172,7 +172,7 @@ export default function Help() {
                   Still Need Help?
                 </h2>
                 <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                  Sign In for more resources
+                  Sign in to send your Church Leadership a message directly from your profile
                 </p>
                 
                 <Button 
