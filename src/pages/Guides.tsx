@@ -54,7 +54,7 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Learn how to effectively help your church community</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="!bg-gradient-to-br !from-primary/5 !to-primary/10 !border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow bg-transparent">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Search className="w-8 h-8 text-primary" />
@@ -66,7 +66,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="!bg-gradient-to-br !from-secondary/5 !to-secondary/10 !border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow bg-transparent">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Handshake className="w-8 h-8 text-secondary" />
@@ -78,7 +78,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="!bg-gradient-to-br !from-accent/5 !to-accent/10 !border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow bg-transparent">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-accent" />
@@ -90,7 +90,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="!bg-gradient-to-br !from-destructive/5 !to-destructive/10 !border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow bg-transparent">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <AlertTriangle className="w-8 h-8 text-destructive" />
