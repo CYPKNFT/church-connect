@@ -54,10 +54,10 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Learn how to effectively help your church community</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Search className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Search className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Finding Needs That Match Your Skills</CardTitle>
               </CardHeader>
@@ -66,10 +66,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Handshake className="w-8 h-8 text-secondary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Handshake className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Committing to Help</CardTitle>
               </CardHeader>
@@ -78,10 +78,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">What to Bring & What to Expect</CardTitle>
               </CardHeader>
@@ -90,7 +90,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:bg-destructive/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <AlertTriangle className="w-8 h-8 text-destructive" />
@@ -111,10 +111,10 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Post requests that get results and build community</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Lightbulb className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Lightbulb className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">What Kinds of Needs to Post</CardTitle>
               </CardHeader>
@@ -123,10 +123,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Edit3 className="w-8 h-8 text-secondary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Edit3 className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Writing Clear Need Posts</CardTitle>
               </CardHeader>
@@ -135,10 +135,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Settings className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Settings className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Setting Expectations</CardTitle>
               </CardHeader>
@@ -147,7 +147,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:bg-destructive/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <HelpCircle className="w-8 h-8 text-destructive" />
@@ -168,10 +168,10 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Master the tools that make ChurchConnect work</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Secure Messaging System</CardTitle>
               </CardHeader>
@@ -180,10 +180,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Bell className="w-8 h-8 text-secondary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Bell className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Smart Matching & Notifications</CardTitle>
               </CardHeader>
@@ -192,10 +192,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Filter className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Filter className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Need Categories & Filters</CardTitle>
               </CardHeader>
@@ -204,7 +204,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:bg-destructive/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <BarChart3 className="w-8 h-8 text-destructive" />
@@ -225,10 +225,10 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Connect spiritually and offer encouragement</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Posting Prayer Requests</CardTitle>
               </CardHeader>
@@ -237,10 +237,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-secondary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Responding to Prayer Needs</CardTitle>
               </CardHeader>
@@ -249,10 +249,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <UserCheck className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <UserCheck className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Connecting Pastoral Care</CardTitle>
               </CardHeader>
@@ -261,7 +261,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:bg-destructive/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Zap className="w-8 h-8 text-destructive" />
@@ -282,10 +282,10 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Protect yourself and your family while serving</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Verification & Background Checks</CardTitle>
               </CardHeader>
@@ -294,10 +294,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="w-8 h-8 text-secondary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Safe Meeting Guidelines</CardTitle>
               </CardHeader>
@@ -306,10 +306,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <AlertTriangle className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Red Flags & Warning Signs</CardTitle>
               </CardHeader>
@@ -318,7 +318,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:bg-destructive/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Lock className="w-8 h-8 text-destructive" />
@@ -339,10 +339,10 @@ export default function Guides() {
             <p className="text-lg text-muted-foreground">Turn one-time help into lasting relationships</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">From One-Time Help to Friendship</CardTitle>
               </CardHeader>
@@ -351,10 +351,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-secondary" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Creating Service Groups</CardTitle>
               </CardHeader>
@@ -363,10 +363,10 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Star className="w-8 h-8 text-accent" />
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Star className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-foreground">Celebrating Wins Together</CardTitle>
               </CardHeader>
@@ -420,7 +420,7 @@ export default function Guides() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:shadow-lg transition-shadow">
+            <Card className="bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 hover:bg-destructive/15 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <div className="w-16 h-16 bg-destructive/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Phone className="w-8 h-8 text-destructive" />
