@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { Edit, Trash2, Eye, Heart, MessageCircle, Search } from "lucide-react";
+import { Edit, Trash2, Eye, Heart, MessageCircle, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
@@ -29,6 +29,8 @@ interface Item {
 export default function Giving() {
   const [tab, setTab] = useState<string>("all");
   const [query, setQuery] = useState("");
+  const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Mock data for demonstration
   const items: Item[] = [
@@ -118,12 +120,21 @@ export default function Giving() {
       <div className="rounded-2xl border border-border bg-card/60 p-6">
         <div className="flex gap-4">
           {/* Image */}
-          <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-xl">
+          <div 
+            className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-xl cursor-pointer hover:opacity-80 transition-opacity group relative"
+            onClick={() => {
+              setSelectedItemImages(item.images);
+              setCurrentImageIndex(0);
+            }}
+          >
             <img
               src={item.images[0]}
               alt={item.title}
               className="h-full w-full object-cover"
             />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+              <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
           </div>
 
           {/* Content */}
@@ -291,6 +302,60 @@ export default function Giving() {
           </p>
         </div>
       </div>
+
+      {/* Image Overlay Modal */}
+      {selectedItemImages.length > 0 && (
+        <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
+          <DialogContent className="max-w-4xl w-full p-0">
+            <div className="relative">
+              <button
+                onClick={() => setSelectedItemImages([])}
+                className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              
+              <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                <img
+                  src={selectedItemImages[currentImageIndex]}
+                  alt="Item preview"
+                  className="w-full h-full object-cover"
+                />
+                
+                {selectedItemImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    
+                    <button
+                      onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                    
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {selectedItemImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </DashboardLayout>
   );
 }

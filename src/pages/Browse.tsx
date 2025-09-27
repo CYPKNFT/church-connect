@@ -426,45 +426,56 @@ export default function Browse() {
 
         {/* Image Gallery Modal */}
         {selectedItemImages.length > 0 && (
-          <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-            <div className="relative max-w-4xl w-full h-full flex items-center justify-center">
-              <button
-                onClick={() => setSelectedItemImages([])}
-                className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
-              >
-                <X className="w-8 h-8" />
-              </button>
-              
-              <img
-                src={selectedItemImages[currentImageIndex]}
-                alt={`Image ${currentImageIndex + 1}`}
-                className="max-h-full max-w-full object-contain"
-              />
-              
-              {selectedItemImages.length > 1 && (
-                <>
-                  <button
-                    onClick={() => setCurrentImageIndex(Math.max(0, currentImageIndex - 1))}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
-                    disabled={currentImageIndex === 0}
-                  >
-                    <ChevronLeft className="w-8 h-8" />
-                  </button>
-                  <button
-                    onClick={() => setCurrentImageIndex(Math.min(selectedItemImages.length - 1, currentImageIndex + 1))}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
-                    disabled={currentImageIndex === selectedItemImages.length - 1}
-                  >
-                    <ChevronRight className="w-8 h-8" />
-                  </button>
+          <Dialog open={selectedItemImages.length > 0} onOpenChange={() => setSelectedItemImages([])}>
+            <DialogContent className="max-w-4xl w-full p-0">
+              <div className="relative">
+                <button
+                  onClick={() => setSelectedItemImages([])}
+                  className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                
+                <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                  <img
+                    src={selectedItemImages[currentImageIndex]}
+                    alt="Item preview"
+                    className="w-full h-full object-cover"
+                  />
                   
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm">
-                    {currentImageIndex + 1} / {selectedItemImages.length}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
+                  {selectedItemImages.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      
+                      <button
+                        onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                      
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {selectedItemImages.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentImageIndex(index)}
+                            className={`w-2 h-2 rounded-full transition-colors ${
+                              index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
       </div>
     </CollapsibleSidebar>
