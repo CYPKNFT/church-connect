@@ -399,7 +399,7 @@ export default function QuickGuides() {
           {/* Safety & Trust */}
           <TabsContent value="safety">
             <div className="space-y-8">
-              <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-primary">
                     <Shield className="w-6 h-6" />
@@ -417,7 +417,7 @@ export default function QuickGuides() {
               </Card>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-primary">
                       <Shield className="w-5 h-5" />
@@ -455,7 +455,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-secondary/10 to-secondary/5 border-secondary/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-secondary-foreground">
                       <Users className="w-5 h-5 text-secondary" />
@@ -493,7 +493,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-lg text-primary">
                          <BookOpen className="w-5 h-5 text-primary" />
@@ -532,7 +532,7 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-gradient-to-r from-destructive/10 to-destructive/5 border-destructive/30">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-destructive">
                     <AlertTriangle className="w-5 h-5" />
@@ -659,7 +659,7 @@ export default function QuickGuides() {
                     </Card>
                   </div>
 
-                  <Card className="bg-gradient-to-r from-accent/10 to-accent/5 border-accent/30">
+                  <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                     <CardHeader>
                       <CardTitle className="text-accent">💝 Sample Messages That Work</CardTitle>
                     </CardHeader>
@@ -761,7 +761,7 @@ export default function QuickGuides() {
               </Card>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-primary">
                       <Phone className="w-5 h-5" />
@@ -800,7 +800,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-secondary/10 to-secondary/5 border-secondary/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-secondary-foreground">
                       <Mail className="w-5 h-5 text-secondary" />
@@ -839,7 +839,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-accent/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-lg text-primary">
                          <Wrench className="w-5 h-5 text-primary" />
@@ -880,7 +880,7 @@ export default function QuickGuides() {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-primary">
                       <Clock className="w-5 h-5" />
@@ -907,7 +907,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-r from-secondary/10 to-secondary/5 border-secondary/30">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-primary">
                          <AlertCircle className="w-5 h-5 text-primary" />
@@ -936,7 +936,7 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-accent">🔄 System Status & Updates</CardTitle>
                 </CardHeader>
