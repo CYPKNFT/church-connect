@@ -27,12 +27,8 @@ import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import Guides from "./pages/Guides";
-import GettingStarted from "./pages/GettingStarted";
-import SafetyGuidelines from "./pages/SafetyGuidelines";
-import BestPracticesVolunteers from "./pages/BestPracticesVolunteers";
+import Guides from "./pages/XYZ";
 import SafetyTrust from "./pages/SafetyTrust";
-import CommunityGuidelines from "./pages/CommunityGuidelines";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
@@ -115,12 +111,8 @@ const App = () => (
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/guides" element={<Guides />} />
-                    <Route path="/getting-started" element={<GettingStarted />} />
-                    <Route path="/safety-guidelines" element={<SafetyGuidelines />} />
-                    <Route path="/best-practices-volunteers" element={<BestPracticesVolunteers />} />
+                    <Route path="/XYZ" element={<Guides />} />
                     <Route path="/safety-trust" element={<SafetyTrust />} />
-                    <Route path="/community-guidelines" element={<CommunityGuidelines />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/join-movement" element={<JoinMovement />} />
