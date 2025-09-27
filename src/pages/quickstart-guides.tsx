@@ -59,8 +59,8 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2">
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl text-primary">
-                      <Heart className="w-5 h-5" />
+                    <CardTitle className="flex items-center gap-2 text-xl text-white">
+                      <Heart className="w-5 h-5 text-white" />
                       For Volunteers (Helpers)
                     </CardTitle>
                   </CardHeader>
@@ -116,8 +116,8 @@ export default function QuickGuides() {
 
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl text-secondary-foreground">
-                      <Users className="w-5 h-5 text-secondary" />
+                    <CardTitle className="flex items-center gap-2 text-xl text-white">
+                      <Users className="w-5 h-5 text-white" />
                       For Neighbors (Receivers)
                     </CardTitle>
                   </CardHeader>
@@ -174,7 +174,7 @@ export default function QuickGuides() {
 
               <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-accent">🌟 Universal Success Tips</CardTitle>
+                  <CardTitle className="text-white">🌟 Universal Success Tips</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
@@ -207,8 +207,8 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-primary">
-                    <Heart className="w-6 h-6" />
+                  <CardTitle className="flex items-center gap-2 text-2xl text-white">
+                    <Heart className="w-6 h-6 text-white" />
                     Serving Well - Excellence in Volunteering
                   </CardTitle>
                 </CardHeader>
@@ -220,7 +220,7 @@ export default function QuickGuides() {
                   <div className="grid gap-6 md:grid-cols-2">
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-primary">🤝 Reliability & Commitment</CardTitle>
+                        <CardTitle className="text-lg text-white">🤝 Reliability & Commitment</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -254,7 +254,7 @@ export default function QuickGuides() {
 
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-primary">🛡️ Respecting Privacy & Dignity</CardTitle>
+                        <CardTitle className="text-lg text-white">🛡️ Respecting Privacy & Dignity</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -288,7 +288,7 @@ export default function QuickGuides() {
 
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-accent">✨ Serving with Joy</CardTitle>
+                        <CardTitle className="text-lg text-white">✨ Serving with Joy</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -322,7 +322,7 @@ export default function QuickGuides() {
 
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-primary">⚖️ Volunteer Ethics & Standards</CardTitle>
+                        <CardTitle className="text-lg text-white">⚖️ Volunteer Ethics & Standards</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -357,7 +357,7 @@ export default function QuickGuides() {
 
                   <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30">
                     <CardHeader>
-                      <CardTitle className="text-accent">🌟 Excellence in Action</CardTitle>
+                      <CardTitle className="text-white">🌟 Excellence in Action</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="grid md:grid-cols-3 gap-6">
@@ -401,8 +401,8 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-primary">
-                    <Shield className="w-6 h-6" />
+                  <CardTitle className="flex items-center gap-2 text-2xl text-white">
+                    <Shield className="w-6 h-6 text-white" />
                     Safety & Trust Guidelines
                   </CardTitle>
                 </CardHeader>
@@ -419,8 +419,8 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-primary">
-                      <Shield className="w-5 h-5" />
+                    <CardTitle className="flex items-center gap-2 text-lg text-white">
+                      <Shield className="w-5 h-5 text-white" />
                       Personal Safety First
                     </CardTitle>
                   </CardHeader>
@@ -457,8 +457,8 @@ export default function QuickGuides() {
 
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-secondary-foreground">
-                      <Users className="w-5 h-5 text-secondary" />
+                    <CardTitle className="flex items-center gap-2 text-lg text-white">
+                      <Users className="w-5 h-5 text-white" />
                       Home & Family Guidelines
                     </CardTitle>
                   </CardHeader>
@@ -495,8 +495,8 @@ export default function QuickGuides() {
 
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                       <CardTitle className="flex items-center gap-2 text-lg text-primary">
-                         <BookOpen className="w-5 h-5 text-primary" />
+                       <CardTitle className="flex items-center gap-2 text-lg text-white">
+                         <BookOpen className="w-5 h-5 text-white" />
                          Church Leadership Support
                        </CardTitle>
                   </CardHeader>
@@ -573,8 +573,8 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-primary">
-                    <MessageSquare className="w-6 h-6" />
+                  <CardTitle className="flex items-center gap-2 text-2xl text-white">
+                    <MessageSquare className="w-6 h-6 text-white" />
                     Communication & Etiquette Excellence
                   </CardTitle>
                 </CardHeader>
@@ -586,7 +586,7 @@ export default function QuickGuides() {
                   <div className="grid gap-6 md:grid-cols-2">
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-primary">💬 Clear & Respectful Messaging</CardTitle>
+                        <CardTitle className="text-lg text-white">💬 Clear & Respectful Messaging</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -623,7 +623,7 @@ export default function QuickGuides() {
 
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-primary">⏰ Response Times & Reliability</CardTitle>
+                        <CardTitle className="text-lg text-white">⏰ Response Times & Reliability</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
@@ -661,7 +661,7 @@ export default function QuickGuides() {
 
                   <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                     <CardHeader>
-                      <CardTitle className="text-accent">💝 Sample Messages That Work</CardTitle>
+                      <CardTitle className="text-white">💝 Sample Messages That Work</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="grid gap-6 md:grid-cols-2">
@@ -700,7 +700,7 @@ export default function QuickGuides() {
                   <div className="grid gap-6 md:grid-cols-3">
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-primary">🎯 Before You Send</CardTitle>
+                        <CardTitle className="text-lg text-white">🎯 Before You Send</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -713,7 +713,7 @@ export default function QuickGuides() {
                     </Card>
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-secondary">📱 Digital Etiquette</CardTitle>
+                        <CardTitle className="text-lg text-white">📱 Digital Etiquette</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -726,7 +726,7 @@ export default function QuickGuides() {
                     </Card>
                     <Card className="bg-card border">
                       <CardHeader>
-                        <CardTitle className="text-lg text-accent">🤗 Building Relationships</CardTitle>
+                        <CardTitle className="text-lg text-white">🤗 Building Relationships</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -748,8 +748,8 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-primary">
-                    <HelpCircle className="w-6 h-6" />
+                  <CardTitle className="flex items-center gap-2 text-2xl text-white">
+                    <HelpCircle className="w-6 h-6 text-white" />
                     Troubleshooting & Technical Support
                   </CardTitle>
                 </CardHeader>
@@ -763,8 +763,8 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-primary">
-                      <Phone className="w-5 h-5" />
+                    <CardTitle className="flex items-center gap-2 text-lg text-white">
+                      <Phone className="w-5 h-5 text-white" />
                       Account & Login Issues
                     </CardTitle>
                   </CardHeader>
@@ -802,8 +802,8 @@ export default function QuickGuides() {
 
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-secondary-foreground">
-                      <Mail className="w-5 h-5 text-secondary" />
+                    <CardTitle className="flex items-center gap-2 text-lg text-white">
+                      <Mail className="w-5 h-5 text-white" />
                       Posting & Communication Problems
                     </CardTitle>
                   </CardHeader>
@@ -841,8 +841,8 @@ export default function QuickGuides() {
 
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                       <CardTitle className="flex items-center gap-2 text-lg text-primary">
-                         <Wrench className="w-5 h-5 text-primary" />
+                       <CardTitle className="flex items-center gap-2 text-lg text-white">
+                         <Wrench className="w-5 h-5 text-white" />
                          Technical & Browser Issues
                        </CardTitle>
                   </CardHeader>
@@ -882,8 +882,8 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2">
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-primary">
-                      <Clock className="w-5 h-5" />
+                    <CardTitle className="flex items-center gap-2 text-white">
+                      <Clock className="w-5 h-5 text-white" />
                       Quick Self-Help Checklist
                     </CardTitle>
                   </CardHeader>
@@ -909,8 +909,8 @@ export default function QuickGuides() {
 
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
-                       <CardTitle className="flex items-center gap-2 text-primary">
-                         <AlertCircle className="w-5 h-5 text-primary" />
+                       <CardTitle className="flex items-center gap-2 text-white">
+                         <AlertCircle className="w-5 h-5 text-white" />
                          When to Contact Support
                        </CardTitle>
                   </CardHeader>
@@ -938,7 +938,7 @@ export default function QuickGuides() {
 
               <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-accent">🔄 System Status & Updates</CardTitle>
+                  <CardTitle className="text-white">🔄 System Status & Updates</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6">
