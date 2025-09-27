@@ -57,7 +57,7 @@ export default function QuickGuides() {
           <TabsContent value="getting-started">
             <div className="space-y-8">
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-primary">
                       <Heart className="w-5 h-5" />
@@ -114,7 +114,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-secondary-foreground">
                       <Users className="w-5 h-5 text-secondary" />
@@ -172,7 +172,7 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-gradient-to-r from-accent/10 to-accent/5 border-accent/30">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-accent">🌟 Universal Success Tips</CardTitle>
                 </CardHeader>
@@ -205,7 +205,7 @@ export default function QuickGuides() {
           {/* Serving Well for Volunteers */}
           <TabsContent value="volunteers">
             <div className="space-y-8">
-              <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-primary">
                     <Heart className="w-6 h-6" />
@@ -571,7 +571,7 @@ export default function QuickGuides() {
           {/* Communication & Etiquette */}
           <TabsContent value="communication">
             <div className="space-y-8">
-              <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-primary">
                     <MessageSquare className="w-6 h-6" />
@@ -746,7 +746,7 @@ export default function QuickGuides() {
           {/* Troubleshooting & FAQs */}
           <TabsContent value="troubleshooting">
             <div className="space-y-8">
-              <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-primary">
                     <HelpCircle className="w-6 h-6" />
