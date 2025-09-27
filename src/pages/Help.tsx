@@ -49,19 +49,19 @@ export default function Help() {
       icon: Users,
       title: "Getting Started Guide",
       description: "Learn how to set up your profile and start connecting with your church community",
-      path: "/guides?tab=getting-started"
+      path: "/getting-started"
     },
     {
       icon: Shield,
       title: "Safety Guidelines",
       description: "Important safety tips for both those requesting and offering help",
-      path: "/guides?tab=safety"
+      path: "/safety-guidelines"
     },
     {
       icon: Heart,
       title: "Best Practices for Volunteers",
       description: "Tips for being an effective and trusted volunteer in your community",
-      path: "/guides?tab=volunteers"
+      path: "/best-practices-volunteers"
     },
     {
       icon: HelpCircle,
