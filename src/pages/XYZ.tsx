@@ -39,13 +39,13 @@ export default function QuickGuides() {
               <Shield className="w-4 h-4" />
               Safety & Trust
             </TabsTrigger>
-            <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              <MessageSquare className="w-4 h-4" />
-              Communication
-            </TabsTrigger>
             <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Heart className="w-4 h-4" />
               Serving Well
+            </TabsTrigger>
+            <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <MessageSquare className="w-4 h-4" />
+              Communication
             </TabsTrigger>
             <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <HelpCircle className="w-4 h-4" />
