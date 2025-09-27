@@ -89,7 +89,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
         
         <div className="flex-1 grid grid-cols-12 gap-6 p-6 pt-4 min-h-0">
           {/* Main Calendar Section */}
-          <div className="col-span-7 flex flex-col min-h-0">
+          <div className="col-span-8 flex flex-col min-h-0">
             {/* Quick Actions Bar - Moved to top */}
             <div className="shrink-0 flex items-center justify-between p-4 bg-accent/5 rounded-lg border mb-4">
               <div className="flex items-center gap-3">
@@ -123,22 +123,22 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                 onSelect={setSelectedDate}
                 month={currentMonth}
                 onMonthChange={setCurrentMonth}
-                className={cn("p-6 pointer-events-auto scale-110 origin-center")}
+                className={cn("p-8 pointer-events-auto scale-150 origin-center")}
                 classNames={{
-                  months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-                  month: "space-y-6",
-                  caption: "flex justify-center pt-2 relative items-center mb-4",
-                  caption_label: "text-lg font-semibold",
+                  months: "flex flex-col sm:flex-row space-y-6 sm:space-x-6 sm:space-y-0",
+                  month: "space-y-8",
+                  caption: "flex justify-center pt-3 relative items-center mb-6",
+                  caption_label: "text-xl font-semibold",
                   nav: "hidden", // Hide the duplicate navigation
                   nav_button: "hidden", // Hide navigation buttons
                   nav_button_previous: "hidden",
                   nav_button_next: "hidden",
-                  table: "w-full border-collapse space-y-2",
-                  head_row: "flex mb-2",
-                  head_cell: "text-muted-foreground rounded-md w-12 h-12 font-semibold text-sm flex items-center justify-center",
-                  row: "flex w-full mt-2",
-                  cell: "h-12 w-12 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                  day: cn("h-12 w-12 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative"),
+                  table: "w-full border-collapse space-y-3",
+                  head_row: "flex mb-3",
+                  head_cell: "text-muted-foreground rounded-md w-16 h-16 font-semibold text-base flex items-center justify-center",
+                  row: "flex w-full mt-3",
+                  cell: "h-16 w-16 text-center text-base p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                  day: cn("h-16 w-16 p-0 font-medium aria-selected:opacity-100 rounded-md hover:bg-accent hover:text-accent-foreground transition-all duration-200 relative text-base"),
                   day_range_end: "day-range-end",
                   day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
                   day_today: "bg-accent text-accent-foreground font-bold border-2 border-primary",
@@ -151,7 +151,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
                   hasEvents: (date) => getEventsForDate(date).length > 0
                 }}
                 modifiersClassNames={{
-                  hasEvents: "after:absolute after:bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:w-2 after:h-2 after:bg-primary after:rounded-full after:opacity-80"
+                  hasEvents: "after:absolute after:bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:w-3 after:h-3 after:bg-primary after:rounded-full after:opacity-80"
                 }}
               />
             </div>
@@ -179,7 +179,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({ events }) => {
           </div>
 
           {/* Right Side - Event Details */}
-          <div className="col-span-5 flex flex-col space-y-4 min-h-0">
+          <div className="col-span-4 flex flex-col space-y-4 min-h-0">
             {/* Selected Date Events - Full height */}
             <Card className="flex-1 min-h-0">
               <CardContent className="p-4 h-full flex flex-col">
