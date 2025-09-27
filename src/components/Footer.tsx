@@ -43,7 +43,7 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">Trust Pages</h3>
             <div className="space-y-2">
               <Link to="/safety-trust" className="block text-gray-300 hover:text-accent transition-colors">Safety & Trust</Link>
-              <Link to="/guides?tab=communication" className="block text-gray-300 hover:text-accent transition-colors">Community Guidelines</Link>
+              <Link to="/community-guidelines" className="block text-gray-300 hover:text-accent transition-colors">Community Guidelines</Link>
               <Link to="/privacy" className="block text-gray-300 hover:text-accent transition-colors">Privacy Policy</Link>
               <Link to="/terms" className="block text-gray-300 hover:text-accent transition-colors">Terms of Service</Link>
             </div>

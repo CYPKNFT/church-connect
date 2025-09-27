@@ -29,6 +29,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Guides from "./pages/Guides";
 import SafetyTrust from "./pages/SafetyTrust";
+import CommunityGuidelines from "./pages/CommunityGuidelines";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
@@ -113,6 +114,7 @@ const App = () => (
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/guides" element={<Guides />} />
                     <Route path="/safety-trust" element={<SafetyTrust />} />
+                    <Route path="/community-guidelines" element={<CommunityGuidelines />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/join-movement" element={<JoinMovement />} />
