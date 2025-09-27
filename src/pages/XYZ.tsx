@@ -648,93 +648,63 @@ export default function QuickGuides() {
                           <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
                             <h5 className="font-semibold mb-2">Change Communication</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Communicate changes as soon as you know</li>
-                              <li>• Apologize for any inconvenience caused</li>
-                              <li>• Offer alternative solutions when possible</li>
-                              <li>• Confirm receipt of change notifications</li>
+                              <li>• Notify about changes as early as possible</li>
+                              <li>• Explain the reason when appropriate</li>
+                              <li>• Offer alternatives or reschedule options</li>
+                              <li>• Apologize when changes cause inconvenience</li>
                             </ul>
                           </div>
                         </div>
                       </CardContent>
                     </Card>
-                  </div>
 
-                  <Card className="bg-gradient-to-r from-accent/10 to-accent/5 border-accent/30">
-                    <CardHeader>
-                      <CardTitle className="text-accent">💝 Sample Messages That Work</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid gap-6 md:grid-cols-2">
-                        <div className="space-y-4">
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-primary mb-2">🤝 Offering Help</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "Hi Sarah! I saw your request for meal delivery. I'd love to bring dinner for your family on Tuesday around 6 PM. Do you have any dietary restrictions or food preferences I should know about? I'm also happy to include paper plates if that would be helpful!"
-                            </p>
+                    <Card className="bg-card border md:col-span-2">
+                      <CardHeader>
+                        <CardTitle className="text-lg text-accent">🤝 Building Trust Through Words</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
+                              <h5 className="font-semibold mb-2">Express Genuine Care</h5>
+                              <ul className="text-sm text-muted-foreground space-y-1">
+                                <li>• Show authentic interest in others' wellbeing</li>
+                                <li>• Ask follow-up questions that demonstrate care</li>
+                                <li>• Remember personal details shared with you</li>
+                                <li>• Celebrate victories and offer comfort in struggles</li>
+                              </ul>
+                            </div>
+                            <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
+                              <h5 className="font-semibold mb-2">Practice Active Listening</h5>
+                              <ul className="text-sm text-muted-foreground space-y-1">
+                                <li>• Read messages carefully before responding</li>
+                                <li>• Ask clarifying questions when unsure</li>
+                                <li>• Acknowledge emotions expressed in messages</li>
+                                <li>• Reflect back what you understand</li>
+                              </ul>
+                            </div>
                           </div>
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-secondary mb-2">📅 Scheduling Coordination</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "I'm available this Saturday from 9 AM to 3 PM for the yard cleanup. Should I bring my own tools, or do you have what we need? I can also stay later if the work isn't finished. Just let me know what works best for your family!"
-                            </p>
+                          <div className="space-y-3">
+                            <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
+                              <h5 className="font-semibold mb-2">Share Appropriately</h5>
+                              <ul className="text-sm text-muted-foreground space-y-1">
+                                <li>• Open up at appropriate levels of intimacy</li>
+                                <li>• Share your own struggles when it might help</li>
+                                <li>• Keep focus on the other person's needs</li>
+                                <li>• Maintain healthy boundaries in sharing</li>
+                              </ul>
+                            </div>
+                            <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
+                              <h5 className="font-semibold mb-2">Handle Conflicts Gracefully</h5>
+                              <ul className="text-sm text-muted-foreground space-y-1">
+                                <li>• Address misunderstandings quickly and kindly</li>
+                                <li>• Assume positive intent in others' communications</li>
+                                <li>• Apologize when you make mistakes</li>
+                                <li>• Seek to understand before seeking to be understood</li>
+                              </ul>
+                            </div>
                           </div>
                         </div>
-                        <div className="space-y-4">
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-accent mb-2">🙏 Expressing Gratitude</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "Thank you so much for your help today! The yard looks absolutely amazing, and you've taken such a weight off our shoulders. We're so grateful to be part of a church family that truly cares for one another. Blessings to you and your family!"
-                            </p>
-                          </div>
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-primary mb-2">❌ Unable to Help</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "Thanks for thinking of me for the moving help! Unfortunately, I have a prior commitment that Saturday, but I wanted to respond quickly. Have you checked with the Johnson family? They recently helped us move and might be available. Praying someone else can step in!"
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <div className="grid gap-6 md:grid-cols-3">
-                    <Card className="bg-card border">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-primary">🎯 Before You Send</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li>• Read your message aloud for tone</li>
-                          <li>• Check for all necessary details</li>
-                          <li>• Consider the recipient's perspective</li>
-                          <li>• Ensure your message shows Christ's love</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card border">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-secondary">📱 Digital Etiquette</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li>• Use appropriate technology for urgency</li>
-                          <li>• Respect people's do-not-disturb hours</li>
-                          <li>• Keep group messages relevant to all</li>
-                          <li>• Use private messages for personal matters</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card border">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-accent">🤗 Building Relationships</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li>• Remember details about families you help</li>
-                          <li>• Follow up after completing service</li>
-                          <li>• Celebrate successes and milestones</li>
-                          <li>• Offer encouragement during difficult times</li>
-                        </ul>
                       </CardContent>
                     </Card>
                   </div>
