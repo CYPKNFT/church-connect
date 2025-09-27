@@ -27,7 +27,7 @@ import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import Guides from "./pages/XYZ";
+import Guides from "./pages/Guides";
 import SafetyTrust from "./pages/SafetyTrust";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
@@ -61,6 +61,7 @@ import SystemSettings from "./pages/SystemSettings";
 import ServiceDetail from "./pages/ServiceDetail";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
+import QuickstartGuides from "./pages/quickstart-guides";
 
 const queryClient = new QueryClient();
 
@@ -111,7 +112,8 @@ const App = () => (
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/XYZ" element={<Guides />} />
+                    <Route path="/guides" element={<Guides />} />
+                    <Route path="/quickstart-guides" element={<QuickstartGuides />} />
                     <Route path="/safety-trust" element={<SafetyTrust />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
