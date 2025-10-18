@@ -45,17 +45,6 @@ const menuData: MenuItem[] = [
     ],
   },
   {
-    id: "admin-copy",
-    label: "Admin Copy",
-    icon: Settings,
-    subItems: [
-      { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-      { label: "My Needs", icon: ClipboardList, path: "/my-needs" },
-      { label: "Volunteering", icon: Users, path: "/volunteering" },
-      { label: "Browse", icon: BookOpen, path: "/browse" },
-    ],
-  },
-  {
     id: "serving",
     label: "Serving",
     icon: Users,
@@ -156,18 +145,17 @@ export function TwoLevelNav() {
       </div>
 
       {/* Second Panel - Submenu */}
-      <AnimatePresence mode="wait">
-        {!isSecondPanelCollapsed && activeMenu && (
-          <motion.div
-            key={activeMenuId}
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -20, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="w-72 bg-card border-r border-border flex flex-col"
-          >
-            {/* Header */}
-            <div className="p-6 border-b border-border">
+      {activeMenu && (
+        <motion.div
+          key={activeMenuId}
+          initial={false}
+          animate={{ width: isSecondPanelCollapsed ? 64 : 288 }}
+          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          className="bg-card border-r border-border flex flex-col overflow-hidden"
+        >
+          {/* Header */}
+          <div className="p-6 border-b border-border">
+            {!isSecondPanelCollapsed ? (
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -187,48 +175,61 @@ export function TwoLevelNav() {
                   <ChevronLeft className="w-4 h-4 text-muted-foreground" />
                 </button>
               </div>
-            </div>
+            ) : (
+              <button
+                onClick={() => setIsSecondPanelCollapsed(false)}
+                className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors mx-auto"
+              >
+                <ChevronRight className="w-4 h-4 text-accent" />
+              </button>
+            )}
+          </div>
 
-            {/* Submenu Items */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-1">
-              {activeMenu.subItems.map((subItem) => {
-                const SubIcon = subItem.icon;
-                const isActiveSubItem = activeSubItemPath === subItem.path;
-                
-                return (
-                  <motion.button
-                    key={subItem.path}
-                    onClick={() => handleSubItemClick(subItem.path)}
-                    className={`
-                      w-full flex items-center gap-3 px-4 py-3 rounded-lg
-                      transition-all duration-200 text-left
-                      ${
-                        isActiveSubItem
-                          ? "bg-accent text-accent-foreground shadow-sm"
-                          : "text-foreground hover:bg-muted"
-                      }
-                    `}
-                    whileHover={{ x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
-                    <span className="font-medium text-sm">{subItem.label}</span>
-                    
-                    {/* Active dot */}
-                    {isActiveSubItem && (
-                      <motion.div
-                        layoutId="activeSubItem"
-                        className="ml-auto w-2 h-2 rounded-full bg-accent-foreground"
-                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                      />
-                    )}
-                  </motion.button>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {/* Submenu Items */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-1">
+            {activeMenu.subItems.map((subItem) => {
+              const SubIcon = subItem.icon;
+              const isActiveSubItem = activeSubItemPath === subItem.path;
+              return (
+                <motion.button
+                  key={subItem.path}
+                  onClick={() => handleSubItemClick(subItem.path)}
+                  className={`
+                    w-full flex items-center gap-3 rounded-lg
+                    transition-all duration-200 text-left
+                    ${
+                      isActiveSubItem
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "text-foreground hover:bg-muted"
+                    }
+                    ${isSecondPanelCollapsed ? "px-3 py-3 justify-center" : "px-4 py-3"}
+                  `}
+                  whileHover={{ x: isSecondPanelCollapsed ? 0 : 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  title={isSecondPanelCollapsed ? subItem.label : undefined}
+                >
+                  <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
+                  
+                  {!isSecondPanelCollapsed && (
+                    <>
+                      <span className="font-medium text-sm">{subItem.label}</span>
+                      
+                      {/* Active dot */}
+                      {isActiveSubItem && (
+                        <motion.div
+                          layoutId="activeSubItem"
+                          className="ml-auto w-2 h-2 rounded-full bg-accent-foreground"
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      )}
+                    </>
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
 
       {/* Main Content Area */}
       <div className="flex-1 overflow-auto">
