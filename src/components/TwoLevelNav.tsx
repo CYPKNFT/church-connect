@@ -156,7 +156,7 @@ export function TwoLevelNav() {
           {/* Collapse Toggle Tab */}
           <button
             onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
-            className="absolute -right-3 top-6 z-50 h-8 w-6 rounded-r-md bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border border-l-0 flex items-center justify-center transition-colors shadow-sm"
+            className="absolute -right-4 top-20 z-50 h-12 w-6 rounded-r-lg bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border border-l-0 flex items-center justify-center transition-colors shadow-lg"
           >
             {isSecondPanelCollapsed ? (
               <ChevronRight className="w-3 h-3 text-sidebar-accent-foreground" />
