@@ -104,7 +104,7 @@ export function TwoLevelNav() {
   return (
     <div className="flex h-screen bg-background">
       {/* First Panel - Icon Navigation */}
-      <div className="w-18 bg-sidebar border-r border-sidebar-border">
+      <div className="w-16 bg-sidebar border-r border-sidebar-border">
         <div className="flex flex-col h-full py-4">
           {menuData.map((menu) => {
             const Icon = menu.icon;
@@ -118,8 +118,8 @@ export function TwoLevelNav() {
                   transition-all duration-200 group relative
                   ${
                     isActive
-                      ? "bg-accent text-accent-foreground shadow-md"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent"
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-md"
+                      : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
                   }
                 `}
                 whileHover={{ scale: 1.05 }}
@@ -149,7 +149,7 @@ export function TwoLevelNav() {
           initial={false}
           animate={{ width: isSecondPanelCollapsed ? 64 : 288 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="relative bg-card border-r border-border flex flex-col overflow-hidden"
+          className="relative bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden"
         >
           {/* Collapse Toggle Tab - Exact copy from CollapsibleSidebar */}
           <div
@@ -180,7 +180,7 @@ export function TwoLevelNav() {
             </div>
           </div>
           {/* Header */}
-          <div className="p-6 border-b border-border">
+          <div className="p-6 border-b border-sidebar-border">
             {!isSecondPanelCollapsed ? (
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -212,8 +212,8 @@ export function TwoLevelNav() {
                     transition-all duration-200 text-left
                     ${
                       isActiveSubItem
-                        ? "bg-accent text-accent-foreground shadow-sm"
-                        : "text-foreground hover:bg-muted"
+                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
                     }
                     ${isSecondPanelCollapsed ? "px-3 py-3 justify-center" : "px-4 py-3"}
                   `}
@@ -221,7 +221,7 @@ export function TwoLevelNav() {
                   whileTap={{ scale: 0.98 }}
                   title={isSecondPanelCollapsed ? subItem.label : undefined}
                 >
-                  <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
+                  <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-sidebar-accent-foreground" : "text-sidebar-foreground/70"}`} />
                   
                   {!isSecondPanelCollapsed && (
                     <>
