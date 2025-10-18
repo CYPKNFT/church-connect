@@ -151,37 +151,35 @@ export function TwoLevelNav() {
           initial={false}
           animate={{ width: isSecondPanelCollapsed ? 64 : 288 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="bg-card border-r border-border flex flex-col overflow-hidden"
+          className="relative bg-card border-r border-border flex flex-col overflow-hidden"
         >
+          {/* Collapse Toggle Tab */}
+          <button
+            onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
+            className="absolute -right-3 top-4 w-6 h-10 bg-card border border-border rounded-r-lg flex items-center justify-center shadow-md hover:bg-muted transition-colors z-10"
+          >
+            {isSecondPanelCollapsed ? (
+              <ChevronRight className="w-3 h-3 text-accent" />
+            ) : (
+              <ChevronLeft className="w-3 h-3 text-muted-foreground" />
+            )}
+          </button>
           {/* Header */}
           <div className="p-6 border-b border-border">
             {!isSecondPanelCollapsed ? (
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <activeMenu.icon className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
-                    <p className="text-xs text-muted-foreground">Navigation Menu</p>
-                  </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <activeMenu.icon className="w-5 h-5 text-accent" />
                 </div>
-                
-                {/* Collapse button */}
-                <button
-                  onClick={() => setIsSecondPanelCollapsed(true)}
-                  className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors"
-                >
-                  <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-                </button>
+                <div>
+                  <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
+                  <p className="text-xs text-muted-foreground">Navigation Menu</p>
+                </div>
               </div>
             ) : (
-              <button
-                onClick={() => setIsSecondPanelCollapsed(false)}
-                className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors mx-auto"
-              >
-                <ChevronRight className="w-4 h-4 text-accent" />
-              </button>
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mx-auto">
+                <activeMenu.icon className="w-4 h-4 text-accent" />
+              </div>
             )}
           </div>
 
