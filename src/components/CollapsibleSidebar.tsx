@@ -69,11 +69,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
       currentPath === '/received' ||
       currentPath === '/watchlist'
     );
-    setIsFeedbackMode(
-      currentPath === '/feedback' ||
-      currentPath === '/feedback/app' ||
-      currentPath === '/feedback/church'
-    );
   }, [currentPath]);
 
   // When on /admin, open the correct admin gear based on URL param (?gear=copy|primary)
@@ -102,9 +97,6 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     if (!currentPath.startsWith('/admin')) {
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
-    }
-    if (!currentPath.startsWith('/feedback')) {
-      setIsFeedbackMode(false);
     }
   }, [currentPath]);
 

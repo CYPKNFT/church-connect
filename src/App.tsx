@@ -43,8 +43,6 @@ import JoinMovement from "./pages/JoinMovement";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Feedback from "./pages/Feedback";
-import FeedbackApp from "./pages/FeedbackApp";
-import FeedbackChurch from "./pages/FeedbackChurch";
 import Template from "./pages/Template";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
@@ -101,8 +99,6 @@ const App = () => (
                     <Route path="/events/:id" element={<EventDetails />} />
                     <Route path="/my-church/activity" element={<AllRecentActivity />} />
                     <Route path="/feedback" element={<Feedback />} />
-                    <Route path="/feedback/app" element={<FeedbackApp />} />
-                    <Route path="/feedback/church" element={<FeedbackChurch />} />
                     <Route path="/template" element={<Template />} />
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/service_detail/:id" element={<ServiceDetail />} />
