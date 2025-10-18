@@ -151,20 +151,8 @@ export function TwoLevelNav() {
           initial={false}
           animate={{ width: isSecondPanelCollapsed ? 72 : 288 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden relative"
+          className="bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden"
         >
-          {/* Collapse Toggle Tab */}
-          <button
-            onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
-            className="absolute -right-4 top-20 z-50 h-12 w-6 rounded-r-lg bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border border-l-0 flex items-center justify-center transition-colors shadow-lg"
-          >
-            {isSecondPanelCollapsed ? (
-              <ChevronRight className="w-3 h-3 text-sidebar-accent-foreground" />
-            ) : (
-              <ChevronLeft className="w-3 h-3 text-sidebar-accent-foreground" />
-            )}
-          </button>
-
           {/* Submenu Items */}
           <div className="flex-1 overflow-y-auto py-4 space-y-1">
             {!isSecondPanelCollapsed ? (
@@ -257,7 +245,23 @@ export function TwoLevelNav() {
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto relative">
+        {/* Collapse Toggle Button */}
+        <button
+          onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
+          className="fixed z-50 h-10 w-10 rounded-lg bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border flex items-center justify-center transition-all shadow-md"
+          style={{
+            left: isSecondPanelCollapsed ? '154px' : '370px',
+            top: '36px'
+          }}
+        >
+          {isSecondPanelCollapsed ? (
+            <ChevronRight className="w-4 h-4 text-sidebar-accent-foreground" />
+          ) : (
+            <ChevronLeft className="w-4 h-4 text-sidebar-accent-foreground" />
+          )}
+        </button>
+        
         {/* This is where page content would go */}
       </div>
     </div>
