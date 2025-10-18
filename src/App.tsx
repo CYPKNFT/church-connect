@@ -62,6 +62,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 import QuickstartGuides from "./pages/quickstart-guides";
+import TwoLevelNavDemo from "./pages/TwoLevelNavDemo";
 
 const queryClient = new QueryClient();
 
@@ -131,9 +132,10 @@ const App = () => (
                      <Route path="/marketplace" element={<Marketplace />} />
                      <Route path="/marketplace-item/:id" element={<MarketplaceItemDetails />} />
                      <Route path="/my-dashboard" element={<MyDashboard />} />
-                     <Route path="/giving" element={<Giving />} />
+                    <Route path="/giving" element={<Giving />} />
                      <Route path="/received" element={<Received />} />
                      <Route path="/watchlist" element={<Watchlist />} />
+                     <Route path="/nav-demo" element={<TwoLevelNavDemo />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
