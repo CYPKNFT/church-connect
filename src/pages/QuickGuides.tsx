@@ -57,10 +57,10 @@ export default function QuickGuides() {
           <TabsContent value="getting-started">
             <div className="space-y-8">
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+                <Card className="bg-muted/30 border-muted">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-primary">
-                      <Heart className="w-5 h-5" />
+                      <Heart className="w-5 h-5 text-primary" />
                       For Volunteers (Helpers)
                     </CardTitle>
                   </CardHeader>
@@ -114,10 +114,10 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20">
+                <Card className="bg-muted/30 border-muted">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl text-secondary-foreground">
-                      <Users className="w-5 h-5 text-secondary" />
+                    <CardTitle className="flex items-center gap-2 text-xl text-primary">
+                      <Users className="w-5 h-5 text-primary" />
                       For Neighbors (Receivers)
                     </CardTitle>
                   </CardHeader>

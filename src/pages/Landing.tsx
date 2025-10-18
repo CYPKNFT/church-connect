@@ -58,7 +58,7 @@ export default function Landing() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-primary-foreground/30 dark:border-white/30 text-primary-foreground dark:text-white hover:bg-primary-foreground/10 dark:hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect"
+                  className="border-2 border-primary-foreground/30 dark:border-white/30 text-primary hover:text-primary dark:text-primary hover:bg-primary-foreground/10 dark:hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect bg-white/90 dark:bg-white/10"
                   onClick={() => handleProtectedNavigation("/browse")}
                 >
                   Browse & Help
@@ -323,7 +323,7 @@ export default function Landing() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
             <Link to="/guides?tab=getting-started">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer h-full">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <Users className="w-8 h-8 text-accent" />
@@ -339,7 +339,7 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=volunteers">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer h-full">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <Heart className="w-8 h-8 text-accent" />
@@ -355,7 +355,7 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=safety">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer h-full">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <Shield className="w-8 h-8 text-accent" />

@@ -773,12 +773,11 @@ export default function Community() {
         {/* Three-Tab Navigation - Separate Container */}
         <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
+            <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2 shadow-sm">
               <TabsTrigger 
                 value="needs" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'needs' 
@@ -796,9 +795,8 @@ export default function Community() {
                </TabsTrigger>
                <TabsTrigger 
                   value="giving" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'giving' 
@@ -816,9 +814,8 @@ export default function Community() {
               </TabsTrigger>
                 <TabsTrigger 
                   value="events" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'events' 
@@ -836,9 +833,8 @@ export default function Community() {
                 </TabsTrigger>
                 <TabsTrigger 
                   value="stories" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'stories' 
