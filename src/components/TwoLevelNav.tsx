@@ -15,6 +15,8 @@ import {
   MessageSquare,
   Settings,
   Church,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface SubMenuItem {
@@ -104,7 +106,7 @@ export function TwoLevelNav() {
   return (
     <div className="flex h-screen bg-background">
       {/* First Panel - Icon Navigation */}
-      <div className="w-16 bg-sidebar border-r border-sidebar-border">
+      <div className="w-18 bg-sidebar border-r border-sidebar-border">
         <div className="flex flex-col h-full py-4">
           {menuData.map((menu) => {
             const Icon = menu.icon;
@@ -118,8 +120,8 @@ export function TwoLevelNav() {
                   transition-all duration-200 group relative
                   ${
                     isActive
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-md"
-                      : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
+                      ? "bg-accent text-accent-foreground shadow-md"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent"
                   }
                 `}
                 whileHover={{ scale: 1.05 }}
@@ -149,52 +151,37 @@ export function TwoLevelNav() {
           initial={false}
           animate={{ width: isSecondPanelCollapsed ? 64 : 288 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="relative bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden"
+          className="bg-card border-r border-border flex flex-col overflow-hidden"
         >
-          {/* Collapse Toggle Tab - Exact copy from CollapsibleSidebar */}
-          <div
-            onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
-            className={`
-              absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
-              bg-sidebar-border hover:bg-sidebar-border/80 
-              flex items-center justify-center
-              right-[-16px] w-4 h-6 rounded-r-sm
-            `}
-          >
-            <div className={`transition-transform duration-300 ${isSecondPanelCollapsed ? 'rotate-0' : 'rotate-180'}`}>
-              <svg 
-                width="8" 
-                height="8" 
-                viewBox="0 0 12 12" 
-                fill="none" 
-                className="text-yellow-500"
-              >
-                <path 
-                  d="M4 2L8 6L4 10" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
           {/* Header */}
-          <div className="p-6 border-b border-sidebar-border">
+          <div className="p-6 border-b border-border">
             {!isSecondPanelCollapsed ? (
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                  <activeMenu.icon className="w-5 h-5 text-accent" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <activeMenu.icon className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
+                    <p className="text-xs text-muted-foreground">Navigation Menu</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
-                  <p className="text-xs text-muted-foreground">Navigation Menu</p>
-                </div>
+                
+                {/* Collapse button */}
+                <button
+                  onClick={() => setIsSecondPanelCollapsed(true)}
+                  className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+                </button>
               </div>
             ) : (
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mx-auto">
-                <activeMenu.icon className="w-4 h-4 text-accent" />
-              </div>
+              <button
+                onClick={() => setIsSecondPanelCollapsed(false)}
+                className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors mx-auto"
+              >
+                <ChevronRight className="w-4 h-4 text-accent" />
+              </button>
             )}
           </div>
 
@@ -212,8 +199,8 @@ export function TwoLevelNav() {
                     transition-all duration-200 text-left
                     ${
                       isActiveSubItem
-                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                        : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "text-foreground hover:bg-muted"
                     }
                     ${isSecondPanelCollapsed ? "px-3 py-3 justify-center" : "px-4 py-3"}
                   `}
@@ -221,7 +208,7 @@ export function TwoLevelNav() {
                   whileTap={{ scale: 0.98 }}
                   title={isSecondPanelCollapsed ? subItem.label : undefined}
                 >
-                  <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-sidebar-accent-foreground" : "text-sidebar-foreground/70"}`} />
+                  <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
                   
                   {!isSecondPanelCollapsed && (
                     <>
