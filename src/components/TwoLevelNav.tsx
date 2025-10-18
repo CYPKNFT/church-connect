@@ -15,8 +15,6 @@ import {
   MessageSquare,
   Settings,
   Church,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 
 interface SubMenuItem {
@@ -153,17 +151,34 @@ export function TwoLevelNav() {
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           className="relative bg-card border-r border-border flex flex-col overflow-hidden"
         >
-          {/* Collapse Toggle Tab */}
-          <button
+          {/* Collapse Toggle Tab - Exact copy from CollapsibleSidebar */}
+          <div
             onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
-            className="absolute -right-3 top-4 w-6 h-10 bg-card border border-border rounded-r-lg flex items-center justify-center shadow-md hover:bg-muted transition-colors z-10"
+            className={`
+              absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+              bg-sidebar-border hover:bg-sidebar-border/80 
+              flex items-center justify-center
+              right-[-16px] w-4 h-6 rounded-r-sm
+            `}
           >
-            {isSecondPanelCollapsed ? (
-              <ChevronRight className="w-3 h-3 text-accent" />
-            ) : (
-              <ChevronLeft className="w-3 h-3 text-muted-foreground" />
-            )}
-          </button>
+            <div className={`transition-transform duration-300 ${isSecondPanelCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+              <svg 
+                width="8" 
+                height="8" 
+                viewBox="0 0 12 12" 
+                fill="none" 
+                className="text-yellow-500"
+              >
+                <path 
+                  d="M4 2L8 6L4 10" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
           {/* Header */}
           <div className="p-6 border-b border-border">
             {!isSecondPanelCollapsed ? (
