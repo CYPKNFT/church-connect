@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   UserCheck,
@@ -91,17 +90,9 @@ const menuData: MenuItem[] = [
 ];
 
 export function TwoLevelNav() {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [activeMenuId, setActiveMenuId] = useState<string>("serving");
+  const [activeSubItemPath, setActiveSubItemPath] = useState<string>("/dashboard");
   const [isFirstPanelCollapsed, setIsFirstPanelCollapsed] = useState(false);
-
-  // Determine active submenu based on current path
-  const getActiveSubItem = () => {
-    const activeMenu = menuData.find((m) => m.id === activeMenuId);
-    if (!activeMenu) return null;
-    return activeMenu.subItems.find((sub) => location.pathname === sub.path) || activeMenu.subItems[0];
-  };
 
   const handleMenuClick = (menuId: string) => {
     if (activeMenuId === menuId) {
@@ -109,15 +100,19 @@ export function TwoLevelNav() {
     } else {
       setActiveMenuId(menuId);
       setIsFirstPanelCollapsed(false);
+      // Set first sub-item as active when switching menus
+      const newMenu = menuData.find((m) => m.id === menuId);
+      if (newMenu) {
+        setActiveSubItemPath(newMenu.subItems[0].path);
+      }
     }
   };
 
   const handleSubItemClick = (path: string) => {
-    navigate(path);
+    setActiveSubItemPath(path);
   };
 
   const activeMenu = menuData.find((m) => m.id === activeMenuId);
-  const activeSubItem = getActiveSubItem();
 
   return (
     <div className="flex h-screen bg-background">
@@ -205,7 +200,7 @@ export function TwoLevelNav() {
             <div className="flex-1 overflow-y-auto p-4 space-y-1">
               {activeMenu.subItems.map((subItem) => {
                 const SubIcon = subItem.icon;
-                const isActiveSubItem = activeSubItem?.path === subItem.path;
+                const isActiveSubItem = activeSubItemPath === subItem.path;
                 
                 return (
                   <motion.button
