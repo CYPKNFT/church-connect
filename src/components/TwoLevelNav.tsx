@@ -249,15 +249,16 @@ export function TwoLevelNav() {
         {/* Collapse Toggle Button */}
         <button
           onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
-          className="fixed top-6 z-50 h-8 w-6 rounded-r-md bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border border-l-0 flex items-center justify-center transition-all shadow-sm"
+          className="fixed z-50 h-10 w-10 rounded-lg bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border flex items-center justify-center transition-all shadow-md"
           style={{
-            left: isSecondPanelCollapsed ? '88px' : '272px'
+            left: isSecondPanelCollapsed ? '154px' : '370px',
+            top: '36px'
           }}
         >
           {isSecondPanelCollapsed ? (
-            <ChevronRight className="w-3 h-3 text-sidebar-accent-foreground" />
+            <ChevronRight className="w-4 h-4 text-sidebar-accent-foreground" />
           ) : (
-            <ChevronLeft className="w-3 h-3 text-sidebar-accent-foreground" />
+            <ChevronLeft className="w-4 h-4 text-sidebar-accent-foreground" />
           )}
         </button>
         
