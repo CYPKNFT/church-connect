@@ -149,69 +149,57 @@ export function TwoLevelNav() {
         <motion.div
           key={activeMenuId}
           initial={false}
-          animate={{ width: isSecondPanelCollapsed ? 64 : 288 }}
+          animate={{ width: isSecondPanelCollapsed ? 72 : 288 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="bg-card border-r border-border flex flex-col overflow-hidden"
+          className="bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden relative"
         >
-          {/* Header */}
-          <div className="p-6 border-b border-border">
+          {/* Collapse Toggle Tab */}
+          <button
+            onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
+            className="absolute -right-3 top-6 z-50 h-8 w-6 rounded-r-md bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border border-l-0 flex items-center justify-center transition-colors shadow-sm"
+          >
+            {isSecondPanelCollapsed ? (
+              <ChevronRight className="w-3 h-3 text-sidebar-accent-foreground" />
+            ) : (
+              <ChevronLeft className="w-3 h-3 text-sidebar-accent-foreground" />
+            )}
+          </button>
+
+          {/* Submenu Items */}
+          <div className="flex-1 overflow-y-auto py-4 space-y-1">
             {!isSecondPanelCollapsed ? (
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+              // Expanded view
+              <div className="px-4 space-y-1">
+                <div className="flex items-center gap-3 mb-4 px-2">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
                     <activeMenu.icon className="w-5 h-5 text-accent" />
                   </div>
                   <div>
-                    <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
+                    <h2 className="font-semibold text-sidebar-foreground">{activeMenu.label}</h2>
                     <p className="text-xs text-muted-foreground">Navigation Menu</p>
                   </div>
                 </div>
                 
-                {/* Collapse button */}
-                <button
-                  onClick={() => setIsSecondPanelCollapsed(true)}
-                  className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors"
-                >
-                  <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => setIsSecondPanelCollapsed(false)}
-                className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors mx-auto"
-              >
-                <ChevronRight className="w-4 h-4 text-accent" />
-              </button>
-            )}
-          </div>
-
-          {/* Submenu Items */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-1">
-            {activeMenu.subItems.map((subItem) => {
-              const SubIcon = subItem.icon;
-              const isActiveSubItem = activeSubItemPath === subItem.path;
-              return (
-                <motion.button
-                  key={subItem.path}
-                  onClick={() => handleSubItemClick(subItem.path)}
-                  className={`
-                    w-full flex items-center gap-3 rounded-lg
-                    transition-all duration-200 text-left
-                    ${
-                      isActiveSubItem
-                        ? "bg-accent text-accent-foreground shadow-sm"
-                        : "text-foreground hover:bg-muted"
-                    }
-                    ${isSecondPanelCollapsed ? "px-3 py-3 justify-center" : "px-4 py-3"}
-                  `}
-                  whileHover={{ x: isSecondPanelCollapsed ? 0 : 4 }}
-                  whileTap={{ scale: 0.98 }}
-                  title={isSecondPanelCollapsed ? subItem.label : undefined}
-                >
-                  <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
-                  
-                  {!isSecondPanelCollapsed && (
-                    <>
+                {activeMenu.subItems.map((subItem) => {
+                  const SubIcon = subItem.icon;
+                  const isActiveSubItem = activeSubItemPath === subItem.path;
+                  return (
+                    <motion.button
+                      key={subItem.path}
+                      onClick={() => handleSubItemClick(subItem.path)}
+                      className={`
+                        w-full flex items-center gap-3 rounded-lg px-4 py-3
+                        transition-all duration-200 text-left
+                        ${
+                          isActiveSubItem
+                            ? "bg-accent text-accent-foreground shadow-sm"
+                            : "text-sidebar-foreground hover:bg-sidebar-accent"
+                        }
+                      `}
+                      whileHover={{ x: 4 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
                       <span className="font-medium text-sm">{subItem.label}</span>
                       
                       {/* Active dot */}
@@ -222,11 +210,48 @@ export function TwoLevelNav() {
                           transition={{ type: "spring", stiffness: 500, damping: 30 }}
                         />
                       )}
-                    </>
-                  )}
-                </motion.button>
-              );
-            })}
+                    </motion.button>
+                  );
+                })}
+              </div>
+            ) : (
+              // Collapsed view - icon style like first panel
+              <div className="flex flex-col px-2">
+                {activeMenu.subItems.map((subItem) => {
+                  const SubIcon = subItem.icon;
+                  const isActiveSubItem = activeSubItemPath === subItem.path;
+                  return (
+                    <motion.button
+                      key={subItem.path}
+                      onClick={() => handleSubItemClick(subItem.path)}
+                      className={`
+                        flex flex-col items-center justify-center gap-1 p-3 mb-2 rounded-lg
+                        transition-all duration-200 group relative
+                        ${
+                          isActiveSubItem
+                            ? "bg-accent text-accent-foreground shadow-md"
+                            : "text-sidebar-foreground hover:bg-sidebar-accent"
+                        }
+                      `}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      title={subItem.label}
+                    >
+                      <SubIcon className="w-5 h-5" />
+                      
+                      {/* Active indicator */}
+                      {isActiveSubItem && (
+                        <motion.div
+                          layoutId="activeSubItemCollapsed"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-r-full"
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </motion.div>
       )}
