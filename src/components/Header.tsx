@@ -49,6 +49,9 @@ export function Header() {
            <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
              Guides
            </Link>
+           <Link to="/nav-demo" className="text-foreground hover:text-primary transition-colors font-medium">
+             Nav Demo
+           </Link>
         </nav>
 
         {/* Desktop CTA Buttons */}
@@ -205,6 +208,13 @@ export function Header() {
                onClick={() => setIsMenuOpen(false)}
              >
                 Guides
+             </Link>
+             <Link 
+               to="/nav-demo" 
+               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+               onClick={() => setIsMenuOpen(false)}
+             >
+                Nav Demo
              </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               {user && (
