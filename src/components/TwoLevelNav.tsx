@@ -92,14 +92,14 @@ const menuData: MenuItem[] = [
 export function TwoLevelNav() {
   const [activeMenuId, setActiveMenuId] = useState<string>("serving");
   const [activeSubItemPath, setActiveSubItemPath] = useState<string>("/dashboard");
-  const [isFirstPanelCollapsed, setIsFirstPanelCollapsed] = useState(false);
+  const [isSecondPanelCollapsed, setIsSecondPanelCollapsed] = useState(false);
 
   const handleMenuClick = (menuId: string) => {
     if (activeMenuId === menuId) {
-      setIsFirstPanelCollapsed(!isFirstPanelCollapsed);
+      setIsSecondPanelCollapsed(!isSecondPanelCollapsed);
     } else {
       setActiveMenuId(menuId);
-      setIsFirstPanelCollapsed(false);
+      setIsSecondPanelCollapsed(false);
       // Set first sub-item as active when switching menus
       const newMenu = menuData.find((m) => m.id === menuId);
       if (newMenu) {
@@ -117,12 +117,7 @@ export function TwoLevelNav() {
   return (
     <div className="flex h-screen bg-background">
       {/* First Panel - Icon Navigation */}
-      <motion.div
-        initial={false}
-        animate={{ width: isFirstPanelCollapsed ? 0 : 72 }}
-        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="relative bg-sidebar border-r border-sidebar-border overflow-hidden"
-      >
+      <div className="w-18 bg-sidebar border-r border-sidebar-border">
         <div className="flex flex-col h-full py-4">
           {menuData.map((menu) => {
             const Icon = menu.icon;
@@ -158,23 +153,11 @@ export function TwoLevelNav() {
             );
           })}
         </div>
-
-        {/* Collapse toggle */}
-        <button
-          onClick={() => setIsFirstPanelCollapsed(!isFirstPanelCollapsed)}
-          className="absolute -right-3 top-4 w-6 h-6 bg-sidebar border border-sidebar-border rounded-full flex items-center justify-center shadow-md hover:bg-sidebar-accent transition-colors z-10"
-        >
-          {isFirstPanelCollapsed ? (
-            <ChevronRight className="w-3 h-3 text-sidebar-foreground" />
-          ) : (
-            <ChevronLeft className="w-3 h-3 text-sidebar-foreground" />
-          )}
-        </button>
-      </motion.div>
+      </div>
 
       {/* Second Panel - Submenu */}
       <AnimatePresence mode="wait">
-        {!isFirstPanelCollapsed && activeMenu && (
+        {!isSecondPanelCollapsed && activeMenu && (
           <motion.div
             key={activeMenuId}
             initial={{ x: -20, opacity: 0 }}
@@ -185,14 +168,24 @@ export function TwoLevelNav() {
           >
             {/* Header */}
             <div className="p-6 border-b border-border">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                  <activeMenu.icon className="w-5 h-5 text-accent" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <activeMenu.icon className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
+                    <p className="text-xs text-muted-foreground">Navigation Menu</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
-                  <p className="text-xs text-muted-foreground">Navigation Menu</p>
-                </div>
+                
+                {/* Collapse button */}
+                <button
+                  onClick={() => setIsSecondPanelCollapsed(true)}
+                  className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+                </button>
               </div>
             </div>
 
