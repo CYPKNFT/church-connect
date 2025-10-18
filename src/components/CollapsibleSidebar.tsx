@@ -39,10 +39,12 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
   const [isAdminCopyMode, setIsAdminCopyMode] = useState(false);
   const [isServingMode, setIsServingMode] = useState(false);
   const [isGivingMode, setIsGivingMode] = useState(false);
+  const [isFeedbackMode, setIsFeedbackMode] = useState(false);
   const [isAdminCollapsed, setIsAdminCollapsed] = useState(false);
   const [isAdminCopyCollapsed, setIsAdminCopyCollapsed] = useState(false);
   const [isServingCollapsed, setIsServingCollapsed] = useState(false);
   const [isGivingCollapsed, setIsGivingCollapsed] = useState(false);
+  const [isFeedbackCollapsed, setIsFeedbackCollapsed] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
   const { churchName } = useMembership();
@@ -148,6 +150,13 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     { icon: ShoppingBag, label: "Marketplace", path: "/marketplace" }
   ];
 
+  // Feedback submenu items
+  const feedbackSubmenuItems = [
+    { icon: MessageSquare, label: "General", path: "/feedback" },
+    { icon: Settings, label: "App", path: "/feedback/app" },
+    { icon: Heart, label: "Church", path: "/feedback/church" }
+  ];
+
   const mainNavItems = getMainNavItems();
 
   const handleNavItemClick = (item: any) => {
@@ -169,18 +178,28 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
       setIsGivingMode(false);
+      setIsFeedbackMode(false);
     } else if (item.category === 'giving') {
       console.log('Setting giving mode');
       setIsGivingMode(true);
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
       setIsServingMode(false);
+      setIsFeedbackMode(false);
+    } else if (item.category === 'feedback') {
+      console.log('Setting feedback mode');
+      setIsFeedbackMode(true);
+      setIsAdminMode(false);
+      setIsAdminCopyMode(false);
+      setIsServingMode(false);
+      setIsGivingMode(false);
     } else {
       console.log('Clearing all modes');
       setIsAdminMode(false);
       setIsAdminCopyMode(false);
       setIsServingMode(false);
       setIsGivingMode(false);
+      setIsFeedbackMode(false);
     }
   };
 
@@ -188,7 +207,7 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
     <TooltipProvider>
       <div className="min-h-screen bg-background">
         <div className="flex min-h-screen w-full relative">
-          {!isAdminMode && !isAdminCopyMode && !isServingMode && !isGivingMode ? (
+          {!isAdminMode && !isAdminCopyMode && !isServingMode && !isGivingMode && !isFeedbackMode ? (
             /* STATE 1: DEFAULT NAVIGATION - Full sidebar */
             <div 
               className={`
@@ -870,6 +889,148 @@ export function CollapsibleSidebar({ children }: CollapsibleSidebarProps) {
                     );
 
                     if (isGivingCollapsed) {
+                      return (
+                        <Tooltip key={item.path}>
+                          <TooltipTrigger asChild>
+                            {linkContent}
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            <p>{item.label}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+
+                    return (
+                      <div key={item.path}>
+                        {linkContent}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : isFeedbackMode ? (
+            /* STATE 5: FEEDBACK EXPANDED - Icon strip + Feedback submenu */
+            <div className="flex">
+              {/* Left Column - Icon Strip */}
+              <div className="w-15 bg-sidebar border-r border-sidebar-border flex flex-col items-center py-4 space-y-2">
+                {/* Brand Icon */}
+                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center mb-4">
+                  <Heart className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
+                </div>
+
+                {/* Navigation Icons */}
+                {mainNavItems.map((item) => {
+                  const isActive = item.category === 'feedback' && isFeedbackMode;
+                  
+                  const iconButton = (
+                    <button
+                      onClick={() => handleNavItemClick(item)}
+                      className={`
+                        w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200
+                        ${isActive
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                          : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                        }
+                      `}
+                    >
+                      <item.icon className="w-5 h-5" />
+                    </button>
+                  );
+
+                  if (item.category === 'feedback') {
+                    return (
+                      <div key={item.path}>
+                        {iconButton}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Tooltip key={item.path}>
+                      <TooltipTrigger asChild>
+                        <Link to={item.isAdminCopy ? "/admin/dashboard?gear=copy" : item.isAdmin ? "/admin/dashboard?gear=primary" : item.path} onClick={() => handleNavItemClick(item)}>
+                          <div className="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">
+                        <p>{item.label}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  );
+                })}
+              </div>
+
+              {/* Right Column - Feedback Submenu with Collapse */}
+              <div 
+                className={`
+                  bg-sidebar border-r border-sidebar-border relative transition-all duration-300 ease-in-out
+                  ${isFeedbackCollapsed ? 'w-16' : 'w-64'}
+                `}
+              >
+                {/* Feedback Collapse Toggle */}
+                <div
+                  onClick={() => setIsFeedbackCollapsed(!isFeedbackCollapsed)}
+                  className={`
+                    absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+                    bg-sidebar-border hover:bg-sidebar-border/80 
+                    flex items-center justify-center
+                    right-[-16px] w-4 h-6 rounded-r-sm
+                  `}
+                >
+                  <div className={`transition-transform duration-300 ${isFeedbackCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+                    <svg 
+                      width="8" 
+                      height="8" 
+                      viewBox="0 0 12 12" 
+                      fill="none" 
+                      className="text-yellow-500"
+                    >
+                      <path 
+                        d="M4 2L8 6L4 10" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Feedback Header */}
+                {!isFeedbackCollapsed && (
+                  <div className="p-4 border-b border-sidebar-border">
+                    <h2 className="font-semibold text-sidebar-foreground">Feedback</h2>
+                    <p className="text-sm text-sidebar-foreground/70">Share your thoughts</p>
+                  </div>
+                )}
+
+                {/* Feedback Navigation */}
+                <div className="p-4 space-y-1">
+                  {feedbackSubmenuItems.map((item) => {
+                    const isActive = currentPath === item.path;
+                    
+                    const linkContent = (
+                      <Link
+                        to={item.path}
+                        className={`
+                          w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                          ${isActive
+                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                            : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
+                          }
+                          ${isFeedbackCollapsed ? 'justify-center' : ''}
+                        `}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        {!isFeedbackCollapsed && <span className="font-medium">{item.label}</span>}
+                      </Link>
+                    );
+
+                    if (isFeedbackCollapsed) {
                       return (
                         <Tooltip key={item.path}>
                           <TooltipTrigger asChild>
