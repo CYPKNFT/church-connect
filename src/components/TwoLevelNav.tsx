@@ -1,0 +1,251 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  UserCheck,
+  FileCheck,
+  TrendingUp,
+  ClipboardList,
+  Users,
+  BookOpen,
+  Gift,
+  Package,
+  Heart,
+  ShoppingBag,
+  MessageSquare,
+  Settings,
+  Church,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
+interface SubMenuItem {
+  label: string;
+  icon: any;
+  path: string;
+}
+
+interface MenuItem {
+  id: string;
+  label: string;
+  icon: any;
+  subItems: SubMenuItem[];
+}
+
+const menuData: MenuItem[] = [
+  {
+    id: "admin",
+    label: "Admin",
+    icon: Settings,
+    subItems: [
+      { label: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
+      { label: "Staff Verification", icon: UserCheck, path: "/admin/staff-verification" },
+      { label: "Content Moderation", icon: FileCheck, path: "/admin/content-moderation" },
+      { label: "Analytics", icon: TrendingUp, path: "/admin/analytics" },
+    ],
+  },
+  {
+    id: "admin-copy",
+    label: "Admin Copy",
+    icon: Settings,
+    subItems: [
+      { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+      { label: "My Needs", icon: ClipboardList, path: "/my-needs" },
+      { label: "Volunteering", icon: Users, path: "/volunteering" },
+      { label: "Browse", icon: BookOpen, path: "/browse" },
+    ],
+  },
+  {
+    id: "serving",
+    label: "Serving",
+    icon: Users,
+    subItems: [
+      { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+      { label: "My Needs", icon: ClipboardList, path: "/my-needs" },
+      { label: "Volunteering", icon: Users, path: "/volunteering" },
+      { label: "Browse", icon: BookOpen, path: "/browse" },
+    ],
+  },
+  {
+    id: "giving",
+    label: "Giving",
+    icon: Gift,
+    subItems: [
+      { label: "Giving", icon: Gift, path: "/giving" },
+      { label: "Received", icon: Package, path: "/received" },
+      { label: "Watchlist", icon: Heart, path: "/watchlist" },
+      { label: "Marketplace", icon: ShoppingBag, path: "/marketplace" },
+    ],
+  },
+  {
+    id: "feedback",
+    label: "Feedback",
+    icon: MessageSquare,
+    subItems: [
+      { label: "General", icon: MessageSquare, path: "/feedback" },
+      { label: "App", icon: Settings, path: "/feedback/app" },
+      { label: "Church", icon: Church, path: "/feedback/church" },
+    ],
+  },
+];
+
+export function TwoLevelNav() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeMenuId, setActiveMenuId] = useState<string>("serving");
+  const [isFirstPanelCollapsed, setIsFirstPanelCollapsed] = useState(false);
+
+  // Determine active submenu based on current path
+  const getActiveSubItem = () => {
+    const activeMenu = menuData.find((m) => m.id === activeMenuId);
+    if (!activeMenu) return null;
+    return activeMenu.subItems.find((sub) => location.pathname === sub.path) || activeMenu.subItems[0];
+  };
+
+  const handleMenuClick = (menuId: string) => {
+    if (activeMenuId === menuId) {
+      setIsFirstPanelCollapsed(!isFirstPanelCollapsed);
+    } else {
+      setActiveMenuId(menuId);
+      setIsFirstPanelCollapsed(false);
+    }
+  };
+
+  const handleSubItemClick = (path: string) => {
+    navigate(path);
+  };
+
+  const activeMenu = menuData.find((m) => m.id === activeMenuId);
+  const activeSubItem = getActiveSubItem();
+
+  return (
+    <div className="flex h-screen bg-background">
+      {/* First Panel - Icon Navigation */}
+      <motion.div
+        initial={false}
+        animate={{ width: isFirstPanelCollapsed ? 0 : 72 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        className="relative bg-sidebar border-r border-sidebar-border overflow-hidden"
+      >
+        <div className="flex flex-col h-full py-4">
+          {menuData.map((menu) => {
+            const Icon = menu.icon;
+            const isActive = menu.id === activeMenuId;
+            return (
+              <motion.button
+                key={menu.id}
+                onClick={() => handleMenuClick(menu.id)}
+                className={`
+                  flex flex-col items-center justify-center gap-1 p-3 mx-2 mb-2 rounded-lg
+                  transition-all duration-200 group relative
+                  ${
+                    isActive
+                      ? "bg-accent text-accent-foreground shadow-md"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent"
+                  }
+                `}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Icon className="w-5 h-5" />
+                <span className="text-[10px] font-medium">{menu.label}</span>
+                
+                {/* Active indicator */}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeIndicator"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-r-full"
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+              </motion.button>
+            );
+          })}
+        </div>
+
+        {/* Collapse toggle */}
+        <button
+          onClick={() => setIsFirstPanelCollapsed(!isFirstPanelCollapsed)}
+          className="absolute -right-3 top-4 w-6 h-6 bg-sidebar border border-sidebar-border rounded-full flex items-center justify-center shadow-md hover:bg-sidebar-accent transition-colors z-10"
+        >
+          {isFirstPanelCollapsed ? (
+            <ChevronRight className="w-3 h-3 text-sidebar-foreground" />
+          ) : (
+            <ChevronLeft className="w-3 h-3 text-sidebar-foreground" />
+          )}
+        </button>
+      </motion.div>
+
+      {/* Second Panel - Submenu */}
+      <AnimatePresence mode="wait">
+        {!isFirstPanelCollapsed && activeMenu && (
+          <motion.div
+            key={activeMenuId}
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="w-72 bg-card border-r border-border flex flex-col"
+          >
+            {/* Header */}
+            <div className="p-6 border-b border-border">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <activeMenu.icon className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <h2 className="font-semibold text-foreground">{activeMenu.label}</h2>
+                  <p className="text-xs text-muted-foreground">Navigation Menu</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Submenu Items */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-1">
+              {activeMenu.subItems.map((subItem) => {
+                const SubIcon = subItem.icon;
+                const isActiveSubItem = activeSubItem?.path === subItem.path;
+                
+                return (
+                  <motion.button
+                    key={subItem.path}
+                    onClick={() => handleSubItemClick(subItem.path)}
+                    className={`
+                      w-full flex items-center gap-3 px-4 py-3 rounded-lg
+                      transition-all duration-200 text-left
+                      ${
+                        isActiveSubItem
+                          ? "bg-accent text-accent-foreground shadow-sm"
+                          : "text-foreground hover:bg-muted"
+                      }
+                    `}
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
+                    <span className="font-medium text-sm">{subItem.label}</span>
+                    
+                    {/* Active dot */}
+                    {isActiveSubItem && (
+                      <motion.div
+                        layoutId="activeSubItem"
+                        className="ml-auto w-2 h-2 rounded-full bg-accent-foreground"
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-auto">
+        {/* This is where page content would go */}
+      </div>
+    </div>
+  );
+}

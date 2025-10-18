@@ -64,6 +64,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 import QuickstartGuides from "./pages/quickstart-guides";
+import TwoLevelNavDemo from "./pages/TwoLevelNavDemo";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ const App = () => (
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/guides" element={<Guides />} />
                     <Route path="/quickstart-guides" element={<QuickstartGuides />} />
+                    <Route path="/nav-demo" element={<TwoLevelNavDemo />} />
                     <Route path="/safety-trust" element={<SafetyTrust />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
