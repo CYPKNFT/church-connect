@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import {
   Settings,
   Shield,
@@ -89,7 +90,8 @@ export default function SystemSettings() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/settings">
+      <div className="p-6 lg:p-8">
       <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -649,5 +651,6 @@ export default function SystemSettings() {
         </Card>
       </div>
     </div>
+    </TwoLevelNav>
   );
 }

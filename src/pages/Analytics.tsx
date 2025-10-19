@@ -8,12 +8,14 @@ import { MemberAnalytics } from "@/components/analytics/MemberAnalytics";
 import { NeedsAnalytics } from "@/components/analytics/NeedsAnalytics";
 import { EngagementAnalytics } from "@/components/analytics/EngagementAnalytics";
 import { Button } from "@/components/ui/button";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 
 export default function Analytics() {
   const [timeframe, setTimeframe] = useState("30d");
 
   return (
-    <div className="p-6 lg:p-8">
+    <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/analytics">
+      <div className="p-6 lg:p-8">
       <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -104,5 +106,6 @@ export default function Analytics() {
         </Tabs>
       </div>
     </div>
+    </TwoLevelNav>
   );
 }

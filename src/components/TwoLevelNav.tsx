@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   UserCheck,
@@ -32,6 +33,12 @@ interface MenuItem {
   subItems: SubMenuItem[];
 }
 
+interface TwoLevelNavProps {
+  activeMenuId?: string;
+  activeSubItemPath?: string;
+  children?: ReactNode;
+}
+
 const menuData: MenuItem[] = [
   {
     id: "admin",
@@ -42,6 +49,7 @@ const menuData: MenuItem[] = [
       { label: "Staff Verification", icon: UserCheck, path: "/admin/staff-verification" },
       { label: "Content Moderation", icon: FileCheck, path: "/admin/content-moderation" },
       { label: "Analytics", icon: TrendingUp, path: "/admin/analytics" },
+      { label: "Settings", icon: Settings, path: "/admin/settings" },
     ],
   },
   {
@@ -78,9 +86,14 @@ const menuData: MenuItem[] = [
   },
 ];
 
-export function TwoLevelNav() {
-  const [activeMenuId, setActiveMenuId] = useState<string>("serving");
-  const [activeSubItemPath, setActiveSubItemPath] = useState<string>("/dashboard");
+export function TwoLevelNav({ 
+  activeMenuId: initialMenuId = "serving",
+  activeSubItemPath: initialSubItemPath = "/dashboard",
+  children 
+}: TwoLevelNavProps) {
+  const navigate = useNavigate();
+  const [activeMenuId, setActiveMenuId] = useState<string>(initialMenuId);
+  const [activeSubItemPath, setActiveSubItemPath] = useState<string>(initialSubItemPath);
   const [isSecondPanelCollapsed, setIsSecondPanelCollapsed] = useState(false);
 
   const handleMenuClick = (menuId: string) => {
@@ -99,6 +112,7 @@ export function TwoLevelNav() {
 
   const handleSubItemClick = (path: string) => {
     setActiveSubItemPath(path);
+    navigate(path);
   };
 
   const activeMenu = menuData.find((m) => m.id === activeMenuId);
@@ -106,7 +120,7 @@ export function TwoLevelNav() {
   return (
     <div className="flex h-screen bg-background">
       {/* First Panel - Icon Navigation */}
-      <div className="w-18 bg-sidebar border-r border-sidebar-border">
+      <div className="w-18 bg-sidebar border-r-2 border-sidebar-border shadow-lg">
         <div className="flex flex-col h-full py-4">
           {menuData.map((menu) => {
             const Icon = menu.icon;
@@ -116,25 +130,25 @@ export function TwoLevelNav() {
                 key={menu.id}
                 onClick={() => handleMenuClick(menu.id)}
                 className={`
-                  flex flex-col items-center justify-center gap-1 p-3 mx-2 mb-2 rounded-lg
+                  flex flex-col items-center justify-center gap-1 p-3 mb-0 w-full
                   transition-all duration-200 group relative
                   ${
                     isActive
-                      ? "bg-accent text-accent-foreground shadow-md"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent"
+                      ? "bg-accent/75 text-accent-foreground shadow-md"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent mb-2"
                   }
                 `}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Icon className="w-5 h-5" />
-                <span className="text-[10px] font-medium">{menu.label}</span>
+                <span className="text-[10px] font-medium w-12 text-center">{menu.label}</span>
                 
                 {/* Active indicator */}
                 {isActive && (
                   <motion.div
                     layoutId="activeIndicator"
-                    className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-r-full"
+                    className="absolute left-0 top-0 w-1 h-full bg-accent"
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
@@ -151,14 +165,34 @@ export function TwoLevelNav() {
           initial={false}
           animate={{ width: isSecondPanelCollapsed ? 72 : 288 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden"
+          className="bg-sidebar border-r border-sidebar-border flex flex-col relative overflow-visible"
         >
+          {/* Collapse Toggle Tab */}
+          <div
+            onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
+            className={`
+              absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
+              bg-sidebar-border hover:bg-sidebar-border/80
+              flex items-center justify-center
+              right-[-16px] w-4 h-6 rounded-r-sm
+            `}
+            aria-label={isSecondPanelCollapsed ? 'Expand menu' : 'Collapse menu'}
+            role="button"
+            tabIndex={0}
+          >
+            <div className={`transition-transform duration-300 ${isSecondPanelCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+              <svg width="8" height="8" viewBox="0 0 12 12" fill="none" className="text-yellow-500">
+                <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+          </div>
+
           {/* Submenu Items */}
-          <div className="flex-1 overflow-y-auto py-4 space-y-1">
+          <div className="flex-1 overflow-y-auto py-4">
             {!isSecondPanelCollapsed ? (
               // Expanded view
-              <div className="px-4 space-y-1">
-                <div className="flex items-center gap-3 mb-4 px-2">
+              <div>
+                <div className="flex items-center gap-3 mb-4 px-6">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
                     <activeMenu.icon className="w-5 h-5 text-accent" />
                   </div>
@@ -176,28 +210,31 @@ export function TwoLevelNav() {
                       key={subItem.path}
                       onClick={() => handleSubItemClick(subItem.path)}
                       className={`
-                        w-full flex items-center gap-3 rounded-lg px-4 py-3
+                        w-full flex items-center gap-3 py-3
                         transition-all duration-200 text-left
                         ${
                           isActiveSubItem
-                            ? "bg-accent text-accent-foreground shadow-sm"
+                            ? "bg-accent/75 text-accent-foreground shadow-sm"
                             : "text-sidebar-foreground hover:bg-sidebar-accent"
                         }
                       `}
-                      whileHover={{ x: 4 }}
+                      whileHover={isActiveSubItem ? {} : { x: 4 }}
                       whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.1, ease: "easeOut" }}
                     >
-                      <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
-                      <span className="font-medium text-sm">{subItem.label}</span>
-                      
-                      {/* Active dot */}
-                      {isActiveSubItem && (
-                        <motion.div
-                          layoutId="activeSubItem"
-                          className="ml-auto w-2 h-2 rounded-full bg-accent-foreground"
-                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                        />
-                      )}
+                      <div className="px-4 flex items-center gap-3">
+                        <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
+                        <span className="font-medium text-sm">{subItem.label}</span>
+                        
+                        {/* Active dot */}
+                        {isActiveSubItem && (
+                          <motion.div
+                            layoutId="activeSubItem"
+                            className="ml-auto w-2 h-2 rounded-full bg-accent-foreground"
+                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                          />
+                        )}
+                      </div>
                     </motion.button>
                   );
                 })}
@@ -213,12 +250,12 @@ export function TwoLevelNav() {
                       key={subItem.path}
                       onClick={() => handleSubItemClick(subItem.path)}
                       className={`
-                        flex flex-col items-center justify-center gap-1 p-3 mb-2 rounded-lg
+                        flex flex-col items-center justify-center gap-1 p-3 mb-0
                         transition-all duration-200 group relative
                         ${
                           isActiveSubItem
-                            ? "bg-accent text-accent-foreground shadow-md"
-                            : "text-sidebar-foreground hover:bg-sidebar-accent"
+                            ? "bg-accent/75 text-accent-foreground shadow-md"
+                            : "text-sidebar-foreground hover:bg-sidebar-accent mb-2"
                         }
                       `}
                       whileHover={{ scale: 1.05 }}
@@ -231,7 +268,7 @@ export function TwoLevelNav() {
                       {isActiveSubItem && (
                         <motion.div
                           layoutId="activeSubItemCollapsed"
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-r-full"
+                          className="absolute left-0 top-0 w-1 h-full bg-accent"
                           transition={{ type: "spring", stiffness: 500, damping: 30 }}
                         />
                       )}
@@ -246,23 +283,7 @@ export function TwoLevelNav() {
 
       {/* Main Content Area */}
       <div className="flex-1 overflow-auto relative">
-        {/* Collapse Toggle Button */}
-        <button
-          onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
-          className="fixed z-50 h-7.5 w-7.5 rounded-sm bg-sidebar-accent hover:bg-sidebar-accent/80 border border-sidebar-border flex items-center justify-center transition-all shadow-md"
-          style={{
-            left: isSecondPanelCollapsed ? '164px' : '380px',
-            top: '76px'
-          }}
-        >
-          {isSecondPanelCollapsed ? (
-            <ChevronRight className="w-4 h-4 text-sidebar-accent-foreground" />
-          ) : (
-            <ChevronLeft className="w-4 h-4 text-sidebar-accent-foreground" />
-          )}
-        </button>
-        
-        {/* This is where page content would go */}
+        {children}
       </div>
     </div>
   );

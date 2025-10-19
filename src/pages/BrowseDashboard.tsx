@@ -10,7 +10,7 @@ import { Heart, Clock, Users, Plus, Search, Filter, MapPin, Timer, MessageSquare
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 
 export default function BrowseDashboard() {
   const { user } = useAuth();
@@ -84,7 +84,7 @@ export default function BrowseDashboard() {
   };
 
   return (
-    <DashboardLayout>
+    <TwoLevelNav activeMenuId="serving" activeSubItemPath="/browse">
       <div className="min-h-screen bg-background">
         <div className="flex-1 p-8">
           {/* Header */}
@@ -307,6 +307,6 @@ export default function BrowseDashboard() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </TwoLevelNav>
   );
 }

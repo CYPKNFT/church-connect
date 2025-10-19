@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { HandHeart, Search, Calendar, MapPin, Timer, Users, MessageSquare, ChevronRight, Award } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -154,7 +154,7 @@ export default function Volunteering() {
   };
 
   return (
-    <DashboardLayout>
+    <TwoLevelNav activeMenuId="serving" activeSubItemPath="/volunteering">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -241,6 +241,6 @@ export default function Volunteering() {
           </p>
         </div>
       </div>
-    </DashboardLayout>
+    </TwoLevelNav>
   );
 }

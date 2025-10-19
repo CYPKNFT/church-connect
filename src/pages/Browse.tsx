@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -158,7 +158,7 @@ export default function Browse() {
   };
 
   return (
-    <CollapsibleSidebar>
+    <TwoLevelNav activeMenuId="serving" activeSubItemPath="/browse">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -478,6 +478,6 @@ export default function Browse() {
           </Dialog>
         )}
       </div>
-    </CollapsibleSidebar>
+    </TwoLevelNav>
   );
 }

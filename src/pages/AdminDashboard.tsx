@@ -9,6 +9,7 @@ import {
   Settings,
   PanelsTopLeft
 } from "lucide-react";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 
 export default function AdminDashboard() {
   // Mock church data for template display
@@ -18,7 +19,8 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex-1 min-h-screen">
+    <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/dashboard">
+      <div className="flex-1 min-h-screen">
       <div className="p-6 lg:p-8">
         <header className="mb-6">
           <div className="flex items-center gap-3 mb-2">
@@ -125,6 +127,7 @@ export default function AdminDashboard() {
           </div>
       </div>
     </div>
+    </TwoLevelNav>
   );
 }
 
