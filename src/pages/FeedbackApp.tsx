@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { AppFeedbackForm } from "@/components/AppFeedbackForm";
 
 export default function FeedbackApp() {
@@ -8,5 +9,9 @@ export default function FeedbackApp() {
     navigate("/feedback");
   };
 
-  return <AppFeedbackForm onBack={handleBack} />;
+  return (
+    <TwoLevelNav activeMenuId="feedback" activeSubItemPath="/feedback/app">
+      <AppFeedbackForm onBack={handleBack} />
+    </TwoLevelNav>
+  );
 }

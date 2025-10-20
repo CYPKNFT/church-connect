@@ -73,20 +73,27 @@ export default function Help() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
-            <HelpCircle className="w-4 h-4" />
-            <span>We're Here to Help</span>
+      {/* Hero Section with Gradient */}
+      <section className="relative py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%)' }}>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.9) 0%, rgba(6,182,212,0.9) 100%)' }} />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
+              <HelpCircle className="w-4 h-4" />
+              <span>We're Here to Help</span>
+            </div>
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              ChurchConnect <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Guides</span>
+            </h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              Learn how to make the most of ChurchConnect with our step-by-step guides
+            </p>
           </div>
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            ChurchConnect Guides
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Learn how to make the most of ChurchConnect with our step-by-step guides
-          </p>
         </div>
+      </section>
+
+      <div className="container mx-auto px-4 py-8">
 
 
         {/* Main Guides */}

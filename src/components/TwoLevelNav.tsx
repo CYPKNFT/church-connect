@@ -192,13 +192,12 @@ export function TwoLevelNav({
             {!isSecondPanelCollapsed ? (
               // Expanded view
               <div>
-                <div className="flex items-center gap-3 mb-4 px-6">
+                <div className="flex items-center gap-3 mb-4 px-6 py-3 bg-muted/50 dark:bg-muted/20 -mt-4">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
                     <activeMenu.icon className="w-5 h-5 text-accent" />
                   </div>
                   <div>
                     <h2 className="font-semibold text-sidebar-foreground">{activeMenu.label}</h2>
-                    <p className="text-xs text-muted-foreground">Navigation Menu</p>
                   </div>
                 </div>
                 

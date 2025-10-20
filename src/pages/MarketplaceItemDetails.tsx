@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -239,7 +240,8 @@ export default function MarketplaceItemDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/marketplace">
+      <div className="min-h-screen bg-background">
       {/* Hero Header */}
       <div className="relative overflow-hidden">
         <div className="h-64 bg-gradient-primary relative">
@@ -600,6 +602,7 @@ export default function MarketplaceItemDetails() {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+      </div>
+    </TwoLevelNav>
   );
 }

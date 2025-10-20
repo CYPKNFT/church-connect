@@ -49,16 +49,13 @@ export function Header() {
            <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
              Guides
            </Link>
-           <Link to="/nav-demo" className="text-foreground hover:text-primary transition-colors font-medium">
-             Nav Demo
-           </Link>
         </nav>
 
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-3">
           {user && (
             <Button 
-              className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all" 
+              className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all rounded-full px-6" 
               size="sm" 
               onClick={() => navigate('/post')}
             >
@@ -68,27 +65,27 @@ export function Header() {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40 hover:bg-primary/5">
+                <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40 hover:bg-primary/5 rounded-full px-6">
                   <User className="w-4 h-4 mr-2" />
                   Profile
                   <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
+              <DropdownMenuContent align="end" className="w-56 bg-card/80 backdrop-blur-md border border-border/50 shadow-xl rounded-xl p-2">
                 <DropdownMenuItem asChild>
-                  <Link to="/my-church" className="flex items-center cursor-pointer">
+                  <Link to="/my-church" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
                     <Heart className="w-4 h-4 mr-2" />
                     My Church
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/dashboard" className="flex items-center cursor-pointer">
+                  <Link to="/dashboard" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
                     <Home className="w-4 h-4 mr-2" />
                     Dashboard
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/profile" className="flex items-center cursor-pointer">
+                  <Link to="/profile" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
                     <User className="w-4 h-4 mr-2" />
                     Profile
                   </Link>
@@ -116,17 +113,17 @@ export function Header() {
                     }`} />
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="bg-border/50 my-2" />
                 <DropdownMenuItem asChild>
-                  <Link to="/settings" className="flex items-center cursor-pointer">
+                  <Link to="/settings" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
                     <Settings className="w-4 h-4 mr-2" />
                     Settings
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="bg-border/50 my-2" />
                 <DropdownMenuItem 
                   onClick={() => signOut()}
-                  className="cursor-pointer text-destructive focus:text-destructive"
+                  className="cursor-pointer text-red-600 hover:bg-red-50/50 px-3 py-2.5 rounded-md transition-colors"
                 >
                   Sign Out
                 </DropdownMenuItem>
@@ -208,13 +205,6 @@ export function Header() {
                onClick={() => setIsMenuOpen(false)}
              >
                 Guides
-             </Link>
-             <Link 
-               to="/nav-demo" 
-               className="block text-foreground hover:text-primary transition-colors font-medium py-3"
-               onClick={() => setIsMenuOpen(false)}
-             >
-                Nav Demo
              </Link>
             <div className="flex flex-col space-y-3 pt-6 border-t border-border">
               {user && (

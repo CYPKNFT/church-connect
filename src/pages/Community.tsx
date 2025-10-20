@@ -737,10 +737,8 @@ export default function Community() {
   return (
     <div className="min-h-screen bg-background pb-16">
       {/* Hero Section with Enhanced Design */}
-      <section className="relative py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary opacity-90"></div>
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/10 rounded-full blur-2xl translate-y-20 -translate-x-10"></div>
+      <section className="relative py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8 animate-fade-in">
@@ -752,7 +750,7 @@ export default function Community() {
               Churches <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">United</span>
             </h1>
             <p className="text-lg lg:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-8">
-              Discover the power of community as churches across the nation connect, serve, and transform lives together
+              Churches connecting, serving, and transforming lives together
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-xl shadow-2xl" asChild>
@@ -776,7 +774,7 @@ export default function Community() {
             <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2 shadow-sm">
               <TabsTrigger 
                 value="needs" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
               >
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
@@ -795,7 +793,7 @@ export default function Community() {
                </TabsTrigger>
                <TabsTrigger 
                   value="giving" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
@@ -814,7 +812,7 @@ export default function Community() {
               </TabsTrigger>
                 <TabsTrigger 
                   value="events" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
@@ -833,7 +831,7 @@ export default function Community() {
                 </TabsTrigger>
                 <TabsTrigger 
                   value="stories" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${

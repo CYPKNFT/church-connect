@@ -16,6 +16,7 @@ import About from "./pages/About";
 import HowItWorks from "./pages/HowItWorks";
 import Community from "./pages/Community";
 import Churches from "./pages/Churches";
+import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MemberSignup from "./pages/MemberSignup";
@@ -64,7 +65,6 @@ import ServiceDetail from "./pages/ServiceDetail";
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 import QuickstartGuides from "./pages/quickstart-guides";
-import TwoLevelNavDemo from "./pages/TwoLevelNavDemo";
 
 const queryClient = new QueryClient();
 
@@ -108,18 +108,17 @@ const App = () => (
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/service_detail/:id" element={<ServiceDetail />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
-                    <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
+                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
-                    <Route path="/admin/staff-verification" element={<AdminLayout><StaffVerification /></AdminLayout>} />
-                    <Route path="/admin/content-moderation" element={<AdminLayout><ContentModeration /></AdminLayout>} />
-                    <Route path="/admin/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
-                    <Route path="/admin/settings" element={<AdminLayout><SystemSettings /></AdminLayout>} />
+                    <Route path="/admin/staff-verification" element={<StaffVerification />} />
+                    <Route path="/admin/content-moderation" element={<ContentModeration />} />
+                    <Route path="/admin/analytics" element={<Analytics />} />
+                    <Route path="/admin/settings" element={<SystemSettings />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/guides" element={<Guides />} />
                     <Route path="/quickstart-guides" element={<QuickstartGuides />} />
-                    <Route path="/nav-demo" element={<TwoLevelNavDemo />} />
                     <Route path="/safety-trust" element={<SafetyTrust />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
@@ -132,6 +131,7 @@ const App = () => (
                     <Route path="/how-it-works" element={<HowItWorks />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/churches" element={<Churches />} />
+                    <Route path="/contact" element={<Contact />} />
                     <Route path="/support" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
                      <Route path="/marketplace" element={<Marketplace />} />
@@ -155,3 +155,4 @@ const App = () => (
 );
 
 export default App;
+

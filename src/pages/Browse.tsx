@@ -158,7 +158,7 @@ export default function Browse() {
   };
 
   return (
-    <TwoLevelNav activeMenuId="serving" activeSubItemPath="/browse">
+    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/marketplace">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}

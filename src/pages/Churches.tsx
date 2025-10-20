@@ -331,10 +331,7 @@ export default function Churches() {
 
         {/* CTA Section */}
         <section className="text-center mt-20 animate-fade-in">
-          <div className="relative bg-warm-gradient rounded-3xl p-16 lg:p-24 text-white overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/95 to-primary/85"></div>
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+          <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-16 lg:p-24 text-foreground overflow-hidden">
             <div className="relative z-10">
               <h2 className="text-5xl lg:text-6xl font-bold mb-8">Ready to Get Started?</h2>
               <p className="text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto leading-relaxed">
@@ -343,7 +340,7 @@ export default function Churches() {
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent/90 text-foreground font-bold px-12 py-6 text-xl rounded-xl shadow-lg hover-lift" 
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-12 py-6 text-xl rounded-xl shadow-lg hover-lift" 
                   asChild
                 >
                   <Link to="/register">Register Your Church</Link>
@@ -351,10 +348,10 @@ export default function Churches() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-xl" 
+                  className="border-2 border-border text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent px-12 py-6 text-xl rounded-xl transition-all duration-200 hover-lift" 
                   asChild
                 >
-                  <Link to="#contact">
+                  <Link to="/contact">
                     <MessageSquare className="w-5 h-5 mr-2" />
                     Contact Us
                   </Link>

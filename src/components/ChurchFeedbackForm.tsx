@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ArrowLeft, Building, Users, Calendar, MapPin, Music, Star, Send, Eye, EyeOff, Baby } from "lucide-react";
-import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -118,8 +117,7 @@ export function ChurchFeedbackForm({ onBack }: ChurchFeedbackFormProps) {
   };
 
   return (
-    <DashboardLayout>
-      <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6">
         <div className="mb-6">
           <Button variant="ghost" onClick={onBack} className="mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -339,7 +337,6 @@ export function ChurchFeedbackForm({ onBack }: ChurchFeedbackFormProps) {
             </div>
           )}
         </form>
-      </div>
-    </DashboardLayout>
+    </div>
   );
 }

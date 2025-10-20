@@ -153,7 +153,7 @@ export function AuthDialog({ open, onOpenChange, redirectTo, initialMode = "sign
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] [&>.lucide-x]:hidden">
+      <DialogContent className="sm:max-w-[600px] border-0 shadow-2xl bg-white/95 dark:bg-card backdrop-blur-sm [&>.lucide-x]:hidden">
         <DialogHeader className="pb-2">
         </DialogHeader>
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +10,6 @@ import { FeedbackHistory } from "@/components/FeedbackHistory";
 import { FeedbackStats } from "@/components/FeedbackStats";
 import { AppFeedbackForm } from "@/components/AppFeedbackForm";
 import { ChurchFeedbackForm } from "@/components/ChurchFeedbackForm";
-import { DashboardLayout } from "@/components/DashboardLayout";
 
 type FeedbackType = "app" | "church" | null;
 
@@ -27,8 +27,8 @@ export default function Feedback() {
   }
 
   return (
-    <DashboardLayout>
-      <div className="min-h-screen bg-background">
+    <TwoLevelNav activeMenuId="feedback" activeSubItemPath="/feedback">
+      <div className="bg-background">
         <div className="flex-1 p-8">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Header */}
@@ -119,6 +119,6 @@ export default function Feedback() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </TwoLevelNav>
   );
 }

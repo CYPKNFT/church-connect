@@ -456,7 +456,7 @@ export default function PostNeed() {
         </form>
 
         {/* Help Text */}
-        <div className="text-center mt-12 p-6 bg-white/50 rounded-xl border border-white/20">
+        <div className="text-center mt-12 p-6 bg-card rounded-xl border border-border">
           <p className="text-muted-foreground">
             Need help with this form? <Link to="/help" className="text-primary hover:underline">Contact our support team</Link> or call (555) 123-4567
           </p>

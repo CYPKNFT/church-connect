@@ -457,22 +457,22 @@ export default function MyChurch() {
 
       {/* Three-Tab Navigation - Separate Section */}
       <div className="container mx-auto px-4 -mt-12 relative z-10">
-        <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
+        <div className="bg-background/95 backdrop-blur-sm rounded-3xl shadow-lg border border-border/50 overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
+            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2 px-8 gap-4 mt-3">
               <TabsTrigger 
                 value="serving" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'serving' 
-                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                      ? 'bg-primary' 
                       : 'bg-muted/30 group-hover:bg-muted/50'
                   }`}>
                     <HandHeart className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'serving' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'serving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
@@ -482,17 +482,17 @@ export default function MyChurch() {
               </TabsTrigger>
               <TabsTrigger 
                 value="giving" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-accent/10 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'giving' 
-                      ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                      ? 'bg-accent' 
                       : 'bg-muted/30 group-hover:bg-muted/50'
                   }`}>
                     <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'giving' ? 'text-accent-foreground' : 'text-muted-foreground group-hover:text-foreground'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
@@ -502,17 +502,17 @@ export default function MyChurch() {
               </TabsTrigger>
               <TabsTrigger 
                 value="connecting" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:shadow-xl"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'connecting' 
-                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
+                      ? 'bg-primary' 
                       : 'bg-muted/20 group-hover:bg-muted/40'
                   }`}>
                     <Users className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'connecting' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'connecting' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
@@ -523,7 +523,7 @@ export default function MyChurch() {
             </TabsList>
 
             {/* Unified Search Bar */}
-            <div className="p-4 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
+            <div className="p-4 bg-gradient-to-br from-muted/30 to-muted/10 border-b border-border/10">
               <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
                 <div className="relative w-full max-w-2xl">

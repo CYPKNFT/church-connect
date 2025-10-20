@@ -26,42 +26,42 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-dark to-primary-hover dark:from-slate-900 dark:via-slate-800 dark:to-gray-900 overflow-hidden min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-background/40 to-background/20 dark:from-black/40 dark:to-black/20"></div>
+      <section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 overflow-hidden min-h-screen flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10"></div>
         <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 text-center lg:text-left animate-fade-in">
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm border border-accent/20 rounded-full px-4 py-2 text-accent font-medium">
+                <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 text-accent font-medium">
                   <Heart className="w-4 h-4" />
                   <span>Building Stronger Communities</span>
                 </div>
-                <h1 className="text-5xl lg:text-7xl font-bold text-primary-foreground dark:text-white leading-tight">
+                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
                   Need Help?
                   <br />
                   <span className="bg-accent-gradient bg-clip-text text-transparent">Want to Help?</span>
                 </h1>
-                <p className="text-xl lg:text-2xl text-primary-foreground/90 dark:text-white/90 leading-relaxed max-w-2xl">
+                <p className="text-xl lg:text-2xl text-white/90 leading-relaxed max-w-2xl">
                   Connect with your community in minutes. Post what you need or volunteer to help others. 
                   Real neighbors helping real neighbors.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 animate-slide-up">
+              <div className="flex flex-col sm:flex-row gap-6 animate-slide-up">
                 <Button 
                   size="lg" 
-                  className="bg-accent hover:bg-accent/90 text-foreground font-bold px-10 py-6 text-lg rounded-xl shadow-lg hover-lift"
+                  className="bg-white hover:bg-white/90 text-primary font-bold px-12 py-6 text-xl rounded-2xl shadow-xl hover-lift"
                   onClick={() => handleProtectedNavigation("/post")}
                 >
                   <Plus className="w-5 h-5 mr-3" />
-                  Post a Need
+                  Post Your Need
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-primary-foreground/30 dark:border-white/30 text-primary hover:text-primary dark:text-primary hover:bg-primary-foreground/10 dark:hover:bg-white/10 backdrop-blur-sm px-10 py-6 text-lg rounded-xl glass-effect bg-white/90 dark:bg-white/10"
+                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl"
                   onClick={() => handleProtectedNavigation("/browse")}
                 >
-                  Browse & Help
+                  Find Ways to Help
                 </Button>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function Landing() {
                 <img 
                   src={heroImage} 
                   alt="Church community helping each other" 
-                  className="relative rounded-3xl shadow-card w-full hover-lift"
+                  className="relative rounded-3xl shadow-card w-full max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto"
                 />
               </div>
             </div>
@@ -245,7 +245,6 @@ export default function Landing() {
             <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <div className="text-accent text-4xl mb-4">"</div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved."
                   </p>
@@ -265,7 +264,6 @@ export default function Landing() {
             <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <div className="text-accent text-4xl mb-4">"</div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood."
                   </p>
@@ -285,7 +283,6 @@ export default function Landing() {
             <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <div className="text-accent text-4xl mb-4">"</div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares."
                   </p>
@@ -306,7 +303,7 @@ export default function Landing() {
       </section>
 
       {/* Quick Start Guides Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-muted/10 via-background to-muted/5 relative">
+      <section className="py-20 lg:py-32 pb-32 lg:pb-40 bg-gradient-to-br from-muted/10 via-background to-muted/5 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
@@ -371,7 +368,7 @@ export default function Landing() {
             </Link>
 
             <Link to="/guides?tab=communication">
-              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer">
+              <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group cursor-pointer h-full">
                 <CardHeader className="pb-4">
                   <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors">
                     <MessageSquare className="w-8 h-8 text-accent" />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CollapsibleSidebar } from "@/components/CollapsibleSidebar";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -96,12 +96,12 @@ export default function MyDashboard() {
   };
 
   return (
-    <CollapsibleSidebar>
+    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/my-dashboard">
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">My Dashboard</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Giving Dashboard</h1>
             <p className="text-muted-foreground">Manage your items and track your community sharing activity</p>
             
             {/* Activity Overview */}
@@ -402,6 +402,6 @@ export default function MyDashboard() {
           </Tabs>
         </div>
       </div>
-    </CollapsibleSidebar>
+    </TwoLevelNav>
   );
 }

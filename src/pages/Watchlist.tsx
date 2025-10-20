@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Heart, Package, MessageCircle, Trash2, User, X, ChevronLeft, ChevronRight, Eye, Calendar, Search } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { toast } from "sonner";
@@ -237,7 +237,7 @@ export default function Watchlist() {
   };
 
   return (
-    <DashboardLayout>
+    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/watchlist">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -364,6 +364,6 @@ export default function Watchlist() {
           </DialogContent>
         </Dialog>
       )}
-    </DashboardLayout>
+    </TwoLevelNav>
   );
 }
