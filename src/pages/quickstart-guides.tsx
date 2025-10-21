@@ -12,42 +12,43 @@ export default function QuickGuides() {
     setSearchParams({ tab: value });
   };
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+      <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-primary font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-2 text-white font-medium mb-6">
             <BookOpen className="w-4 h-4" />
             <span>Help Center</span>
           </div>
-          <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-            Quick Start <span className="bg-gradient-primary bg-clip-text text-transparent">Guides</span>
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+            Quick Start <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Guides</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             Everything you need to know to get started and make the most of ChurchConnect
           </p>
         </div>
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card border">
-            <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              <Users className="w-4 h-4" />
-              Getting Started
-            </TabsTrigger>
-            <TabsTrigger value="safety" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              <Shield className="w-4 h-4" />
-              Safety & Trust
-            </TabsTrigger>
-            <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              <Heart className="w-4 h-4" />
-              Serving Well
-            </TabsTrigger>
-            <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              <MessageSquare className="w-4 h-4" />
-              Communication
-            </TabsTrigger>
-            <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card border border-border rounded-full p-2 shadow-lg h-24">
+              <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+                <Users className="w-4 h-4" />
+                Getting Started
+              </TabsTrigger>
+              <TabsTrigger value="safety" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+                <Shield className="w-4 h-4" />
+                Safety & Trust
+              </TabsTrigger>
+              <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+                <Heart className="w-4 h-4" />
+                Serving Well
+              </TabsTrigger>
+              <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+                <MessageSquare className="w-4 h-4" />
+                Communication
+              </TabsTrigger>
+              <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
               <HelpCircle className="w-4 h-4" />
               Troubleshooting
             </TabsTrigger>
@@ -57,7 +58,7 @@ export default function QuickGuides() {
           <TabsContent value="getting-started">
             <div className="space-y-8">
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-foreground">
                       <Heart className="w-5 h-5 text-primary" />
@@ -114,7 +115,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-foreground">
                       <Users className="w-5 h-5 text-primary" />
@@ -172,7 +173,7 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+              <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                 <CardHeader>
                   <CardTitle className="text-foreground">🌟 Universal Success Tips</CardTitle>
                 </CardHeader>
@@ -218,7 +219,7 @@ export default function QuickGuides() {
                   </p>
                   
                   <div className="grid gap-6 md:grid-cols-2">
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">🤝 Reliability & Commitment</CardTitle>
                       </CardHeader>
@@ -252,13 +253,13 @@ export default function QuickGuides() {
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">🛡️ Respecting Privacy & Dignity</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
-                          <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                             <h5 className="font-semibold mb-2">Honor House Rules</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
                               <li>• Ask about preferences before starting any work</li>
@@ -266,7 +267,7 @@ export default function QuickGuides() {
                               <li>• Follow any specific instructions given</li>
                             </ul>
                           </div>
-                          <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                             <h5 className="font-semibold mb-2">Maintain Appropriate Boundaries</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
                               <li>• Keep interactions friendly but professional</li>
@@ -274,7 +275,7 @@ export default function QuickGuides() {
                               <li>• Respect personal space and belongings</li>
                             </ul>
                           </div>
-                          <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                             <h5 className="font-semibold mb-2">Protect Confidentiality</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
                               <li>• Keep all personal information strictly confidential</li>
@@ -286,7 +287,7 @@ export default function QuickGuides() {
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">✨ Serving with Joy</CardTitle>
                       </CardHeader>
@@ -320,7 +321,7 @@ export default function QuickGuides() {
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">⚖️ Volunteer Ethics & Standards</CardTitle>
                       </CardHeader>
@@ -355,7 +356,7 @@ export default function QuickGuides() {
                     </Card>
                   </div>
 
-                  <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30">
+                  <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30 rounded-2xl">
                     <CardHeader>
                       <CardTitle className="text-foreground">🌟 Excellence in Action</CardTitle>
                     </CardHeader>
@@ -417,7 +418,7 @@ export default function QuickGuides() {
               </Card>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Shield className="w-5 h-5 text-primary" />
@@ -455,7 +456,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Users className="w-5 h-5 text-primary" />
@@ -493,7 +494,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                          <BookOpen className="w-5 h-5 text-primary" />
@@ -584,7 +585,7 @@ export default function QuickGuides() {
                   </p>
                   
                   <div className="grid gap-6 md:grid-cols-2">
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">💬 Clear & Respectful Messaging</CardTitle>
                       </CardHeader>
@@ -621,13 +622,13 @@ export default function QuickGuides() {
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">⏰ Response Times & Reliability</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
-                          <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                             <h5 className="font-semibold mb-2">Timely Responses</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
                               <li>• Respond within 24 hours when possible</li>
@@ -636,7 +637,7 @@ export default function QuickGuides() {
                               <li>• Let people know if you'll be away/unavailable</li>
                             </ul>
                           </div>
-                          <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                             <h5 className="font-semibold mb-2">Managing Expectations</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
                               <li>• Acknowledge all messages, even if you can't help</li>
@@ -645,7 +646,7 @@ export default function QuickGuides() {
                               <li>• Follow through on all commitments made</li>
                             </ul>
                           </div>
-                          <div className="bg-secondary/5 p-4 rounded-lg border border-secondary/20">
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
                             <h5 className="font-semibold mb-2">Change Communication</h5>
                             <ul className="text-sm text-muted-foreground space-y-1">
                               <li>• Communicate changes as soon as you know</li>
@@ -659,7 +660,7 @@ export default function QuickGuides() {
                     </Card>
                   </div>
 
-                  <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                  <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                     <CardHeader>
                       <CardTitle className="text-foreground">💝 Sample Messages That Work</CardTitle>
                     </CardHeader>
@@ -667,13 +668,13 @@ export default function QuickGuides() {
                       <div className="grid gap-6 md:grid-cols-2">
                         <div className="space-y-4">
                           <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-primary mb-2">🤝 Offering Help</h5>
+                            <h5 className="font-semibold text-foreground mb-2">🤝 Offering Help</h5>
                             <p className="text-sm text-muted-foreground italic mb-2">
                               "Hi Sarah! I saw your request for meal delivery. I'd love to bring dinner for your family on Tuesday around 6 PM. Do you have any dietary restrictions or food preferences I should know about? I'm also happy to include paper plates if that would be helpful!"
                             </p>
                           </div>
                           <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-secondary mb-2">📅 Scheduling Coordination</h5>
+                            <h5 className="font-semibold text-foreground mb-2">📅 Scheduling Coordination</h5>
                             <p className="text-sm text-muted-foreground italic mb-2">
                               "I'm available this Saturday from 9 AM to 3 PM for the yard cleanup. Should I bring my own tools, or do you have what we need? I can also stay later if the work isn't finished. Just let me know what works best for your family!"
                             </p>
@@ -681,13 +682,13 @@ export default function QuickGuides() {
                         </div>
                         <div className="space-y-4">
                           <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-accent mb-2">🙏 Expressing Gratitude</h5>
+                            <h5 className="font-semibold text-foreground mb-2">🙏 Expressing Gratitude</h5>
                             <p className="text-sm text-muted-foreground italic mb-2">
                               "Thank you so much for your help today! The yard looks absolutely amazing, and you've taken such a weight off our shoulders. We're so grateful to be part of a church family that truly cares for one another. Blessings to you and your family!"
                             </p>
                           </div>
                           <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-primary mb-2">❌ Unable to Help</h5>
+                            <h5 className="font-semibold text-foreground mb-2">❌ Unable to Help</h5>
                             <p className="text-sm text-muted-foreground italic mb-2">
                               "Thanks for thinking of me for the moving help! Unfortunately, I have a prior commitment that Saturday, but I wanted to respond quickly. Have you checked with the Johnson family? They recently helped us move and might be available. Praying someone else can step in!"
                             </p>
@@ -698,7 +699,7 @@ export default function QuickGuides() {
                   </Card>
 
                   <div className="grid gap-6 md:grid-cols-3">
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">🎯 Before You Send</CardTitle>
                       </CardHeader>
@@ -711,7 +712,7 @@ export default function QuickGuides() {
                         </ul>
                       </CardContent>
                     </Card>
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">📱 Digital Etiquette</CardTitle>
                       </CardHeader>
@@ -724,7 +725,7 @@ export default function QuickGuides() {
                         </ul>
                       </CardContent>
                     </Card>
-                    <Card className="bg-card border">
+                    <Card className="bg-card border-white rounded-2xl">
                       <CardHeader>
                         <CardTitle className="text-lg text-foreground">🤗 Building Relationships</CardTitle>
                       </CardHeader>
@@ -761,7 +762,7 @@ export default function QuickGuides() {
               </Card>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Phone className="w-5 h-5 text-foreground" />
@@ -800,7 +801,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Mail className="w-5 h-5 text-foreground" />
@@ -839,7 +840,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                          <Wrench className="w-5 h-5 text-foreground" />

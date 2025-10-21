@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { HelpCircle, MessageSquare, Shield, Users, Heart, Search, Mail, Phone } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Help() {
   const navigate = useNavigate();
@@ -67,15 +67,15 @@ export default function Help() {
       icon: HelpCircle,
       title: "View All Guides",
       description: "Browse our complete collection of guides and tutorials",
-      path: "/guides"
+      path: "/all-guides"
     }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section with Gradient */}
-      <section className="relative py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%)' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.9) 0%, rgba(6,182,212,0.9) 100%)' }} />
+      <section className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8 animate-fade-in">
@@ -86,14 +86,25 @@ export default function Help() {
             <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               ChurchConnect <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Guides</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
               Learn how to make the most of ChurchConnect with our step-by-step guides
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-xl shadow-2xl" asChild>
+                <Link to="/quickstart-guides">
+                  <HelpCircle className="w-5 h-5 mr-2" />
+                  Get Started
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" className="border-2 border-white/30 text-white hover:bg-white/10 px-6 py-3 rounded-xl backdrop-blur-sm" asChild>
+                <Link to="/contact">Contact Support</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 -mt-12 relative z-20">
 
 
         {/* Main Guides */}

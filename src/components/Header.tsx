@@ -46,7 +46,7 @@ export function Header() {
           <Link to="/churches" className="text-foreground hover:text-primary transition-colors font-medium">
             Churches
           </Link>
-           <Link to="/support" className="text-foreground hover:text-primary transition-colors font-medium">
+           <Link to="/guides" className="text-foreground hover:text-primary transition-colors font-medium">
              Guides
            </Link>
         </nav>
@@ -200,7 +200,7 @@ export function Header() {
               Churches
             </Link>
              <Link 
-               to="/support" 
+               to="/guides" 
                className="block text-foreground hover:text-primary transition-colors font-medium py-3"
                onClick={() => setIsMenuOpen(false)}
              >

@@ -7,25 +7,27 @@ import { Mail, Phone, MapPin, Clock, MessageSquare, Send } from "lucide-react";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+      
+      <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-primary font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-2 text-white font-medium mb-6 backdrop-blur-sm">
             <MessageSquare className="w-4 h-4" />
             <span>Contact Us</span>
           </div>
-          <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-            Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span>
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+            Get in <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Touch</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             Have questions about ChurchConnect? We're here to help you get started and support your church community.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           {/* Contact Form */}
-          <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 hover:shadow-lg transition-all duration-300">
+          <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 hover:shadow-lg transition-all duration-300 rounded-3xl">
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-center">Send us a Message</CardTitle>
               <p className="text-muted-foreground text-center">We'll get back to you within 24 hours</p>

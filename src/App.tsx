@@ -46,7 +46,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Feedback from "./pages/Feedback";
 import FeedbackApp from "./pages/FeedbackApp";
 import FeedbackChurch from "./pages/FeedbackChurch";
-import Template from "./pages/Template";
+import TemplateArticle from "./pages/TemplateArticle";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
 import Marketplace from "./pages/Browse";
@@ -104,7 +104,7 @@ const App = () => (
                     <Route path="/feedback" element={<Feedback />} />
                     <Route path="/feedback/app" element={<FeedbackApp />} />
                     <Route path="/feedback/church" element={<FeedbackChurch />} />
-                    <Route path="/template" element={<Template />} />
+                    <Route path="/template-article/:articleId?" element={<TemplateArticle />} />
                     <Route path="/needs_details/:id" element={<NeedDetails />} />
                     <Route path="/service_detail/:id" element={<ServiceDetail />} />
                     <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
@@ -117,7 +117,7 @@ const App = () => (
                     <Route path="/help" element={<Help />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/guides" element={<Guides />} />
+                    <Route path="/all-guides" element={<Guides />} />
                     <Route path="/quickstart-guides" element={<QuickstartGuides />} />
                     <Route path="/safety-trust" element={<SafetyTrust />} />
                     <Route path="/terms" element={<Terms />} />
@@ -132,7 +132,7 @@ const App = () => (
                     <Route path="/community" element={<Community />} />
                     <Route path="/churches" element={<Churches />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/support" element={<Help />} />
+                    <Route path="/guides" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
                      <Route path="/marketplace" element={<Marketplace />} />
                      <Route path="/marketplace-item/:id" element={<MarketplaceItemDetails />} />

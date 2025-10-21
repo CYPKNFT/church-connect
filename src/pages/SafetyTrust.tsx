@@ -155,7 +155,7 @@ export default function SafetyTrust() {
                   <Link to="/profile">Contact Support</Link>
                 </Button>
                 <Button variant="outline" asChild>
-                  <Link to="/guides">View All Guides</Link>
+                  <Link to="/all-guides">View All Guides</Link>
                 </Button>
               </div>
             </CardContent>
