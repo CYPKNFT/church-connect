@@ -182,10 +182,8 @@ export default function Help() {
         {/* Contact Support */}
         <section className="animate-scale-in">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-warm-gradient rounded-3xl p-12 text-center text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
+            <div className="bg-card rounded-3xl p-12 text-center text-white relative overflow-hidden mb-32">
               <div className="relative z-10">
-                <MessageSquare className="w-16 h-16 mx-auto mb-6 text-white" />
                 <h2 className="text-3xl lg:text-4xl font-bold mb-6">
                   Still Need Help?
                 </h2>
@@ -194,8 +192,7 @@ export default function Help() {
                 </p>
                 
                 <Button 
-                  variant="outline" 
-                  className="border-white/30 text-white hover:bg-white/10" 
+                  className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-full px-8 py-3" 
                   asChild
                 >
                   <a href="/login">Sign in for more resources</a>

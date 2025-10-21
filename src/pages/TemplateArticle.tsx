@@ -94,7 +94,7 @@ export default function TemplateArticle() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 pb-32">
         <div className="max-w-7xl mx-auto">
           <div className="space-y-8">
             {/* Article Content */}
@@ -214,10 +214,7 @@ export default function TemplateArticle() {
               </div>
 
               {/* Call to Action */}
-              <div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-center shadow-xl">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <ArrowRight className="w-8 h-8 text-white" />
-                </div>
+              <div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-center shadow-xl mb-32">
                 <h3 className="text-2xl font-bold text-white mb-4">Ready to Start Serving?</h3>
                 <p className="text-white/90 text-lg leading-relaxed mb-6">
                   Open ChurchConnect today and browse needs in your community—your unique gifts are waiting to make a difference.

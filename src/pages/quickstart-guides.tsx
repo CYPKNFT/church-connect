@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriangle, Star, HelpCircle, Phone, Mail, Wrench, Clock, AlertCircle, RefreshCw } from "lucide-react";
+import { Users, Shield, MessageSquare, Heart, BookOpen, CheckCircle, AlertTriangle, Star, HelpCircle, Phone, Mail, Wrench, Clock, AlertCircle, RefreshCw, Target } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 
 export default function QuickGuides() {
@@ -12,19 +12,18 @@ export default function QuickGuides() {
     setSearchParams({ tab: value });
   };
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
-      <div className="container mx-auto px-4 py-16 relative z-10">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-2 text-white font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-primary/10 border border-border rounded-full px-4 py-2 text-primary font-medium mb-6">
             <BookOpen className="w-4 h-4" />
             <span>Help Center</span>
           </div>
-          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
-            Quick Start <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Guides</span>
+          <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
+            Quick Start <span className="bg-gradient-primary bg-clip-text text-transparent">Guides</span>
           </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Everything you need to know to get started and make the most of ChurchConnect
           </p>
         </div>
@@ -32,23 +31,23 @@ export default function QuickGuides() {
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
             <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 mb-8 bg-card border border-border rounded-full p-2 shadow-lg h-24">
-              <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+              <TabsTrigger value="getting-started" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
                 <Users className="w-4 h-4" />
                 Getting Started
               </TabsTrigger>
-              <TabsTrigger value="safety" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+              <TabsTrigger value="safety" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
                 <Shield className="w-4 h-4" />
                 Safety & Trust
               </TabsTrigger>
-              <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+              <TabsTrigger value="volunteers" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
                 <Heart className="w-4 h-4" />
                 Serving Well
               </TabsTrigger>
-              <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+              <TabsTrigger value="communication" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
                 <MessageSquare className="w-4 h-4" />
                 Communication
               </TabsTrigger>
-              <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-white/90 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-gray-300 data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
+              <TabsTrigger value="troubleshooting" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md h-12 rounded-full transition-all duration-200 text-base font-semibold mx-4 my-2">
               <HelpCircle className="w-4 h-4" />
               Troubleshooting
             </TabsTrigger>
@@ -58,7 +57,7 @@ export default function QuickGuides() {
           <TabsContent value="getting-started">
             <div className="space-y-8">
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-foreground">
                       <Heart className="w-5 h-5 text-primary" />
@@ -115,7 +114,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl text-foreground">
                       <Users className="w-5 h-5 text-primary" />
@@ -173,7 +172,7 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+              <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                 <CardHeader>
                   <CardTitle className="text-foreground">🌟 Universal Success Tips</CardTitle>
                 </CardHeader>
@@ -206,192 +205,199 @@ export default function QuickGuides() {
           {/* Serving Well for Volunteers */}
           <TabsContent value="volunteers">
             <div className="space-y-8">
-              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
                     <Heart className="w-6 h-6 text-primary" />
                     Serving Well - Excellence in Volunteering
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
-                  <p className="text-lg text-muted-foreground">
+                <CardContent>
+                  <p className="text-lg text-muted-foreground mb-8">
                     How to be an excellent volunteer who serves with excellence, joy, and Christ-like love
                   </p>
-                  
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">🤝 Reliability & Commitment</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Honor Your Commitments</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Only commit to what you can realistically follow through on</li>
-                              <li>• Consider your schedule, energy, and other obligations</li>
-                              <li>• It's better to under-promise and over-deliver</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Clear Communication</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Communicate changes as early as possible</li>
-                              <li>• Be specific about your availability and limitations</li>
-                              <li>• Confirm details before the service opportunity</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Professional Approach</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Arrive on time and prepared with necessary tools</li>
-                              <li>• Dress appropriately for the task and setting</li>
-                              <li>• Follow through completely on all agreed tasks</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                </CardContent>
+              </Card>
 
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">🛡️ Respecting Privacy & Dignity</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Honor House Rules</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Ask about preferences before starting any work</li>
-                              <li>• Respect the family's routines and traditions</li>
-                              <li>• Follow any specific instructions given</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Maintain Appropriate Boundaries</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Keep interactions friendly but professional</li>
-                              <li>• Avoid personal questions unless invited to share</li>
-                              <li>• Respect personal space and belongings</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Protect Confidentiality</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Keep all personal information strictly confidential</li>
-                              <li>• Don't discuss one family's situation with others</li>
-                              <li>• Avoid gossip or speculation about circumstances</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <CheckCircle className="w-5 h-5 text-primary" />
+                      Reliability & Commitment
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Honor Your Commitments</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Only commit to what you can realistically follow through on</li>
+                        <li>• Consider your schedule, energy, and other obligations</li>
+                        <li>• It's better to under-promise and over-deliver</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Clear Communication</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Communicate changes as early as possible</li>
+                        <li>• Be specific about your availability and limitations</li>
+                        <li>• Confirm details before the service opportunity</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Professional Approach</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Arrive on time and prepared with necessary tools</li>
+                        <li>• Dress appropriately for the task and setting</li>
+                        <li>• Follow through completely on all agreed tasks</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">✨ Serving with Joy</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
-                            <h5 className="font-semibold mb-2">Positive Attitude</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Approach each opportunity with genuine enthusiasm</li>
-                              <li>• Focus on the privilege of serving others</li>
-                              <li>• Maintain joy even when tasks are challenging</li>
-                            </ul>
-                          </div>
-                          <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
-                            <h5 className="font-semibold mb-2">Heart Motivation</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Serve from love and compassion, not obligation</li>
-                              <li>• See Christ in those you serve</li>
-                              <li>• Remember that serving others serves God</li>
-                            </ul>
-                          </div>
-                          <div className="bg-accent/5 p-4 rounded-lg border border-accent/20">
-                            <h5 className="font-semibold mb-2">Representing Christ</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Remember you represent your church and faith</li>
-                              <li>• Let your actions demonstrate God's love</li>
-                              <li>• Be a positive witness through your service</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <Shield className="w-5 h-5 text-primary" />
+                      Respecting Privacy & Dignity
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Honor House Rules</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Ask about preferences before starting any work</li>
+                        <li>• Respect the family's routines and traditions</li>
+                        <li>• Follow any specific instructions given</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Maintain Appropriate Boundaries</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Keep interactions friendly but professional</li>
+                        <li>• Avoid personal questions unless invited to share</li>
+                        <li>• Respect personal space and belongings</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Protect Confidentiality</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Keep all personal information strictly confidential</li>
+                        <li>• Don't discuss one family's situation with others</li>
+                        <li>• Avoid gossip or speculation about circumstances</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">⚖️ Volunteer Ethics & Standards</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Strict Confidentiality</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• What you see and hear stays private</li>
-                              <li>• Don't share details even with family members</li>
-                              <li>• Protect the dignity of those you serve</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Social Media Guidelines</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Never take photos without explicit permission</li>
-                              <li>• Don't post about specific service situations</li>
-                              <li>• Keep social media posts general and positive</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">When to Seek Help</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Report any concerning behavior to church leadership</li>
-                              <li>• Seek guidance for complex or sensitive situations</li>
-                              <li>• Don't handle serious issues alone</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <Star className="w-5 h-5 text-primary" />
+                      Serving with Joy
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Positive Attitude</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Approach each opportunity with genuine enthusiasm</li>
+                        <li>• Focus on the privilege of serving others</li>
+                        <li>• Maintain joy even when tasks are challenging</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Heart Motivation</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Serve from love and compassion, not obligation</li>
+                        <li>• See Christ in those you serve</li>
+                        <li>• Remember that serving others serves God</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Representing Christ</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Remember you represent your church and faith</li>
+                        <li>• Let your actions demonstrate God's love</li>
+                        <li>• Be a positive witness through your service</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <AlertTriangle className="w-5 h-5 text-primary" />
+                      Volunteer Ethics & Standards
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Strict Confidentiality</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• What you see and hear stays private</li>
+                        <li>• Don't share details even with family members</li>
+                        <li>• Protect the dignity of those you serve</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Social Media Guidelines</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Never take photos without explicit permission</li>
+                        <li>• Don't post about specific service situations</li>
+                        <li>• Keep social media posts general and positive</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">When to Seek Help</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Report any concerning behavior to church leadership</li>
+                        <li>• Seek guidance for complex or sensitive situations</li>
+                        <li>• Don't handle serious issues alone</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <Star className="w-5 h-5 text-primary" />
+                    Excellence in Action
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Before Serving</h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Pray for the family and opportunity</li>
+                        <li>• Confirm all details and expectations</li>
+                        <li>• Gather necessary tools and supplies</li>
+                        <li>• Plan to arrive 5-10 minutes early</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">During Service</h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Listen carefully to instructions</li>
+                        <li>• Ask questions when unsure</li>
+                        <li>• Work efficiently but thoroughly</li>
+                        <li>• Be flexible and adaptable</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">After Serving</h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Follow up to ensure satisfaction</li>
+                        <li>• Offer to help again in the future</li>
+                        <li>• Share encouraging feedback</li>
+                        <li>• Thank the family for the opportunity</li>
+                      </ul>
+                    </div>
                   </div>
-
-                  <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30 rounded-2xl">
-                    <CardHeader>
-                      <CardTitle className="text-foreground">🌟 Excellence in Action</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid md:grid-cols-3 gap-6">
-                        <div>
-                          <h4 className="font-semibold text-foreground mb-3">Before Serving</h4>
-                          <ul className="space-y-1 text-sm text-muted-foreground">
-                            <li>• Pray for the family and opportunity</li>
-                            <li>• Confirm all details and expectations</li>
-                            <li>• Gather necessary tools and supplies</li>
-                            <li>• Plan to arrive 5-10 minutes early</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground mb-3">During Service</h4>
-                          <ul className="space-y-1 text-sm text-muted-foreground">
-                            <li>• Listen carefully to instructions</li>
-                            <li>• Ask questions when unsure</li>
-                            <li>• Work efficiently but thoroughly</li>
-                            <li>• Be flexible and adaptable</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground mb-3">After Serving</h4>
-                          <ul className="space-y-1 text-sm text-muted-foreground">
-                            <li>• Follow up to ensure satisfaction</li>
-                            <li>• Offer to help again in the future</li>
-                            <li>• Share encouraging feedback</li>
-                            <li>• Thank the family for the opportunity</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
                 </CardContent>
               </Card>
             </div>
@@ -400,7 +406,7 @@ export default function QuickGuides() {
           {/* Safety & Trust */}
           <TabsContent value="safety">
             <div className="space-y-8">
-              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
                     <Shield className="w-6 h-6 text-primary" />
@@ -418,7 +424,7 @@ export default function QuickGuides() {
               </Card>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Shield className="w-5 h-5 text-primary" />
@@ -456,7 +462,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Users className="w-5 h-5 text-primary" />
@@ -494,7 +500,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                          <BookOpen className="w-5 h-5 text-primary" />
@@ -533,30 +539,30 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+              <Card className="bg-red-500/20 backdrop-blur-sm border-red-500/30 hover:bg-red-500/30 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-destructive">
+                  <CardTitle className="flex items-center gap-2 text-white">
                     <AlertTriangle className="w-5 h-5" />
                     Trust Your Instincts - You Have the Right to Feel Safe
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-destructive/80 mb-4 text-lg">
+                  <p className="text-white mb-4 text-lg">
                     If something doesn't feel right, it's not only okay but important to decline, leave, or ask for church leadership involvement.
                   </p>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-card p-4 rounded-lg border">
-                      <h4 className="font-semibold text-destructive mb-3">Your Rights</h4>
-                      <ul className="space-y-2 text-destructive/70">
+                    <div className="bg-red-500/20 border-red-500/30 p-4 rounded-lg">
+                      <h4 className="font-semibold text-white mb-3">Your Rights</h4>
+                      <ul className="space-y-2 text-white">
                         <li>• You are never obligated to help if you feel unsafe</li>
                         <li>• You can leave any situation that makes you uncomfortable</li>
                         <li>• You have the right to ask questions and set boundaries</li>
                         <li>• You can decline requests that exceed your comfort level</li>
                       </ul>
                     </div>
-                    <div className="bg-card p-4 rounded-lg border">
-                      <h4 className="font-semibold text-destructive mb-3">Immediate Actions</h4>
-                      <ul className="space-y-2 text-destructive/70">
+                    <div className="bg-red-500/20 border-red-500/30 p-4 rounded-lg">
+                      <h4 className="font-semibold text-white mb-3">Immediate Actions</h4>
+                      <ul className="space-y-2 text-white">
                         <li>• Remove yourself from unsafe situations immediately</li>
                         <li>• Contact church leaders or authorities as needed</li>
                         <li>• Document concerning behavior or incidents</li>
@@ -572,182 +578,196 @@ export default function QuickGuides() {
           {/* Communication & Etiquette */}
           <TabsContent value="communication">
             <div className="space-y-8">
-              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
                     <MessageSquare className="w-6 h-6 text-primary" />
                     Communication & Etiquette Excellence
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
-                  <p className="text-lg text-muted-foreground">
+                <CardContent>
+                  <p className="text-lg text-muted-foreground mb-8">
                     Master the art of Christ-like communication that builds bridges and strengthens community
                   </p>
-                  
+                </CardContent>
+              </Card>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <MessageSquare className="w-5 h-5 text-primary" />
+                      Clear & Respectful Messaging
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Be Specific & Detailed</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Include exact times, dates, and locations</li>
+                        <li>• Specify what help is needed and for how long</li>
+                        <li>• Mention any special requirements or limitations</li>
+                        <li>• Provide contact information and availability</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Use Encouraging Language</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Choose words that build up and affirm</li>
+                        <li>• Express genuine appreciation and gratitude</li>
+                        <li>• Avoid language that might shame or embarrass</li>
+                        <li>• Focus on strengths and positive outcomes</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Ask Thoughtful Questions</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Clarify expectations before committing</li>
+                        <li>• Ask about preferences and requirements</li>
+                        <li>• Inquire about timing and scheduling needs</li>
+                        <li>• Confirm understanding of the request</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <Clock className="w-5 h-5 text-primary" />
+                      Response Times & Reliability
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Timely Responses</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Respond within 24 hours when possible</li>
+                        <li>• For urgent requests, respond within 2-4 hours</li>
+                        <li>• Set up notifications to not miss messages</li>
+                        <li>• Let people know if you'll be away/unavailable</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Managing Expectations</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Acknowledge all messages, even if you can't help</li>
+                        <li>• Be honest about your availability and limitations</li>
+                        <li>• Suggest alternatives when you can't assist</li>
+                        <li>• Follow through on all commitments made</li>
+                      </ul>
+                    </div>
+                    <div className="bg-card p-4 rounded-lg border space-y-3">
+                      <h5 className="font-semibold">Change Communication</h5>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Communicate changes as soon as you know</li>
+                        <li>• Apologize for any inconvenience caused</li>
+                        <li>• Offer alternative solutions when possible</li>
+                        <li>• Confirm receipt of change notifications</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <Heart className="w-5 h-5 text-primary" />
+                    Sample Messages That Work
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
                   <div className="grid gap-6 md:grid-cols-2">
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">💬 Clear & Respectful Messaging</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Be Specific & Detailed</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Include exact times, dates, and locations</li>
-                              <li>• Specify what help is needed and for how long</li>
-                              <li>• Mention any special requirements or limitations</li>
-                              <li>• Provide contact information and availability</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Use Encouraging Language</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Choose words that build up and affirm</li>
-                              <li>• Express genuine appreciation and gratitude</li>
-                              <li>• Avoid language that might shame or embarrass</li>
-                              <li>• Focus on strengths and positive outcomes</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Ask Thoughtful Questions</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Clarify expectations before committing</li>
-                              <li>• Ask about preferences and requirements</li>
-                              <li>• Inquire about timing and scheduling needs</li>
-                              <li>• Confirm understanding of the request</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">⏰ Response Times & Reliability</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Timely Responses</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Respond within 24 hours when possible</li>
-                              <li>• For urgent requests, respond within 2-4 hours</li>
-                              <li>• Set up notifications to not miss messages</li>
-                              <li>• Let people know if you'll be away/unavailable</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Managing Expectations</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Acknowledge all messages, even if you can't help</li>
-                              <li>• Be honest about your availability and limitations</li>
-                              <li>• Suggest alternatives when you can't assist</li>
-                              <li>• Follow through on all commitments made</li>
-                            </ul>
-                          </div>
-                          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
-                            <h5 className="font-semibold mb-2">Change Communication</h5>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              <li>• Communicate changes as soon as you know</li>
-                              <li>• Apologize for any inconvenience caused</li>
-                              <li>• Offer alternative solutions when possible</li>
-                              <li>• Confirm receipt of change notifications</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
-                    <CardHeader>
-                      <CardTitle className="text-foreground">💝 Sample Messages That Work</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid gap-6 md:grid-cols-2">
-                        <div className="space-y-4">
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-foreground mb-2">🤝 Offering Help</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "Hi Sarah! I saw your request for meal delivery. I'd love to bring dinner for your family on Tuesday around 6 PM. Do you have any dietary restrictions or food preferences I should know about? I'm also happy to include paper plates if that would be helpful!"
-                            </p>
-                          </div>
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-foreground mb-2">📅 Scheduling Coordination</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "I'm available this Saturday from 9 AM to 3 PM for the yard cleanup. Should I bring my own tools, or do you have what we need? I can also stay later if the work isn't finished. Just let me know what works best for your family!"
-                            </p>
-                          </div>
-                        </div>
-                        <div className="space-y-4">
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-foreground mb-2">🙏 Expressing Gratitude</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "Thank you so much for your help today! The yard looks absolutely amazing, and you've taken such a weight off our shoulders. We're so grateful to be part of a church family that truly cares for one another. Blessings to you and your family!"
-                            </p>
-                          </div>
-                          <div className="bg-card p-4 rounded-lg border">
-                            <h5 className="font-semibold text-foreground mb-2">❌ Unable to Help</h5>
-                            <p className="text-sm text-muted-foreground italic mb-2">
-                              "Thanks for thinking of me for the moving help! Unfortunately, I have a prior commitment that Saturday, but I wanted to respond quickly. Have you checked with the Johnson family? They recently helped us move and might be available. Praying someone else can step in!"
-                            </p>
-                          </div>
-                        </div>
+                    <div className="space-y-4">
+                      <div className="bg-card p-4 rounded-lg border">
+                        <h5 className="font-semibold text-foreground mb-2">🤝 Offering Help</h5>
+                        <p className="text-sm text-muted-foreground italic mb-2">
+                          "Hi Sarah! I saw your request for meal delivery. I'd love to bring dinner for your family on Tuesday around 6 PM. Do you have any dietary restrictions or food preferences I should know about? I'm also happy to include paper plates if that would be helpful!"
+                        </p>
                       </div>
-                    </CardContent>
-                  </Card>
-
-                  <div className="grid gap-6 md:grid-cols-3">
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">🎯 Before You Send</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li>• Read your message aloud for tone</li>
-                          <li>• Check for all necessary details</li>
-                          <li>• Consider the recipient's perspective</li>
-                          <li>• Ensure your message shows Christ's love</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">📱 Digital Etiquette</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li>• Use appropriate technology for urgency</li>
-                          <li>• Respect people's do-not-disturb hours</li>
-                          <li>• Keep group messages relevant to all</li>
-                          <li>• Use private messages for personal matters</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card border-white rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-foreground">🤗 Building Relationships</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li>• Remember details about families you help</li>
-                          <li>• Follow up after completing service</li>
-                          <li>• Celebrate successes and milestones</li>
-                          <li>• Offer encouragement during difficult times</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
+                      <div className="bg-card p-4 rounded-lg border">
+                        <h5 className="font-semibold text-foreground mb-2">📅 Scheduling Coordination</h5>
+                        <p className="text-sm text-muted-foreground italic mb-2">
+                          "I'm available this Saturday from 9 AM to 3 PM for the yard cleanup. Should I bring my own tools, or do you have what we need? I can also stay later if the work isn't finished. Just let me know what works best for your family!"
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="bg-card p-4 rounded-lg border">
+                        <h5 className="font-semibold text-foreground mb-2">🙏 Expressing Gratitude</h5>
+                        <p className="text-sm text-muted-foreground italic mb-2">
+                          "Thank you so much for your help today! The yard looks absolutely amazing, and you've taken such a weight off our shoulders. We're so grateful to be part of a church family that truly cares for one another. Blessings to you and your family!"
+                        </p>
+                      </div>
+                      <div className="bg-card p-4 rounded-lg border">
+                        <h5 className="font-semibold text-foreground mb-2">❌ Unable to Help</h5>
+                        <p className="text-sm text-muted-foreground italic mb-2">
+                          "Thanks for thinking of me for the moving help! Unfortunately, I have a prior commitment that Saturday, but I wanted to respond quickly. Have you checked with the Johnson family? They recently helped us move and might be available. Praying someone else can step in!"
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
+
+              <div className="grid gap-6 md:grid-cols-3">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <Target className="w-5 h-5 text-primary" />
+                      Before You Send
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Read your message aloud for tone</li>
+                      <li>• Check for all necessary details</li>
+                      <li>• Consider the recipient's perspective</li>
+                      <li>• Ensure your message shows Christ's love</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <Phone className="w-5 h-5 text-primary" />
+                      Digital Etiquette
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Use appropriate technology for urgency</li>
+                      <li>• Respect people's do-not-disturb hours</li>
+                      <li>• Keep group messages relevant to all</li>
+                      <li>• Use private messages for personal matters</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                      <Heart className="w-5 h-5 text-primary" />
+                      Building Relationships
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Remember details about families you help</li>
+                      <li>• Follow up after completing service</li>
+                      <li>• Celebrate successes and milestones</li>
+                      <li>• Offer encouragement during difficult times</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </TabsContent>
 
           {/* Troubleshooting & FAQs */}
           <TabsContent value="troubleshooting">
             <div className="space-y-8">
-              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300">
+              <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
                     <HelpCircle className="w-6 h-6 text-primary" />
@@ -762,7 +782,7 @@ export default function QuickGuides() {
               </Card>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Phone className="w-5 h-5 text-foreground" />
@@ -801,7 +821,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                       <Mail className="w-5 h-5 text-foreground" />
@@ -840,7 +860,7 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/80 backdrop-blur-sm border-white hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
                        <CardTitle className="flex items-center gap-2 text-lg text-foreground">
                          <Wrench className="w-5 h-5 text-foreground" />
