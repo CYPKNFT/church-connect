@@ -62,6 +62,11 @@ export default function MyChurch() {
   const [eventsCurrentPage, setEventsCurrentPage] = useState(1);
   const [marketplaceCurrentPage, setMarketplaceCurrentPage] = useState(1);
   const [wishlistCurrentPage, setWishlistCurrentPage] = useState(1);
+  const [isOfferDialogOpen, setIsOfferDialogOpen] = useState(false);
+  const [selectedWishForOffer, setSelectedWishForOffer] = useState<any | null>(null);
+  const [offerContactMethod, setOfferContactMethod] = useState<'message' | 'phone' | 'email' | 'church'>('message');
+  const [offerNote, setOfferNote] = useState("");
+  const [offerPhotos, setOfferPhotos] = useState<string[]>([]);
   const eventsPerPage = 9; // 3 rows x 3 columns
   const marketplacePerPage = 8; // 2 rows x 4 columns
   const wishlistPerPage = 6; // 3 rows x 2 columns
@@ -401,6 +406,26 @@ export default function MyChurch() {
 
   const handleWantItem = (itemId: number) => {
     navigate(`/marketplace-item/${itemId}`);
+  };
+
+  const openOfferDialog = (wish: any) => {
+    setSelectedWishForOffer(wish);
+    setOfferContactMethod('message');
+    setOfferNote("");
+    setOfferPhotos([]);
+    setIsOfferDialogOpen(true);
+  };
+
+  const submitOffer = () => {
+    if (selectedWishForOffer) {
+      toast.success(`Thanks! We'll notify ${selectedWishForOffer.postedBy} that you can help.`);
+    } else {
+      toast.success("Thanks! We'll notify the poster that you can help.");
+    }
+    setIsOfferDialogOpen(false);
+    setSelectedWishForOffer(null);
+    setOfferNote("");
+    setOfferPhotos([]);
   };
 
   return (
@@ -944,9 +969,9 @@ export default function MyChurch() {
                               {wish.timePosted}
                               <span>•</span>
                               <MessageSquare className="w-3 h-3" />
-                              {wish.responses} responses
+                              {wish.responses} offers
                             </div>
-                            <Button size="sm" variant="outline" className="text-xs h-7">
+                            <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => openOfferDialog(wish)}>
                               I Have This
                             </Button>
                           </div>
@@ -1147,6 +1172,8 @@ export default function MyChurch() {
             <div className="relative">
               <button
                 onClick={() => setSelectedItemImages([])}
+                aria-label="Close image viewer"
+                title="Close"
                 className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -1163,6 +1190,8 @@ export default function MyChurch() {
                   <>
                     <button
                       onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
+                      aria-label="Previous image"
+                      title="Previous"
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
                     >
                       <ChevronLeft className="w-5 h-5" />
@@ -1170,6 +1199,8 @@ export default function MyChurch() {
                     
                     <button
                       onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
+                      aria-label="Next image"
+                      title="Next"
                       className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
                     >
                       <ChevronRight className="w-5 h-5" />
@@ -1180,6 +1211,8 @@ export default function MyChurch() {
                         <button
                           key={index}
                           onClick={() => setCurrentImageIndex(index)}
+                          aria-label={`Go to image ${index + 1}`}
+                          title={`Go to image ${index + 1}`}
                           className={`w-2 h-2 rounded-full transition-colors ${
                             index === currentImageIndex ? 'bg-white' : 'bg-white/50'
                           }`}
@@ -1193,6 +1226,129 @@ export default function MyChurch() {
           </DialogContent>
         </Dialog>
       )}
+
+      {/* Offer Help Lightbox */}
+      <Dialog open={isOfferDialogOpen} onOpenChange={setIsOfferDialogOpen}>
+        <DialogContent className="sm:max-w-xl rounded-2xl">
+          <DialogHeader>
+            <DialogTitle>Offer to Help</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-5">
+            {selectedWishForOffer && (
+              <div className="bg-muted/20 border border-border rounded-xl p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-sm text-muted-foreground mb-1">You're offering to help with</p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="font-semibold text-foreground truncate">{selectedWishForOffer.title}</p>
+                      {selectedWishForOffer.category && (
+                        <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2 py-0.5 text-xs border border-primary/20">
+                          {selectedWishForOffer.category}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Posted by {selectedWishForOffer.postedBy} • {selectedWishForOffer.timePosted}
+                    </p>
+                  </div>
+                </div>
+                {selectedWishForOffer.description && (
+                  <div className="mt-3 rounded-lg bg-background/60 border border-border/60 p-3">
+                    <p className="text-sm text-muted-foreground leading-relaxed">{selectedWishForOffer.description}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label>Preferred contact method</Label>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: 'message', label: 'In‑app message' },
+                  { id: 'phone', label: 'Phone call' },
+                  { id: 'email', label: 'Email' },
+                  { id: 'church', label: 'Meet at church' },
+                ].map((opt) => (
+                  <Button
+                    key={opt.id}
+                    type="button"
+                    variant={offerContactMethod === (opt.id as any) ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setOfferContactMethod(opt.id as any)}
+                    className="rounded-full"
+                  >
+                    {opt.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="offer-note">Add a short note (optional)</Label>
+              <Textarea
+                id="offer-note"
+                placeholder="Hi! I have this and can help. When would be a good time to connect?"
+                value={offerNote}
+                onChange={(e) => setOfferNote(e.target.value)}
+                rows={3}
+                className="mt-1"
+              />
+            </div>
+
+            {/* Photo attachments */}
+            <div className="space-y-2">
+              <Label>Attach photos (optional)</Label>
+              {offerPhotos.length > 0 && (
+                <div className="grid grid-cols-3 gap-3">
+                  {offerPhotos.map((src, idx) => (
+                    <div key={idx} className="relative group overflow-hidden rounded-xl border border-border">
+                      <img src={src} alt={`Offer photo ${idx + 1}`} className="h-24 w-full object-cover" />
+                      <button
+                        aria-label="Remove photo"
+                        title="Remove photo"
+                        onClick={() => setOfferPhotos(offerPhotos.filter((_, i) => i !== idx))}
+                        className="absolute top-2 right-2 rounded-full bg-black/50 text-white w-7 h-7 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="border-2 border-dashed border-border rounded-xl p-4 flex items-center justify-between gap-3 bg-card/50">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Upload className="w-4 h-4" />
+                  <span>Add images (JPG/PNG)</span>
+                </div>
+                <label className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted cursor-pointer">
+                  <Plus className="w-4 h-4" />
+                  <span>Upload</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => {
+                      const files = Array.from(e.target.files || []);
+                      const urls = files.map((f) => URL.createObjectURL(f));
+                      setOfferPhotos([...offerPhotos, ...urls]);
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 text-sm text-amber-700 dark:text-amber-300">
+              Meet in public church spaces for exchanges. Keep communications on-platform when possible. If anything feels off, involve church leadership.
+            </div>
+
+            <div className="flex gap-2 pt-2">
+              <Button className="flex-1 rounded-xl" onClick={submitOffer}>Send Offer</Button>
+              <Button variant="outline" className="rounded-xl" onClick={() => setIsOfferDialogOpen(false)}>Cancel</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

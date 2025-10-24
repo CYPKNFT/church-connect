@@ -18,6 +18,7 @@ import {
   Church,
   ChevronLeft,
   ChevronRight,
+  List,
 } from "lucide-react";
 
 interface SubMenuItem {
@@ -58,9 +59,8 @@ const menuData: MenuItem[] = [
     icon: Users,
     subItems: [
       { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-      { label: "My Needs", icon: ClipboardList, path: "/my-needs" },
       { label: "Volunteering", icon: Users, path: "/volunteering" },
-      { label: "Browse", icon: BookOpen, path: "/browse" },
+      { label: "My Needs", icon: ClipboardList, path: "/my-needs" },
     ],
   },
   {
@@ -71,7 +71,7 @@ const menuData: MenuItem[] = [
       { label: "Giving", icon: Gift, path: "/giving" },
       { label: "Received", icon: Package, path: "/received" },
       { label: "Watchlist", icon: Heart, path: "/watchlist" },
-      { label: "Marketplace", icon: ShoppingBag, path: "/marketplace" },
+      { label: "Wishlist", icon: List, path: "/wishlist" },
     ],
   },
   {
@@ -94,18 +94,29 @@ export function TwoLevelNav({
   const navigate = useNavigate();
   const [activeMenuId, setActiveMenuId] = useState<string>(initialMenuId);
   const [activeSubItemPath, setActiveSubItemPath] = useState<string>(initialSubItemPath);
-  const [isSecondPanelCollapsed, setIsSecondPanelCollapsed] = useState(false);
+  const [isSecondPanelCollapsed, setIsSecondPanelCollapsed] = useState(() => {
+    // Initialize from localStorage, default to false if not set
+    const saved = localStorage.getItem('twoLevelNav_collapsed');
+    return saved ? JSON.parse(saved) : false;
+  });
+
+  // Save to localStorage whenever collapse state changes
+  const handleCollapseToggle = (collapsed: boolean) => {
+    setIsSecondPanelCollapsed(collapsed);
+    localStorage.setItem('twoLevelNav_collapsed', JSON.stringify(collapsed));
+  };
 
   const handleMenuClick = (menuId: string) => {
     if (activeMenuId === menuId) {
-      setIsSecondPanelCollapsed(!isSecondPanelCollapsed);
+      handleCollapseToggle(!isSecondPanelCollapsed);
     } else {
       setActiveMenuId(menuId);
-      setIsSecondPanelCollapsed(false);
       // Set first sub-item as active when switching menus
       const newMenu = menuData.find((m) => m.id === menuId);
       if (newMenu) {
-        setActiveSubItemPath(newMenu.subItems[0].path);
+        const firstSubItemPath = newMenu.subItems[0].path;
+        setActiveSubItemPath(firstSubItemPath);
+        navigate(firstSubItemPath);
       }
     }
   };
@@ -118,7 +129,7 @@ export function TwoLevelNav({
   const activeMenu = menuData.find((m) => m.id === activeMenuId);
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="fixed inset-0 top-16 flex bg-background">
       {/* First Panel - Icon Navigation */}
       <div className="w-18 bg-sidebar border-r-2 border-sidebar-border shadow-lg">
         <div className="flex flex-col h-full py-4">
@@ -169,7 +180,7 @@ export function TwoLevelNav({
         >
           {/* Collapse Toggle Tab */}
           <div
-            onClick={() => setIsSecondPanelCollapsed(!isSecondPanelCollapsed)}
+            onClick={() => handleCollapseToggle(!isSecondPanelCollapsed)}
             className={`
               absolute top-4 cursor-pointer z-20 transition-all duration-300 ease-in-out
               bg-sidebar-border hover:bg-sidebar-border/80
@@ -281,7 +292,7 @@ export function TwoLevelNav({
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-auto relative">
+      <div className="flex-1 overflow-auto">
         {children}
       </div>
     </div>

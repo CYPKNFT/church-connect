@@ -74,8 +74,10 @@ export default function Help() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section with Gradient */}
-      <section className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+      <section className="relative py-14 overflow-hidden bg-gradient-to-br from-green-600 to-blue-600 dark:bg-none" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-green-600/90 to-blue-600/90 dark:bg-none" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+        <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }} />
+        <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }} />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8 animate-fade-in">
@@ -90,7 +92,7 @@ export default function Help() {
               Learn how to make the most of ChurchConnect with our step-by-step guides
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-xl shadow-2xl" asChild>
+              <Button size="lg" className="bg-white dark:bg-yellow-500 text-primary dark:text-gray-900 hover:bg-white/90 dark:hover:bg-yellow-600 px-6 py-3 rounded-xl shadow-2xl" asChild>
                 <Link to="/quickstart-guides">
                   <HelpCircle className="w-5 h-5 mr-2" />
                   Get Started

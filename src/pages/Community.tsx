@@ -27,7 +27,7 @@ export default function Community() {
   const [testimonialsPage, setTestimonialsPage] = useState(0);
   const [givingPage, setGivingPage] = useState(1);
   const itemsPerPage = 9; // 3 rows × 3 columns
-  const testimonialsPerPage = 8;
+  const testimonialsPerPage = 6;
   const givingPerPage = 6; // 2 rows × 3 columns
 
   const communityNeeds = [
@@ -441,10 +441,10 @@ export default function Community() {
       description: "Gray fabric sofa in excellent condition, perfect for families. Very comfortable and clean.",
       category: "Furniture",
       status: "Completed",
-      postedBy: "Sarah J.",
       timePosted: "completed 2 weeks ago",
       image: sofaImage,
-      receivedBy: "Mark & Lisa T."
+      city: "Jacksonville",
+      church: "Kernan Baptist Church"
     },
     {
       id: 2,
@@ -452,10 +452,10 @@ export default function Community() {
       description: "Dell laptop in great working condition. Includes charger and wireless mouse.",
       category: "Electronics",
       status: "Completed",
-      postedBy: "Mike D.",
       timePosted: "completed 1 month ago",
       image: laptopImage,
-      receivedBy: "Jessica R."
+      city: "Orlando",
+      church: "First Methodist Church"
     },
     {
       id: 3,
@@ -463,10 +463,10 @@ export default function Community() {
       description: "White and wood baby high chair with adjustable height and safety straps.",
       category: "Baby/Kids",
       status: "Completed",
-      postedBy: "Jennifer M.",
       timePosted: "completed 3 weeks ago",
       image: babyChairImage,
-      receivedBy: "The Martinez Family"
+      city: "Tampa",
+      church: "Grace Community Church"
     },
     {
       id: 4,
@@ -474,10 +474,10 @@ export default function Community() {
       description: "White ceramic dishes and bowls set, perfect for a new home or replacement set.",
       category: "Household",
       status: "Completed",
-      postedBy: "Maria G.",
       timePosted: "completed 2 months ago",
       image: dishesImage,
-      receivedBy: "College Ministry"
+      city: "Miami",
+      church: "Coral Gables Presbyterian"
     },
     {
       id: 5,
@@ -485,10 +485,10 @@ export default function Community() {
       description: "Clean winter clothing in various sizes. Perfect for families in need during cold season.",
       category: "Clothing", 
       status: "Completed",
-      postedBy: "David W.",
       timePosted: "completed 4 months ago",
       image: clothesImage,
-      receivedBy: "Local Shelter"
+      city: "Tallahassee",
+      church: "Trinity Episcopal Church"
     },
     {
       id: 6,
@@ -496,10 +496,10 @@ export default function Community() {
       description: "Collection of age-appropriate books and educational toys for young children.",
       category: "Education",
       status: "Completed",
-      postedBy: "Rachel G.",
       timePosted: "completed 6 weeks ago",
       image: booksToys,
-      receivedBy: "Community Daycare"
+      city: "Gainesville",
+      church: "First Baptist Church"
     },
     {
       id: 7,
@@ -507,10 +507,10 @@ export default function Community() {
       description: "Blender, toaster, and coffee maker in working condition. Perfect for new homeowners.",
       category: "Household",
       status: "Completed",
-      postedBy: "Tom W.",
       timePosted: "completed 3 months ago",
       image: dishesImage,
-      receivedBy: "Young Adults Ministry"
+      city: "Fort Lauderdale",
+      church: "Calvary Chapel"
     },
     {
       id: 8,
@@ -518,10 +518,10 @@ export default function Community() {
       description: "Complete set of garden tools including shovels, rake, and watering can.",
       category: "Garden",
       status: "Completed",
-      postedBy: "Nancy B.",
       timePosted: "completed 5 months ago",
       image: clothesImage,
-      receivedBy: "Community Garden"
+      city: "Sarasota",
+      church: "New Life Community Church"
     },
     {
       id: 9,
@@ -529,10 +529,10 @@ export default function Community() {
       description: "Wooden desk with matching office chair. Great for home office or student workspace.",
       category: "Furniture",
       status: "Completed",
-      postedBy: "Mark R.",
       timePosted: "completed 8 weeks ago",
       image: sofaImage,
-      receivedBy: "Student Housing"
+      city: "Pensacola",
+      church: "St. Luke's Episcopal"
     },
     {
       id: 10,
@@ -540,10 +540,10 @@ export default function Community() {
       description: "Set of dumbbells, yoga mat, and resistance bands. Perfect for home workouts.",
       category: "Sports",
       status: "Completed",
-      postedBy: "Lisa K.",
       timePosted: "completed 1 week ago",
       image: laptopImage,
-      receivedBy: "Community Fitness Group"
+      city: "Naples",
+      church: "First Presbyterian Church"
     },
     {
       id: 11,
@@ -551,10 +551,10 @@ export default function Community() {
       description: "Crayons, markers, paper, and craft supplies for creative children's activities.",
       category: "Education",
       status: "Completed",
-      postedBy: "Amanda T.",
       timePosted: "completed 3 days ago",
       image: booksToys,
-      receivedBy: "Sunday School"
+      city: "Clearwater",
+      church: "Calvary Baptist Church"
     },
     {
       id: 12,
@@ -562,10 +562,10 @@ export default function Community() {
       description: "Business attire in various sizes, perfect for job interviews and professional settings.",
       category: "Clothing",
       status: "Completed",
-      postedBy: "Robert S.",
       timePosted: "completed 2 weeks ago",
       image: clothesImage,
-      receivedBy: "Job Training Center"
+      city: "St. Petersburg",
+      church: "Holy Trinity Lutheran"
     },
     {
       id: 13,
@@ -573,10 +573,10 @@ export default function Community() {
       description: "Pots, pans, and cooking utensils in excellent condition for new households.",
       category: "Household",
       status: "Completed",
-      postedBy: "Carol H.",
       timePosted: "completed 5 weeks ago",
       image: dishesImage,
-      receivedBy: "Transitional Housing"
+      city: "Lakeland",
+      church: "First United Methodist"
     },
     {
       id: 14,
@@ -584,10 +584,10 @@ export default function Community() {
       description: "Various sizes of kids' bikes, all in working condition with safety equipment.",
       category: "Recreation",
       status: "Completed",
-      postedBy: "James P.",
       timePosted: "completed 1 month ago",
       image: babyChairImage,
-      receivedBy: "Foster Care Network"
+      city: "Daytona Beach",
+      church: "Grace Fellowship Church"
     },
     {
       id: 15,
@@ -595,10 +595,10 @@ export default function Community() {
       description: "Family-friendly games and puzzles for entertainment and bonding time.",
       category: "Entertainment",
       status: "Completed",
-      postedBy: "Michelle L.",
       timePosted: "completed 10 days ago",
       image: booksToys,
-      receivedBy: "Community Center"
+      city: "Melbourne",
+      church: "Christ Community Church"
     }
   ];
 
@@ -737,8 +737,10 @@ export default function Community() {
   return (
     <div className="min-h-screen bg-background pb-16">
       {/* Hero Section with Enhanced Design */}
-      <section className="relative py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-green-600 to-blue-600 dark:bg-none" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-green-600/90 to-blue-600/90 dark:bg-none" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+        <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }} />
+        <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }} />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-8 animate-fade-in">
@@ -753,7 +755,7 @@ export default function Community() {
               Churches connecting, serving, and transforming lives together
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-6 py-3 rounded-xl shadow-2xl" asChild>
+              <Button size="lg" className="bg-white dark:bg-yellow-500 text-primary dark:text-gray-900 hover:bg-white/90 dark:hover:bg-yellow-600 px-6 py-3 rounded-xl shadow-2xl" asChild>
                 <Link to="/join-movement">
                   <UserPlus className="w-5 h-5 mr-2" />
                   Join the Movement
@@ -774,77 +776,77 @@ export default function Community() {
             <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2 shadow-sm">
               <TabsTrigger 
                 value="needs" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 <div className="relative z-10 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeTab === 'needs' 
-                      ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                      : 'bg-muted/30 group-hover:bg-muted/50'
-                  }`}>
-                    <Heart className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                    }`} />
-                  </div>
-                  <span className={`transition-colors duration-300 ${
-                    activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                   }`}>SERVICE</span>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      activeTab === 'needs' 
+                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                        : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
+                    }`}>
+                      <Heart className={`w-5 h-5 transition-colors duration-300 ${
+                        activeTab === 'needs' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                      }`} />
+                    </div>
+                    <span className={`transition-colors duration-300 ${
+                      activeTab === 'needs' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                     }`}>SERVICE</span>
                  </div>
                </TabsTrigger>
                <TabsTrigger 
                   value="giving" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'giving' 
-                        ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                        : 'bg-muted/50 group-hover:bg-muted'
+                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                        : 'bg-muted/50 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                        activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`}>GIVING</span>
                 </div>
               </TabsTrigger>
                 <TabsTrigger 
                   value="events" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'events' 
-                        ? 'bg-gradient-to-br from-primary/40 to-primary/30' 
-                        : 'bg-muted/20 group-hover:bg-muted/40'
+                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                        : 'bg-muted/20 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Calendar className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                        activeTab === 'events' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'events' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`}>EVENTS</span>
                   </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="stories" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden data-[state=active]:bg-primary/10 px-4"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'stories' 
                         ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
-                        : 'bg-muted/30 group-hover:bg-muted/50'
+                        : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Star className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                        activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`}>TESTIMONIALS</span>
                   </div>
                 </TabsTrigger>
@@ -955,7 +957,7 @@ export default function Community() {
               {/* Needs Grid - 4 rows x 3 columns with pagination */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {currentNeeds.map((need) => (
-                  <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border">
+                  <Card key={need.id} className="group hover:shadow-card transition-all duration-200 border-border h-full flex flex-col">
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
@@ -982,7 +984,7 @@ export default function Community() {
                         {need.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="pt-0">
+                    <CardContent className="pt-0 flex flex-col flex-1">
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4">
                         {need.description}
                       </p>
@@ -996,8 +998,8 @@ export default function Community() {
                           <span>{need.responses} responses</span>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" asChild>
+                      <div className="flex gap-2 mt-auto">
+                        <Button size="sm" className="flex-1 bg-yellow-500 hover:bg-blue-600 hover:text-white dark:bg-yellow-500 dark:hover:bg-yellow-600 text-gray-900 dark:text-gray-900 font-semibold" asChild>
                           <Link to={`/service_detail/${need.id}`}>
                             <Eye className="w-3 h-3 mr-1" />
                             View Details
@@ -1237,7 +1239,7 @@ export default function Community() {
                               </div>
                             )}
 
-                            <Button className="w-full group mt-auto">
+                            <Button className="w-full group mt-auto bg-yellow-500 hover:bg-blue-600 hover:text-white dark:bg-yellow-500 dark:hover:bg-yellow-600 text-gray-900 dark:text-gray-900 font-semibold">
                               View Details
                               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
@@ -1335,8 +1337,8 @@ export default function Community() {
                           
                           <div className="flex items-center justify-between pt-2">
                             <div className="text-sm text-muted-foreground">
-                              <div>Given by {item.postedBy}</div>
-                              <div className="text-xs font-medium text-accent">Received by {item.receivedBy}</div>
+                              <div>{item.city}</div>
+                              <div className="text-xs font-medium text-accent">{item.church}</div>
                             </div>
                           </div>
                         </CardContent>

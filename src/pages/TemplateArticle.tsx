@@ -49,8 +49,10 @@ export default function TemplateArticle() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section with Gradient */}
-      <section className="relative py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-green-600 to-blue-600 dark:bg-none" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-green-600/90 to-blue-600/90 dark:bg-none" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+        <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }} />
+        <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }} />
         
         <div className="container mx-auto px-4 relative z-10">
           {/* Breadcrumb */}
@@ -214,12 +216,12 @@ export default function TemplateArticle() {
               </div>
 
               {/* Call to Action */}
-              <div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-center shadow-xl mb-32">
+              <div className="bg-gradient-to-r from-blue-400 to-blue-200 rounded-2xl p-8 text-center mb-32">
                 <h3 className="text-2xl font-bold text-white mb-4">Ready to Start Serving?</h3>
                 <p className="text-white/90 text-lg leading-relaxed mb-6">
                   Open ChurchConnect today and browse needs in your community—your unique gifts are waiting to make a difference.
                 </p>
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-xl shadow-lg font-semibold">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-xl font-semibold">
                   Get Started Today
                 </Button>
               </div>

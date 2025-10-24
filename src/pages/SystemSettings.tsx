@@ -91,8 +91,9 @@ export default function SystemSettings() {
 
   return (
     <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/settings">
-      <div className="p-6 lg:p-8">
-      <div className="space-y-8">
+      <div className="min-h-screen bg-background">
+        <div className="p-6 lg:p-8">
+          <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -649,6 +650,7 @@ export default function SystemSettings() {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
     </TwoLevelNav>

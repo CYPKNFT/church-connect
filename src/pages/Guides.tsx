@@ -41,7 +41,7 @@ export default function Guides() {
             <span>ChurchConnect Guides</span>
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-            Learn How to Make the Most of <span className="bg-gradient-primary bg-clip-text text-transparent">ChurchConnect</span>
+            Learn How to Make the Most of <span className="bg-gradient-primary bg-clip-text text-transparent dark:text-yellow-400 dark:bg-none">ChurchConnect</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Comprehensive step-by-step guides to help you serve, connect, and build community through our platform

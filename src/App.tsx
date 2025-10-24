@@ -10,7 +10,6 @@ import { AdminLayout } from "@/components/AdminLayout";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Footer } from "@/components/Footer";
 import Landing from "./pages/Landing";
-import BrowseNeeds from "./pages/BrowseNeeds";
 import PostNeed from "./pages/PostNeed";
 import About from "./pages/About";
 import HowItWorks from "./pages/HowItWorks";
@@ -23,7 +22,6 @@ import MemberSignup from "./pages/MemberSignup";
 import Dashboard from "./pages/Dashboard";
 import MyNeeds from "./pages/MyNeeds";
 import Volunteering from "./pages/Volunteering";
-import BrowseDashboard from "./pages/BrowseDashboard";
 import MyChurch from "./pages/MyChurch";
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
@@ -49,12 +47,12 @@ import FeedbackChurch from "./pages/FeedbackChurch";
 import TemplateArticle from "./pages/TemplateArticle";
 import NeedDetails from "./pages/NeedDetails";
 import VolunteeringDetails from "./pages/VolunteeringDetails";
-import Marketplace from "./pages/Browse";
-import MarketplaceItemDetails from "./pages/MarketplaceItemDetails";
 import MyDashboard from "./pages/MyDashboard";
 import Giving from "./pages/Giving";
 import Received from "./pages/Received";
 import Watchlist from "./pages/Watchlist";
+import Wishlist from "./pages/Wishlist";
+import MarketplaceItemDetails from "./pages/MarketplaceItemDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDashboardTemplate from "./pages/AdminDashboardTemplate";
 import StaffVerification from "./pages/StaffVerification";
@@ -124,8 +122,7 @@ const App = () => (
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/join-movement" element={<JoinMovement />} />
                     {/* Alternative URLs for better UX */}
-                    <Route path="/browse" element={<BrowseDashboard />} />
-                    <Route path="/browse-dashboard" element={<BrowseDashboard />} />
+                    <Route path="/marketplace-item/:id" element={<MarketplaceItemDetails />} />
                     <Route path="/find-help" element={<Community />} />
                     <Route path="/volunteer" element={<Community />} />
                     <Route path="/how-it-works" element={<HowItWorks />} />
@@ -134,12 +131,11 @@ const App = () => (
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/guides" element={<Help />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
-                     <Route path="/marketplace" element={<Marketplace />} />
-                     <Route path="/marketplace-item/:id" element={<MarketplaceItemDetails />} />
                      <Route path="/my-dashboard" element={<MyDashboard />} />
                      <Route path="/giving" element={<Giving />} />
                      <Route path="/received" element={<Received />} />
                      <Route path="/watchlist" element={<Watchlist />} />
+                     <Route path="/wishlist" element={<Wishlist />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>

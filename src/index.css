@@ -569,3 +569,12 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Remove focus outline from DropdownMenuTrigger */
+[data-radix-collection-item]:focus,
+[data-radix-collection-item]:focus-visible,
+button[data-state]:focus,
+button[data-state]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}

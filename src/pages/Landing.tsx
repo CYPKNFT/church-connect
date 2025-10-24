@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield } from "lucide-react";
+import { Heart, Users, Calendar, MessageSquare, Car, ShoppingCart, Wrench, ChefHat, HandHeart, Baby, Plus, BookOpen, Shield, ChevronLeft, ChevronRight } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
@@ -13,6 +13,105 @@ export default function Landing() {
   const navigate = useNavigate();
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const [redirectTo, setRedirectTo] = useState<string>("");
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+
+  const testimonials = [
+    {
+      id: 1,
+      content: "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved.",
+      author: "Sarah Miller",
+      church: "Grace Community Church",
+      initials: "SM"
+    },
+    {
+      id: 2,
+      content: "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood.",
+      author: "Mike Johnson",
+      church: "First Baptist Church",
+      initials: "MJ"
+    },
+    {
+      id: 3,
+      content: "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares.",
+      author: "Linda Chen",
+      church: "Community Fellowship",
+      initials: "LC"
+    },
+    {
+      id: 4,
+      content: "Our elderly neighbor needed rides to her doctor appointments. Through ChurchConnect, I found other volunteers to help share the responsibility. It's been such a blessing.",
+      author: "David Thompson",
+      church: "Hope Baptist Church",
+      initials: "DT"
+    },
+    {
+      id: 5,
+      content: "When my car broke down, I posted a need for transportation. Within hours, three different church members offered to help. The love and support overwhelmed me.",
+      author: "Jennifer Rodriguez",
+      church: "Faith Community Church",
+      initials: "JR"
+    },
+    {
+      id: 6,
+      content: "I've been volunteering to help with childcare during church events. The platform makes it so easy to coordinate schedules and ensure every family is supported.",
+      author: "Amanda Foster",
+      church: "Grace Lutheran Church",
+      initials: "AF"
+    },
+    {
+      id: 7,
+      content: "After my surgery, I couldn't cook for weeks. ChurchConnect connected me with families who brought meals. It was like having extended family care for me.",
+      author: "Robert Kim",
+      church: "New Life Community",
+      initials: "RK"
+    },
+    {
+      id: 8,
+      content: "I love using ChurchConnect to find ways to serve. Last month I helped with yard work for a senior couple. The joy on their faces was priceless.",
+      author: "Maria Garcia",
+      church: "St. Mary's Catholic Church",
+      initials: "MG"
+    },
+    {
+      id: 9,
+      content: "When I moved to a new city, ChurchConnect helped me connect with my new church family immediately. I found ways to serve and made lifelong friends.",
+      author: "James Wilson",
+      church: "New Hope Community Church",
+      initials: "JW"
+    },
+    {
+      id: 10,
+      content: "Our church used ChurchConnect to coordinate meals for a family going through chemotherapy. The outpouring of love and support was overwhelming.",
+      author: "Patricia Davis",
+      church: "Grace United Methodist",
+      initials: "PD"
+    },
+    {
+      id: 11,
+      content: "I'm a retired teacher and love helping families with tutoring. ChurchConnect makes it easy to find students who need academic support in our community.",
+      author: "Dr. Michael Brown",
+      church: "First Presbyterian Church",
+      initials: "MB"
+    },
+    {
+      id: 12,
+      content: "As a single parent, I was struggling to balance work and childcare. ChurchConnect connected me with other parents for playdates and mutual support.",
+      author: "Rachel Martinez",
+      church: "Community Bible Church",
+      initials: "RM"
+    }
+  ];
+
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
+
+  const nextTestimonials = () => {
+    setCurrentTestimonialIndex((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevTestimonials = () => {
+    setCurrentTestimonialIndex((prev) => (prev - 1 + totalPages) % totalPages);
+  };
 
   const handleProtectedNavigation = (path: string) => {
     if (user) {
@@ -23,16 +122,25 @@ export default function Landing() {
     }
   };
 
+  const handleFindWaysToHelp = () => {
+    if (user) {
+      navigate("/my-church");
+    } else {
+      setRedirectTo("/my-church");
+      setAuthDialogOpen(true);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 overflow-hidden min-h-screen flex items-center">
+      <section className="relative overflow-hidden min-h-screen flex items-center" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #059669 100%)' }}>
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10"></div>
         <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 text-center lg:text-left animate-fade-in">
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 text-accent font-medium">
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-2 text-white font-medium">
                   <Heart className="w-4 h-4" />
                   <span>Building Stronger Communities</span>
                 </div>
@@ -83,7 +191,7 @@ export default function Landing() {
       <section className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/20 to-background relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-primary font-medium mb-6">
               <Users className="w-4 h-4" />
               <span>Community Impact</span>
             </div>
@@ -229,7 +337,7 @@ export default function Landing() {
       <section className="py-20 lg:py-32 bg-background relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-primary font-medium mb-6">
               <Heart className="w-4 h-4" />
               <span>Community Stories</span>
             </div>
@@ -241,63 +349,69 @@ export default function Landing() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved."
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-accent font-bold">SM</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Sarah Miller</p>
-                    <p className="text-sm text-muted-foreground">Grace Community Church</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="relative">
+            {/* Testimonials Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up items-stretch">
+              {testimonials
+                .slice(currentTestimonialIndex * itemsPerPage, (currentTestimonialIndex + 1) * itemsPerPage)
+                .map((testimonial) => (
+                  <Card key={testimonial.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group h-full flex flex-col min-h-[280px]">
+                    <CardContent className="p-8 flex flex-col flex-1">
+                      <div className="mb-6 flex-1">
+                        <p className="text-lg text-muted-foreground leading-relaxed">
+                          "{testimonial.content}"
+                        </p>
+                      </div>
+                      <div className="flex items-center mt-auto">
+                        <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
+                          <span className="text-accent font-bold">{testimonial.initials}</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{testimonial.author}</p>
+                          <p className="text-sm text-muted-foreground">{testimonial.church}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood."
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-accent font-bold">MJ</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Mike Johnson</p>
-                    <p className="text-sm text-muted-foreground">First Baptist Church</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Navigation Controls */}
+            <div className="flex items-center justify-center mt-8 space-x-8">
+              {/* Left Arrow */}
+              <button
+                onClick={prevTestimonials}
+                className="bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-200 hover:scale-110"
+                aria-label="Previous testimonials"
+              >
+                <ChevronLeft className="w-6 h-6 text-primary" />
+              </button>
+              
+              {/* Page Indicators */}
+              <div className="flex space-x-2">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentTestimonialIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                      index === currentTestimonialIndex
+                        ? 'bg-primary scale-125'
+                        : 'bg-primary/30 hover:bg-primary/50'
+                    }`}
+                    aria-label={`Go to page ${index + 1}`}
+                  />
+                ))}
+              </div>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares."
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-accent font-bold">LC</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Linda Chen</p>
-                    <p className="text-sm text-muted-foreground">Community Fellowship</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              {/* Right Arrow */}
+              <button
+                onClick={nextTestimonials}
+                className="bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-200 hover:scale-110"
+                aria-label="Next testimonials"
+              >
+                <ChevronRight className="w-6 h-6 text-primary" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -306,7 +420,7 @@ export default function Landing() {
       <section className="py-20 lg:py-32 pb-32 lg:pb-40 bg-gradient-to-br from-muted/10 via-background to-muted/5 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 text-accent font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 text-primary font-medium mb-6">
               <BookOpen className="w-4 h-4" />
               <span>Quick Start Guides</span>
             </div>
@@ -415,7 +529,7 @@ export default function Landing() {
                 variant="outline" 
                 size="lg" 
                 className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl"
-                onClick={() => handleProtectedNavigation("/browse")}
+                onClick={handleFindWaysToHelp}
               >
                 Find Ways to Help
               </Button>

@@ -21,7 +21,7 @@ export default function QuickGuides() {
             <span>Help Center</span>
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-            Quick Start <span className="bg-gradient-primary bg-clip-text text-transparent">Guides</span>
+            Quick Start <span className="bg-gradient-primary bg-clip-text text-transparent dark:text-yellow-400 dark:bg-none">Guides</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Everything you need to know to get started and make the most of ChurchConnect
@@ -56,10 +56,38 @@ export default function QuickGuides() {
           {/* Getting Started Guide */}
           <TabsContent value="getting-started">
             <div className="space-y-8">
+              <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
+                <CardHeader>
+                  <CardTitle className="text-foreground dark:text-yellow-400">🌟 Universal Success Tips</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Communication Best Practices</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• Be specific in requests - details help volunteers prepare properly</li>
+                        <li>• Include realistic timeframes and any special requirements</li>
+                        <li>• Respond promptly to messages and confirmations</li>
+                        <li>• Keep communication respectful and appreciative</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Building Community</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• Remember that your church family wants to support you</li>
+                        <li>• Share how help made a difference - it encourages others</li>
+                        <li>• Consider how you might help others when able</li>
+                        <li>• Trust your instincts and prioritize safety always</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               <div className="grid gap-6 md:grid-cols-2">
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-xl text-foreground dark:text-yellow-400">
                       <Heart className="w-5 h-5 text-primary" />
                       For Volunteers (Helpers)
                     </CardTitle>
@@ -116,7 +144,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-xl text-foreground dark:text-yellow-400">
                       <Users className="w-5 h-5 text-primary" />
                       For Neighbors (Receivers)
                     </CardTitle>
@@ -125,7 +153,7 @@ export default function QuickGuides() {
                     <div className="space-y-4">
                       <div className="bg-card rounded-lg p-4 border">
                         <h5 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-secondary" />
+                          <CheckCircle className="w-4 h-4 text-secondary dark:text-yellow-400" />
                           Posting Needs with Dignity
                         </h5>
                         <p className="text-sm text-muted-foreground mb-3">Ask for help in a way that honors both you and potential helpers.</p>
@@ -140,7 +168,7 @@ export default function QuickGuides() {
                       
                       <div className="bg-card rounded-lg p-4 border">
                         <h5 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-secondary" />
+                          <CheckCircle className="w-4 h-4 text-secondary dark:text-yellow-400" />
                           Privacy & Safety Options
                         </h5>
                         <p className="text-sm text-muted-foreground mb-3">Control who sees your requests and keep your family safe.</p>
@@ -155,7 +183,7 @@ export default function QuickGuides() {
                       
                       <div className="bg-card rounded-lg p-4 border">
                         <h5 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-secondary" />
+                          <CheckCircle className="w-4 h-4 text-secondary dark:text-yellow-400" />
                           Coordinating with Volunteers
                         </h5>
                         <p className="text-sm text-muted-foreground mb-3">Build positive relationships with those who help you.</p>
@@ -171,34 +199,6 @@ export default function QuickGuides() {
                   </CardContent>
                 </Card>
               </div>
-
-              <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-foreground">🌟 Universal Success Tips</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3">Communication Best Practices</h4>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li>• Be specific in requests - details help volunteers prepare properly</li>
-                        <li>• Include realistic timeframes and any special requirements</li>
-                        <li>• Respond promptly to messages and confirmations</li>
-                        <li>• Keep communication respectful and appreciative</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3">Building Community</h4>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li>• Remember that your church family wants to support you</li>
-                        <li>• Share how help made a difference - it encourages others</li>
-                        <li>• Consider how you might help others when able</li>
-                        <li>• Trust your instincts and prioritize safety always</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </TabsContent>
 
@@ -207,14 +207,18 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground dark:text-yellow-400">
                     <Heart className="w-6 h-6 text-primary" />
                     Serving Well - Excellence in Volunteering
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    How to be an excellent volunteer who serves with excellence, joy, and Christ-like love
+                  <p className="text-muted-foreground">
+                    True excellence in volunteering goes beyond simply completing tasks—it's about embodying Christ's love through every interaction, 
+                    showing up with genuine care, and creating meaningful connections that strengthen our church community. When we serve with excellence, 
+                    we honor both the person we're helping and the God who calls us to love our neighbors. This means being reliable, respectful, and 
+                    responsive while maintaining healthy boundaries and a servant's heart. The following guidelines will help you serve with confidence, 
+                    build trust within your church family, and create lasting positive impact through your volunteer efforts.
                   </p>
                 </CardContent>
               </Card>
@@ -222,7 +226,7 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2">
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <CheckCircle className="w-5 h-5 text-primary" />
                       Reliability & Commitment
                     </CardTitle>
@@ -257,7 +261,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Shield className="w-5 h-5 text-primary" />
                       Respecting Privacy & Dignity
                     </CardTitle>
@@ -292,7 +296,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Star className="w-5 h-5 text-primary" />
                       Serving with Joy
                     </CardTitle>
@@ -327,7 +331,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <AlertTriangle className="w-5 h-5 text-primary" />
                       Volunteer Ethics & Standards
                     </CardTitle>
@@ -363,7 +367,7 @@ export default function QuickGuides() {
 
               <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                     <Star className="w-5 h-5 text-primary" />
                     Excellence in Action
                   </CardTitle>
@@ -408,17 +412,14 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground dark:text-yellow-400">
                     <Shield className="w-6 h-6 text-primary" />
                     Safety & Trust Guidelines
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground mb-4">
-                    Creating a safe environment for everyone in our church community
-                  </p>
-                  <p className="text-base text-muted-foreground mb-8">
-                    Safety is foundational to building trust and meaningful connections. These guidelines help ensure that every interaction, whether helping or receiving help, honors Christ and protects the dignity and wellbeing of all community members.
+                  <p className="text-muted-foreground">
+                    Safety is foundational to building trust and meaningful connections. These guidelines help ensure that every interaction, whether helping or receiving help, honors Christ and protects the dignity and wellbeing of all community members. When we prioritize safety, we create an environment where people feel comfortable sharing their needs and offering their gifts without fear or hesitation. This mutual trust strengthens our church family and allows God's love to flow freely through our service to one another. By following these principles, we demonstrate our commitment to caring for each other as Christ cares for us, ensuring that every act of service builds up rather than tears down.
                   </p>
                 </CardContent>
               </Card>
@@ -426,7 +427,7 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Shield className="w-5 h-5 text-primary" />
                       Personal Safety First
                     </CardTitle>
@@ -464,7 +465,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Users className="w-5 h-5 text-primary" />
                       Home & Family Guidelines
                     </CardTitle>
@@ -502,7 +503,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                       <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                       <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                          <BookOpen className="w-5 h-5 text-primary" />
                          Church Leadership Support
                        </CardTitle>
@@ -539,7 +540,7 @@ export default function QuickGuides() {
                 </Card>
               </div>
 
-              <Card className="bg-red-500/20 backdrop-blur-sm border-red-500/30 hover:bg-red-500/30 transition-all duration-300">
+              <Card className="bg-red-800 dark:bg-red-500/20 backdrop-blur-sm border-red-800 dark:border-red-500/30 hover:bg-red-800 dark:hover:bg-red-500/30 transition-all duration-300 rounded-2xl">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-white">
                     <AlertTriangle className="w-5 h-5" />
@@ -551,7 +552,7 @@ export default function QuickGuides() {
                     If something doesn't feel right, it's not only okay but important to decline, leave, or ask for church leadership involvement.
                   </p>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-red-500/20 border-red-500/30 p-4 rounded-lg">
+                    <div className="bg-red-900 dark:bg-red-500/20 border-red-900 dark:border-red-500/30 p-4 rounded-lg">
                       <h4 className="font-semibold text-white mb-3">Your Rights</h4>
                       <ul className="space-y-2 text-white">
                         <li>• You are never obligated to help if you feel unsafe</li>
@@ -560,7 +561,7 @@ export default function QuickGuides() {
                         <li>• You can decline requests that exceed your comfort level</li>
                       </ul>
                     </div>
-                    <div className="bg-red-500/20 border-red-500/30 p-4 rounded-lg">
+                    <div className="bg-red-900 dark:bg-red-500/20 border-red-900 dark:border-red-500/30 p-4 rounded-lg">
                       <h4 className="font-semibold text-white mb-3">Immediate Actions</h4>
                       <ul className="space-y-2 text-white">
                         <li>• Remove yourself from unsafe situations immediately</li>
@@ -580,14 +581,14 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground dark:text-yellow-400">
                     <MessageSquare className="w-6 h-6 text-primary" />
                     Communication & Etiquette Excellence
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    Master the art of Christ-like communication that builds bridges and strengthens community
+                  <p className="text-muted-foreground">
+                    Master the art of Christ-like communication that builds bridges and strengthens community. Effective communication is the foundation of meaningful relationships and successful service within our church family. When we communicate with grace, clarity, and respect, we honor both the person we're speaking with and the God who calls us to love one another. These principles help ensure that every message, whether requesting help or offering assistance, reflects the kindness and wisdom of Christ. By practicing excellent communication, we create an environment where people feel valued, understood, and supported in their journey of faith and service.
                   </p>
                 </CardContent>
               </Card>
@@ -595,7 +596,7 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2">
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <MessageSquare className="w-5 h-5 text-primary" />
                       Clear & Respectful Messaging
                     </CardTitle>
@@ -633,7 +634,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Clock className="w-5 h-5 text-primary" />
                       Response Times & Reliability
                     </CardTitle>
@@ -672,7 +673,7 @@ export default function QuickGuides() {
 
               <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                     <Heart className="w-5 h-5 text-primary" />
                     Sample Messages That Work
                   </CardTitle>
@@ -714,7 +715,7 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-3">
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Target className="w-5 h-5 text-primary" />
                       Before You Send
                     </CardTitle>
@@ -730,7 +731,7 @@ export default function QuickGuides() {
                 </Card>
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Phone className="w-5 h-5 text-primary" />
                       Digital Etiquette
                     </CardTitle>
@@ -746,7 +747,7 @@ export default function QuickGuides() {
                 </Card>
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Heart className="w-5 h-5 text-primary" />
                       Building Relationships
                     </CardTitle>
@@ -769,14 +770,14 @@ export default function QuickGuides() {
             <div className="space-y-8">
               <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card/90 transition-all duration-300 rounded-3xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-2xl text-foreground dark:text-yellow-400">
                     <HelpCircle className="w-6 h-6 text-primary" />
                     Troubleshooting & Technical Support
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    Quick solutions for common issues and how to get help when you need it
+                  <p className="text-muted-foreground">
+                    Quick solutions for common issues and how to get help when you need it. Technology should serve our mission of connecting church families, not hinder it. When technical challenges arise, having clear troubleshooting steps and support resources ensures that everyone can participate fully in our community. These guidelines address the most common questions and provide step-by-step solutions to keep you connected and serving effectively. Remember that the feedback tab on the dashboard page allows users to provide valuable feedback for the site and app, helping us continuously improve your ChurchConnect experience.
                   </p>
                 </CardContent>
               </Card>
@@ -784,7 +785,7 @@ export default function QuickGuides() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Phone className="w-5 h-5 text-foreground" />
                       Account & Login Issues
                     </CardTitle>
@@ -823,7 +824,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                    <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                       <Mail className="w-5 h-5 text-foreground" />
                       Posting & Communication Problems
                     </CardTitle>
@@ -862,7 +863,7 @@ export default function QuickGuides() {
 
                 <Card className="bg-card/80 backdrop-blur-sm border-border hover:bg-card/90 transition-all duration-300 rounded-2xl">
                   <CardHeader>
-                       <CardTitle className="flex items-center gap-2 text-lg text-foreground">
+                       <CardTitle className="flex items-center gap-2 text-lg text-foreground dark:text-yellow-400">
                          <Wrench className="w-5 h-5 text-foreground" />
                          Technical & Browser Issues
                        </CardTitle>

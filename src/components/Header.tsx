@@ -55,7 +55,7 @@ export function Header() {
         <div className="hidden md:flex items-center space-x-3">
           {user && (
             <Button 
-              className="bg-primary hover:bg-primary-hover text-white shadow-md hover:shadow-lg transition-all rounded-full px-6" 
+              className="bg-yellow-500 hover:bg-blue-600 hover:text-white dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:text-gray-900 shadow-md hover:shadow-lg transition-all rounded-full px-6" 
               size="sm" 
               onClick={() => navigate('/post')}
             >
@@ -65,7 +65,7 @@ export function Header() {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40 hover:bg-primary/5 rounded-full px-6">
+                <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40 hover:bg-primary/5 hover:text-primary dark:border-primary/20 dark:hover:border-primary/40 dark:hover:bg-primary/5 rounded-full px-6 focus:outline-none focus:ring-0 focus:border-primary/20 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary/20 [&:focus]:outline-none [&:focus]:ring-0 [&:focus]:ring-offset-0 [&:focus]:border-primary/20">
                   <User className="w-4 h-4 mr-2" />
                   Profile
                   <ChevronDown className="w-4 h-4 ml-2" />
@@ -73,19 +73,19 @@ export function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-card/80 backdrop-blur-md border border-border/50 shadow-xl rounded-xl p-2">
                 <DropdownMenuItem asChild>
-                  <Link to="/my-church" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
+                  <Link to="/my-church" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors text-primary dark:text-foreground">
                     <Heart className="w-4 h-4 mr-2" />
                     My Church
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/dashboard" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
+                  <Link to="/dashboard" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors text-primary dark:text-foreground">
                     <Home className="w-4 h-4 mr-2" />
                     Dashboard
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/profile" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
+                  <Link to="/profile" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors text-primary dark:text-foreground">
                     <User className="w-4 h-4 mr-2" />
                     Profile
                   </Link>
@@ -93,16 +93,16 @@ export function Header() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                   onClick={toggleTheme}
-                  className="cursor-pointer flex items-center justify-between px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors"
+                  className="cursor-pointer flex items-center justify-between px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors text-primary dark:text-foreground"
                 >
                   <div className="flex items-center">
                     {theme === 'light' ? (
-                      <Moon className="w-4 h-4 mr-2 text-blue-600" />
-                    ) : (
                       <Sun className="w-4 h-4 mr-2 text-amber-500" />
+                    ) : (
+                      <Moon className="w-4 h-4 mr-2 text-blue-600" />
                     )}
                     <span className="font-medium">
-                      {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                      {theme === 'light' ? 'Light Mode' : 'Dark Mode'}
                     </span>
                   </div>
                   <div className={`w-10 h-5 rounded-full transition-colors duration-200 relative ${
@@ -115,7 +115,7 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-border/50 my-2" />
                 <DropdownMenuItem asChild>
-                  <Link to="/settings" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors">
+                  <Link to="/settings" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors text-primary dark:text-foreground">
                     <Settings className="w-4 h-4 mr-2" />
                     Settings
                   </Link>

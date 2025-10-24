@@ -118,7 +118,7 @@ export default function MemberSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-hero-gradient py-12 px-4">
+    <div className="min-h-screen py-12 px-4" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
       <div className="container mx-auto max-w-2xl">
         <Card className="shadow-card border-0 backdrop-blur-sm bg-white/95">
           <CardHeader className="text-center space-y-4 relative">

@@ -15,8 +15,9 @@ export default function Analytics() {
 
   return (
     <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/analytics">
-      <div className="p-6 lg:p-8">
-      <div className="space-y-8">
+      <div className="min-h-screen bg-background">
+        <div className="p-6 lg:p-8">
+          <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -104,6 +105,7 @@ export default function Analytics() {
             <EngagementAnalytics timeframe={timeframe} />
           </TabsContent>
         </Tabs>
+        </div>
       </div>
     </div>
     </TwoLevelNav>

@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { TwoLevelNav } from "@/components/TwoLevelNav";
-import { Edit, Trash2, Eye, Heart, MessageCircle, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Edit, Trash2, Eye, Heart, MessageCircle, Search, X, ChevronLeft, ChevronRight, Plus, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 
 // Import marketplace images
@@ -31,9 +35,20 @@ export default function Giving() {
   const [query, setQuery] = useState("");
   const [selectedItemImages, setSelectedItemImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editing, setEditing] = useState<Item | null>(null);
+  const [form, setForm] = useState<{ title: string; description: string; category: string; status: ItemStatus; images: string[] }>({
+    title: "",
+    description: "",
+    category: "Furniture",
+    status: "Available",
+    images: []
+  });
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState<Item | null>(null);
 
   // Mock data for demonstration
-  const items: Item[] = [
+  const [items, setItems] = useState<Item[]>([
     {
       id: 1,
       title: "Dining Table Set",
@@ -56,12 +71,14 @@ export default function Giving() {
       postedDate: "7 days ago",
       images: [laptopImage, clothesImage, booksToys]
     }
-  ];
+  ]);
 
   const tabs = [
     { key: "all", label: "All" },
+    { key: "offered", label: "Offered" },
     { key: "active", label: "Active" },
     { key: "claimed", label: "Claimed" },
+    { key: "requested", label: "Requested" },
     { key: "completed", label: "Completed" }
   ];
 
@@ -76,7 +93,11 @@ export default function Giving() {
     let result = items;
     
     if (tab === "active") result = result.filter(item => item.status === "Available");
+    // "offered" shows all items you've posted (default view) – adjust if a different rule is desired
+    if (tab === "offered") result = result;
     if (tab === "claimed") result = result.filter(item => item.status === "Claimed");
+    // Requested tab placeholder: in real app, filter by items you've applied for
+    if (tab === "requested") result = result.filter(item => item.interested > 0 && item.status !== "Given");
     if (tab === "completed") result = result.filter(item => item.status === "Given");
     
     if (query) {
@@ -90,11 +111,38 @@ export default function Giving() {
   }, [items, tab, query]);
 
   const updateItem = (id: number, updates: Partial<Item>) => {
+    setItems(prev => prev.map(it => (it.id === id ? { ...it, ...updates } : it)));
     toast.success("Item updated successfully");
   };
 
   const deleteItem = (id: number) => {
+    setItems(prev => prev.filter(it => it.id !== id));
     toast.success("Item deleted successfully");
+  };
+
+  const openEdit = (item: Item) => {
+    setEditing(item);
+    setForm({ title: item.title, description: item.description, category: item.category, status: item.status, images: item.images });
+    setIsEditOpen(true);
+  };
+
+  const submitEdit = () => {
+    if (!editing) return;
+    updateItem(editing.id, { title: form.title, description: form.description, category: form.category, status: form.status, images: form.images });
+    setIsEditOpen(false);
+    setEditing(null);
+  };
+
+  const openDelete = (item: Item) => {
+    setDeleting(item);
+    setIsDeleteOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!deleting) return;
+    deleteItem(deleting.id);
+    setIsDeleteOpen(false);
+    setDeleting(null);
   };
 
   const ItemCard = ({ item, onUpdate, onDelete }: { item: Item; onUpdate: (id: number, updates: Partial<Item>) => void; onDelete: (id: number) => void; }) => {
@@ -201,13 +249,13 @@ export default function Giving() {
                 </button>
               )}
               <button
-                onClick={() => toast.info(`Editing ${item.title}`)}
+                onClick={() => openEdit(item)}
                 className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
               >
                 Edit
               </button>
               <button
-                onClick={() => onDelete(item.id)}
+                onClick={() => openDelete(item)}
                 className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
               >
                 Delete
@@ -296,6 +344,113 @@ export default function Giving() {
             )}
           </div>
 
+          {/* Edit Dialog */}
+          <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+            <DialogContent className="sm:max-w-lg rounded-2xl">
+              <DialogHeader>
+                <DialogTitle>Edit Item</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-title">Title</Label>
+                  <Input id="edit-title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-desc">Description</Label>
+                  <Textarea id="edit-desc" rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                </div>
+                {/* Photos */}
+                <div className="space-y-2">
+                  <Label>Photos</Label>
+                  {form.images.length > 0 && (
+                    <div className="grid grid-cols-3 gap-3">
+                      {form.images.map((src, idx) => (
+                        <div key={idx} className="relative group overflow-hidden rounded-xl border border-border">
+                          <img src={src} alt={`Photo ${idx + 1}`} className="h-24 w-full object-cover" />
+                          <button
+                            aria-label="Remove photo"
+                            title="Remove photo"
+                            onClick={() => setForm({ ...form, images: form.images.filter((_, i) => i !== idx) })}
+                            className="absolute top-2 right-2 rounded-full bg-black/50 text-white w-7 h-7 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="border-2 border-dashed border-border rounded-xl p-4 flex items-center justify-between gap-3 bg-card/50">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Upload className="w-4 h-4" />
+                      <span>Add images (JPG/PNG)</span>
+                    </div>
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted cursor-pointer">
+                      <Plus className="w-4 h-4" />
+                      <span>Upload</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        className="hidden"
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          const urls = files.map((f) => URL.createObjectURL(f));
+                          setForm({ ...form, images: [...form.images, ...urls] });
+                        }}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Category</Label>
+                    <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        { ["Furniture","Electronics","Baby/Kids","Household","Clothing","Books","Other"].map(c => (
+                          <SelectItem key={c} value={c}>{c}</SelectItem>
+                        )) }
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Status</Label>
+                    <Select value={form.status} onValueChange={(v) => setForm({ ...form, status: v as ItemStatus })}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Available">Available</SelectItem>
+                        <SelectItem value="Claimed">Claimed</SelectItem>
+                        <SelectItem value="Given">Given</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="flex gap-2 pt-2">
+                  <button onClick={submitEdit} className="flex-1 rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover">Save Changes</button>
+                  <button onClick={() => setIsEditOpen(false)} className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">Cancel</button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Delete Dialog */}
+          <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+            <DialogContent className="sm:max-w-md rounded-2xl">
+              <DialogHeader>
+                <DialogTitle>Delete Item</DialogTitle>
+              </DialogHeader>
+              <p className="text-sm text-muted-foreground">Are you sure you want to delete {deleting?.title}? This action cannot be undone.</p>
+              <div className="flex gap-2 pt-2">
+                <button onClick={confirmDelete} className="flex-1 rounded-xl bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground hover:opacity-90">Delete</button>
+                <button onClick={() => setIsDeleteOpen(false)} className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">Cancel</button>
+              </div>
+            </DialogContent>
+          </Dialog>
+
           {/* Footer note */}
           <p className="mt-8 text-center text-xs text-muted-foreground">
             Tip: Keep communications inside the platform. Meet in public church spaces. Verify item condition before pickup.
@@ -310,6 +465,8 @@ export default function Giving() {
             <div className="relative">
               <button
                 onClick={() => setSelectedItemImages([])}
+                aria-label="Close image viewer"
+                title="Close"
                 className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -326,6 +483,8 @@ export default function Giving() {
                   <>
                     <button
                       onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : selectedItemImages.length - 1)}
+                      aria-label="Previous image"
+                      title="Previous"
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
                     >
                       <ChevronLeft className="w-5 h-5" />
@@ -333,6 +492,8 @@ export default function Giving() {
                     
                     <button
                       onClick={() => setCurrentImageIndex(prev => prev < selectedItemImages.length - 1 ? prev + 1 : 0)}
+                      aria-label="Next image"
+                      title="Next"
                       className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
                     >
                       <ChevronRight className="w-5 h-5" />
@@ -343,6 +504,8 @@ export default function Giving() {
                         <button
                           key={index}
                           onClick={() => setCurrentImageIndex(index)}
+                          aria-label={`Go to image ${index + 1}`}
+                          title={`Go to image ${index + 1}`}
                           className={`w-2 h-2 rounded-full transition-colors ${
                             index === currentImageIndex ? 'bg-white' : 'bg-white/50'
                           }`}

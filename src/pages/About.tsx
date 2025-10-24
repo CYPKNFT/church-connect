@@ -7,7 +7,7 @@ export default function About() {
       <div className="container mx-auto px-4 py-24">
         {/* Hero Section */}
         <div className="text-center mb-32 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-12">
+          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 text-primary font-medium mb-12">
             <Sparkles className="w-5 h-5" />
             <span>Our Story</span>
           </div>
@@ -49,10 +49,6 @@ export default function About() {
         
           <div className="relative z-10 p-[50px]">
             <div className="text-center mb-20">
-              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-8 py-4 text-accent font-semibold mb-8 shadow-lg hover:bg-white/15 transition-all duration-300">
-                <Heart className="w-6 h-6" />
-                <span className="text-lg">What Drives Us</span>
-              </div>
               <h2 className="text-5xl lg:text-6xl font-bold text-foreground mb-8">
                 Our <span className="bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent animate-gradient">Core Values</span>
               </h2>
@@ -130,7 +126,7 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-10">
               <div>
-                <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 text-primary font-medium mb-8">
                   <Heart className="w-5 h-5" />
                   <span>Our Beginning</span>
                 </div>
@@ -181,7 +177,7 @@ export default function About() {
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <div className="text-center mb-20">
-                <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 text-primary font-medium mb-8">
                   <Target className="w-5 h-5" />
                   <span>Making a Difference</span>
                 </div>

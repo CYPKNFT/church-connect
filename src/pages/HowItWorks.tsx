@@ -9,7 +9,7 @@ export default function HowItWorks() {
       <div className="container mx-auto px-4 py-24">
         {/* Hero Section */}
         <div className="text-center mb-32 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-6 py-3 text-accent font-medium mb-12">
+          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 text-primary font-medium mb-12">
             <Heart className="w-5 h-5" />
             <span>Simple & Effective</span>
           </div>

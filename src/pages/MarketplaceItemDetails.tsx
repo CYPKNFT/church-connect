@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -130,15 +129,15 @@ export default function MarketplaceItemDetails() {
         availableTimes: "Saturdays & Sundays, 9AM - 4PM",
         category: "Furniture",
         status: "Available",
-        postedBy: "Maria L.",
+        postedBy: "Maria L",
         postedAt: "4/15/2024 at 09:30 AM",
         giver: {
-          name: "Maria L.",
+          name: "Maria L",
           memberSince: "2018",
           rating: 4.8,
           isVerified: true
         },
-        images: [sofaImage, laptopImage, babyChairImage],
+        images: [sofaImage, laptopImage, babyChairImage, dishesImage],
         stats: {
           views: 23,
           interested: 8,
@@ -240,12 +239,25 @@ export default function MarketplaceItemDetails() {
   }
 
   return (
-    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/marketplace">
       <div className="min-h-screen bg-background">
       {/* Hero Header */}
       <div className="relative overflow-hidden">
-        <div className="h-64 bg-gradient-primary relative">
-          <div className="absolute inset-0 bg-black/40"></div>
+        <div
+          className="h-64 relative bg-gradient-to-br from-green-600 to-blue-600 dark:bg-none"
+          style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}
+        >
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-green-600/90 to-blue-600/90 dark:bg-none"
+            style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }}
+          />
+          <div
+            className="absolute inset-0 dark:block hidden"
+            style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }}
+          />
+          <div
+            className="absolute inset-0 dark:block hidden"
+            style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }}
+          />
         </div>
         
         <div className="absolute inset-0 flex items-end pb-12">
@@ -273,43 +285,43 @@ export default function MarketplaceItemDetails() {
                   <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-5 h-5" />
-                      Posted {item.postedAt}
+                      <span>
+                        Posted {item.postedAt}
+                        <span className="mx-2">•</span>
+                        <span className="inline-flex items-center gap-1">
+                          <Users className="w-4 h-4" />
+                          {item.giver.name}
+                          <Badge variant="secondary" className="ml-2 text-xs bg-white/20 text-white border-white/30">
+                            <Shield className="w-3 h-3 mr-1" /> Verified
+                          </Badge>
+                        </span>
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <MapPin className="w-5 h-5" />
                       {item.pickupLocation}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-5 h-5" />
-                      {item.giver.name} • Verified Giver
-                    </div>
                   </div>
                 </div>
                 
-                {/* Image panel - centered */}
-                <div className="flex justify-center items-center ml-16">
-                  <div 
-                    className="w-32 h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-3 border-white/30 shadow-lg cursor-pointer relative group"
-                    onClick={() => setIsImageLightboxOpen(true)}
-                  >
-                    <img 
-                      src={item.images[currentImageIndex]} 
-                      alt={`${item.title} - Image ${currentImageIndex + 1} of ${item.images.length}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                    />
-                    {item.images.length > 1 && (
-                      <div className="absolute bottom-1 right-1 flex gap-1">
-                        {item.images.map((_, index) => (
-                          <div
-                            key={index}
-                            className={`w-2 h-2 rounded-full transition-colors ${
-                              currentImageIndex === index ? "bg-white" : "bg-white/50"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                {/* Image panel - three thumbnails right-aligned */}
+                <div className="flex justify-center items-center ml-16 gap-4">
+                  {item.images.slice(0, 3).map((src, index) => (
+                    <div
+                      key={index}
+                      className="w-32 h-32 md:w-36 md:h-36 rounded-lg overflow-hidden border-3 border-white/30 shadow-lg cursor-pointer relative group"
+                      onClick={() => {
+                        setCurrentImageIndex(index);
+                        setIsImageLightboxOpen(true);
+                      }}
+                    >
+                      <img
+                        src={src}
+                        alt={`${item.title} - Image ${index + 1} of ${item.images.length}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -430,14 +442,6 @@ export default function MarketplaceItemDetails() {
                     <div className="text-2xl font-bold text-orange-500">{item.stats.interested}</div>
                     <div className="text-xs text-muted-foreground">INTERESTED</div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold text-orange-500">{item.stats.applications}</div>
-                    <div className="text-xs text-muted-foreground">APPLICATIONS</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-orange-500">${item.stats.estimatedValue}</div>
-                    <div className="text-xs text-muted-foreground">EST. VALUE</div>
-                  </div>
                 </div>
                 
                 <div className="mt-6">
@@ -504,36 +508,7 @@ export default function MarketplaceItemDetails() {
               </CardContent>
             </Card>
 
-            {/* Giver Info */}
-            <Card className="border-0 shadow-elegant">
-              <CardHeader>
-                <CardTitle>Giver Information</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-3">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src={item.giver.avatar} />
-                    <AvatarFallback>{item.giver.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold">{item.giver.name}</h4>
-                      {item.giver.isVerified && (
-                        <Badge variant="secondary" className="text-xs">
-                          <Shield className="w-3 h-3 mr-1" />
-                          Verified
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground">Member since {item.giver.memberSince}</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm">{item.giver.rating}</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Giver info card removed per request */}
           </div>
         </div>
       </div>
@@ -556,6 +531,8 @@ export default function MarketplaceItemDetails() {
             <div className="relative">
               <button
                 onClick={() => setIsImageLightboxOpen(false)}
+                aria-label="Close image viewer"
+                title="Close"
                 className="absolute top-4 right-4 z-10 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -572,6 +549,8 @@ export default function MarketplaceItemDetails() {
                   <>
                     <button
                       onClick={() => setCurrentImageIndex(prev => prev > 0 ? prev - 1 : item.images.length - 1)}
+                      aria-label="Previous image"
+                      title="Previous"
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
                     >
                       <ChevronLeft className="w-5 h-5" />
@@ -579,6 +558,8 @@ export default function MarketplaceItemDetails() {
                     
                     <button
                       onClick={() => setCurrentImageIndex(prev => prev < item.images.length - 1 ? prev + 1 : 0)}
+                      aria-label="Next image"
+                      title="Next"
                       className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
                     >
                       <ChevronRight className="w-5 h-5" />
@@ -589,6 +570,8 @@ export default function MarketplaceItemDetails() {
                         <button
                           key={index}
                           onClick={() => setCurrentImageIndex(index)}
+                          aria-label={`Go to image ${index + 1}`}
+                          title={`Go to image ${index + 1}`}
                           className={`w-2 h-2 rounded-full transition-colors ${
                             index === currentImageIndex ? 'bg-white' : 'bg-white/50'
                           }`}
@@ -603,6 +586,5 @@ export default function MarketplaceItemDetails() {
         </Dialog>
       )}
       </div>
-    </TwoLevelNav>
   );
 }

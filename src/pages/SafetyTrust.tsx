@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, AlertTriangle, Users, BookOpen, ArrowRight, CheckCircle } from "lucide-react";
+import { Shield, AlertTriangle, ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function SafetyTrust() {
@@ -79,66 +79,6 @@ export default function SafetyTrust() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Safety Articles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-accent" />
-                Personal Safety
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Guidelines for meeting new people, home visits, and maintaining personal boundaries in volunteer situations.
-              </p>
-              <Button variant="outline" className="w-full" asChild>
-                <Link to="/guides?tab=safety">
-                  Read More <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-accent" />
-                Home & Family Guidelines
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Best practices for helping in homes, respecting privacy, and maintaining appropriate boundaries with families.
-              </p>
-              <Button variant="outline" className="w-full" asChild>
-                <Link to="/guides?tab=safety">
-                  Read More <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-accent" />
-                Church Leadership Support
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                When and how to involve church leaders, escalation procedures, and getting support when you need it.
-              </p>
-              <Button variant="outline" className="w-full" asChild>
-                <Link to="/guides?tab=safety">
-                  Read More <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
 
         {/* Call to Action */}
         <div className="text-center">
