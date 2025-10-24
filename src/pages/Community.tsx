@@ -1305,7 +1305,10 @@ export default function Community() {
                           <img 
                             src={item.image} 
                             alt={item.title}
+                            width="640"
+                            height="192"
                             loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           <div className="absolute top-3 left-3">
