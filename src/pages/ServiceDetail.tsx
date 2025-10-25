@@ -16,6 +16,7 @@ import {
   Eye, 
   Users, 
   MessageSquare, 
+  Package,
   ArrowLeft,
   UserPlus,
   Star,
@@ -270,37 +271,82 @@ export default function ServiceDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Hero Header to match Marketplace item page */}
+      <div className="relative overflow-hidden">
+        <div
+          className="h-64 relative bg-gradient-to-br from-green-600 to-blue-600 dark:bg-none"
+          style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}
+        >
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-green-600/90 to-blue-600/90 dark:bg-none"
+            style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }}
+          />
+          <div
+            className="absolute inset-0 dark:block hidden"
+            style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }}
+          />
+          <div
+            className="absolute inset-0 dark:block hidden"
+            style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }}
+          />
+        </div>
+
+        <div className="absolute inset-0 flex items-end pb-12">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl w-full mx-auto">
+              <div className="flex items-center w-full">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center gap-4 mb-2">
+                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={() => navigate(-1)}>
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Back to Browse
+                    </Button>
+                    <Badge className={urgencyColors[serviceData.urgency]}> {serviceData.urgency} </Badge>
+                    <Badge className={statusColors[serviceData.status]}> {statusLabels[serviceData.status]} </Badge>
+                  </div>
+                  <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{serviceData.title}</h1>
+                  <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-5 h-5" />
+                      <span> Posted {serviceData.postedAt}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-5 h-5" />
+                      <span className="inline-flex items-center gap-2">
+                        {serviceData.requesterName}
+                        {serviceData.requesterVerified && (
+                          <Badge variant="secondary" className="ml-1 text-xs bg-white/20 text-white border-white/30">
+                            <Shield className="w-3 h-3 mr-1" /> Verified
+                          </Badge>
+                        )}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-5 h-5" />
+                      {serviceData.location}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate(-1)}
-            className="mb-6"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Browse
-          </Button>
-
+          {/* Back button moved into hero header */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Header Card */}
+              {/* Header Card */
+              }
               <Card>
                 <CardHeader>
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <CardTitle className="text-2xl mb-3">{serviceData.title}</CardTitle>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <Badge variant="outline">{serviceData.category}</Badge>
-                        <Badge className={urgencyColors[serviceData.urgency]}>
-                          {serviceData.urgency}
-                        </Badge>
-                        <Badge className={statusColors[serviceData.status]}>
-                          {statusLabels[serviceData.status]}
-                        </Badge>
-                      </div>
-                    </div>
-                  </div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Package className="w-5 h-5" />
+                    Service Details
+                  </CardTitle>
                 </CardHeader>
                 
                 <CardContent className="space-y-6">

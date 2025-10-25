@@ -34,7 +34,7 @@ export default function HowItWorks() {
 
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Step 1 */}
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12 h-full flex flex-col">
               <CardHeader className="pb-8">
                 <div className="w-32 h-32 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <div className="text-center">
@@ -44,11 +44,11 @@ export default function HowItWorks() {
                 </div>
                 <CardTitle className="text-3xl font-bold mb-4">Create Your Profile</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-col flex-1">
                 <p className="text-muted-foreground text-xl leading-relaxed mb-6">
                   Sign up with your church community, verify your membership, and set up your profile with your skills and availability.
                 </p>
-                <ul className="text-left space-y-3 text-lg text-muted-foreground">
+                <ul className="text-left space-y-3 text-lg text-muted-foreground mt-auto">
                   <li className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
                     Quick 2-minute setup
@@ -66,7 +66,7 @@ export default function HowItWorks() {
             </Card>
 
             {/* Step 2 */}
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12 h-full flex flex-col">
               <CardHeader className="pb-8">
                 <div className="w-32 h-32 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <div className="text-center">
@@ -79,11 +79,11 @@ export default function HowItWorks() {
                 </div>
                 <CardTitle className="text-3xl font-bold mb-4">Post or Browse</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-col flex-1">
                 <p className="text-muted-foreground text-xl leading-relaxed mb-6">
                   Either post a need you have or browse available opportunities to help others in your church community.
                 </p>
-                <ul className="text-left space-y-3 text-lg text-muted-foreground">
+                <ul className="text-left space-y-3 text-lg text-muted-foreground mt-auto">
                   <li className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
                     Post needs in seconds
@@ -101,7 +101,7 @@ export default function HowItWorks() {
             </Card>
 
             {/* Step 3 */}
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12">
+            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center p-12 h-full flex flex-col">
               <CardHeader className="pb-8">
                 <div className="w-32 h-32 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
                   <div className="text-center">
@@ -111,11 +111,11 @@ export default function HowItWorks() {
                 </div>
                 <CardTitle className="text-3xl font-bold mb-4">Connect & Serve</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-col flex-1">
                 <p className="text-muted-foreground text-xl leading-relaxed mb-6">
                   Use our secure messaging to coordinate, meet safely, and build lasting relationships through acts of service.
                 </p>
-                <ul className="text-left space-y-3 text-lg text-muted-foreground">
+                <ul className="text-left space-y-3 text-lg text-muted-foreground mt-auto">
                   <li className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
                     Secure in-app messaging

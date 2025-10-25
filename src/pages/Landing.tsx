@@ -134,8 +134,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-screen flex items-center" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #059669 100%)' }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10"></div>
+      <section className="relative overflow-hidden min-h-screen flex items-center bg-[linear-gradient(135deg,#2563eb_0%,#059669_100%)] dark:bg-[linear-gradient(135deg,#2d1b69_0%,#8b4513_100%)]">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 dark:from-white/10 dark:to-secondary/5"></div>
         <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 text-center lg:text-left animate-fade-in">
@@ -385,10 +385,10 @@ export default function Landing() {
               {/* Left Arrow */}
               <button
                 onClick={prevTestimonials}
-                className="bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-200 hover:scale-110"
+                className="bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-200 hover:scale-110 dark:bg-card dark:hover:bg-muted/20 dark:border dark:border-border/20"
                 aria-label="Previous testimonials"
               >
-                <ChevronLeft className="w-6 h-6 text-primary" />
+                <ChevronLeft className="w-6 h-6 text-primary dark:text-foreground" />
               </button>
               
               {/* Page Indicators */}
@@ -410,10 +410,10 @@ export default function Landing() {
               {/* Right Arrow */}
               <button
                 onClick={nextTestimonials}
-                className="bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-200 hover:scale-110"
+                className="bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-200 hover:scale-110 dark:bg-card dark:hover:bg-muted/20 dark:border dark:border-border/20"
                 aria-label="Next testimonials"
               >
-                <ChevronRight className="w-6 h-6 text-primary" />
+                <ChevronRight className="w-6 h-6 text-primary dark:text-foreground" />
               </button>
             </div>
           </div>
