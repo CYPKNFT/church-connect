@@ -505,8 +505,8 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10"></div>
+      <section className="py-20 lg:py-32 bg-[linear-gradient(135deg,#2563eb_0%,#059669_100%)] dark:bg-[linear-gradient(135deg,#2d1b69_0%,#8b4513_100%)] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 dark:from-white/10 dark:to-secondary/5"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full px-4 py-2 text-accent font-medium mb-8">
@@ -523,16 +523,16 @@ export default function Landing() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
               <Button 
                 size="lg" 
-                className="bg-white hover:bg-white/90 text-primary font-bold px-12 py-6 text-xl rounded-2xl shadow-xl hover-lift"
+                className="bg-white hover:bg-white/80 text-slate-900 font-bold px-12 py-6 text-xl rounded-2xl shadow-xl hover-lift"
                 onClick={() => handleProtectedNavigation("/post")}
               >
-                <Plus className="w-5 h-5 mr-3" />
+                <Plus className="w-5 h-5 mr-3 text-slate-900" />
                 Post Your Need
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl"
+                className="border-2 border-white/30 text-white hover:text-accent hover:bg-white/10 backdrop-blur-sm px-12 py-6 text-xl rounded-2xl"
                 onClick={handleFindWaysToHelp}
               >
                 Find Ways to Help
