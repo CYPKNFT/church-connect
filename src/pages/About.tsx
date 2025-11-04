@@ -1,4 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { Heart, Users, Shield, Target, Sparkles } from "lucide-react";
 
 export default function About() {
@@ -172,9 +174,9 @@ export default function About() {
 
         {/* Impact Section */}
         <section className="mb-32 animate-fade-in">
-          <div className="relative bg-gradient-to-br from-accent/10 to-primary/10 rounded-3xl p-16 lg:p-24 overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="relative bg-gradient-to-br from-accent/10 via-primary/5 to-primary/10 dark:from-primary/20 dark:via-accent/15 dark:to-accent/20 rounded-3xl p-16 lg:p-24 overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 dark:bg-accent/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 dark:bg-primary/15 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <div className="text-center mb-20">
                 <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 text-primary font-medium mb-8">
@@ -220,77 +222,34 @@ export default function About() {
                   </CardContent>
                 </Card>
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Testimonials Section */}
-              <div className="text-center mb-16">
-                <h3 className="text-4xl font-bold text-foreground mb-6">
-                  Stories from Our <span className="bg-accent-gradient bg-clip-text text-transparent">Community</span>
-                </h3>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Real testimonies of lives changed through ChurchConnect
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
-                  <CardContent className="p-8">
-                    <div className="mb-6">
-                      <div className="text-accent text-4xl mb-4">"</div>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-                        "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved."
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
-                        <span className="text-accent font-bold">SM</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground">Sarah Miller</p>
-                        <p className="text-sm text-muted-foreground">Grace Community Church</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
-                  <CardContent className="p-8">
-                    <div className="mb-6">
-                      <div className="text-accent text-4xl mb-4">"</div>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-                        "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood."
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
-                        <span className="text-accent font-bold">MJ</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground">Mike Johnson</p>
-                        <p className="text-sm text-muted-foreground">First Baptist Church</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group">
-                  <CardContent className="p-8">
-                    <div className="mb-6">
-                      <div className="text-accent text-4xl mb-4">"</div>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-                        "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares."
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mr-4">
-                        <span className="text-accent font-bold">LC</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground">Linda Chen</p>
-                        <p className="text-sm text-muted-foreground">Community Fellowship</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+        {/* CTA Section */}
+        <section className="text-center animate-fade-in">
+          <div className="relative bg-card rounded-3xl p-16 lg:p-24 overflow-hidden border border-border">
+            <div className="relative z-10">
+              <h2 className="text-5xl lg:text-6xl font-bold mb-8 text-accent">Ready to Get Started?</h2>
+              <p className="text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto leading-relaxed text-muted-foreground">
+                Join your church community today and start building meaningful connections through service.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-accent hover:bg-accent/90 text-foreground font-bold px-12 py-6 text-xl rounded-xl shadow-lg hover-lift" 
+                  asChild
+                >
+                  <Link to="/member-signup">Join Free Today</Link>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground backdrop-blur-sm px-12 py-6 text-xl rounded-xl" 
+                  asChild
+                >
+                  <Link to="/about">Learn More</Link>
+                </Button>
               </div>
             </div>
           </div>
