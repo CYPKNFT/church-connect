@@ -131,8 +131,9 @@ export function TwoLevelNav({
   return (
     <div className="fixed inset-0 top-16 flex bg-background">
       {/* First Panel - Icon Navigation */}
-      <div className="w-18 bg-sidebar border-r-2 border-sidebar-border shadow-lg">
-        <div className="flex flex-col h-full py-4">
+      <div className="w-[5.85rem] bg-sidebar shadow-lg relative z-10">
+        <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-sidebar-border z-20"></div>
+        <div className="flex flex-col h-full py-4 overflow-hidden">
           {menuData.map((menu) => {
             const Icon = menu.icon;
             const isActive = menu.id === activeMenuId;
@@ -142,18 +143,19 @@ export function TwoLevelNav({
                 onClick={() => handleMenuClick(menu.id)}
                 className={`
                   flex flex-col items-center justify-center gap-1 p-3 mb-0 w-full
-                  transition-all duration-200 group relative
+                  transition-colors duration-200 group relative
                   ${
                     isActive
-                      ? "bg-accent/75 text-accent-foreground shadow-md"
+                      ? "bg-accent/75 text-foreground dark:text-accent-foreground shadow-md"
                       : "text-sidebar-foreground hover:bg-sidebar-accent mb-2"
                   }
                 `}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={isActive ? {} : { x: 4 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.1, ease: "easeOut" }}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-[10px] font-medium w-12 text-center">{menu.label}</span>
+                <Icon className="w-6 h-6" />
+                <span className="text-xs font-medium w-12 text-center">{menu.label}</span>
                 
                 {/* Active indicator */}
                 {isActive && (
@@ -224,7 +226,7 @@ export function TwoLevelNav({
                         transition-all duration-200 text-left
                         ${
                           isActiveSubItem
-                            ? "bg-accent/75 text-accent-foreground shadow-sm"
+                            ? "bg-accent/75 text-foreground dark:text-accent-foreground shadow-sm"
                             : "text-sidebar-foreground hover:bg-sidebar-accent"
                         }
                       `}
@@ -233,14 +235,14 @@ export function TwoLevelNav({
                       transition={{ duration: 0.1, ease: "easeOut" }}
                     >
                       <div className="px-4 flex items-center gap-3">
-                        <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-accent-foreground" : "text-muted-foreground"}`} />
+                        <SubIcon className={`w-4 h-4 ${isActiveSubItem ? "text-foreground dark:text-accent-foreground" : "text-muted-foreground"}`} />
                         <span className="font-medium text-sm">{subItem.label}</span>
                         
                         {/* Active dot */}
                         {isActiveSubItem && (
                           <motion.div
                             layoutId="activeSubItem"
-                            className="ml-auto w-2 h-2 rounded-full bg-accent-foreground"
+                            className="ml-auto w-2 h-2 rounded-full bg-foreground dark:bg-accent-foreground"
                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                           />
                         )}
@@ -264,7 +266,7 @@ export function TwoLevelNav({
                         transition-all duration-200 group relative
                         ${
                           isActiveSubItem
-                            ? "bg-accent/75 text-accent-foreground shadow-md"
+                            ? "bg-accent/75 text-foreground dark:text-accent-foreground shadow-md"
                             : "text-sidebar-foreground hover:bg-sidebar-accent mb-2"
                         }
                       `}

@@ -64,7 +64,7 @@ export default function QuickGuides() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">Communication Best Practices</h4>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
+                      <ul className="space-y-2 text-base text-muted-foreground">
                         <li>• Be specific in requests - details help volunteers prepare properly</li>
                         <li>• Include realistic timeframes and any special requirements</li>
                         <li>• Respond promptly to messages and confirmations</li>
@@ -73,7 +73,7 @@ export default function QuickGuides() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">Building Community</h4>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
+                      <ul className="space-y-2 text-base text-muted-foreground">
                         <li>• Remember that your church family wants to support you</li>
                         <li>• Share how help made a difference - it encourages others</li>
                         <li>• Consider how you might help others when able</li>
@@ -99,8 +99,8 @@ export default function QuickGuides() {
                           <CheckCircle className="w-4 h-4 text-primary" />
                           Complete Profile Setup
                         </h5>
-                        <p className="text-sm text-muted-foreground mb-3">Your profile helps neighbors trust you and understand your abilities.</p>
-                        <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                        <p className="text-base text-muted-foreground mb-3">Your profile helps neighbors trust you and understand your abilities.</p>
+                        <ul className="text-base text-muted-foreground space-y-1 ml-4">
                           <li>• Add a clear, friendly profile photo</li>
                           <li>• List your skills and interests</li>
                           <li>• Include your church affiliation</li>
@@ -114,8 +114,8 @@ export default function QuickGuides() {
                           <CheckCircle className="w-4 h-4 text-primary" />
                           Finding & Responding to Needs
                         </h5>
-                        <p className="text-sm text-muted-foreground mb-3">Discover how you can help your community members.</p>
-                        <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                        <p className="text-base text-muted-foreground mb-3">Discover how you can help your community members.</p>
+                        <ul className="text-base text-muted-foreground space-y-1 ml-4">
                           <li>• Browse needs by category or location</li>
                           <li>• Read requests carefully before responding</li>
                           <li>• Ask clarifying questions if needed</li>
@@ -129,8 +129,8 @@ export default function QuickGuides() {
                           <CheckCircle className="w-4 h-4 text-primary" />
                           Your First Volunteer Experience
                         </h5>
-                        <p className="text-sm text-muted-foreground mb-3">Make a great first impression and feel confident serving.</p>
-                        <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                        <p className="text-base text-muted-foreground mb-3">Make a great first impression and feel confident serving.</p>
+                        <ul className="text-base text-muted-foreground space-y-1 ml-4">
                           <li>• Start with simple, one-time tasks</li>
                           <li>• Arrive on time and prepared</li>
                           <li>• Introduce yourself warmly</li>
@@ -156,8 +156,8 @@ export default function QuickGuides() {
                           <CheckCircle className="w-4 h-4 text-secondary dark:text-yellow-400" />
                           Posting Needs with Dignity
                         </h5>
-                        <p className="text-sm text-muted-foreground mb-3">Ask for help in a way that honors both you and potential helpers.</p>
-                        <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                        <p className="text-base text-muted-foreground mb-3">Ask for help in a way that honors both you and potential helpers.</p>
+                        <ul className="text-base text-muted-foreground space-y-1 ml-4">
                           <li>• Be specific about what you need</li>
                           <li>• Explain the situation briefly</li>
                           <li>• Include timeframes and urgency level</li>
@@ -171,8 +171,8 @@ export default function QuickGuides() {
                           <CheckCircle className="w-4 h-4 text-secondary dark:text-yellow-400" />
                           Privacy & Safety Options
                         </h5>
-                        <p className="text-sm text-muted-foreground mb-3">Control who sees your requests and keep your family safe.</p>
-                        <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                        <p className="text-base text-muted-foreground mb-3">Control who sees your requests and keep your family safe.</p>
+                        <ul className="text-base text-muted-foreground space-y-1 ml-4">
                           <li>• Choose between public or church-only visibility</li>
                           <li>• Use anonymous posting when appropriate</li>
                           <li>• Set geographical boundaries</li>
@@ -186,8 +186,8 @@ export default function QuickGuides() {
                           <CheckCircle className="w-4 h-4 text-secondary dark:text-yellow-400" />
                           Coordinating with Volunteers
                         </h5>
-                        <p className="text-sm text-muted-foreground mb-3">Build positive relationships with those who help you.</p>
-                        <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                        <p className="text-base text-muted-foreground mb-3">Build positive relationships with those who help you.</p>
+                        <ul className="text-base text-muted-foreground space-y-1 ml-4">
                           <li>• Respond promptly to volunteer offers</li>
                           <li>• Provide clear directions and expectations</li>
                           <li>• Be available during scheduled times</li>
@@ -234,7 +234,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Honor Your Commitments</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Only commit to what you can realistically follow through on</li>
                         <li>• Consider your schedule, energy, and other obligations</li>
                         <li>• It's better to under-promise and over-deliver</li>
@@ -242,7 +242,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Clear Communication</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Communicate changes as early as possible</li>
                         <li>• Be specific about your availability and limitations</li>
                         <li>• Confirm details before the service opportunity</li>
@@ -250,7 +250,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Professional Approach</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Arrive on time and prepared with necessary tools</li>
                         <li>• Dress appropriately for the task and setting</li>
                         <li>• Follow through completely on all agreed tasks</li>
@@ -269,7 +269,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Honor House Rules</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Ask about preferences before starting any work</li>
                         <li>• Respect the family's routines and traditions</li>
                         <li>• Follow any specific instructions given</li>
@@ -277,7 +277,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Maintain Appropriate Boundaries</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Keep interactions friendly but professional</li>
                         <li>• Avoid personal questions unless invited to share</li>
                         <li>• Respect personal space and belongings</li>
@@ -285,7 +285,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Protect Confidentiality</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Keep all personal information strictly confidential</li>
                         <li>• Don't discuss one family's situation with others</li>
                         <li>• Avoid gossip or speculation about circumstances</li>
@@ -304,7 +304,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Positive Attitude</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Approach each opportunity with genuine enthusiasm</li>
                         <li>• Focus on the privilege of serving others</li>
                         <li>• Maintain joy even when tasks are challenging</li>
@@ -312,7 +312,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Heart Motivation</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Serve from love and compassion, not obligation</li>
                         <li>• See Christ in those you serve</li>
                         <li>• Remember that serving others serves God</li>
@@ -320,7 +320,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Representing Christ</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Remember you represent your church and faith</li>
                         <li>• Let your actions demonstrate God's love</li>
                         <li>• Be a positive witness through your service</li>
@@ -339,7 +339,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Strict Confidentiality</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• What you see and hear stays private</li>
                         <li>• Don't share details even with family members</li>
                         <li>• Protect the dignity of those you serve</li>
@@ -347,7 +347,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Social Media Guidelines</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Never take photos without explicit permission</li>
                         <li>• Don't post about specific service situations</li>
                         <li>• Keep social media posts general and positive</li>
@@ -355,7 +355,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">When to Seek Help</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Report any concerning behavior to church leadership</li>
                         <li>• Seek guidance for complex or sensitive situations</li>
                         <li>• Don't handle serious issues alone</li>
@@ -376,7 +376,7 @@ export default function QuickGuides() {
                   <div className="grid md:grid-cols-3 gap-6">
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">Before Serving</h4>
-                      <ul className="space-y-1 text-sm text-muted-foreground">
+                      <ul className="space-y-1 text-base text-muted-foreground">
                         <li>• Pray for the family and opportunity</li>
                         <li>• Confirm all details and expectations</li>
                         <li>• Gather necessary tools and supplies</li>
@@ -385,7 +385,7 @@ export default function QuickGuides() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">During Service</h4>
-                      <ul className="space-y-1 text-sm text-muted-foreground">
+                      <ul className="space-y-1 text-base text-muted-foreground">
                         <li>• Listen carefully to instructions</li>
                         <li>• Ask questions when unsure</li>
                         <li>• Work efficiently but thoroughly</li>
@@ -394,7 +394,7 @@ export default function QuickGuides() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">After Serving</h4>
-                      <ul className="space-y-1 text-sm text-muted-foreground">
+                      <ul className="space-y-1 text-base text-muted-foreground">
                         <li>• Follow up to ensure satisfaction</li>
                         <li>• Offer to help again in the future</li>
                         <li>• Share encouraging feedback</li>
@@ -435,7 +435,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Initial Meetings</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Meet in public spaces for first interactions</li>
                         <li>• Bring a friend or family member when possible</li>
                         <li>• Choose well-lit, populated locations</li>
@@ -444,7 +444,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Emergency Preparedness</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Keep emergency contacts readily available</li>
                         <li>• Inform others of your service plans and location</li>
                         <li>• Carry a charged phone with you</li>
@@ -453,7 +453,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Transportation Safety</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Use your own reliable transportation when possible</li>
                         <li>• Verify ride arrangements in advance</li>
                         <li>• Share travel details with someone you trust</li>
@@ -473,7 +473,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Respecting Boundaries</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Ask about and follow house rules</li>
                         <li>• Respect family routines and traditions</li>
                         <li>• Maintain appropriate physical boundaries</li>
@@ -482,7 +482,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Child Protection Policies</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Parents or guardians must be present</li>
                         <li>• Follow your church's child protection guidelines</li>
                         <li>• Never be alone with children not your own</li>
@@ -491,7 +491,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Property & Belongings</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Ask before using or moving items</li>
                         <li>• Handle others' belongings with care</li>
                         <li>• Replace or repair anything damaged</li>
@@ -511,7 +511,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">When to Involve Leaders</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Complex family situations</li>
                         <li>• Safety concerns or uncomfortable situations</li>
                         <li>• Conflicts between members</li>
@@ -520,7 +520,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">How to Get Support</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Contact your pastor or church staff</li>
                         <li>• Use designated support channels</li>
                         <li>• Attend volunteer training sessions</li>
@@ -529,7 +529,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Documentation & Reporting</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Keep records of significant incidents</li>
                         <li>• Report immediately, don't delay</li>
                         <li>• Be factual and objective in reports</li>
@@ -604,7 +604,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Be Specific & Detailed</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Include exact times, dates, and locations</li>
                         <li>• Specify what help is needed and for how long</li>
                         <li>• Mention any special requirements or limitations</li>
@@ -613,7 +613,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Use Encouraging Language</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Choose words that build up and affirm</li>
                         <li>• Express genuine appreciation and gratitude</li>
                         <li>• Avoid language that might shame or embarrass</li>
@@ -622,7 +622,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Ask Thoughtful Questions</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Clarify expectations before committing</li>
                         <li>• Ask about preferences and requirements</li>
                         <li>• Inquire about timing and scheduling needs</li>
@@ -642,7 +642,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Timely Responses</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Respond within 24 hours when possible</li>
                         <li>• For urgent requests, respond within 2-4 hours</li>
                         <li>• Set up notifications to not miss messages</li>
@@ -651,7 +651,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Managing Expectations</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Acknowledge all messages, even if you can't help</li>
                         <li>• Be honest about your availability and limitations</li>
                         <li>• Suggest alternatives when you can't assist</li>
@@ -660,7 +660,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Change Communication</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Communicate changes as soon as you know</li>
                         <li>• Apologize for any inconvenience caused</li>
                         <li>• Offer alternative solutions when possible</li>
@@ -683,13 +683,13 @@ export default function QuickGuides() {
                     <div className="space-y-4">
                       <div className="bg-card p-4 rounded-lg border">
                         <h5 className="font-semibold text-foreground mb-2">🤝 Offering Help</h5>
-                        <p className="text-sm text-muted-foreground italic mb-2">
+                        <p className="text-base text-muted-foreground italic mb-2">
                           "Hi Sarah! I saw your request for meal delivery. I'd love to bring dinner for your family on Tuesday around 6 PM. Do you have any dietary restrictions or food preferences I should know about? I'm also happy to include paper plates if that would be helpful!"
                         </p>
                       </div>
                       <div className="bg-card p-4 rounded-lg border">
                         <h5 className="font-semibold text-foreground mb-2">📅 Scheduling Coordination</h5>
-                        <p className="text-sm text-muted-foreground italic mb-2">
+                        <p className="text-base text-muted-foreground italic mb-2">
                           "I'm available this Saturday from 9 AM to 3 PM for the yard cleanup. Should I bring my own tools, or do you have what we need? I can also stay later if the work isn't finished. Just let me know what works best for your family!"
                         </p>
                       </div>
@@ -697,13 +697,13 @@ export default function QuickGuides() {
                     <div className="space-y-4">
                       <div className="bg-card p-4 rounded-lg border">
                         <h5 className="font-semibold text-foreground mb-2">🙏 Expressing Gratitude</h5>
-                        <p className="text-sm text-muted-foreground italic mb-2">
+                        <p className="text-base text-muted-foreground italic mb-2">
                           "Thank you so much for your help today! The yard looks absolutely amazing, and you've taken such a weight off our shoulders. We're so grateful to be part of a church family that truly cares for one another. Blessings to you and your family!"
                         </p>
                       </div>
                       <div className="bg-card p-4 rounded-lg border">
                         <h5 className="font-semibold text-foreground mb-2">❌ Unable to Help</h5>
-                        <p className="text-sm text-muted-foreground italic mb-2">
+                        <p className="text-base text-muted-foreground italic mb-2">
                           "Thanks for thinking of me for the moving help! Unfortunately, I have a prior commitment that Saturday, but I wanted to respond quickly. Have you checked with the Johnson family? They recently helped us move and might be available. Praying someone else can step in!"
                         </p>
                       </div>
@@ -721,7 +721,7 @@ export default function QuickGuides() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-base text-muted-foreground">
                       <li>• Read your message aloud for tone</li>
                       <li>• Check for all necessary details</li>
                       <li>• Consider the recipient's perspective</li>
@@ -737,7 +737,7 @@ export default function QuickGuides() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-base text-muted-foreground">
                       <li>• Use appropriate technology for urgency</li>
                       <li>• Respect people's do-not-disturb hours</li>
                       <li>• Keep group messages relevant to all</li>
@@ -753,7 +753,7 @@ export default function QuickGuides() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-base text-muted-foreground">
                       <li>• Remember details about families you help</li>
                       <li>• Follow up after completing service</li>
                       <li>• Celebrate successes and milestones</li>
@@ -793,7 +793,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Can't Sign In</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Check your email and password spelling</li>
                         <li>• Try resetting your password</li>
                         <li>• Clear your browser cache and cookies</li>
@@ -803,7 +803,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Profile Updates Not Saving</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Ensure all required fields are filled</li>
                         <li>• Check your internet connection</li>
                         <li>• Try refreshing the page</li>
@@ -812,7 +812,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Email Notifications Not Working</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Check your spam/junk folder</li>
                         <li>• Verify email address in profile settings</li>
                         <li>• Check notification preferences</li>
@@ -832,7 +832,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Can't Post a Need</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Make sure you're logged in to your account</li>
                         <li>• Check that all required fields are completed</li>
                         <li>• Ensure your description meets community guidelines</li>
@@ -842,7 +842,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Messages Not Sending</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Check your internet connection</li>
                         <li>• Verify the recipient's username</li>
                         <li>• Keep messages under character limits</li>
@@ -851,7 +851,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Can't Find Posted Needs</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Check search filters and location settings</li>
                         <li>• Try expanding your search radius</li>
                         <li>• Clear and reset all filters</li>
@@ -871,7 +871,7 @@ export default function QuickGuides() {
                   <CardContent className="space-y-4">
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Page Not Loading Properly</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Refresh the page (Ctrl+F5 or Cmd+R)</li>
                         <li>• Clear browser cache and cookies</li>
                         <li>• Disable browser extensions temporarily</li>
@@ -881,7 +881,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Mobile App Issues</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Close and restart the app</li>
                         <li>• Check for app updates in your app store</li>
                         <li>• Restart your device</li>
@@ -890,7 +890,7 @@ export default function QuickGuides() {
                     </div>
                     <div className="bg-card p-4 rounded-lg border space-y-3">
                       <h5 className="font-semibold">Upload Problems (Photos, Documents)</h5>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-base text-muted-foreground space-y-1">
                         <li>• Check file size (max 10MB per file)</li>
                         <li>• Use supported formats (JPG, PNG, PDF)</li>
                         <li>• Ensure stable internet connection</li>

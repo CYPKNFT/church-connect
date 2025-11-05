@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -26,7 +26,6 @@ const Volunteering = lazy(() => import("./pages/Volunteering"));
 const MyChurch = lazy(() => import("./pages/MyChurch"));
 const Help = lazy(() => import("./pages/Help"));
 const Profile = lazy(() => import("./pages/Profile"));
-const Settings = lazy(() => import("./pages/Settings"));
 const Guides = lazy(() => import("./pages/Guides"));
 const SafetyTrust = lazy(() => import("./pages/SafetyTrust"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -129,7 +128,7 @@ const App = () => (
                       <Route path="/admin/settings" element={<SystemSettings />} />
                       <Route path="/help" element={<Help />} />
                       <Route path="/profile" element={<Profile />} />
-                      <Route path="/settings" element={<Settings />} />
+                      <Route path="/settings" element={<Navigate to="/profile" replace />} />
                       <Route path="/all-guides" element={<Guides />} />
                       <Route path="/quickstart-guides" element={<QuickstartGuides />} />
                       <Route path="/safety-trust" element={<SafetyTrust />} />

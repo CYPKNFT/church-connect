@@ -1,16 +1,26 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MessageSquare, User, Settings, Mail } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
+import { MessageSquare, User, Mail, Church } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useUserSettings } from "@/hooks/useUserSettings";
+import { useMembership } from "@/hooks/useMembership";
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 export default function Profile() {
   const { user } = useAuth();
+  const { theme, setTheme } = useTheme();
   const { toast } = useToast();
+  const { settings, loading: settingsLoading, updateSettings } = useUserSettings();
+  const { memberId, memberName, displayName, churchId, churchName, loading: membershipLoading } = useMembership();
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [contactForm, setContactForm] = useState({
     subject: "",
@@ -26,6 +36,24 @@ export default function Profile() {
     });
     setContactForm({ subject: "", message: "" });
     setIsContactFormOpen(false);
+  };
+
+  const handleNotificationsChange = async (checked: boolean) => {
+    await updateSettings({ push_notifications: checked });
+  };
+
+  const handleEmailUpdatesChange = async (checked: boolean) => {
+    await updateSettings({ email_updates: checked });
+  };
+
+  const handleThemeToggle = async (checked: boolean) => {
+    const newTheme = checked ? 'dark' : 'light';
+    setTheme(newTheme);
+    await updateSettings({ dark_mode: checked });
+    toast({
+      title: "Theme Updated",
+      description: `Switched to ${newTheme} mode.`,
+    });
   };
 
   if (!user) {
@@ -55,9 +83,10 @@ export default function Profile() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Profile Information */}
-          <div className="lg:col-span-2">
-            <Card className="border-0 shadow-card bg-white mb-8">
+          {/* Profile Information and Settings */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Profile Information */}
+            <Card className="border-0 shadow-card bg-white">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="w-5 h-5" />
@@ -85,10 +114,168 @@ export default function Profile() {
                     />
                   </div>
                 </div>
-                <Button variant="outline">
-                  <Settings className="w-4 h-4 mr-2" />
-                  Edit Profile Settings
-                </Button>
+                
+                {/* Church Membership Information */}
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Church className="w-5 h-5 text-primary" />
+                    <Label className="text-base font-semibold">Church Membership</Label>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="churchName">Church Name</Label>
+                      <Input 
+                        id="churchName" 
+                        value={churchName || "Not assigned"} 
+                        disabled 
+                        className="mt-2 bg-muted"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="memberName">Member Name</Label>
+                      <div className="mt-2 flex items-center gap-2">
+                        <Input 
+                          id="memberName" 
+                          value={memberName || displayName || "Not set"} 
+                          disabled 
+                          className="bg-muted"
+                        />
+                        {memberId && (
+                          <Badge variant="secondary" className="whitespace-nowrap">
+                            Active Member
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  {!churchId && !membershipLoading && (
+                    <div className="mt-4 p-3 bg-muted/50 rounded-md border border-border">
+                      <p className="text-sm text-muted-foreground">
+                        You haven't joined a church yet. <Link to="/member-signup" className="text-primary hover:underline">Join a church</Link> to get started.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Separator />
+
+            {/* Account Settings */}
+            <Card className="border-0 shadow-card bg-white">
+              <CardHeader>
+                <CardTitle>Account Settings</CardTitle>
+                <CardDescription>
+                  Update your account details and preferences.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={user.email || ""}
+                      disabled
+                      className="bg-muted"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="displayName">Display Name</Label>
+                    <Input
+                      id="displayName"
+                      type="text"
+                      placeholder="Enter your display name"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Notification Settings */}
+            <Card className="border-0 shadow-card bg-white">
+              <CardHeader>
+                <CardTitle>Notifications</CardTitle>
+                <CardDescription>
+                  Choose how you want to be notified about updates and activity.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label className="text-base">Push Notifications</Label>
+                    <div className="text-sm text-muted-foreground">
+                      Receive notifications about new needs and updates
+                    </div>
+                  </div>
+                  <Switch
+                    checked={settings.push_notifications}
+                    onCheckedChange={handleNotificationsChange}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label className="text-base">Email Updates</Label>
+                    <div className="text-sm text-muted-foreground">
+                      Get weekly updates about community activity
+                    </div>
+                  </div>
+                  <Switch
+                    checked={settings.email_updates}
+                    onCheckedChange={handleEmailUpdatesChange}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Appearance Settings */}
+            <Card className="border-0 shadow-card bg-white">
+              <CardHeader>
+                <CardTitle>Appearance</CardTitle>
+                <CardDescription>
+                  Customize how the app looks and feels.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label className="text-base">Dark Mode</Label>
+                    <div className="text-sm text-muted-foreground">
+                      Switch between light and dark themes
+                    </div>
+                  </div>
+                  <Switch
+                    checked={settings.dark_mode}
+                    onCheckedChange={handleThemeToggle}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Privacy Settings */}
+            <Card className="border-0 shadow-card bg-white">
+              <CardHeader>
+                <CardTitle>Privacy</CardTitle>
+                <CardDescription>
+                  Control your privacy and data sharing preferences.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm text-muted-foreground">
+                  <p>
+                    Your personal information is always kept private and secure. 
+                    We only use your data to provide you with the best possible experience.
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/privacy">Privacy Policy</Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/terms">Terms of Service</Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>

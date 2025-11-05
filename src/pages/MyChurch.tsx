@@ -487,9 +487,8 @@ export default function MyChurch() {
             <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2 px-8 gap-4 mt-3">
               <TabsTrigger 
                 value="serving" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-colors duration-300 overflow-hidden data-[state=active]:bg-transparent data-[state=active]:shadow-none outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none active:outline-none focus:ring-0 active:ring-0 active:shadow-none active:bg-transparent"
               >
-                <div className="absolute inset-0 bg-primary/10 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'serving' 
@@ -507,29 +506,27 @@ export default function MyChurch() {
               </TabsTrigger>
               <TabsTrigger 
                 value="giving" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-colors duration-300 overflow-hidden data-[state=active]:bg-transparent data-[state=active]:shadow-none outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none active:outline-none focus:ring-0 active:ring-0 active:shadow-none active:bg-transparent"
               >
-                <div className="absolute inset-0 bg-accent/10 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'giving' 
-                      ? 'bg-accent' 
+                      ? 'bg-primary' 
                       : 'bg-muted/30 group-hover:bg-muted/50'
                   }`}>
                     <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'giving' ? 'text-accent-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'giving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
-                    activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'
+                    activeTab === 'giving' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
                   }`}>GIVING</span>
                 </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="connecting" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-all duration-500 overflow-hidden"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-colors duration-300 overflow-hidden data-[state=active]:bg-transparent data-[state=active]:shadow-none outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none active:outline-none focus:ring-0 active:ring-0 active:shadow-none active:bg-transparent"
               >
-                <div className="absolute inset-0 bg-primary/10 opacity-0 data-[state=active]:opacity-100 transition-all duration-300 rounded-2xl" />
                 <div className="relative z-10 flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'connecting' 
@@ -548,7 +545,7 @@ export default function MyChurch() {
             </TabsList>
 
             {/* Unified Search Bar */}
-            <div className="p-4 bg-gradient-to-br from-muted/30 to-muted/10 border-b border-border/10">
+            <div className="p-4 bg-neutral-200 dark:bg-neutral-700/50 border-b border-border/10">
               <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
                 <div className="relative w-full max-w-2xl">
@@ -758,7 +755,7 @@ export default function MyChurch() {
                 {/* Header with Post Button */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-3xl font-bold text-foreground">Giveaway Market</h2>
+                    <h2 className="text-3xl font-bold text-foreground">Giveaway Board</h2>
                     <p className="text-muted-foreground text-lg">Share and discover items within your church community</p>
                   </div>
                   <Dialog open={isPostModalOpen} onOpenChange={setIsPostModalOpen}>

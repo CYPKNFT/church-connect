@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Heart, Plus, Home, Settings, ChevronDown, Sun, Moon } from "lucide-react";
+import { Menu, X, User, Heart, Plus, Home, ChevronDown, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { AuthDialog } from "./AuthDialog";
@@ -112,13 +112,6 @@ export function Header() {
                       theme === 'dark' ? 'translate-x-5' : 'translate-x-0.5'
                     }`} />
                   </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-border/50 my-2" />
-                <DropdownMenuItem asChild>
-                  <Link to="/settings" className="flex items-center cursor-pointer px-3 py-2.5 hover:bg-accent/50 rounded-md transition-colors text-primary dark:text-foreground">
-                    <Settings className="w-4 h-4 mr-2" />
-                    Settings
-                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-border/50 my-2" />
                 <DropdownMenuItem 
@@ -237,12 +230,6 @@ export function Header() {
                     <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
                       <User className="w-4 h-4 mr-2" />
                       Profile
-                    </Link>
-                  </Button>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/settings" onClick={() => setIsMenuOpen(false)}>
-                      <Settings className="w-4 h-4 mr-2" />
-                      Settings
                     </Link>
                   </Button>
                   <Button 
