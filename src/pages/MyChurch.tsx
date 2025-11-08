@@ -542,6 +542,25 @@ export default function MyChurch() {
                   }`}>CONNECTING</span>
                 </div>
               </TabsTrigger>
+              <TabsTrigger 
+                value="ministries" 
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-colors duration-300 overflow-hidden data-[state=active]:bg-transparent data-[state=active]:shadow-none outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none active:outline-none focus:ring-0 active:ring-0 active:shadow-none active:bg-transparent"
+              >
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    activeTab === 'ministries' 
+                      ? 'bg-primary' 
+                      : 'bg-muted/20 group-hover:bg-muted/40'
+                  }`}>
+                    <Church className={`w-5 h-5 transition-colors duration-300 ${
+                      activeTab === 'ministries' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                    }`} />
+                  </div>
+                  <span className={`transition-colors duration-300 ${
+                    activeTab === 'ministries' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                  }`}>MINISTRIES</span>
+                </div>
+              </TabsTrigger>
             </TabsList>
 
             {/* Unified Search Bar */}
@@ -1156,6 +1175,27 @@ export default function MyChurch() {
                     </>
                   )}
                 </section>
+              </div>
+            </TabsContent>
+
+            {/* MINISTRIES TAB */}
+            <TabsContent value="ministries" className="mt-0">
+              <div className="flex items-center justify-center min-h-[400px]">
+                <div className="text-center max-w-md">
+                  <Church className="w-16 h-16 mx-auto mb-4 text-primary" />
+                  <h3 className="text-2xl font-bold text-foreground mb-3">
+                    Ministries Page
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    View detailed ministry information on the dedicated Ministries page.
+                  </p>
+                  <Button asChild size="lg" className="shadow-lg">
+                    <Link to="/ministries">
+                      <HandHeart className="w-5 h-5 mr-2" />
+                      Go to Ministries Page
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </TabsContent>
           </Tabs>

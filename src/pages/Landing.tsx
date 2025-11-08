@@ -181,7 +181,7 @@ export default function Landing() {
                   alt="Church community helping each other" 
                   width="1200"
                   height="900"
-                  fetchpriority="high"
+                  fetchPriority="high"
                   decoding="async"
                   className="relative rounded-3xl shadow-card w-full max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto"
                 />
