@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,7 +26,6 @@ export default function Feedback() {
   }
 
   return (
-    <TwoLevelNav activeMenuId="feedback" activeSubItemPath="/feedback">
       <div className="bg-background">
         <div className="flex-1 p-8">
           <div className="max-w-7xl mx-auto space-y-8">
@@ -119,6 +117,5 @@ export default function Feedback() {
           </div>
         </div>
       </div>
-    </TwoLevelNav>
   );
 }

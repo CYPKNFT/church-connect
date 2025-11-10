@@ -8,7 +8,6 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import {
   Settings,
   Shield,
@@ -90,7 +89,6 @@ export default function SystemSettings() {
   };
 
   return (
-    <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/settings">
       <div className="min-h-screen bg-background">
         <div className="p-6 lg:p-8">
           <div className="space-y-8">
@@ -653,6 +651,5 @@ export default function SystemSettings() {
         </div>
       </div>
     </div>
-    </TwoLevelNav>
   );
 }

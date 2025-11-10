@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Edit, Trash2, Eye, Heart, MessageCircle, Search, X, ChevronLeft, ChevronRight, Plus, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -268,7 +267,6 @@ export default function Giving() {
   };
 
   return (
-    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/giving">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -455,7 +453,6 @@ export default function Giving() {
           <p className="mt-8 text-center text-xs text-muted-foreground">
             Tip: Keep communications inside the platform. Meet in public church spaces. Verify item condition before pickup.
           </p>
-        </div>
       </div>
 
       {/* Image Overlay Modal */}
@@ -519,6 +516,6 @@ export default function Giving() {
           </DialogContent>
         </Dialog>
       )}
-    </TwoLevelNav>
+    </div>
   );
 }

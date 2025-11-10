@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import {
   ShieldCheck,
   Search,
@@ -249,7 +248,6 @@ export default function StaffVerification() {
   const open = apps.find((a) => a.id === drawer) || null;
 
   return (
-    <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/staff-verification">
       <div className="bg-background p-6 lg:p-8">
       <header className="mb-6">
         <div className="flex items-center gap-3 mb-2">
@@ -475,7 +473,6 @@ export default function StaffVerification() {
         </CardContent>
       </Card>
     </div>
-    </TwoLevelNav>
   );
 }
 

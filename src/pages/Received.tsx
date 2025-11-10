@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Heart, Package, Gift, Calendar, User, Search, Eye, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
@@ -234,7 +233,6 @@ export default function Received() {
   };
 
   return (
-    <TwoLevelNav activeMenuId="giving" activeSubItemPath="/received">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -301,6 +299,5 @@ export default function Received() {
           </p>
         </div>
       </div>
-    </TwoLevelNav>
   );
 }

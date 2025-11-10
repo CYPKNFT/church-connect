@@ -10,6 +10,7 @@ import { Header } from "@/components/Header";
 import { AdminLayout } from "@/components/AdminLayout";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Footer } from "@/components/Footer";
+import { DashboardLayout } from "@/components/DashboardLayout";
 const Landing = lazy(() => import("./pages/Landing"));
 const PostNeed = lazy(() => import("./pages/PostNeed"));
 const About = lazy(() => import("./pages/About"));
@@ -62,6 +63,11 @@ const ContentModeration = lazy(() => import("./pages/ContentModeration"));
 const Analytics = lazy(() => import("./pages/Analytics"));
 const SystemSettings = lazy(() => import("./pages/SystemSettings"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
+const MinistriesDashboard = lazy(() => import("./pages/MinistriesDashboard"));
+const MinistryHomelessOutreach = lazy(() => import("./pages/MinistryHomelessOutreach"));
+const MinistryWinterCoatDrive = lazy(() => import("./pages/MinistryWinterCoatDrive"));
+const MinistryFoodPantry = lazy(() => import("./pages/MinistryFoodPantry"));
+const MinistryBackToSchool = lazy(() => import("./pages/MinistryBackToSchool"));
 import { AuthEventRouter } from "@/components/AuthEventRouter";
 import { SidebarProvider } from "@/contexts/SidebarContext";
 const QuickstartGuides = lazy(() => import("./pages/quickstart-guides"));
@@ -106,9 +112,29 @@ const App = () => (
                       <Route path="/forgot-password" element={<ForgotPassword />} />
                       <Route path="/reset-password" element={<ResetPassword />} />
                       <Route path="/email-verification" element={<EmailVerification />} />
+                      {/* Dashboard routes with persistent layout */}
+                      <Route element={<DashboardLayout />}>
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/my-needs" element={<MyNeeds />} />
                       <Route path="/volunteering" element={<Volunteering />} />
+                        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                        <Route path="/admin/staff-verification" element={<StaffVerification />} />
+                        <Route path="/admin/content-moderation" element={<ContentModeration />} />
+                        <Route path="/admin/analytics" element={<Analytics />} />
+                        <Route path="/admin/settings" element={<SystemSettings />} />
+                        <Route path="/giving" element={<Giving />} />
+                        <Route path="/received" element={<Received />} />
+                        <Route path="/watchlist" element={<Watchlist />} />
+                        <Route path="/wishlist" element={<Wishlist />} />
+                        <Route path="/feedback" element={<Feedback />} />
+                        <Route path="/feedback/app" element={<FeedbackApp />} />
+                        <Route path="/feedback/church" element={<FeedbackChurch />} />
+                        <Route path="/ministries/dashboard" element={<MinistriesDashboard />} />
+                        <Route path="/ministries/homeless-outreach" element={<MinistryHomelessOutreach />} />
+                        <Route path="/ministries/winter-coat-drive" element={<MinistryWinterCoatDrive />} />
+                        <Route path="/ministries/food-pantry" element={<MinistryFoodPantry />} />
+                        <Route path="/ministries/back-to-school" element={<MinistryBackToSchool />} />
+                      </Route>
                       <Route path="/my-church" element={<MyChurch />} />
           <Route path="/ministries" element={<Ministries />} />
           <Route path="/ministries/:id" element={<MinistryDetails />} />
@@ -117,19 +143,11 @@ const App = () => (
                       <Route path="/events" element={<EventHub />} />
                       <Route path="/events/:id" element={<EventDetails />} />
                       <Route path="/my-church/activity" element={<AllRecentActivity />} />
-                      <Route path="/feedback" element={<Feedback />} />
-                      <Route path="/feedback/app" element={<FeedbackApp />} />
-                      <Route path="/feedback/church" element={<FeedbackChurch />} />
                       <Route path="/template-article/:articleId?" element={<TemplateArticle />} />
                       <Route path="/needs_details/:id" element={<NeedDetails />} />
                       <Route path="/service_detail/:id" element={<ServiceDetail />} />
                       <Route path="/volunteering/:id" element={<VolunteeringDetails />} />
-                      <Route path="/admin/dashboard" element={<AdminDashboard />} />
                       <Route path="/admin-dashboard-template" element={<AdminDashboardTemplate />} />
-                      <Route path="/admin/staff-verification" element={<StaffVerification />} />
-                      <Route path="/admin/content-moderation" element={<ContentModeration />} />
-                      <Route path="/admin/analytics" element={<Analytics />} />
-                      <Route path="/admin/settings" element={<SystemSettings />} />
                       <Route path="/help" element={<Help />} />
                       <Route path="/profile" element={<Profile />} />
                       <Route path="/settings" element={<Navigate to="/profile" replace />} />
@@ -150,10 +168,6 @@ const App = () => (
                       <Route path="/guides" element={<Help />} />
                       <Route path="/pending-approval" element={<PendingApproval />} />
                       <Route path="/my-dashboard" element={<MyDashboard />} />
-                      <Route path="/giving" element={<Giving />} />
-                      <Route path="/received" element={<Received />} />
-                      <Route path="/watchlist" element={<Watchlist />} />
-                      <Route path="/wishlist" element={<Wishlist />} />
                       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                       <Route path="*" element={<NotFound />} />
                     </Routes>

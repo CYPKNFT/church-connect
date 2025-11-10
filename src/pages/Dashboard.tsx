@@ -6,7 +6,6 @@ import { Heart, Clock, CheckCircle, Users, Plus, Calendar, Star, LayoutDashboard
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMembership } from "@/hooks/useMembership";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 
 export default function Dashboard() {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -181,7 +180,6 @@ export default function Dashboard() {
   ];
 
   return (
-    <TwoLevelNav activeMenuId="serving" activeSubItemPath="/dashboard">
       <div className="min-h-screen bg-background">
         {/* Page Content */}
         <div className="flex-1 p-8">
@@ -551,6 +549,5 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </TwoLevelNav>
   );
 }

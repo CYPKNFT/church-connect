@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { Heart, Search, Plus, MapPin, Timer, Eye, Users, MessageSquare, ChevronRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -196,7 +195,7 @@ export default function MyNeeds() {
   };
 
   return (
-    <TwoLevelNav activeMenuId="serving" activeSubItemPath="/my-needs">
+    <div className="min-h-screen bg-background">
       <div className="min-h-screen w-full bg-background p-6 text-foreground">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -282,7 +281,7 @@ export default function MyNeeds() {
             Keep communications safe and within the platform. Meet in public church spaces for exchanges.
           </p>
         </div>
+        </div>
       </div>
-    </TwoLevelNav>
   );
 }

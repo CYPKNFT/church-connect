@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import { ChurchFeedbackForm } from "@/components/ChurchFeedbackForm";
 
 export default function FeedbackChurch() {
@@ -10,8 +9,6 @@ export default function FeedbackChurch() {
   };
 
   return (
-    <TwoLevelNav activeMenuId="feedback" activeSubItemPath="/feedback/church">
       <ChurchFeedbackForm onBack={handleBack} />
-    </TwoLevelNav>
   );
 }

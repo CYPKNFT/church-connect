@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { TwoLevelNav } from "@/components/TwoLevelNav";
 import {
   FolderOpen,
   Search,
@@ -129,7 +128,6 @@ export default function ContentModeration() {
   const selectedReportData = reports.find(r => r.id === selectedReport);
 
   return (
-    <TwoLevelNav activeMenuId="admin" activeSubItemPath="/admin/content-moderation">
       <div className="bg-background p-6 lg:p-8">
       <header className="mb-6">
         <div className="flex items-center gap-3 mb-2">
@@ -378,6 +376,5 @@ export default function ContentModeration() {
         </div>
       </div>
     </div>
-    </TwoLevelNav>
   );
 }
