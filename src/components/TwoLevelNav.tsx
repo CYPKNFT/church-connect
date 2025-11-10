@@ -2,24 +2,10 @@ import { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard,
-  UserCheck,
-  FileCheck,
-  TrendingUp,
-  ClipboardList,
-  Users,
-  BookOpen,
-  Gift,
-  Package,
-  Heart,
-  ShoppingBag,
-  MessageSquare,
-  Settings,
-  Church,
   ChevronLeft,
   ChevronRight,
-  List,
 } from "lucide-react";
+import { menuData, getMenuItems } from "@/data/navigation";
 
 interface SubMenuItem {
   label: string;
@@ -38,58 +24,14 @@ interface TwoLevelNavProps {
   activeMenuId?: string;
   activeSubItemPath?: string;
   children?: ReactNode;
+  isChurchAdmin?: boolean;
 }
-
-const menuData: MenuItem[] = [
-  {
-    id: "admin",
-    label: "Admin",
-    icon: Settings,
-    subItems: [
-      { label: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
-      { label: "Staff Verification", icon: UserCheck, path: "/admin/staff-verification" },
-      { label: "Content Moderation", icon: FileCheck, path: "/admin/content-moderation" },
-      { label: "Analytics", icon: TrendingUp, path: "/admin/analytics" },
-      { label: "Settings", icon: Settings, path: "/admin/settings" },
-    ],
-  },
-  {
-    id: "serving",
-    label: "Serving",
-    icon: Users,
-    subItems: [
-      { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-      { label: "Volunteering", icon: Users, path: "/volunteering" },
-      { label: "My Needs", icon: ClipboardList, path: "/my-needs" },
-    ],
-  },
-  {
-    id: "giving",
-    label: "Giving",
-    icon: Gift,
-    subItems: [
-      { label: "Giving", icon: Gift, path: "/giving" },
-      { label: "Received", icon: Package, path: "/received" },
-      { label: "Watchlist", icon: Heart, path: "/watchlist" },
-      { label: "Wishlist", icon: List, path: "/wishlist" },
-    ],
-  },
-  {
-    id: "feedback",
-    label: "Feedback",
-    icon: MessageSquare,
-    subItems: [
-      { label: "General", icon: MessageSquare, path: "/feedback" },
-      { label: "App", icon: Settings, path: "/feedback/app" },
-      { label: "Church", icon: Church, path: "/feedback/church" },
-    ],
-  },
-];
 
 export function TwoLevelNav({ 
   activeMenuId: initialMenuId = "serving",
   activeSubItemPath: initialSubItemPath = "/dashboard",
-  children 
+  children,
+  isChurchAdmin = false
 }: TwoLevelNavProps) {
   const navigate = useNavigate();
   const [activeMenuId, setActiveMenuId] = useState<string>(initialMenuId);
@@ -99,6 +41,9 @@ export function TwoLevelNav({
     const saved = localStorage.getItem('twoLevelNav_collapsed');
     return saved ? JSON.parse(saved) : false;
   });
+
+  // Get menu items based on admin status
+  const visibleMenuData = getMenuItems(isChurchAdmin);
 
   // Save to localStorage whenever collapse state changes
   const handleCollapseToggle = (collapsed: boolean) => {
@@ -112,7 +57,7 @@ export function TwoLevelNav({
     } else {
       setActiveMenuId(menuId);
       // Set first sub-item as active when switching menus
-      const newMenu = menuData.find((m) => m.id === menuId);
+      const newMenu = visibleMenuData.find((m) => m.id === menuId);
       if (newMenu) {
         const firstSubItemPath = newMenu.subItems[0].path;
         setActiveSubItemPath(firstSubItemPath);
@@ -126,7 +71,7 @@ export function TwoLevelNav({
     navigate(path);
   };
 
-  const activeMenu = menuData.find((m) => m.id === activeMenuId);
+  const activeMenu = visibleMenuData.find((m) => m.id === activeMenuId);
 
   return (
     <div className="fixed inset-0 top-16 flex bg-background">
@@ -134,7 +79,7 @@ export function TwoLevelNav({
       <div className="w-[5.85rem] bg-sidebar shadow-lg relative z-10">
         <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-sidebar-border z-20"></div>
         <div className="flex flex-col h-full py-4 overflow-hidden">
-          {menuData.map((menu) => {
+          {visibleMenuData.map((menu) => {
             const Icon = menu.icon;
             const isActive = menu.id === activeMenuId;
             return (
