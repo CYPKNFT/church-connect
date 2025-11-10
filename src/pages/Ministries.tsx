@@ -277,9 +277,18 @@ export default function Ministries() {
                             ? 'shadow-md hover:shadow-lg' 
                             : ''
                         }`}
+                        asChild={idx === 1}
                       >
-                        {action.label}
-                        {idx === 1 && <ArrowRight className="w-4 h-4 ml-1" />}
+                        {idx === 1 ? (
+                          <Link to={`/ministries/${ministry.id}`}>
+                            {action.label}
+                            <ArrowRight className="w-4 h-4 ml-1" />
+                          </Link>
+                        ) : (
+                          <>
+                            {action.label}
+                          </>
+                        )}
                       </Button>
                     ))}
                   </div>

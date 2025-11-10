@@ -25,6 +25,7 @@ const MyNeeds = lazy(() => import("./pages/MyNeeds"));
 const Volunteering = lazy(() => import("./pages/Volunteering"));
 const MyChurch = lazy(() => import("./pages/MyChurch"));
 const Ministries = lazy(() => import("./pages/Ministries"));
+const MinistryDetails = lazy(() => import("./pages/MinistryDetails"));
 const Help = lazy(() => import("./pages/Help"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Guides = lazy(() => import("./pages/Guides"));
@@ -109,7 +110,8 @@ const App = () => (
                       <Route path="/my-needs" element={<MyNeeds />} />
                       <Route path="/volunteering" element={<Volunteering />} />
                       <Route path="/my-church" element={<MyChurch />} />
-                      <Route path="/ministries" element={<Ministries />} />
+          <Route path="/ministries" element={<Ministries />} />
+          <Route path="/ministries/:id" element={<MinistryDetails />} />
                       <Route path="/my-church/needs" element={<AllChurchNeeds />} />
                       <Route path="/my-church/events" element={<AllChurchEvents />} />
                       <Route path="/events" element={<EventHub />} />
