@@ -58,7 +58,10 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => navigateMonth('prev')}
+          onClick={(e) => {
+            e.stopPropagation();
+            navigateMonth('prev');
+          }}
           className="h-8 w-8 p-0"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -69,16 +72,22 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => navigateMonth('next')}
+          onClick={(e) => {
+            e.stopPropagation();
+            navigateMonth('next');
+          }}
           className="h-8 w-8 p-0"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
 
-      {/* Compact Calendar Grid */}
-      <div className="flex-1 mb-4">
-        <div className="grid grid-cols-7 gap-1">
+      {/* Compact Calendar Grid - Clickable area */}
+      <div 
+        className="flex-1 mb-4 cursor-pointer hover:opacity-90 transition-opacity"
+        onClick={() => setIsOpen(true)}
+      >
+        <div className="grid grid-cols-7 gap-1 pointer-events-none">
           {/* Day headers */}
           {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
             <div key={i} className="text-center text-xs font-medium text-muted-foreground p-1">
@@ -98,14 +107,10 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
               <div
                 key={i}
                 className={`
-                  relative text-center p-1 text-sm cursor-pointer rounded-sm
+                  relative text-center p-1 text-sm rounded-sm
                   ${isSameMonth(day, currentMonth) ? 'text-foreground' : 'text-muted-foreground/50'}
-                  ${isToday ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}
+                  ${isToday ? 'bg-primary text-primary-foreground' : ''}
                 `}
-                onClick={() => {
-                  setSelectedDate(day);
-                  if (hasEvents) setIsOpen(true);
-                }}
               >
                 {format(day, 'd')}
                 {hasEvents && (
@@ -117,15 +122,6 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
         </div>
       </div>
 
-      {/* Calendar Button - positioned to align with event card buttons */}
-      <Button
-        onClick={() => setIsOpen(true)}
-        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-auto"
-        size="default"
-      >
-        <CalendarIcon className="h-4 w-4 mr-2" />
-        Calendar
-      </Button>
     </div>
   );
 
@@ -146,35 +142,36 @@ export function CompactEventCalendar({ events, showCard = true }: CompactEventCa
       {/* Enhanced Calendar Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-primary flex items-center gap-2">
-              <CalendarIcon className="w-6 h-6" />
-              Church Events Calendar
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[600px]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[690px]">
             {/* Calendar - Takes 3/5 width */}
-            <div className="lg:col-span-3">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                month={currentMonth}
-                onMonthChange={setCurrentMonth}
-                className="pointer-events-auto w-full"
-                modifiers={{
-                  hasEvents: daysWithEvents
-                }}
-                modifiersStyles={{
-                  hasEvents: {
-                    backgroundColor: 'hsl(var(--primary))',
-                    color: 'hsl(var(--primary-foreground))',
-                    borderRadius: '50%',
-                    fontWeight: 'bold'
-                  }
-                }}
-              />
+            <div className="lg:col-span-3 flex flex-col items-center justify-start relative pt-12">
+              <DialogHeader className="absolute top-0 left-1/2 -translate-x-1/2 translate-y-[20px] w-full">
+                <DialogTitle className="text-2xl font-bold text-primary flex items-center justify-center gap-2">
+                  <CalendarIcon className="w-6 h-6" />
+                  Church Events Calendar
+                </DialogTitle>
+              </DialogHeader>
+              <div className="scale-x-[1.925] scale-y-[1.75] origin-top mt-8">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  month={currentMonth}
+                  onMonthChange={setCurrentMonth}
+                  className="pointer-events-auto"
+                  classNames={{
+                    cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                    day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-md",
+                    day_selected: "bg-yellow-500 text-yellow-950 hover:bg-yellow-500 hover:text-yellow-950 focus:bg-yellow-500 focus:text-yellow-950 rounded-md"
+                  }}
+                  modifiers={{
+                    hasEvents: daysWithEvents
+                  }}
+                  modifiersClassNames={{
+                    hasEvents: "!rounded-full bg-primary text-primary-foreground font-bold hover:bg-blue-200 dark:hover:bg-blue-800 aria-selected:bg-yellow-500 aria-selected:text-yellow-950"
+                  }}
+                />
+              </div>
             </div>
 
             {/* Events Panel - Takes 2/5 width */}

@@ -16,7 +16,7 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 import { NeedCard } from "@/components/NeedCard";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles, ChevronLeft, ChevronRight, X, Sprout, ShoppingBag, HeartHandshake } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
 import { useEvents } from "@/hooks/useEvents";
 import { EventCard } from "@/components/EventCard";
@@ -52,6 +52,8 @@ export default function MyChurch() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [eventSearchQuery, setEventSearchQuery] = useState("");
   const [selectedEventCategory, setSelectedEventCategory] = useState("all");
+  const [ministrySearchQuery, setMinistrySearchQuery] = useState("");
+  const [selectedMinistryCategory, setSelectedMinistryCategory] = useState("All");
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [postType, setPostType] = useState<"give" | "wish">("give");
   const [currentPage, setCurrentPage] = useState(1);
@@ -304,6 +306,136 @@ export default function MyChurch() {
     }
   ];
 
+  // Ministries data
+  const [ministries] = useState([
+    {
+      id: 1,
+      title: "Homeless Outreach",
+      subtitle: "Monthly Meal Drop",
+      description: "Help us serve our local shelters with warm meals and prayer every 3rd Sunday.",
+      image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&auto=format&fit=crop",
+      category: "Community Service",
+      status: "Active",
+      nextEvent: "3rd Sunday",
+      volunteers: 24,
+      updated: "3 days ago",
+      impact: "Served 150+ meals last month",
+      actions: [
+        { label: "Join", variant: "default" as const },
+        { label: "View Details", variant: "outline" as const }
+      ]
+    },
+    {
+      id: 2,
+      title: "Winter Coat Drive",
+      subtitle: "Blessing Families This Season",
+      description: "Donate your gently used winter items to bless families in need this season.",
+      image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop",
+      category: "Donations",
+      status: "Active",
+      nextEvent: "Ongoing Collection",
+      progress: 40,
+      goal: 100,
+      volunteers: 12,
+      updated: "1 week ago",
+      impact: "40 of 100 coats collected",
+      actions: [
+        { label: "Donate Items", variant: "default" as const },
+        { label: "Drop-off Locations", variant: "outline" as const }
+      ]
+    },
+    {
+      id: 3,
+      title: "Community Garden Project",
+      subtitle: "Fresh Produce for Food Bank",
+      description: "Build and maintain a fresh produce garden to support our food bank year-round.",
+      image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop",
+      category: "Food Security",
+      status: "Active",
+      nextEvent: "Saturday 9 AM",
+      volunteers: 18,
+      updated: "2 days ago",
+      impact: "200+ lbs of produce donated monthly",
+      actions: [
+        { label: "Volunteer", variant: "default" as const },
+        { label: "Learn More", variant: "outline" as const }
+      ]
+    },
+    {
+      id: 4,
+      title: "Food Pantry Ministry",
+      subtitle: "Fighting Hunger Together",
+      description: "Weekly food distribution to families experiencing food insecurity in our community.",
+      image: "https://images.unsplash.com/photo-1593113646773-028c1f7c6c3f?w=800&auto=format&fit=crop",
+      category: "Food Security",
+      status: "Active",
+      nextEvent: "Every Thursday",
+      volunteers: 32,
+      updated: "5 days ago",
+      impact: "Supporting 80+ families weekly",
+      actions: [
+        { label: "Join Team", variant: "default" as const },
+        { label: "View Schedule", variant: "outline" as const }
+      ]
+    },
+    {
+      id: 5,
+      title: "Back to School Drive",
+      subtitle: "Equipping Students for Success",
+      description: "Collect and distribute school supplies to students from low-income families.",
+      image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&fit=crop",
+      category: "Education",
+      status: "Upcoming",
+      nextEvent: "August 2025",
+      progress: 25,
+      goal: 200,
+      volunteers: 8,
+      updated: "1 day ago",
+      impact: "25 of 200 supply kits prepared",
+      actions: [
+        { label: "Donate", variant: "default" as const },
+        { label: "Details", variant: "outline" as const }
+      ]
+    },
+    {
+      id: 6,
+      title: "Community Tutoring",
+      subtitle: "Empowering Through Education",
+      description: "One-on-one tutoring for students K-12 in reading, math, and other subjects.",
+      image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&fit=crop",
+      category: "Education",
+      status: "Active",
+      nextEvent: "Mon-Thu 4-6 PM",
+      volunteers: 15,
+      updated: "1 week ago",
+      impact: "Tutoring 45 students currently",
+      actions: [
+        { label: "Be a Tutor", variant: "default" as const },
+        { label: "More Info", variant: "outline" as const }
+      ]
+    }
+  ]);
+
+  const getMinistryCategoryIcon = (category: string) => {
+    const icons: { [key: string]: any } = {
+      "Community Service": HandHeart,
+      "Donations": Package,
+      "Food Security": ShoppingBag,
+      "Education": HeartHandshake
+    };
+    return icons[category] || Heart;
+  };
+
+  const getMinistryCategoryColor = (category: string) => {
+    const colors: { [key: string]: string } = {
+      "Community Service": "bg-blue-500/10 text-blue-600 border-blue-200",
+      "Donations": "bg-purple-500/10 text-purple-600 border-purple-200",
+      "Food Security": "bg-green-500/10 text-green-600 border-green-200",
+      "Education": "bg-orange-500/10 text-orange-600 border-orange-200"
+    };
+    return colors[category] || "bg-primary/10 text-primary border-primary/20";
+  };
+
   // Filter events based on search and category
   const filteredEvents = events.filter(event => {
     const matchesSearch = eventSearchQuery === "" || 
@@ -480,11 +612,11 @@ export default function MyChurch() {
         </div>
       </div>
 
-      {/* Three-Tab Navigation - Separate Section */}
+      {/* Four-Tab Navigation - Separate Section */}
       <div className="container mx-auto px-4 -mt-12 relative z-10">
         <div className="bg-background/95 backdrop-blur-sm rounded-3xl shadow-lg border border-border/50 overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-transparent h-20 rounded-none border-b border-border/5 p-2 px-8 gap-4 mt-3">
+            <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2 px-8 gap-4 mt-3">
               <TabsTrigger 
                 value="serving" 
                 className="group relative flex items-center justify-center gap-3 text-base font-semibold h-16 rounded-2xl transition-colors duration-300 overflow-hidden data-[state=active]:bg-transparent data-[state=active]:shadow-none outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none active:outline-none focus:ring-0 active:ring-0 active:shadow-none active:bg-transparent"
@@ -564,7 +696,7 @@ export default function MyChurch() {
             </TabsList>
 
             {/* Unified Search Bar */}
-            <div className="p-4 bg-neutral-200 dark:bg-neutral-700/50 border-b border-border/10">
+            <div className="p-4 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-b border-border/10">
               <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
                 <div className="relative w-full max-w-2xl">
@@ -573,16 +705,19 @@ export default function MyChurch() {
                     placeholder={
                       activeTab === 'serving' ? "Search needs by title or description..." :
                       activeTab === 'giving' ? "Search items by title or description..." :
+                      activeTab === 'ministries' ? "Search ministries by title or description..." :
                       "Search events by title or description..."
                     }
                     value={
                       activeTab === 'serving' ? searchQuery :
                       activeTab === 'giving' ? searchQuery :
+                      activeTab === 'ministries' ? ministrySearchQuery :
                       eventSearchQuery
                     }
                     onChange={(e) => {
                       if (activeTab === 'serving') setSearchQuery(e.target.value);
                       else if (activeTab === 'giving') setSearchQuery(e.target.value);
+                      else if (activeTab === 'ministries') setMinistrySearchQuery(e.target.value);
                       else setEventSearchQuery(e.target.value);
                     }}
                     className="pl-10 pr-4 py-2.5 bg-background/80 border-border/30 focus:border-primary/50 rounded-xl transition-all duration-300"
@@ -647,6 +782,22 @@ export default function MyChurch() {
                       ))}
                     </>
                   )}
+
+                  {activeTab === 'ministries' && (
+                    <>
+                      {['All', 'Missionary', 'Homelessness', 'Hunger', 'Education', 'Health', 'Community', 'Victims'].map((category) => (
+                        <Button
+                          key={category}
+                          variant={selectedMinistryCategory === category ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedMinistryCategory(category)}
+                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 border-border/30"
+                        >
+                          {category}
+                        </Button>
+                      ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -662,6 +813,21 @@ export default function MyChurch() {
             <TabsContent value="serving" className="mt-0">
               {/* Enhanced Church Family Needs Section */}
               <div className="space-y-8">
+                {/* Intro Section */}
+                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
+                  <div className="max-w-3xl">
+                    <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                      Serving
+                    </Badge>
+                    <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                      Lend a hand. Share hope. Build community.
+                    </h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                      Serving opportunities connect the church family to practical needs in our neighborhoods — from meal prep and repairs to prayer and encouragement. Every act of service is a reflection of love in motion.
+                    </p>
+                  </div>
+                </div>
+
                 {/* Section Header */}
                 <div className="flex items-center justify-between">
                   <div>
@@ -771,6 +937,21 @@ export default function MyChurch() {
             {/* GIVING TAB */}
             <TabsContent value="giving" className="mt-0">
               <div className="space-y-8">
+                {/* Intro Section */}
+                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
+                  <div className="max-w-3xl">
+                    <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                      Giving
+                    </Badge>
+                    <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                      Generosity that strengthens our church family.
+                    </h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                      Through shared gifts and resources, we care for one another — meeting needs, easing burdens, and celebrating blessings together. Every item shared and every act of giving helps build a stronger, more connected church community.
+                    </p>
+                  </div>
+                </div>
+
                 {/* Header with Post Button */}
                 <div className="flex items-center justify-between">
                   <div>
@@ -1035,6 +1216,28 @@ export default function MyChurch() {
             {/* CONNECTING TAB */}
             <TabsContent value="connecting" className="mt-0">
               <div className="space-y-6">
+                {/* Intro Section */}
+                <div className="flex flex-col lg:flex-row gap-6 mb-6">
+                  {/* Text Box */}
+                  <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6 flex-1">
+                    <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                      Connecting
+                    </Badge>
+                    <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                      Grow relationships. Grow faith.
+                    </h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                      Connecting is how we move from Sunday attendance to true community. Join gatherings, workshops, and outreach events that help build friendships and deepen your walk with God and others.
+                    </p>
+                  </div>
+                  {/* Calendar Box */}
+                  <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-2 w-[280px] h-[280px] flex items-center justify-center">
+                    <div className="w-full h-full">
+                      <CompactEventCalendar events={events} showCard={false} />
+                    </div>
+                  </div>
+                </div>
+
                 {/* First Row - Featured Events and Calendar */}
                 {featuredEvents.length > 0 && (
                   <section className="space-y-4">
@@ -1045,8 +1248,8 @@ export default function MyChurch() {
                       </h2>
                     </div>
                     
-                    <div className="grid lg:grid-cols-3 gap-6">
-                      {/* Featured Events - First Two Columns */}
+                    <div className="grid lg:grid-cols-2 gap-6">
+                      {/* Featured Events */}
                       {featuredEvents.slice(0, 2).map((event) => {
                         const IconComponent = getCategoryIcon(event.category);
                         
@@ -1059,17 +1262,6 @@ export default function MyChurch() {
                           />
                         );
                       })}
-
-                      {/* Event Calendar - Third Column */}
-                      <div className="rounded-lg bg-card/50 p-6 h-full flex flex-col">
-                        <h2 className="text-2xl font-bold flex items-center gap-2 mb-4">
-                          <Calendar className="w-6 h-6 text-primary" />
-                          Event Calendar
-                        </h2>
-                        <div className="flex-1 flex flex-col">
-                          <CompactEventCalendar events={events} showCard={false} />
-                        </div>
-                      </div>
                     </div>
                   </section>
                 )}
@@ -1180,22 +1372,183 @@ export default function MyChurch() {
 
             {/* MINISTRIES TAB */}
             <TabsContent value="ministries" className="mt-0">
-              <div className="flex items-center justify-center min-h-[400px]">
-                <div className="text-center max-w-md">
-                  <Church className="w-16 h-16 mx-auto mb-4 text-primary" />
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
-                    Ministries Page
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    View detailed ministry information on the dedicated Ministries page.
-                  </p>
-                  <Button asChild size="lg" className="shadow-lg">
-                    <Link to="/ministries">
-                      <HandHeart className="w-5 h-5 mr-2" />
-                      Go to Ministries Page
-                    </Link>
-                  </Button>
+              <div className="space-y-8">
+                {/* Hero Section */}
+                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
+                  <div className="max-w-3xl">
+                    <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                      Church Ministries
+                    </Badge>
+                    <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                      Making a Difference Together
+                    </h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                      Discover ministries where our church serves the community through homelessness support, 
+                      food drives, community service, and more. Every act of service is an opportunity to share God's love.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <Button size="lg" className="shadow-lg">
+                        <Heart className="w-5 h-5 mr-2" />
+                        Get Involved
+                      </Button>
+                      <Button size="lg" variant="outline">
+                        <Calendar className="w-5 h-5 mr-2" />
+                        View Calendar
+                      </Button>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Stats Section */}
+                <Card className="shadow-xl border-border/50 bg-card">
+                  <CardContent className="p-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary mb-1">6</div>
+                        <div className="text-sm text-muted-foreground">Active Ministries</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary mb-1">109</div>
+                        <div className="text-sm text-muted-foreground">Active Volunteers</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary mb-1">450+</div>
+                        <div className="text-sm text-muted-foreground">Lives Impacted</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary mb-1">12</div>
+                        <div className="text-sm text-muted-foreground">Years Serving</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Ministries Grid */}
+                <div>
+                  {(() => {
+                    // Filter ministries based on search and category
+                    const filteredMinistries = ministries.filter(ministry => {
+                      const matchesSearch = ministrySearchQuery === "" || 
+                        ministry.title.toLowerCase().includes(ministrySearchQuery.toLowerCase()) ||
+                        ministry.description.toLowerCase().includes(ministrySearchQuery.toLowerCase()) ||
+                        ministry.subtitle.toLowerCase().includes(ministrySearchQuery.toLowerCase());
+                      
+                      const matchesCategory = selectedMinistryCategory === "All" || 
+                        ministry.category.toLowerCase().includes(selectedMinistryCategory.toLowerCase()) ||
+                        ministry.title.toLowerCase().includes(selectedMinistryCategory.toLowerCase()) ||
+                        ministry.description.toLowerCase().includes(selectedMinistryCategory.toLowerCase());
+                      
+                      return matchesSearch && matchesCategory;
+                    });
+
+                    return (
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+                        {filteredMinistries.map((ministry) => {
+                      const CategoryIcon = getMinistryCategoryIcon(ministry.category);
+                      return (
+                        <Link to={`/ministries/${ministry.id}`} className="block h-full">
+                          <Card key={ministry.id} className="group overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 border-border/50 h-full flex flex-col cursor-pointer">
+                            {/* Image */}
+                            <div className="relative h-48 overflow-hidden">
+                              <img 
+                                src={ministry.image} 
+                                alt={ministry.title}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                              <Badge 
+                                className={`absolute top-4 left-4 ${getMinistryCategoryColor(ministry.category)} border`}
+                              >
+                                <CategoryIcon className="w-3 h-3 mr-1" />
+                                {ministry.category}
+                              </Badge>
+                              <Badge 
+                                className={`absolute top-4 right-4 ${
+                                  ministry.status === 'Active' 
+                                    ? 'bg-green-500/90 text-white border-green-400' 
+                                    : 'bg-blue-500/90 text-white border-blue-400'
+                                }`}
+                              >
+                                {ministry.status}
+                              </Badge>
+                            </div>
+
+                            {/* Content */}
+                            <CardContent className="p-6 space-y-4 flex-1 flex flex-col">
+                              <div className="flex-1">
+                                <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                                  {ministry.title}
+                                </h3>
+                                <p className="text-sm font-medium text-primary mb-2">
+                                  {ministry.subtitle}
+                                </p>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                  {ministry.description}
+                                </p>
+                              </div>
+
+                              {/* Progress Bar (if applicable) */}
+                              {ministry.progress !== undefined && ministry.goal && (
+                                <div className="space-y-2">
+                                  <div className="flex justify-between text-xs text-muted-foreground">
+                                    <span>Progress</span>
+                                    <span className="font-semibold">{ministry.progress} of {ministry.goal}</span>
+                                  </div>
+                                  <Progress value={(ministry.progress / ministry.goal) * 100} className="h-2" />
+                                </div>
+                              )}
+
+                              {/* Impact & Details */}
+                              <div className="space-y-2 pt-2 border-t border-border/50">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                  <Calendar className="w-4 h-4 text-primary" />
+                                  <span>{ministry.nextEvent}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                  <Users className="w-4 h-4 text-primary" />
+                                  <span>{ministry.volunteers} volunteers</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm font-medium text-primary">
+                                  <Heart className="w-4 h-4" />
+                                  <span>{ministry.impact}</span>
+                                </div>
+                              </div>
+
+                              {/* Footer */}
+                              <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
+                                Updated {ministry.updated}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      );
+                    })}
+                      </div>
+                    );
+                  })()}
+                </div>
+
+                {/* CTA Section */}
+                <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-primary/20">
+                  <CardContent className="p-8 md:p-12 text-center">
+                    <HandHeart className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <h2 className="text-3xl font-bold text-foreground mb-4">
+                      Start Your Ministry Journey
+                    </h2>
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+                      Whether you have 1 hour a week or 10, there's a place for you to serve and make an impact in our community.
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                      <Button size="lg" className="shadow-lg">
+                        <Heart className="w-5 h-5 mr-2" />
+                        Find Your Ministry
+                      </Button>
+                      <Button size="lg" variant="outline">
+                        Contact Ministry Leader
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
           </Tabs>
