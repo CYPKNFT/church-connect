@@ -15,6 +15,8 @@ import {
   MessageSquare,
   HeartHandshake,
   PanelsTopLeft,
+  Sprout,
+  Church,
 } from "lucide-react";
 import { MenuItem } from "@/types/navigation";
 
@@ -72,6 +74,21 @@ export const menuData: MenuItem[] = [
     ],
   },
   {
+    id: "ministries",
+    label: "Ministries",
+    subtitle: "Church Ministries",
+    icon: Church,
+    category: "ministries",
+    subItems: [
+      { id: "homeless-outreach", label: "Homeless Outreach", icon: HandHeart, path: "/ministries/1" },
+      { id: "winter-coat-drive", label: "Winter Coat Drive", icon: Package, path: "/ministries/2" },
+      { id: "community-garden", label: "Community Garden", icon: Sprout, path: "/ministries/3" },
+      { id: "food-pantry", label: "Food Pantry", icon: ShoppingBag, path: "/ministries/4" },
+      { id: "school-drive", label: "Back to School Drive", icon: BookOpen, path: "/ministries/5" },
+      { id: "tutoring", label: "Community Tutoring", icon: Users, path: "/ministries/6" },
+    ],
+  },
+  {
     id: "feedback",
     label: "Feedback",
     subtitle: "Your Voice Matters",
@@ -109,6 +126,10 @@ export const getCurrentMenuFromRoute = (pathname: string): string => {
     return 'giving';
   }
   
+  if (pathname.startsWith('/ministries')) {
+    return 'ministries';
+  }
+  
   if (pathname.startsWith('/feedback')) {
     return 'feedback';
   }
@@ -135,6 +156,14 @@ export const getCurrentSubItemFromRoute = (pathname: string): string => {
   if (pathname === '/received') return 'received';
   if (pathname === '/watchlist') return 'watchlist';
   if (pathname === '/marketplace') return 'marketplace';
+  
+  // Ministries routes
+  if (pathname === '/ministries/1') return 'homeless-outreach';
+  if (pathname === '/ministries/2') return 'winter-coat-drive';
+  if (pathname === '/ministries/3') return 'community-garden';
+  if (pathname === '/ministries/4') return 'food-pantry';
+  if (pathname === '/ministries/5') return 'school-drive';
+  if (pathname === '/ministries/6') return 'tutoring';
   
   // Feedback routes
   if (pathname === '/feedback') return 'general';
