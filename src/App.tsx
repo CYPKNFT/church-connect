@@ -26,7 +26,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const MyNeeds = lazy(() => import("./pages/MyNeeds"));
 const Volunteering = lazy(() => import("./pages/Volunteering"));
 const MyChurch = lazy(() => import("./pages/MyChurch"));
-const Ministries = lazy(() => import("./pages/Ministries"));
 const MinistryDetails = lazy(() => import("./pages/MinistryDetails"));
 const Help = lazy(() => import("./pages/Help"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -137,7 +136,6 @@ const App = () => (
                         <Route path="/ministries/back-to-school" element={<MinistryBackToSchool />} />
                       </Route>
                       <Route path="/my-church" element={<MyChurch />} />
-          <Route path="/ministries" element={<Ministries />} />
           <Route path="/ministries/:id" element={<MinistryDetails />} />
                       <Route path="/my-church/needs" element={<AllChurchNeeds />} />
                       <Route path="/my-church/events" element={<AllChurchEvents />} />
@@ -165,7 +163,8 @@ const App = () => (
                       <Route path="/how-it-works" element={<HowItWorks />} />
                       <Route path="/community" element={<Community />} />
                       <Route path="/churches" element={<Churches />} />
-                      <Route path="/charities" element={<Charities />} />
+                      <Route path="/ministries" element={<Charities />} />
+                      <Route path="/charities" element={<Navigate to="/ministries" replace />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/guides" element={<Help />} />
                       <Route path="/pending-approval" element={<PendingApproval />} />
