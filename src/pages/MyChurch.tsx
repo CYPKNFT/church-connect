@@ -625,14 +625,14 @@ export default function MyChurch() {
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'serving' 
                       ? 'bg-primary' 
-                      : 'bg-muted/30 group-hover:bg-muted/50'
+                      : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                   }`}>
                     <HandHeart className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'serving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'serving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
-                    activeTab === 'serving' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    activeTab === 'serving' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                   }`}>SERVING</span>
                 </div>
               </TabsTrigger>
@@ -644,14 +644,14 @@ export default function MyChurch() {
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'giving' 
                       ? 'bg-primary' 
-                      : 'bg-muted/30 group-hover:bg-muted/50'
+                      : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                   }`}>
                     <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'giving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'giving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
-                    activeTab === 'giving' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    activeTab === 'giving' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                   }`}>GIVING</span>
                 </div>
               </TabsTrigger>
@@ -663,14 +663,14 @@ export default function MyChurch() {
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'connecting' 
                       ? 'bg-primary' 
-                      : 'bg-muted/20 group-hover:bg-muted/40'
+                      : 'bg-muted/20 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                   }`}>
                     <Users className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'connecting' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'connecting' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
-                    activeTab === 'connecting' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    activeTab === 'connecting' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                   }`}>CONNECTING</span>
                 </div>
               </TabsTrigger>
@@ -682,14 +682,14 @@ export default function MyChurch() {
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeTab === 'ministries' 
                       ? 'bg-primary' 
-                      : 'bg-muted/20 group-hover:bg-muted/40'
+                      : 'bg-muted/20 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                   }`}>
                     <Church className={`w-5 h-5 transition-colors duration-300 ${
-                      activeTab === 'ministries' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                      activeTab === 'ministries' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`} />
                   </div>
                   <span className={`transition-colors duration-300 ${
-                    activeTab === 'ministries' ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    activeTab === 'ministries' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                   }`}>MINISTRIES</span>
                 </div>
               </TabsTrigger>

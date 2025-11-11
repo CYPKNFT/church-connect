@@ -17,6 +17,7 @@ const About = lazy(() => import("./pages/About"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const Community = lazy(() => import("./pages/Community"));
 const Churches = lazy(() => import("./pages/Churches"));
+const Charities = lazy(() => import("./pages/Charities"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
@@ -164,6 +165,7 @@ const App = () => (
                       <Route path="/how-it-works" element={<HowItWorks />} />
                       <Route path="/community" element={<Community />} />
                       <Route path="/churches" element={<Churches />} />
+                      <Route path="/charities" element={<Charities />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/guides" element={<Help />} />
                       <Route path="/pending-approval" element={<PendingApproval />} />

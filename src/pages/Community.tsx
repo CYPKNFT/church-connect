@@ -771,89 +771,89 @@ export default function Community() {
 
       <div className="container mx-auto px-4 -mt-12 relative z-20">
         {/* Three-Tab Navigation - Separate Container */}
-        <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-border/50 overflow-hidden">
+        <div className="bg-background/95 backdrop-blur-xl rounded-3xl shadow-md border border-border overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2 shadow-sm">
+            <TabsList className="grid w-full grid-cols-4 bg-transparent h-20 rounded-none border-b border-border/5 p-2">
               <TabsTrigger 
                 value="needs" 
-                className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-300 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'needs' 
-                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                        ? 'bg-primary' 
                         : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Heart className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'needs' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                        activeTab === 'needs' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'needs' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                      activeTab === 'needs' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                      }`}>SERVICE</span>
                  </div>
                </TabsTrigger>
                <TabsTrigger 
                   value="giving" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-300 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'giving' 
-                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
-                        : 'bg-muted/50 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
+                        ? 'bg-primary' 
+                        : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Gift className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                        activeTab === 'giving' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'giving' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                      activeTab === 'giving' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`}>GIVING</span>
                 </div>
               </TabsTrigger>
                 <TabsTrigger 
                   value="events" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-300 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'events' 
-                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
+                        ? 'bg-primary' 
                         : 'bg-muted/20 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Calendar className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'events' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                        activeTab === 'events' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'events' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                      activeTab === 'events' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`}>EVENTS</span>
                   </div>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="stories" 
-                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-500 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className="group relative flex items-center justify-center gap-3 text-base font-semibold transition-all duration-300 px-4 bg-transparent border-none shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div className="relative z-10 flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeTab === 'stories' 
-                        ? 'bg-gradient-to-br from-accent/40 to-accent/30' 
-                        : 'bg-muted/30 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
+                        ? 'bg-primary' 
+                        : 'bg-muted/20 group-hover:bg-primary/20 dark:group-hover:bg-white/20'
                     }`}>
                       <Star className={`w-5 h-5 transition-colors duration-300 ${
-                        activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                        activeTab === 'stories' ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                       }`} />
                     </div>
                     <span className={`transition-colors duration-300 ${
-                      activeTab === 'stories' ? 'text-accent' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
+                      activeTab === 'stories' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary dark:group-hover:text-white'
                     }`}>TESTIMONIALS</span>
                   </div>
                 </TabsTrigger>
             </TabsList>
 
             {/* Unified Search Bar */}
-            <div className="p-4 bg-gradient-to-br from-muted/20 to-muted/5 border-b border-border/10">
+            <div className="p-4 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-b border-border/10">
               <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
                 <div className="relative w-full max-w-2xl">

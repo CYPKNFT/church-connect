@@ -480,11 +480,11 @@ export default function MinistryDetails() {
 
             {/* Tabs */}
             <Tabs defaultValue="activities" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="activities">Activities</TabsTrigger>
-                <TabsTrigger value="requirements">Requirements</TabsTrigger>
-                <TabsTrigger value="impact">Impact</TabsTrigger>
-                <TabsTrigger value="testimonials">Stories</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-4 bg-white">
+                <TabsTrigger value="activities" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Activities</TabsTrigger>
+                <TabsTrigger value="requirements" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Requirements</TabsTrigger>
+                <TabsTrigger value="impact" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Impact</TabsTrigger>
+                <TabsTrigger value="testimonials" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Stories</TabsTrigger>
               </TabsList>
               
               <TabsContent value="activities" className="mt-6">

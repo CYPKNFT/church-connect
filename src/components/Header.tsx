@@ -46,6 +46,9 @@ export function Header() {
           <Link to="/churches" className="text-foreground hover:text-primary transition-colors font-medium">
             Churches
           </Link>
+          <Link to="/charities" className="text-foreground hover:text-primary transition-colors font-medium">
+            Charities
+          </Link>
            <Link to="/guides" className="text-foreground hover:text-primary transition-colors font-medium">
              Guides
            </Link>
@@ -191,6 +194,13 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Churches
+            </Link>
+            <Link 
+              to="/charities" 
+              className="block text-foreground hover:text-primary transition-colors font-medium py-3"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Charities
             </Link>
              <Link 
                to="/guides" 
