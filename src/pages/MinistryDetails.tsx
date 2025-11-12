@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -33,9 +33,22 @@ import {
   TrendingUp,
   Award,
   UserPlus,
-  ChevronRight
+  ChevronRight,
+  Info,
+  CalendarDays,
+  Sparkles,
+  Plus,
+  Settings,
+  BarChart3,
+  X,
+  Search,
+  Filter,
+  Download,
+  ChevronLeft,
+  ChevronRight as ChevronRightIcon
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 interface MinistryDetails {
   id: string;
@@ -91,15 +104,33 @@ export default function MinistryDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState("overview");
+  const [isTabBarSticky, setIsTabBarSticky] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [donateDialogOpen, setDonateDialogOpen] = useState(false);
+  const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null);
   const [donationPhotos, setDonationPhotos] = useState<File[]>([]);
   const [donationForm, setDonationForm] = useState({
     quantity: 1,
     condition: "",
     description: ""
   });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [donationHistoryFilter, setDonationHistoryFilter] = useState("all");
+  const [isMinistryLeader, setIsMinistryLeader] = useState(true); // Mock: set to true for demo
+
+  // Sticky tab bar on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = 320; // Height of hero section
+      setIsTabBarSticky(window.scrollY > heroHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const donationItems = [
     { id: "blankets", name: "Blankets", needed: 50, received: 32, unit: "blankets" },
@@ -110,10 +141,44 @@ export default function MinistryDetails() {
   ];
 
   const volunteerRoles = [
-    { id: "meal-prep", name: "Meal Preparation", needed: 8, signedUp: 5 },
-    { id: "serving", name: "Serving", needed: 12, signedUp: 9 },
-    { id: "cleanup", name: "Cleanup Crew", needed: 6, signedUp: 4 },
-    { id: "outreach", name: "Outreach Team", needed: 10, signedUp: 6 }
+    { id: "meal-prep", name: "Meal Preparation", needed: 8, signedUp: 5, description: "Prepare meals for distribution" },
+    { id: "serving", name: "Serving", needed: 12, signedUp: 9, description: "Serve meals to guests" },
+    { id: "cleanup", name: "Cleanup Crew", needed: 6, signedUp: 4, description: "Clean and organize after service" },
+    { id: "outreach", name: "Outreach Team", needed: 10, signedUp: 6, description: "Connect with community members" }
+  ];
+
+  const donationHistory = [
+    { id: 1, donor: "Anonymous", item: "Blankets", qty: 5, status: "Approved", date: "2024-04-10", destination: "Downtown Shelter" },
+    { id: 2, donor: "Sarah M.", item: "Hygiene Kits", qty: 10, status: "Approved", date: "2024-04-09", destination: "Hope Center" },
+    { id: 3, donor: "John D.", item: "Socks", qty: 20, status: "Pending", date: "2024-04-08", destination: "Pending Review" },
+    { id: 4, donor: "Maria G.", item: "Shoes", qty: 3, status: "Approved", date: "2024-04-07", destination: "Downtown Shelter" },
+    { id: 5, donor: "Anonymous", item: "Winter Coats", qty: 2, status: "Approved", date: "2024-04-06", destination: "Hope Center" },
+    { id: 6, donor: "Tom W.", item: "Blankets", qty: 8, status: "Approved", date: "2024-04-05", destination: "Downtown Shelter" },
+    { id: 7, donor: "Lisa K.", item: "Hygiene Kits", qty: 15, status: "Rejected", date: "2024-04-04", destination: "N/A" }
+  ];
+
+  const weeklyVolunteerSchedule = [
+    { 
+      day: "Sunday", 
+      roles: [
+        { name: "Meal Prep", volunteers: ["Sarah J.", "Tom W."], filled: 2, needed: 2 },
+        { name: "Serving", volunteers: ["John D.", "Maria G.", "Lisa K."], filled: 3, needed: 3 },
+        { name: "Cleanup", volunteers: ["Mike R."], filled: 1, needed: 2 }
+      ]
+    },
+    { 
+      day: "Monday", 
+      roles: [
+        { name: "Outreach", volunteers: ["David M."], filled: 1, needed: 2 }
+      ]
+    },
+    { 
+      day: "Wednesday", 
+      roles: [
+        { name: "Meal Prep", volunteers: ["Emily R.", "Chris P."], filled: 2, needed: 2 },
+        { name: "Outreach", volunteers: [], filled: 0, needed: 2 }
+      ]
+    }
   ];
 
   const handleDonateClick = (itemId: string) => {
@@ -152,6 +217,22 @@ export default function MinistryDetails() {
     setSelectedItemId(null);
     setDonationForm({ quantity: 1, condition: "", description: "" });
     setDonationPhotos([]);
+  };
+
+  const handleVolunteerClick = (roleId: string) => {
+    setSelectedRoleId(roleId);
+    setVolunteerDialogOpen(true);
+  };
+
+  const handleVolunteerSubmit = () => {
+    if (!selectedRoleId) return;
+    
+    toast({
+      title: "Volunteer Request Submitted",
+      description: "The ministry coordinator will contact you soon with next steps."
+    });
+    setVolunteerDialogOpen(false);
+    setSelectedRoleId(null);
   };
 
   // Mock data based on ID
@@ -453,7 +534,7 @@ export default function MinistryDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0E1116]">
       {/* Hero Header */}
       <div className="relative overflow-hidden">
         <div className="h-80 relative">
@@ -462,123 +543,533 @@ export default function MinistryDetails() {
             alt={ministry.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-[#0E1116]" />
         </div>
         
-        <div className="absolute inset-0 flex items-end pb-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl w-full">
-              <div className="mb-3">
+        <div className="absolute inset-0 flex items-end pb-8">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl w-full mx-auto">
+              {/* Breadcrumb */}
+              <div className="mb-4">
                 <Link to="/ministries">
-                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                  <Button variant="ghost" size="sm" className="text-white/90 hover:bg-white/10 hover:text-white">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Ministries
                   </Button>
                 </Link>
               </div>
               
-              <div className="flex items-center gap-3 mb-3">
-                <Badge className="bg-primary/10 text-primary border-primary/20">
+              {/* Badges */}
+              <div className="flex items-center gap-3 mb-4">
+                <Badge className="bg-[#EACB56]/20 text-[#EACB56] border-[#EACB56]/30 backdrop-blur-sm">
                   {ministry.category}
                 </Badge>
                 <Badge className={
                   ministry.status === 'Active' 
-                    ? 'bg-green-500/90 text-white border-green-400' 
-                    : 'bg-blue-500/90 text-white border-blue-400'
+                    ? 'bg-[#2EA98A]/20 text-[#2EA98A] border-[#2EA98A]/30 backdrop-blur-sm' 
+                    : 'bg-blue-500/20 text-blue-400 border-blue-400/30 backdrop-blur-sm'
                 }>
                   {ministry.status}
                 </Badge>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{ministry.title}</h1>
-              <p className="text-xl text-white/90 mb-4">{ministry.subtitle}</p>
-              
-              <div className="flex flex-wrap items-center gap-6 text-white/90 text-base">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  {ministry.nextEvent}
+              {/* Title Section */}
+              <div className="flex items-end justify-between gap-6">
+                <div className="flex-1">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F4F4F4] mb-3 tracking-tight">
+                    {ministry.title}
+                  </h1>
+                  <p className="text-xl md:text-2xl text-[#F4F4F4]/80 mb-4">{ministry.subtitle}</p>
+                  
+                  {/* Impact Highlight */}
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2EA98A]/20 border border-[#2EA98A]/30 rounded-full backdrop-blur-sm">
+                    <Sparkles className="w-4 h-4 text-[#2EA98A]" />
+                    <span className="text-sm font-medium text-[#F4F4F4]">{ministry.impact}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  {ministry.volunteers} volunteers
-                </div>
-                <div className="flex items-center gap-2">
-                  <Heart className="w-5 h-5" />
-                  {ministry.impact}
+
+                {/* CTA Buttons - Desktop */}
+                <div className="hidden lg:flex gap-3">
+                  <Button 
+                    size="lg"
+                    className="bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold shadow-lg"
+                    onClick={() => setActiveTab("donations")}
+                  >
+                    <Package className="w-5 h-5 mr-2" />
+                    Donate Items
+                  </Button>
+                  <Button 
+                    size="lg"
+                    variant="outline"
+                    className="border-[#F4F4F4]/30 text-[#F4F4F4] hover:bg-[#F4F4F4]/10 backdrop-blur-sm"
+                    onClick={() => setActiveTab("volunteers")}
+                  >
+                    <UserPlus className="w-5 h-5 mr-2" />
+                    Volunteer
+                  </Button>
                 </div>
               </div>
+
+              {/* Quick Action Bar for Ministry Leaders */}
+              {isMinistryLeader && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-[#EACB56]/30 text-[#EACB56] hover:bg-[#EACB56]/10 backdrop-blur-sm"
+                    onClick={() => {
+                      toast({
+                        title: "Post Need",
+                        description: "Opening need creation form..."
+                      });
+                    }}
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Post Need
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-[#2EA98A]/30 text-[#2EA98A] hover:bg-[#2EA98A]/10 backdrop-blur-sm"
+                    onClick={() => {
+                      toast({
+                        title: "Manage Volunteers",
+                        description: "Opening volunteer management..."
+                      });
+                    }}
+                  >
+                    <Settings className="w-4 h-4 mr-2" />
+                    Manage Volunteers
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-[#F4F4F4]/30 text-[#F4F4F4] hover:bg-[#F4F4F4]/10 backdrop-blur-sm"
+                    onClick={() => {
+                      toast({
+                        title: "View Reports",
+                        description: "Opening analytics dashboard..."
+                      });
+                    }}
+                  >
+                    <BarChart3 className="w-4 h-4 mr-2" />
+                    View Reports
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* About Section */}
-            <Card className="border-0 shadow-elegant">
-              <CardHeader>
-                <CardTitle>About This Ministry</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground leading-relaxed">{ministry.longDescription}</p>
-                
-                {ministry.progress !== undefined && ministry.goal && (
-                  <div className="space-y-2 p-4 bg-muted/50 rounded-lg">
-                    <div className="flex justify-between text-sm">
-                      <span className="font-medium">Current Progress</span>
-                      <span className="font-semibold text-primary">{ministry.progress} of {ministry.goal}</span>
+      {/* Horizontal Tab Navigation */}
+      <div className={cn(
+        "border-b border-[#F4F4F4]/10 bg-[#0E1116] transition-all duration-300 z-40",
+        isTabBarSticky ? "sticky top-0 shadow-lg" : ""
+      )}>
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-7xl w-full mx-auto">
+            <div className="flex items-center overflow-x-auto scrollbar-hide">
+              {[
+                { id: "overview", label: "Overview", icon: Info },
+                { id: "donations", label: "Donations", icon: Package },
+                { id: "volunteers", label: "Volunteers", icon: Users },
+                { id: "events", label: "Events", icon: CalendarDays },
+                { id: "impact", label: "Impact", icon: Sparkles }
+              ].map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={cn(
+                      "flex items-center gap-2 px-6 py-4 text-sm font-medium whitespace-nowrap transition-all relative",
+                      activeTab === tab.id
+                        ? "text-[#EACB56]"
+                        : "text-[#A0A6AE] hover:text-[#F4F4F4]"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {tab.label}
+                    {activeTab === tab.id && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#EACB56] shadow-[0_0_8px_rgba(234,203,86,0.6)]" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Container */}
+      <div className="container mx-auto px-4 lg:px-8 py-12">
+        <div className="max-w-7xl w-full mx-auto">
+          
+          {/* Tab Content */}
+          <div className="space-y-8">
+            
+            {/* OVERVIEW TAB */}
+            {activeTab === "overview" && (
+              <div className="space-y-8 animate-in fade-in-50 duration-500">
+                <div className="grid lg:grid-cols-3 gap-8">
+                  {/* Main Overview Content */}
+                  <div className="lg:col-span-2 space-y-6">
+                    {/* About Section */}
+                    <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
+                      <CardHeader>
+                        <CardTitle className="text-[#F4F4F4] text-2xl">About This Ministry</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                        <p className="text-[#A0A6AE] leading-relaxed text-base">
+                          {ministry.longDescription}
+                        </p>
+
+                        <div className="pt-4 border-t border-[#F4F4F4]/10">
+                          <h4 className="font-semibold mb-3 flex items-center gap-2 text-[#F4F4F4] uppercase text-sm tracking-wide">
+                            <Target className="w-5 h-5 text-[#EACB56]" />
+                            Our Mission
+                          </h4>
+                          <p className="text-[#A0A6AE] italic pl-7 leading-relaxed">
+                            {ministry.mission}
+                          </p>
+                        </div>
+
+                        {/* What We Do */}
+                        <div className="pt-4 border-t border-[#F4F4F4]/10">
+                          <h4 className="font-semibold mb-4 text-[#F4F4F4] uppercase text-sm tracking-wide">
+                            What We Do
+                          </h4>
+                          <div className="space-y-3">
+                            {ministry.activities.map((activity, index) => (
+                              <div key={index} className="flex items-start gap-3">
+                                <CheckCircle className="w-5 h-5 text-[#2EA98A] mt-0.5 flex-shrink-0" />
+                                <span className="text-[#A0A6AE]">{activity}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Snapshot Metrics */}
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {ministry.impactStats.slice(0, 4).map((stat, index) => {
+                        const Icon = stat.icon;
+                        return (
+                          <Card key={index} className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-lg">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-4">
+                                <div className="w-14 h-14 rounded-full bg-[#EACB56]/10 flex items-center justify-center flex-shrink-0">
+                                  <Icon className="w-7 h-7 text-[#EACB56]" />
+                                </div>
+                                <div>
+                                  <div className="text-3xl font-bold text-[#F4F4F4]">{stat.value}</div>
+                                  <div className="text-sm text-[#A0A6AE]">{stat.label}</div>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
                     </div>
-                    <Progress value={(ministry.progress / ministry.goal) * 100} className="h-3" />
                   </div>
-                )}
 
-                <div className="pt-4">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <Target className="w-5 h-5 text-primary" />
-                    Our Mission
-                  </h4>
-                  <p className="text-muted-foreground italic pl-7">{ministry.mission}</p>
+                  {/* Sidebar - Coordinator & Schedule */}
+                  <div className="space-y-6">
+                    {/* Coordinator Card */}
+                    <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-lg">
+                      <CardHeader>
+                        <CardTitle className="text-[#F4F4F4] text-lg">Coordinator</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center gap-3 mb-4">
+                          <Avatar className="h-14 w-14 border-2 border-[#EACB56]/30">
+                            <AvatarImage src={ministry.coordinator.avatar} />
+                            <AvatarFallback className="bg-[#EACB56]/20 text-[#EACB56]">
+                              {ministry.coordinator.name.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h4 className="font-semibold text-[#F4F4F4]">{ministry.coordinator.name}</h4>
+                            <p className="text-sm text-[#A0A6AE]">{ministry.coordinator.role}</p>
+                          </div>
+                        </div>
+                        <Separator className="my-4 bg-[#F4F4F4]/10" />
+                        <div className="space-y-3">
+                          <a 
+                            href={`mailto:${ministry.coordinator.email}`} 
+                            className="flex items-center gap-2 text-sm text-[#A0A6AE] hover:text-[#EACB56] transition-colors"
+                          >
+                            <Mail className="w-4 h-4" />
+                            {ministry.coordinator.email}
+                          </a>
+                          <a 
+                            href={`tel:${ministry.coordinator.phone}`} 
+                            className="flex items-center gap-2 text-sm text-[#A0A6AE] hover:text-[#EACB56] transition-colors"
+                          >
+                            <Phone className="w-4 h-4" />
+                            {ministry.coordinator.phone}
+                          </a>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Schedule Card */}
+                    <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-lg">
+                      <CardHeader>
+                        <CardTitle className="text-[#F4F4F4] text-lg">Schedule</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-start gap-3">
+                          <Calendar className="w-5 h-5 text-[#EACB56] mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-medium text-[#F4F4F4] text-sm">Frequency</p>
+                            <p className="text-sm text-[#A0A6AE] mt-1">{ministry.schedule.frequency}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Clock className="w-5 h-5 text-[#EACB56] mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-medium text-[#F4F4F4] text-sm">Time</p>
+                            <p className="text-sm text-[#A0A6AE] mt-1">{ministry.schedule.time}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <MapPin className="w-5 h-5 text-[#EACB56] mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-medium text-[#F4F4F4] text-sm">Location</p>
+                            <p className="text-sm text-[#A0A6AE] mt-1">{ministry.schedule.location}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Quick Actions */}
+                    <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-lg">
+                      <CardContent className="p-6 space-y-3">
+                        <Button 
+                          className="w-full bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold shadow-lg" 
+                          size="lg" 
+                          onClick={handleJoinMinistry}
+                        >
+                          <UserPlus className="w-5 h-5 mr-2" />
+                          Join This Ministry
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="w-full border-[#F4F4F4]/30 text-[#F4F4F4] hover:bg-[#F4F4F4]/10" 
+                          size="lg" 
+                          onClick={handleShareMinistry}
+                        >
+                          <Share2 className="w-5 h-5 mr-2" />
+                          Share Ministry
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            )}
 
-            {/* Donation Items and Volunteer Progress - Only for Homeless Outreach (ID 1) */}
-            {id === "1" && (
-              <>
-                {/* Donation Items Section */}
-                <Card className="border-0 shadow-elegant">
+            {/* DONATIONS TAB */}
+            {activeTab === "donations" && id === "1" && (
+              <div className="animate-in fade-in-50 duration-500">
+                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Package className="w-5 h-5 text-primary" />
-                      Donation Needs
-                    </CardTitle>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-[#F4F4F4] text-2xl flex items-center gap-3">
+                        <Package className="w-6 h-6 text-[#EACB56]" />
+                        Donation Needs
+                      </CardTitle>
+                    </div>
+                    <p className="text-[#A0A6AE] mt-2">
+                      Help us reach our goals by donating essential items for our ministry.
+                    </p>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {donationItems.map((item) => {
                         const pct = Math.min(100, Math.round((item.received / item.needed) * 100));
                         const remaining = Math.max(0, item.needed - item.received);
                         return (
-                          <div key={item.id} className="flex items-center gap-4 p-4 border border-border/50 rounded-lg">
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between mb-2">
-                                <div className="font-semibold text-foreground">{item.name}</div>
-                                <span className="text-sm text-muted-foreground">{item.received}/{item.needed}</span>
+                          <div 
+                            key={item.id} 
+                            className="p-6 border border-[#F4F4F4]/10 rounded-lg bg-[#0E1116]/50 hover:border-[#EACB56]/30 transition-all"
+                          >
+                            <div className="flex items-center justify-between gap-4 mb-4">
+                              <div className="flex-1">
+                                <h3 className="font-semibold text-[#F4F4F4] text-lg mb-1">{item.name}</h3>
+                                <p className="text-sm text-[#A0A6AE]">
+                                  {remaining > 0 
+                                    ? `${remaining} ${item.unit} still needed` 
+                                    : "Goal reached! Thank you!"}
+                                </p>
                               </div>
-                              <Progress value={pct} className="h-2 mb-2" />
-                              <span className="text-sm text-muted-foreground">
-                                {remaining > 0 ? `${item.received} of ${item.needed} ${item.unit} needed` : "Goal reached"}
-                              </span>
+                              <div className="text-right">
+                                <div className="text-2xl font-bold text-[#F4F4F4]">{item.received}</div>
+                                <div className="text-sm text-[#A0A6AE]">of {item.needed}</div>
+                              </div>
                             </div>
+                            
+                            {/* Progress Bar with Amber color */}
+                            <div className="mb-4">
+                              <div className="w-full h-3 bg-[#F4F4F4]/10 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-gradient-to-r from-[#EACB56] to-[#d4b647] rounded-full transition-all duration-500"
+                                  style={{ width: `${pct}%` }}
+                                />
+                              </div>
+                              <div className="mt-2 text-xs text-[#EACB56] font-medium">{pct}% Complete</div>
+                            </div>
+
                             <Button
-                              size="sm"
+                              size="lg"
                               onClick={() => handleDonateClick(item.id)}
-                              className="bg-primary hover:bg-primary/90 flex-shrink-0"
+                              className="w-full bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold shadow-lg"
                             >
-                              <Package className="w-4 h-4 mr-2" />
-                              Donate Item
+                              <Package className="w-5 h-5 mr-2" />
+                              Donate {item.name}
+                            </Button>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Donation History Table */}
+                    <div className="mt-8 pt-8 border-t border-[#F4F4F4]/10">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-[#F4F4F4] font-semibold uppercase text-sm tracking-wide">
+                          Donation History
+                        </h3>
+                        <div className="flex gap-2">
+                          <Select value={donationHistoryFilter} onValueChange={setDonationHistoryFilter}>
+                            <SelectTrigger className="w-32 bg-[#0E1116] border-[#F4F4F4]/10 text-[#F4F4F4] h-9">
+                              <Filter className="w-3 h-3 mr-2" />
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#1A1F26] border-[#F4F4F4]/10">
+                              <SelectItem value="all">All</SelectItem>
+                              <SelectItem value="approved">Approved</SelectItem>
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="rejected">Rejected</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-[#F4F4F4]/10 text-[#F4F4F4] h-9"
+                            onClick={() => {
+                              toast({
+                                title: "Export Started",
+                                description: "Downloading donation history..."
+                              });
+                            }}
+                          >
+                            <Download className="w-3 h-3 mr-2" />
+                            Export
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="overflow-x-auto">
+                        <table className="w-full">
+                          <thead>
+                            <tr className="border-b border-[#F4F4F4]/10">
+                              <th className="text-left text-xs font-semibold text-[#A0A6AE] uppercase tracking-wide pb-3">Date</th>
+                              <th className="text-left text-xs font-semibold text-[#A0A6AE] uppercase tracking-wide pb-3">Donor</th>
+                              <th className="text-left text-xs font-semibold text-[#A0A6AE] uppercase tracking-wide pb-3">Item</th>
+                              <th className="text-right text-xs font-semibold text-[#A0A6AE] uppercase tracking-wide pb-3">Qty</th>
+                              <th className="text-left text-xs font-semibold text-[#A0A6AE] uppercase tracking-wide pb-3">Destination</th>
+                              <th className="text-right text-xs font-semibold text-[#A0A6AE] uppercase tracking-wide pb-3">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {donationHistory
+                              .filter(d => donationHistoryFilter === "all" || d.status.toLowerCase() === donationHistoryFilter)
+                              .map((donation) => (
+                                <tr key={donation.id} className="border-b border-[#F4F4F4]/5 hover:bg-[#F4F4F4]/5 transition-colors">
+                                  <td className="py-3 text-sm text-[#A0A6AE]">
+                                    {new Date(donation.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                  </td>
+                                  <td className="py-3 text-sm text-[#F4F4F4] font-medium">{donation.donor}</td>
+                                  <td className="py-3 text-sm text-[#F4F4F4]">{donation.item}</td>
+                                  <td className="py-3 text-sm text-[#F4F4F4] text-right">{donation.qty}</td>
+                                  <td className="py-3 text-sm text-[#A0A6AE]">{donation.destination}</td>
+                                  <td className="py-3 text-right">
+                                    <Badge className={cn(
+                                      "text-xs",
+                                      donation.status === "Approved" && "bg-[#2EA98A]/20 text-[#2EA98A] border-[#2EA98A]/30",
+                                      donation.status === "Pending" && "bg-[#EACB56]/20 text-[#EACB56] border-[#EACB56]/30",
+                                      donation.status === "Rejected" && "bg-red-500/20 text-red-400 border-red-400/30"
+                                    )}>
+                                      {donation.status}
+                                    </Badge>
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* VOLUNTEERS TAB */}
+            {activeTab === "volunteers" && id === "1" && (
+              <div className="animate-in fade-in-50 duration-500 space-y-8">
+                {/* Volunteer Roles */}
+                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-[#F4F4F4] text-2xl flex items-center gap-3">
+                      <Users className="w-6 h-6 text-[#2EA98A]" />
+                      Volunteer Opportunities
+                    </CardTitle>
+                    <p className="text-[#A0A6AE] mt-2">
+                      Join our team and make a direct impact in your community.
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {volunteerRoles.map((role) => {
+                        const pct = Math.min(100, Math.round((role.signedUp / role.needed) * 100));
+                        const remaining = Math.max(0, role.needed - role.signedUp);
+                        return (
+                          <div 
+                            key={role.id} 
+                            className="p-6 border border-[#F4F4F4]/10 rounded-lg bg-[#0E1116]/50 hover:border-[#2EA98A]/30 transition-all"
+                          >
+                            <div className="mb-4">
+                              <h3 className="font-semibold text-[#F4F4F4] text-lg mb-2">{role.name}</h3>
+                              <p className="text-sm text-[#A0A6AE] mb-3">
+                                {remaining > 0 
+                                  ? `${remaining} ${remaining === 1 ? 'position' : 'positions'} available` 
+                                  : "All positions filled"}
+                              </p>
+                              
+                              <div className="flex items-center justify-between text-sm mb-2">
+                                <span className="text-[#A0A6AE]">Progress</span>
+                                <span className="text-[#F4F4F4] font-medium">{role.signedUp} / {role.needed}</span>
+                              </div>
+                              
+                              <div className="w-full h-2 bg-[#F4F4F4]/10 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-gradient-to-r from-[#2EA98A] to-[#26967d] rounded-full transition-all duration-500"
+                                  style={{ width: `${pct}%` }}
+                                />
+                              </div>
+                            </div>
+
+                            <Button
+                              size="lg"
+                              onClick={() => handleVolunteerClick(role.id)}
+                              className="w-full bg-[#2EA98A] hover:bg-[#2EA98A]/90 text-white font-semibold shadow-lg"
+                              disabled={remaining === 0}
+                            >
+                              <UserPlus className="w-5 h-5 mr-2" />
+                              {remaining > 0 ? "Join Team" : "Position Filled"}
                             </Button>
                           </div>
                         );
@@ -587,345 +1078,492 @@ export default function MinistryDetails() {
                   </CardContent>
                 </Card>
 
-                {/* Volunteer Progress Section */}
-                <Card className="border-0 shadow-elegant">
+                {/* Weekly Coverage Grid */}
+                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="w-5 h-5 text-primary" />
-                      Volunteer Opportunities
+                    <CardTitle className="text-[#F4F4F4] text-lg uppercase tracking-wide">
+                      Weekly Coverage
                     </CardTitle>
+                    <p className="text-[#A0A6AE] text-sm mt-2">
+                      Current volunteer assignments for this week
+                    </p>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {volunteerRoles.map((role) => {
-                        const pct = Math.min(100, Math.round((role.signedUp / role.needed) * 100));
-                        const remaining = Math.max(0, role.needed - role.signedUp);
-                        return (
-                          <Card key={role.id} className="border-border/50">
-                            <CardContent className="p-4">
-                              <div className="flex items-center justify-between mb-3">
-                                <div className="font-semibold text-foreground">{role.name}</div>
-                                <span className="text-sm text-muted-foreground">{role.signedUp}/{role.needed}</span>
+                    <div className="space-y-4">
+                      {weeklyVolunteerSchedule.map((day, idx) => (
+                        <div key={idx} className="p-4 bg-[#0E1116]/50 rounded-lg border border-[#F4F4F4]/10">
+                          <h4 className="font-semibold text-[#F4F4F4] mb-3">{day.day}</h4>
+                          <div className="space-y-2">
+                            {day.roles.map((role, roleIdx) => (
+                              <div key={roleIdx} className="flex items-center justify-between p-2 bg-[#1A1F26]/50 rounded">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm text-[#F4F4F4] font-medium">{role.name}</span>
+                                    <Badge className={cn(
+                                      "text-xs",
+                                      role.filled === role.needed 
+                                        ? "bg-[#2EA98A]/20 text-[#2EA98A] border-[#2EA98A]/30"
+                                        : "bg-[#EACB56]/20 text-[#EACB56] border-[#EACB56]/30"
+                                    )}>
+                                      {role.filled}/{role.needed}
+                                    </Badge>
+                                  </div>
+                                  {role.volunteers.length > 0 ? (
+                                    <div className="flex flex-wrap gap-1 mt-2">
+                                      {role.volunteers.map((volunteer, vIdx) => (
+                                        <span 
+                                          key={vIdx} 
+                                          className="inline-flex items-center px-2 py-0.5 bg-[#2EA98A]/10 text-[#2EA98A] rounded text-xs"
+                                        >
+                                          <Users className="w-3 h-3 mr-1" />
+                                          {volunteer}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <p className="text-xs text-[#A0A6AE] mt-1">No volunteers assigned yet</p>
+                                  )}
+                                </div>
+                                {role.filled < role.needed && (
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="border-[#2EA98A]/30 text-[#2EA98A] hover:bg-[#2EA98A]/10 ml-3"
+                                    onClick={() => handleVolunteerClick(role.name.toLowerCase().replace(' ', '-'))}
+                                  >
+                                    <Plus className="w-3 h-3 mr-1" />
+                                    Fill
+                                  </Button>
+                                )}
                               </div>
-                              <Progress value={pct} className="h-2 mb-2" />
-                              <div className="text-sm text-muted-foreground">
-                                {remaining > 0 ? `${remaining} more volunteer${remaining > 1 ? 's' : ''} needed` : "All positions filled"}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            )}
-
-            {/* Tabs */}
-            <Tabs defaultValue="activities" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 bg-white">
-                <TabsTrigger value="activities" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Activities</TabsTrigger>
-                <TabsTrigger value="requirements" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Requirements</TabsTrigger>
-                <TabsTrigger value="impact" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Impact</TabsTrigger>
-                <TabsTrigger value="testimonials" className="data-[state=active]:bg-blue-200 data-[state=active]:text-blue-900">Stories</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="activities" className="mt-6">
-                <Card className="border-0 shadow-card">
-                  <CardHeader>
-                    <CardTitle className="text-lg">What We Do</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {ministry.activities.map((activity, index) => (
-                        <div key={index} className="flex items-start gap-3">
-                          <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                          <span className="text-muted-foreground">{activity}</span>
+                            ))}
+                          </div>
                         </div>
                       ))}
                     </div>
                   </CardContent>
                 </Card>
-              </TabsContent>
 
-              <TabsContent value="requirements" className="mt-6">
-                <Card className="border-0 shadow-card">
+                {/* Requirements */}
+                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
                   <CardHeader>
-                    <CardTitle className="text-lg">Volunteer Requirements</CardTitle>
+                    <CardTitle className="text-[#F4F4F4] text-lg uppercase tracking-wide">
+                      Volunteer Requirements
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       {ministry.requirements.map((req, index) => (
                         <div key={index} className="flex items-start gap-3">
-                          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <span className="text-xs font-semibold text-primary">{index + 1}</span>
+                          <div className="w-7 h-7 rounded-full bg-[#2EA98A]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-sm font-semibold text-[#2EA98A]">{index + 1}</span>
                           </div>
-                          <span className="text-muted-foreground">{req}</span>
+                          <span className="text-[#A0A6AE] leading-relaxed">{req}</span>
                         </div>
                       ))}
                     </div>
                   </CardContent>
                 </Card>
-              </TabsContent>
+              </div>
+            )}
 
-              <TabsContent value="impact" className="mt-6">
-                <div className="grid md:grid-cols-2 gap-4">
+            {/* EVENTS TAB */}
+            {activeTab === "events" && (
+              <div className="animate-in fade-in-50 duration-500">
+                <div className="grid lg:grid-cols-3 gap-8">
+                  {/* Event List */}
+                  <div className="lg:col-span-2">
+                    <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
+                      <CardHeader>
+                        <CardTitle className="text-[#F4F4F4] text-2xl flex items-center gap-3">
+                          <CalendarDays className="w-6 h-6 text-[#EACB56]" />
+                          Upcoming Events
+                        </CardTitle>
+                        <p className="text-[#A0A6AE] mt-2">
+                          Mark your calendar and join us for these ministry events.
+                        </p>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                    {ministry.upcomingEvents.map((event, index) => (
+                      <div 
+                        key={index} 
+                        className="p-6 border border-[#F4F4F4]/10 rounded-lg bg-[#0E1116]/50 hover:border-[#EACB56]/30 transition-all group"
+                      >
+                        <div className="flex items-start justify-between gap-4 mb-4">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-[#F4F4F4] text-xl mb-1">{event.title}</h3>
+                          </div>
+                          <div className="w-16 h-16 rounded-lg bg-[#EACB56]/10 flex flex-col items-center justify-center border border-[#EACB56]/30 flex-shrink-0">
+                            <div className="text-xs text-[#EACB56] uppercase">
+                              {event.date.split(',')[0]}
+                            </div>
+                            <div className="text-2xl font-bold text-[#EACB56]">
+                              {event.date.match(/\d+/)?.[0] || ""}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center gap-3 text-[#A0A6AE]">
+                            <Calendar className="w-4 h-4 text-[#EACB56]" />
+                            <span className="text-sm">{event.date}</span>
+                          </div>
+                          <div className="flex items-center gap-3 text-[#A0A6AE]">
+                            <Clock className="w-4 h-4 text-[#EACB56]" />
+                            <span className="text-sm">{event.time}</span>
+                          </div>
+                          <div className="flex items-center gap-3 text-[#A0A6AE]">
+                            <MapPin className="w-4 h-4 text-[#EACB56]" />
+                            <span className="text-sm">{event.location}</span>
+                          </div>
+                        </div>
+
+                        <Button
+                          size="lg"
+                          className="w-full bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold"
+                        >
+                          <UserPlus className="w-5 h-5 mr-2" />
+                          Volunteer for This Event
+                        </Button>
+                      </div>
+                    ))}
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Mini Calendar Sidebar */}
+                  <div>
+                    <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl sticky top-24">
+                      <CardHeader>
+                        <div className="flex items-center justify-between mb-4">
+                          <CardTitle className="text-[#F4F4F4] text-lg">April 2024</CardTitle>
+                          <div className="flex gap-1">
+                            <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-[#A0A6AE] hover:text-[#F4F4F4]">
+                              <ChevronLeft className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-[#A0A6AE] hover:text-[#F4F4F4]">
+                              <ChevronRightIcon className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        {/* Calendar Grid */}
+                        <div className="space-y-2">
+                          {/* Day Headers */}
+                          <div className="grid grid-cols-7 gap-1 mb-2">
+                            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, idx) => (
+                              <div key={idx} className="text-center text-xs font-semibold text-[#A0A6AE] py-1">
+                                {day}
+                              </div>
+                            ))}
+                          </div>
+                          
+                          {/* Calendar Days */}
+                          <div className="grid grid-cols-7 gap-1">
+                            {/* Empty cells for days before month starts */}
+                            {[...Array(1)].map((_, idx) => (
+                              <div key={`empty-${idx}`} className="aspect-square" />
+                            ))}
+                            
+                            {/* Days of month */}
+                            {[...Array(30)].map((_, idx) => {
+                              const day = idx + 1;
+                              const hasEvent = day === 21 || day === 17; // Event dates
+                              const isToday = day === 12;
+                              
+                              return (
+                                <button
+                                  key={day}
+                                  className={cn(
+                                    "aspect-square flex items-center justify-center text-sm rounded-lg transition-all",
+                                    hasEvent && "bg-[#EACB56]/20 text-[#EACB56] font-semibold border border-[#EACB56]/30",
+                                    isToday && !hasEvent && "bg-[#F4F4F4]/10 text-[#F4F4F4] font-semibold",
+                                    !hasEvent && !isToday && "text-[#A0A6AE] hover:bg-[#F4F4F4]/5"
+                                  )}
+                                >
+                                  {day}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Legend */}
+                        <div className="mt-6 pt-4 border-t border-[#F4F4F4]/10 space-y-2">
+                          <div className="flex items-center gap-2 text-xs">
+                            <div className="w-3 h-3 rounded bg-[#EACB56]/20 border border-[#EACB56]/30"></div>
+                            <span className="text-[#A0A6AE]">Event Day</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-xs">
+                            <div className="w-3 h-3 rounded bg-[#F4F4F4]/10"></div>
+                            <span className="text-[#A0A6AE]">Today</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* IMPACT TAB */}
+            {activeTab === "impact" && (
+              <div className="animate-in fade-in-50 duration-500 space-y-8">
+                {/* Photo Gallery */}
+                {ministry.gallery && ministry.gallery.length > 0 && (
+                  <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl overflow-hidden">
+                    <CardHeader>
+                      <CardTitle className="text-[#F4F4F4] text-2xl flex items-center gap-3">
+                        <Sparkles className="w-6 h-6 text-[#EACB56]" />
+                        Impact Gallery
+                      </CardTitle>
+                      <p className="text-[#A0A6AE] mt-2">
+                        See the difference we're making together in our community.
+                      </p>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {ministry.gallery.map((photo, index) => (
+                          <button 
+                            key={index} 
+                            onClick={() => setSelectedImage(photo)}
+                            className="aspect-square rounded-lg overflow-hidden group relative cursor-pointer"
+                          >
+                            <img 
+                              src={photo} 
+                              alt={`${ministry.title} impact ${index + 1}`}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                              <div className="w-12 h-12 rounded-full bg-[#F4F4F4]/20 backdrop-blur-sm flex items-center justify-center">
+                                <Search className="w-6 h-6 text-[#F4F4F4]" />
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Impact Stats */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {ministry.impactStats.map((stat, index) => {
                     const Icon = stat.icon;
                     return (
-                      <Card key={index} className="border-0 shadow-card">
-                        <CardContent className="p-6">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                              <Icon className="w-6 h-6 text-primary" />
-                            </div>
-                            <div>
-                              <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                              <div className="text-sm text-muted-foreground">{stat.label}</div>
-                            </div>
+                      <Card key={index} className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-lg">
+                        <CardContent className="p-6 text-center">
+                          <div className="w-16 h-16 rounded-full bg-[#EACB56]/10 flex items-center justify-center mx-auto mb-4">
+                            <Icon className="w-8 h-8 text-[#EACB56]" />
                           </div>
+                          <div className="text-4xl font-bold text-[#F4F4F4] mb-2">{stat.value}</div>
+                          <div className="text-sm text-[#A0A6AE] uppercase tracking-wide">{stat.label}</div>
                         </CardContent>
                       </Card>
                     );
                   })}
                 </div>
-              </TabsContent>
 
-              <TabsContent value="testimonials" className="mt-6">
-                <div className="space-y-4">
-                  {ministry.testimonials.map((testimonial, index) => (
-                    <Card key={index} className="border-0 shadow-card">
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4 mb-3">
-                          <Avatar className="h-12 w-12">
-                            <AvatarImage src={testimonial.avatar} />
-                            <AvatarFallback>
-                              {testimonial.name.split(' ').map(n => n[0]).join('')}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <h4 className="font-semibold">{testimonial.name}</h4>
-                            <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                {/* Testimonials */}
+                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-[#F4F4F4] text-2xl uppercase tracking-wide">
+                      Stories from Our Community
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {ministry.testimonials.map((testimonial, index) => (
+                        <div key={index} className="p-6 bg-[#0E1116]/50 rounded-lg border border-[#F4F4F4]/10">
+                          <div className="flex items-center gap-4 mb-4">
+                            <Avatar className="h-14 w-14 border-2 border-[#EACB56]/30">
+                              <AvatarImage src={testimonial.avatar} />
+                              <AvatarFallback className="bg-[#EACB56]/20 text-[#EACB56]">
+                                {testimonial.name.split(' ').map(n => n[0]).join('')}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <h4 className="font-semibold text-[#F4F4F4]">{testimonial.name}</h4>
+                              <p className="text-sm text-[#A0A6AE]">{testimonial.role}</p>
+                            </div>
                           </div>
+                          <p className="text-[#A0A6AE] italic leading-relaxed text-lg">
+                            "{testimonial.quote}"
+                          </p>
                         </div>
-                        <p className="text-muted-foreground italic leading-relaxed">
-                          "{testimonial.quote}"
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
-
-            {/* Photo Gallery */}
-            {ministry.gallery && ministry.gallery.length > 0 && (
-              <Card className="border-0 shadow-elegant">
-                <CardHeader>
-                  <CardTitle>Photo Gallery</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {ministry.gallery.map((photo, index) => (
-                      <div key={index} className="aspect-square rounded-lg overflow-hidden">
-                        <img 
-                          src={photo} 
-                          alt={`${ministry.title} photo ${index + 1}`}
-                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick Actions */}
-            <Card className="border-0 shadow-elegant sticky top-4">
-              <CardContent className="p-6 space-y-4">
-                <Button className="w-full shadow-lg" size="lg" onClick={handleJoinMinistry}>
-                  <UserPlus className="w-5 h-5 mr-2" />
-                  Join This Ministry
-                </Button>
-                <Button variant="outline" className="w-full" size="lg" onClick={handleShareMinistry}>
-                  <Share2 className="w-5 h-5 mr-2" />
-                  Share Ministry
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Schedule */}
-            <Card className="border-0 shadow-card">
-              <CardHeader>
-                <CardTitle className="text-lg">Schedule</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">Frequency</p>
-                    <p className="text-sm text-muted-foreground">{ministry.schedule.frequency}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">Time</p>
-                    <p className="text-sm text-muted-foreground">{ministry.schedule.time}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">Location</p>
-                    <p className="text-sm text-muted-foreground">{ministry.schedule.location}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Coordinator */}
-            <Card className="border-0 shadow-card">
-              <CardHeader>
-                <CardTitle className="text-lg">Contact Coordinator</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-3 mb-4">
-                  <Avatar className="h-12 w-12">
-                    <AvatarImage src={ministry.coordinator.avatar} />
-                    <AvatarFallback>
-                      {ministry.coordinator.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h4 className="font-semibold">{ministry.coordinator.name}</h4>
-                    <p className="text-sm text-muted-foreground">{ministry.coordinator.role}</p>
-                  </div>
-                </div>
-                <Separator className="my-4" />
-                <div className="space-y-3">
-                  <a href={`mailto:${ministry.coordinator.email}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <Mail className="w-4 h-4" />
-                    {ministry.coordinator.email}
-                  </a>
-                  <a href={`tel:${ministry.coordinator.phone}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <Phone className="w-4 h-4" />
-                    {ministry.coordinator.phone}
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Upcoming Events */}
-            <Card className="border-0 shadow-card">
-              <CardHeader>
-                <CardTitle className="text-lg">Upcoming Events</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {ministry.upcomingEvents.map((event, index) => (
-                  <div key={index} className="p-3 bg-muted/50 rounded-lg">
-                    <h4 className="font-semibold mb-1">{event.title}</h4>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-3 h-3" />
-                        {event.date}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-3 h-3" />
-                        {event.time}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-3 h-3" />
-                        {event.location}
-                      </div>
+                      ))}
                     </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
           </div>
         </div>
-
-        {/* Donation Dialog - Only for Homeless Outreach (ID 1) */}
-        {id === "1" && (
-          <Dialog open={donateDialogOpen} onOpenChange={setDonateDialogOpen}>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>
-                  Donate {selectedItemId ? donationItems.find(item => item.id === selectedItemId)?.name : "Item"}
-                </DialogTitle>
-                <DialogDescription>
-                  Your donation will be reviewed by the ministry leader before being counted. Please provide photos and details.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="quantity">Quantity</Label>
-                  <Input
-                    id="quantity"
-                    type="number"
-                    min={1}
-                    value={donationForm.quantity}
-                    onChange={(e) => setDonationForm({ ...donationForm, quantity: Number(e.target.value) })}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="condition">Condition</Label>
-                  <Select value={donationForm.condition} onValueChange={(value) => setDonationForm({ ...donationForm, condition: value })}>
-                    <SelectTrigger className="mt-2">
-                      <SelectValue placeholder="Select condition" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="new">New</SelectItem>
-                      <SelectItem value="like-new">Like New</SelectItem>
-                      <SelectItem value="good">Good</SelectItem>
-                      <SelectItem value="fair">Fair</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="description">Description / Additional Details</Label>
-                  <Textarea
-                    id="description"
-                    placeholder="Provide any additional details about the item(s)..."
-                    value={donationForm.description}
-                    onChange={(e) => setDonationForm({ ...donationForm, description: e.target.value })}
-                    className="mt-2"
-                    rows={4}
-                  />
-                </div>
-
-                <div>
-                  <Label>Photos</Label>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Upload photos of the item(s) to help with review
-                  </p>
-                  <PhotoUpload
-                    onPhotosChange={setDonationPhotos}
-                    maxPhotos={5}
-                    maxFileSize={5}
-                  />
-                </div>
-
-                <div className="flex justify-end gap-2 pt-4">
-                  <Button variant="outline" onClick={() => setDonateDialogOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button onClick={handleDonationSubmit} className="bg-primary hover:bg-primary/90">
-                    Submit for Review
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
       </div>
+
+      {/* Mobile CTA Bar - Fixed at bottom on mobile */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-[#0E1116] border-t border-[#F4F4F4]/10 z-30">
+        <div className="flex gap-2">
+          <Button 
+            className="flex-1 bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold" 
+            onClick={() => setActiveTab("donations")}
+          >
+            <Package className="w-4 h-4 mr-2" />
+            Donate
+          </Button>
+          <Button 
+            className="flex-1 bg-[#2EA98A] hover:bg-[#2EA98A]/90 text-white font-semibold" 
+            onClick={() => setActiveTab("volunteers")}
+          >
+            <UserPlus className="w-4 h-4 mr-2" />
+            Volunteer
+          </Button>
+        </div>
+      </div>
+
+      {/* Donation Dialog */}
+      {id === "1" && (
+        <Dialog open={donateDialogOpen} onOpenChange={setDonateDialogOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[#1A1F26] border-[#F4F4F4]/10">
+            <DialogHeader>
+              <DialogTitle className="text-[#F4F4F4]">
+                Donate {selectedItemId ? donationItems.find(item => item.id === selectedItemId)?.name : "Item"}
+              </DialogTitle>
+              <DialogDescription className="text-[#A0A6AE]">
+                Your donation will be reviewed by the ministry leader before being counted. Please provide photos and details.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="quantity" className="text-[#F4F4F4]">Quantity</Label>
+                <Input
+                  id="quantity"
+                  type="number"
+                  min={1}
+                  value={donationForm.quantity}
+                  onChange={(e) => setDonationForm({ ...donationForm, quantity: Number(e.target.value) })}
+                  className="mt-2 bg-[#0E1116] border-[#F4F4F4]/10 text-[#F4F4F4]"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="condition" className="text-[#F4F4F4]">Condition</Label>
+                <Select value={donationForm.condition} onValueChange={(value) => setDonationForm({ ...donationForm, condition: value })}>
+                  <SelectTrigger className="mt-2 bg-[#0E1116] border-[#F4F4F4]/10 text-[#F4F4F4]">
+                    <SelectValue placeholder="Select condition" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#1A1F26] border-[#F4F4F4]/10">
+                    <SelectItem value="new">New</SelectItem>
+                    <SelectItem value="like-new">Like New</SelectItem>
+                    <SelectItem value="good">Good</SelectItem>
+                    <SelectItem value="fair">Fair</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="description" className="text-[#F4F4F4]">Description / Additional Details</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Provide any additional details about the item(s)..."
+                  value={donationForm.description}
+                  onChange={(e) => setDonationForm({ ...donationForm, description: e.target.value })}
+                  className="mt-2 bg-[#0E1116] border-[#F4F4F4]/10 text-[#F4F4F4]"
+                  rows={4}
+                />
+              </div>
+
+              <div>
+                <Label className="text-[#F4F4F4]">Photos</Label>
+                <p className="text-sm text-[#A0A6AE] mb-2">
+                  Upload photos of the item(s) to help with review
+                </p>
+                <PhotoUpload
+                  onPhotosChange={setDonationPhotos}
+                  maxPhotos={5}
+                  maxFileSize={5}
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setDonateDialogOpen(false)}
+                  className="border-[#F4F4F4]/30 text-[#F4F4F4]"
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleDonationSubmit} 
+                  className="bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116]"
+                >
+                  Submit for Review
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Volunteer Dialog */}
+      {id === "1" && (
+        <Dialog open={volunteerDialogOpen} onOpenChange={setVolunteerDialogOpen}>
+          <DialogContent className="max-w-md bg-[#1A1F26] border-[#F4F4F4]/10">
+            <DialogHeader>
+              <DialogTitle className="text-[#F4F4F4]">
+                Join as Volunteer
+              </DialogTitle>
+              <DialogDescription className="text-[#A0A6AE]">
+                {selectedRoleId && `You're applying for: ${volunteerRoles.find(r => r.id === selectedRoleId)?.name}`}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-[#A0A6AE]">
+                The ministry coordinator will contact you within 48 hours with next steps, including orientation details and background check information.
+              </p>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setVolunteerDialogOpen(false)}
+                  className="border-[#F4F4F4]/30 text-[#F4F4F4]"
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleVolunteerSubmit} 
+                  className="bg-[#2EA98A] hover:bg-[#2EA98A]/90 text-white"
+                >
+                  Confirm Interest
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Image Lightbox */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-5xl max-h-[90vh] bg-[#0E1116] border-[#F4F4F4]/10 p-0">
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-[#F4F4F4]/10 hover:bg-[#F4F4F4]/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+            aria-label="Close image lightbox"
+          >
+            <X className="w-5 h-5 text-[#F4F4F4]" />
+          </button>
+          {selectedImage && (
+            <div className="relative w-full h-full flex items-center justify-center p-4">
+              <img 
+                src={selectedImage} 
+                alt="Gallery image" 
+                className="max-w-full max-h-[85vh] object-contain rounded-lg"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -236,6 +236,16 @@ All colors MUST be HSL. Focus on visual excellence and consistency.
 }
 
 @layer utilities {
+  /* Scrollbar Utilities */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Text Utilities */
   .line-clamp-1 {
     display: -webkit-box;

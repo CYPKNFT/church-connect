@@ -142,170 +142,170 @@ export default function MinistriesDashboard() {
             {/* My Ministries Section */}
             <div className="mb-12">
               <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground mb-6">
-                <HandHeart className="w-5 h-5 text-primary" />
-                My Ministries
+                    <HandHeart className="w-5 h-5 text-primary" />
+                    My Ministries
               </h2>
-              {joinedMinistries.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  {joinedMinistries.map((ministry) => {
-                    const Icon = ministry.icon;
-                    return (
-                      <Card 
-                        key={ministry.id}
-                        className="cursor-pointer hover:shadow-lg transition-all duration-300 border-border/50 h-full flex flex-col group overflow-hidden"
-                        onClick={() => navigate(ministry.path)}
-                      >
-                        <div className="relative h-32 overflow-hidden">
-                          <img 
-                            src={ministry.image} 
-                            alt={ministry.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute top-2 right-2">
-                            <Badge 
-                              variant="outline" 
-                              className={`text-xs ${getCategoryColor(ministry.category)}`}
-                            >
-                              {ministry.category}
-                            </Badge>
-                          </div>
-                          <div className="absolute top-2 left-2">
-                            <Badge className="bg-green-600 text-white text-xs">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Joined
-                            </Badge>
-                          </div>
-                        </div>
-                        <CardContent className="p-4 flex-1 flex flex-col">
-                          <div className="flex items-start gap-3 mb-2">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                              <Icon className="w-5 h-5 text-primary" />
+                  {joinedMinistries.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      {joinedMinistries.map((ministry) => {
+                        const Icon = ministry.icon;
+                        return (
+                          <Card 
+                            key={ministry.id}
+                            className="cursor-pointer hover:shadow-lg transition-all duration-300 border-border/50 h-full flex flex-col group overflow-hidden"
+                            onClick={() => navigate(ministry.path)}
+                          >
+                            <div className="relative h-32 overflow-hidden">
+                              <img 
+                                src={ministry.image} 
+                                alt={ministry.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                              <div className="absolute top-2 right-2">
+                                <Badge 
+                                  variant="outline" 
+                                  className={`text-xs ${getCategoryColor(ministry.category)}`}
+                                >
+                                  {ministry.category}
+                                </Badge>
+                              </div>
+                              <div className="absolute top-2 left-2">
+                                <Badge className="bg-green-600 text-white text-xs">
+                                  <CheckCircle className="w-3 h-3 mr-1" />
+                                  Joined
+                                </Badge>
+                              </div>
                             </div>
-                            <div className="flex-1">
-                              <h3 className="font-semibold text-foreground mb-1">
-                                {ministry.title}
-                              </h3>
-                              <p className="text-sm text-muted-foreground mb-2">
-                                {ministry.subtitle}
+                            <CardContent className="p-4 flex-1 flex flex-col">
+                              <div className="flex items-start gap-3 mb-2">
+                                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                  <Icon className="w-5 h-5 text-primary" />
+                                </div>
+                                <div className="flex-1">
+                                  <h3 className="font-semibold text-foreground mb-1">
+                                    {ministry.title}
+                                  </h3>
+                                  <p className="text-sm text-muted-foreground mb-2">
+                                    {ministry.subtitle}
+                                  </p>
+                                </div>
+                              </div>
+                              <p className="text-sm text-muted-foreground mb-3 line-clamp-2 flex-1">
+                                {ministry.description}
                               </p>
-                            </div>
-                          </div>
-                          <p className="text-sm text-muted-foreground mb-3 line-clamp-2 flex-1">
-                            {ministry.description}
-                          </p>
-                          <div className="space-y-2 mt-auto">
-                            <div className="flex items-center justify-between text-xs text-muted-foreground">
-                              <div className="flex items-center gap-1">
-                                <Calendar className="w-3 h-3" />
-                                <span>{ministry.nextEvent}</span>
+                              <div className="space-y-2 mt-auto">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                  <div className="flex items-center gap-1">
+                                    <Calendar className="w-3 h-3" />
+                                    <span>{ministry.nextEvent}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <Users className="w-3 h-3" />
+                                    <span>{ministry.volunteers}</span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                  <Activity className="w-3 h-3" />
+                                  <span>{ministry.impact}</span>
+                                </div>
                               </div>
-                              <div className="flex items-center gap-1">
-                                <Users className="w-3 h-3" />
-                                <span>{ministry.volunteers}</span>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                              <Activity className="w-3 h-3" />
-                              <span>{ministry.impact}</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  <HandHeart className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>You haven't joined any ministries yet.</p>
-                  <p className="text-sm mt-2">Explore ministries below to get involved!</p>
-                </div>
-              )}
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <HandHeart className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                      <p>You haven't joined any ministries yet.</p>
+                      <p className="text-sm mt-2">Explore ministries below to get involved!</p>
+                    </div>
+                  )}
             </div>
 
             {/* Available Ministries Section */}
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-6">Available Ministries</h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                {allMinistries.map((ministry) => {
-                  const Icon = ministry.icon;
-                  const isJoined = joinedMinistries.some(jm => jm.id === ministry.id);
-                  return (
-                    <Card 
-                      key={ministry.id}
-                      className="cursor-pointer hover:shadow-lg transition-all duration-300 border-border/50 h-full flex flex-col group overflow-hidden"
-                      onClick={() => navigate(ministry.path)}
-                    >
-                      <div className="relative h-32 overflow-hidden">
-                        <img 
-                          src={ministry.image} 
-                          alt={ministry.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute top-2 right-2">
-                          <Badge 
-                            variant="outline" 
-                            className={`text-xs ${getCategoryColor(ministry.category)}`}
-                          >
-                            {ministry.category}
-                          </Badge>
-                        </div>
-                        {isJoined && (
-                          <div className="absolute top-2 left-2">
-                            <Badge className="bg-green-600 text-white text-xs">
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Joined
-                            </Badge>
-                          </div>
-                        )}
-                      </div>
-                      <CardContent className="p-4 flex-1 flex flex-col">
-                        <div className="flex items-start gap-3 mb-2">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Icon className="w-5 h-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-semibold text-foreground mb-1">
-                              {ministry.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground mb-2">
-                              {ministry.subtitle}
-                            </p>
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 flex-1">
-                          {ministry.description}
-                        </p>
-                        <div className="space-y-2 mt-auto">
-                          <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              <span>{ministry.nextEvent}</span>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {allMinistries.map((ministry) => {
+                      const Icon = ministry.icon;
+                      const isJoined = joinedMinistries.some(jm => jm.id === ministry.id);
+                      return (
+                        <Card 
+                          key={ministry.id}
+                          className="cursor-pointer hover:shadow-lg transition-all duration-300 border-border/50 h-full flex flex-col group overflow-hidden"
+                          onClick={() => navigate(ministry.path)}
+                        >
+                          <div className="relative h-32 overflow-hidden">
+                            <img 
+                              src={ministry.image} 
+                              alt={ministry.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute top-2 right-2">
+                              <Badge 
+                                variant="outline" 
+                                className={`text-xs ${getCategoryColor(ministry.category)}`}
+                              >
+                                {ministry.category}
+                              </Badge>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Users className="w-3 h-3" />
-                              <span>{ministry.volunteers}</span>
-                            </div>
-                          </div>
-                          {ministry.progress !== undefined && (
-                            <div>
-                              <div className="flex items-center justify-between text-xs mb-1">
-                                <span className="text-muted-foreground">Progress</span>
-                                <span className="font-medium">{ministry.progress} of {ministry.goal}</span>
+                            {isJoined && (
+                              <div className="absolute top-2 left-2">
+                                <Badge className="bg-green-600 text-white text-xs">
+                                  <CheckCircle className="w-3 h-3 mr-1" />
+                                  Joined
+                                </Badge>
                               </div>
-                              <Progress value={(ministry.progress / ministry.goal) * 100} className="h-2" />
-                            </div>
-                          )}
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <Activity className="w-3 h-3" />
-                            <span>{ministry.impact}</span>
+                            )}
                           </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
+                          <CardContent className="p-4 flex-1 flex flex-col">
+                            <div className="flex items-start gap-3 mb-2">
+                              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-5 h-5 text-primary" />
+                              </div>
+                              <div className="flex-1">
+                                <h3 className="font-semibold text-foreground mb-1">
+                                  {ministry.title}
+                                </h3>
+                                <p className="text-sm text-muted-foreground mb-2">
+                                  {ministry.subtitle}
+                                </p>
+                              </div>
+                            </div>
+                            <p className="text-sm text-muted-foreground mb-3 line-clamp-2 flex-1">
+                              {ministry.description}
+                            </p>
+                            <div className="space-y-2 mt-auto">
+                              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                <div className="flex items-center gap-1">
+                                  <Calendar className="w-3 h-3" />
+                                  <span>{ministry.nextEvent}</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Users className="w-3 h-3" />
+                                  <span>{ministry.volunteers}</span>
+                                </div>
+                              </div>
+                              {ministry.progress !== undefined && (
+                                <div>
+                                  <div className="flex items-center justify-between text-xs mb-1">
+                                    <span className="text-muted-foreground">Progress</span>
+                                    <span className="font-medium">{ministry.progress} of {ministry.goal}</span>
+                                  </div>
+                                  <Progress value={(ministry.progress / ministry.goal) * 100} className="h-2" />
+                                </div>
+                              )}
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <Activity className="w-3 h-3" />
+                                <span>{ministry.impact}</span>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
             </div>
           </div>
         </div>
