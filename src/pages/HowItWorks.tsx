@@ -135,7 +135,7 @@ export default function HowItWorks() {
         </section>
 
         {/* Video Section */}
-        <section className="mb-32 animate-fade-in">
+        <section id="see-it-in-action" className="mb-32 animate-fade-in">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-bold text-foreground mb-8">
               See It in <span className="bg-accent-gradient bg-clip-text text-transparent">Action</span>
@@ -145,8 +145,8 @@ export default function HowItWorks() {
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-8 border border-accent/20">
+          <div className="mx-auto w-full">
+            <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-8 border border-accent/20 w-full">
               <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">

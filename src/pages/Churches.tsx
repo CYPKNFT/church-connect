@@ -146,53 +146,65 @@ export default function Churches() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Users className="w-10 h-10 text-accent" />
+            {/* Increase Engagement - Strong Community style (blue) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-blue-500/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-blue-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-blue-500/20">
+                  <Users className="w-10 h-10 text-blue-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Increase Engagement</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Increase Engagement</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   Churches report 300% increase in volunteer participation within the first year.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <Shield className="w-10 h-10 text-accent" />
+            {/* Built-in Safety - Trust & Safety style (green) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-green-500/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-green-500/20">
+                  <Shield className="w-10 h-10 text-green-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Built-in Safety</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Built-in Safety</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   Church-verified members and comprehensive safety guidelines protect your community.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                  <BarChart3 className="w-10 h-10 text-accent" />
+            {/* Track Impact - Purposeful Service style (purple) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-purple-500/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
+                  <BarChart3 className="w-10 h-10 text-purple-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Track Impact</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Track Impact</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   Detailed analytics help you measure and share your church's community impact.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-accent hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+            {/* Easy Management - Love in Action style (accent) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-accent/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-accent/20">
                   <Settings className="w-10 h-10 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Easy Management</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Easy Management</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   Simple admin tools make it easy to manage your church community and volunteer programs.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
           </div>
 
           {/* Benefits Section */}

@@ -284,7 +284,6 @@ Changes: <paths & symbols>
 Tests: <summary>
 Risks: <bullets>
 Follow‑ups: <bullets>
-```
 
 ---
 

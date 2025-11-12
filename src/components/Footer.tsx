@@ -53,7 +53,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold mb-4">For Churches</h3>
             <div className="space-y-2">
-              <h4 className="text-gray-400 font-medium text-sm uppercase tracking-wide">Church Admin Tools</h4>
+              <h4 className="text-gray-400 font-medium text-sm uppercase tracking-wide">Administration</h4>
               <div className="space-y-2">
                 <Link to="/dashboard" className="block text-gray-300 hover:text-accent transition-colors">Invite Your Church</Link>
                 <Link to="/guides?tab=getting-started" className="block text-gray-300 hover:text-accent transition-colors">Leader Resources</Link>
@@ -63,7 +63,7 @@ export function Footer() {
             <div className="space-y-2">
               <h4 className="text-gray-400 font-medium text-sm uppercase tracking-wide">Growth</h4>
               <div className="space-y-2">
-                <Link to="/about" className="block text-gray-300 hover:text-accent transition-colors">Explainer Video</Link>
+                <Link to="/how-it-works#see-it-in-action" className="block text-gray-300 hover:text-accent transition-colors">Explainer Video</Link>
                 <Link to="/about" className="block text-gray-300 hover:text-accent transition-colors">Impact Stories</Link>
               </div>
             </div>

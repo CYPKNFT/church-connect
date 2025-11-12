@@ -3,7 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link } from "react-router-dom";
-import { Heart, Users, BookOpen, Shield, BarChart3, Settings, Download, Video, MessageSquare, CheckCircle, Crown, Award, HandHeart, Target, TrendingUp } from "lucide-react";
+import { Heart, Users, BookOpen, Shield, BarChart3, Settings, Download, Video, MessageSquare, CheckCircle, Crown, Award, HandHeart, Target, TrendingUp, Calendar, Clock, Truck, Package, MapPin } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 export default function Charities() {
 
@@ -40,6 +47,49 @@ export default function Charities() {
       downloadUrl: "#",
       icon: BarChart3
     }
+  ];
+
+  // Sample ministries and item needs for individual donors UI
+  const ministryNeeds = [
+    {
+      id: "coat-drive",
+      ministry: "Winter Coat Drive",
+      items: [
+        { id: "adult-coats", name: "Adult Coats", needed: 50, received: 32, unit: "coats" },
+        { id: "kids-coats", name: "Kids Coats", needed: 40, received: 18, unit: "coats" },
+        { id: "gloves", name: "Gloves", needed: 120, received: 96, unit: "pairs" },
+      ],
+    },
+    {
+      id: "food-pantry",
+      ministry: "Food Pantry",
+      items: [
+        { id: "rice", name: "Rice (2lb bags)", needed: 100, received: 64, unit: "bags" },
+        { id: "canned-soup", name: "Canned Soup", needed: 200, received: 158, unit: "cans" },
+        { id: "hygiene-kits", name: "Hygiene Kits", needed: 80, received: 42, unit: "kits" },
+      ],
+    },
+    {
+      id: "homeless-outreach",
+      ministry: "Homeless Outreach",
+      items: [
+        { id: "blankets", name: "Blankets", needed: 150, received: 88, unit: "blankets" },
+        { id: "toiletry-kits", name: "Toiletry Kits", needed: 120, received: 51, unit: "kits" },
+        { id: "socks", name: "Socks", needed: 300, received: 210, unit: "pairs" },
+      ],
+    },
+  ];
+
+  const [selectedMinistry, setSelectedMinistry] = useState(ministryNeeds[0].id);
+  const [donateOpen, setDonateOpen] = useState<string | null>(null);
+  const [donateForm, setDonateForm] = useState({ quantity: 1, method: "dropoff", date: "", time: "" });
+
+  // User UI state
+  const [giveFunds, setGiveFunds] = useState({ amount: 50, frequency: "one-time", fund: "General", note: "" });
+  const [pickupForm, setPickupForm] = useState({ address: "", date: "", time: "", instructions: "" });
+  const receipts = [
+    { id: "r-1001", date: "2025-10-08", type: "In-kind", ministry: "Winter Coat Drive", details: "5 Adult Coats, 3 Gloves", link: "#" },
+    { id: "r-1002", date: "2025-10-27", type: "Funds", ministry: "Food Pantry", details: "$100 one-time", link: "#" },
   ];
 
   const charityStories = [
@@ -206,53 +256,65 @@ export default function Charities() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-card hover:shadow-lg hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-emerald-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500/20 transition-all duration-300 group-hover:scale-110">
-                  <Target className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+            {/* Unified Platform - Love in Action style (accent) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-accent/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-accent/20">
+                  <Target className="w-10 h-10 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Unified Platform</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Unified Platform</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   All your operations — volunteers, donors, events — organized in one clean dashboard.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-lg hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-emerald-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500/20 transition-all duration-300 group-hover:scale-110">
-                  <Shield className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+            {/* Built on Trust - Trust & Safety style (green) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-green-500/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-green-500/20">
+                  <Shield className="w-10 h-10 text-green-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Built on Trust</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Built on Trust</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   Verified volunteers, secure data handling, and transparent permissions at every level.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-lg hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-emerald-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500/20 transition-all duration-300 group-hover:scale-110">
-                  <Users className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+            {/* Effortless Collaboration - Strong Community style (blue) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-blue-500/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-blue-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-blue-500/20">
+                  <Users className="w-10 h-10 text-blue-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Effortless Collaboration</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Effortless Collaboration</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   Keep your team and partners aligned with real-time updates and communication tools.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
 
-            <Card className="border-0 shadow-card hover:shadow-lg hover-lift bg-card backdrop-blur-sm group text-center h-full">
-              <CardContent className="p-8 h-full flex flex-col">
-                <div className="w-20 h-20 bg-emerald-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500/20 transition-all duration-300 group-hover:scale-110">
-                  <TrendingUp className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+            {/* Impact Visibility - Purposeful Service style (purple) */}
+            <div className="group relative h-[420px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 text-center hover:bg-card/90 transition-all duration-500 shadow-sm hover:shadow-purple-500/20 hover:-translate-y-2 group h-full flex flex-col">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-purple-500/20">
+                  <TrendingUp className="w-10 h-10 text-purple-500" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">Impact Visibility</h3>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Impact Visibility</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed flex-1 flex items-center">
                   See progress at a glance. Share your mission story through intuitive reports and visuals.
                 </p>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
           </div>
 
           {/* Complete Tools Section */}
@@ -322,8 +384,352 @@ export default function Charities() {
           </div>
         </section>
 
-        {/* UI Showcase: Donations, Volunteers, Operations/Map */}
+      {/* User UI Showcase */}
+      <section className="space-y-8 mb-20">
+        <div className="text-center mb-10">
+          <h2 className="text-4xl font-bold text-foreground">User UI</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-3">
+            Friendly flows for members to donate items and schedule drop-offs or pickups.
+          </p>
+        </div>
+
+        {/* Donate to a Ministry */}
+        <Card className="border-emerald-200/50 bg-card backdrop-blur-sm">
+          <CardHeader className="pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <CardTitle className="text-foreground text-xl">Donate to a Ministry</CardTitle>
+              <div className="w-full sm:w-80">
+                <Select value={selectedMinistry} onValueChange={setSelectedMinistry}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select ministry" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ministryNeeds.map((m) => (
+                      <SelectItem key={m.id} value={m.id}>{m.ministry}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {ministryNeeds.find(m => m.id === selectedMinistry)?.items.map((it) => {
+                const pct = Math.min(100, Math.round((it.received / it.needed) * 100));
+                const remaining = Math.max(0, it.needed - it.received);
+                return (
+                  <Card key={it.id} className="border-emerald-200/50 bg-emerald-50/40 dark:bg-emerald-950/20">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="font-semibold text-foreground">{it.name}</div>
+                        <span className="text-sm text-muted-foreground">{it.received}/{it.needed}</span>
+                      </div>
+                      <Progress value={pct} className="h-2" />
+                      <div className="mt-2 text-sm text-muted-foreground">
+                        {remaining > 0 ? `${remaining} ${it.unit} needed` : "Goal reached"}
+                      </div>
+                      <div className="mt-4 flex gap-2">
+                        <Dialog open={donateOpen === it.id} onOpenChange={(o) => setDonateOpen(o ? it.id : null)}>
+                          <DialogTrigger asChild>
+                            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                              <Package className="w-4 h-4 mr-2" />
+                              Donate Item
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-lg">
+                            <DialogHeader>
+                              <DialogTitle>Donate: {it.name}</DialogTitle>
+                            </DialogHeader>
+                            <div className="grid gap-4">
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <Label htmlFor="qty">Quantity</Label>
+                                  <Input
+                                    id="qty"
+                                    type="number"
+                                    min={1}
+                                    value={donateForm.quantity}
+                                    onChange={(e) => setDonateForm({ ...donateForm, quantity: Number(e.target.value) })}
+                                  />
+                                </div>
+                                <div>
+                                  <Label>Method</Label>
+                                  <Select value={donateForm.method} onValueChange={(v) => setDonateForm({ ...donateForm, method: v })}>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Choose method" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="dropoff"><Truck className="w-4 h-4 mr-2 inline" /> Drop-off</SelectItem>
+                                      <SelectItem value="pickup"><Truck className="w-4 h-4 mr-2 inline rotate-180" /> Pickup</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <Label htmlFor="date">Date</Label>
+                                  <div className="relative">
+                                    <Calendar className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                                    <Input
+                                      id="date"
+                                      type="date"
+                                      className="pl-9"
+                                      value={donateForm.date}
+                                      onChange={(e) => setDonateForm({ ...donateForm, date: e.target.value })}
+                                    />
+                                  </div>
+                                </div>
+                                <div>
+                                  <Label htmlFor="time">Time</Label>
+                                  <div className="relative">
+                                    <Clock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                                    <Input
+                                      id="time"
+                                      type="time"
+                                      className="pl-9"
+                                      value={donateForm.time}
+                                      onChange={(e) => setDonateForm({ ...donateForm, time: e.target.value })}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-end gap-2">
+                                <Button variant="outline" onClick={() => setDonateOpen(null)}>Cancel</Button>
+                                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                                  Confirm Donation
+                                </Button>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                        <Button variant="outline" className="border-emerald-300 hover:bg-emerald-100/40">
+                          Schedule Later
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Give Funds (Pledges) */}
+        <Card className="border-emerald-200/50 bg-card backdrop-blur-sm">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-foreground text-xl">Give Funds</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid sm:grid-cols-3 gap-4">
+              {/* Amount presets */}
+              <div>
+                <Label>Amount</Label>
+                <div className="mt-2 grid grid-cols-4 gap-2">
+                  {[25, 50, 100, 250].map((v) => (
+                    <Button
+                      key={v}
+                      variant={giveFunds.amount === v ? "default" : "outline"}
+                      className={giveFunds.amount === v ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""}
+                      onClick={() => setGiveFunds({ ...giveFunds, amount: v })}
+                    >
+                      ${v}
+                    </Button>
+                  ))}
+                  <Input
+                    type="number"
+                    min={1}
+                    placeholder="Custom"
+                    value={String(giveFunds.amount)}
+                    onChange={(e) => setGiveFunds({ ...giveFunds, amount: Number(e.target.value || 0) })}
+                    className="col-span-4 sm:col-span-4"
+                  />
+                </div>
+              </div>
+
+              {/* Frequency */}
+              <div>
+                <Label>Frequency</Label>
+                <Select value={giveFunds.frequency} onValueChange={(v) => setGiveFunds({ ...giveFunds, frequency: v })}>
+                  <SelectTrigger className="mt-2">
+                    <SelectValue placeholder="Choose frequency" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="one-time">One-time</SelectItem>
+                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Fund */}
+              <div>
+                <Label>Fund</Label>
+                <Select value={giveFunds.fund} onValueChange={(v) => setGiveFunds({ ...giveFunds, fund: v })}>
+                  <SelectTrigger className="mt-2">
+                    <SelectValue placeholder="Select fund" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="General">General</SelectItem>
+                    <SelectItem value="Food Pantry">Food Pantry</SelectItem>
+                    <SelectItem value="Homeless Outreach">Homeless Outreach</SelectItem>
+                    <SelectItem value="Winter Coat Drive">Winter Coat Drive</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Note */}
+            <div>
+              <Label>Note (optional)</Label>
+              <Textarea
+                placeholder="Add a note or dedication"
+                value={giveFunds.note}
+                onChange={(e) => setGiveFunds({ ...giveFunds, note: e.target.value })}
+                className="mt-2"
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">Confirm Pledge</Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Ministry Event Details (with map and RSVP) */}
+        <Card className="border-emerald-200/50 bg-card backdrop-blur-sm">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-foreground text-xl">Ministry Event Details</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Event summary */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <div className="text-lg font-semibold text-foreground">Food Pantry Distribution Day</div>
+                <div className="text-sm text-muted-foreground">Hosted by: Downtown Community Church</div>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Next: <span className="text-foreground font-medium">Sat, 10:00 AM – 2:00 PM</span>
+              </div>
+            </div>
+
+            {/* Mini Map */}
+            <div className="relative h-56 rounded-xl overflow-hidden border border-emerald-200/50 bg-emerald-50/40 dark:bg-emerald-950/20">
+              {/* Subtle grid background */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(16,185,129,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(16,185,129,0.08)_1px,transparent_1px)] bg-[size:24px_24px]" />
+              {/* Route / pins (decorative) */}
+              <div className="absolute inset-0">
+                <div className="absolute left-[20%] top-[30%] w-4 h-4 rounded-full bg-emerald-500 shadow-md" />
+                <div className="absolute left-[55%] top-[50%] w-4 h-4 rounded-full bg-sky-500 shadow-md" />
+                <div className="absolute left-[78%] top-[38%] w-4 h-4 rounded-full bg-amber-500 shadow-md" />
+              </div>
+              {/* Location label */}
+              <div className="absolute bottom-3 left-3 bg-background/90 backdrop-blur-sm border rounded-lg px-3 py-1 text-xs">
+                125 Trinity Ave, Springfield
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="md:col-span-2">
+                <Label htmlFor="address">Address</Label>
+                <div className="relative mt-2">
+                  <MapPin className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="address"
+                    placeholder="125 Trinity Ave, Springfield"
+                    className="pl-9"
+                    value={pickupForm.address}
+                    onChange={(e) => setPickupForm({ ...pickupForm, address: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="pdate">Event Date</Label>
+                <div className="relative mt-2">
+                  <Calendar className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="pdate"
+                    type="date"
+                    className="pl-9"
+                    value={pickupForm.date}
+                    onChange={(e) => setPickupForm({ ...pickupForm, date: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="ptime">Start Time</Label>
+                <div className="relative mt-2">
+                  <Clock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="ptime"
+                    type="time"
+                    className="pl-9"
+                    value={pickupForm.time}
+                    onChange={(e) => setPickupForm({ ...pickupForm, time: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-2">
+                <Label>Notes (optional)</Label>
+                <Textarea
+                  placeholder="Parking info, arrival details, dietary notes for volunteers, etc."
+                  className="mt-2"
+                  value={pickupForm.instructions}
+                  onChange={(e) => setPickupForm({ ...pickupForm, instructions: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-end gap-3">
+              <Button variant="outline" className="border-emerald-300">Add to Calendar</Button>
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">RSVP</Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Receipts & History */}
+        <Card className="border-emerald-200/50 bg-card backdrop-blur-sm">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-foreground text-xl">Receipts & History</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <div className="min-w-[640px]">
+                <div className="grid grid-cols-5 px-6 py-3 text-sm text-muted-foreground border-b">
+                  <div>Date</div>
+                  <div>Type</div>
+                  <div>Ministry</div>
+                  <div>Details</div>
+                  <div>Receipt</div>
+                </div>
+                {receipts.map((r) => (
+                  <div key={r.id} className="grid grid-cols-5 px-6 py-4 items-center border-b last:border-b-0">
+                    <div className="text-foreground">{r.date}</div>
+                    <div className="text-foreground">{r.type}</div>
+                    <div className="text-foreground">{r.ministry}</div>
+                    <div className="text-muted-foreground">{r.details}</div>
+                    <div>
+                      <Button variant="outline" asChild>
+                        <a href={r.link} download>
+                          <Download className="w-4 h-4 mr-2" />
+                          Download
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+        {/* Administration UI Showcase */}
         <section className="space-y-16 mb-20">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold text-foreground">Administration UI</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-3">
+              Tools for leaders to monitor donations, schedule volunteers, and manage operations at a glance.
+            </p>
+          </div>
           {/* Donations Operations Showcase */}
           <div>
             <div className="text-center mb-10">
@@ -402,6 +808,7 @@ export default function Charities() {
                 </div>
               </CardContent>
             </Card>
+
           </div>
 
           {/* Volunteer Scheduling & Organization */}
@@ -616,7 +1023,7 @@ export default function Charities() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-border text-foreground hover:bg-emerald-500/10 hover:border-emerald-500 px-12 py-6 text-xl rounded-xl transition-all duration-200 hover-lift" 
+                  className="border-2 border-border text-white hover:text-white hover:bg-emerald-500/10 hover:border-emerald-500 px-12 py-6 text-xl rounded-xl transition-all duration-200 hover-lift" 
                   asChild
                 >
                   <Link to="/contact">

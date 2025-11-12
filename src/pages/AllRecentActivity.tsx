@@ -189,7 +189,7 @@ export default function AllRecentActivity() {
             </div>
             
             {/* Compact Community Impact Summary */}
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 lg:p-6">
+            <div className="bg-blue-500/10 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-4 lg:p-6">
               <h3 className="text-lg font-bold mb-4 text-center">Community Impact</h3>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="text-center">
