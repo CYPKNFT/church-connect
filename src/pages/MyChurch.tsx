@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { NeedCard } from "@/components/NeedCard";
 import { useNavigate } from "react-router-dom";
+import foodPantryImage from "@/assets/ministries/food-pantry.jpg";
 import { useAuth } from "@/contexts/AuthContext";
 import { Calendar, MapPin, Users, Heart, Star, MessageSquare, Clock, Car, ShoppingCart, Wrench, ChefHat, Search, Filter, UserCheck, Bell, Gift, Plus, Eye, Edit3, Trash2, CheckCircle, Camera, Upload, MoreHorizontal, TrendingUp, Activity, HandHeart, Package, ArrowRight, Church, Music, Book, Coffee, Gamepad2, DollarSign, Briefcase, Baby, GraduationCap, Sparkles, ChevronLeft, ChevronRight, X, Sprout, ShoppingBag, HeartHandshake } from "lucide-react";
 import { useMembership } from "@/hooks/useMembership";
@@ -366,7 +367,7 @@ export default function MyChurch() {
       title: "Food Pantry Ministry",
       subtitle: "Fighting Hunger Together",
       description: "Weekly food distribution to families experiencing food insecurity in our community.",
-      image: "https://images.unsplash.com/photo-1593113646773-028c1f7c6c3f?w=800&auto=format&fit=crop",
+      image: foodPantryImage,
       category: "Food Security",
       status: "Active",
       nextEvent: "Every Thursday",
@@ -415,6 +416,21 @@ export default function MyChurch() {
       ]
     }
   ]);
+
+  const getMinistryRoute = (id: number): string => {
+    // Map ministry IDs to their route names
+    const idToRouteMap: { [key: number]: string } = {
+      1: "homeless-outreach",
+      2: "winter-coat-drive",
+      3: "community-garden-project",
+      4: "food-pantry",
+      5: "back-to-school",
+      6: "community-tutoring",
+    };
+    // Use the mapped route name if available, otherwise use the ID
+    const routeName = idToRouteMap[id];
+    return routeName ? `/ministries/${routeName}` : `/ministries/${id}`;
+  };
 
   const getMinistryCategoryIcon = (category: string) => {
     const icons: { [key: string]: any } = {
@@ -1446,7 +1462,7 @@ export default function MyChurch() {
                         {filteredMinistries.map((ministry) => {
                       const CategoryIcon = getMinistryCategoryIcon(ministry.category);
                       return (
-                        <Link to={`/ministries/${ministry.id}`} className="block h-full">
+                        <Link to={getMinistryRoute(ministry.id)} className="block h-full">
                           <Card key={ministry.id} className="group overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 border-border/50 h-full flex flex-col cursor-pointer">
                             {/* Image */}
                             <div className="relative h-48 overflow-hidden">

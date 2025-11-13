@@ -76,7 +76,7 @@ export default function MinistryHomelessOutreach() {
         <div className="flex-1 p-8">
           <Button
             variant="ghost"
-            onClick={() => navigate("/ministries/dashboard")}
+            onClick={() => navigate("/my-ministries")}
             className="mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

@@ -184,7 +184,10 @@ export default function Help() {
         {/* Contact Support */}
         <section className="animate-scale-in">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-card rounded-3xl p-12 text-center text-white relative overflow-hidden mb-32">
+            <div className="relative rounded-3xl p-12 text-center text-white overflow-hidden mb-32 bg-gradient-to-br from-green-600 to-blue-600 dark:bg-none" style={{ background: 'linear-gradient(135deg, #059669 0%, #2563eb 100%)' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-green-600/90 to-blue-600/90 dark:bg-none" style={{ background: 'linear-gradient(135deg, rgba(5,150,105,0.9) 0%, rgba(37,99,235,0.9) 100%)' }} />
+              <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #8b4513 100%)' }} />
+              <div className="absolute inset-0 dark:block hidden" style={{ background: 'linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(139,69,19,0.9) 100%)' }} />
               <div className="relative z-10">
                 <h2 className="text-3xl lg:text-4xl font-bold mb-6">
                   Still Need Help?

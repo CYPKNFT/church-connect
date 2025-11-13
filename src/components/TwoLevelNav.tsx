@@ -76,6 +76,18 @@ const menuData: MenuItem[] = [
     ],
   },
   {
+    id: "ministries",
+    label: "Ministries",
+    icon: HandHeart,
+    subItems: [
+      { label: "My Ministries", icon: HandHeart, path: "/my-ministries" },
+      { label: "Homeless Outreach", icon: Users, path: "/my-ministries/homeless-outreach" },
+      { label: "Winter Coat Drive", icon: Package, path: "/my-ministries/winter-coat-drive" },
+      { label: "Food Pantry", icon: ShoppingBag, path: "/my-ministries/food-pantry" },
+      { label: "Back to School", icon: BookOpen, path: "/my-ministries/back-to-school" },
+    ],
+  },
+  {
     id: "feedback",
     label: "Feedback",
     icon: MessageSquare,
@@ -83,18 +95,6 @@ const menuData: MenuItem[] = [
       { label: "General", icon: MessageSquare, path: "/feedback" },
       { label: "App", icon: Settings, path: "/feedback/app" },
       { label: "Church", icon: Church, path: "/feedback/church" },
-    ],
-  },
-  {
-    id: "ministries",
-    label: "Ministries",
-    icon: HandHeart,
-    subItems: [
-      { label: "My Ministries", icon: HandHeart, path: "/ministries/dashboard" },
-      { label: "Homeless Outreach", icon: Users, path: "/ministries/homeless-outreach" },
-      { label: "Winter Coat Drive", icon: Package, path: "/ministries/winter-coat-drive" },
-      { label: "Food Pantry", icon: ShoppingBag, path: "/ministries/food-pantry" },
-      { label: "Back to School", icon: BookOpen, path: "/ministries/back-to-school" },
     ],
   },
 ];

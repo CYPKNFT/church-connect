@@ -15,94 +15,174 @@ export default function Landing() {
   const [redirectTo, setRedirectTo] = useState<string>("");
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
 
-  const testimonials = [
+  // Import testimonials from Community page successStories
+  const communityTestimonials = [
     {
       id: 1,
-      content: "When my husband was in the hospital, our church family brought meals for two weeks. ChurchConnect made it so easy to coordinate everything. We felt so loved.",
-      author: "Sarah Miller",
-      church: "Grace Community Church",
-      initials: "SM"
+      content: "I help with transportation requests weekly. Whether it's doctor visits or job interviews, giving someone a ride can literally change the trajectory of their day - and sometimes their life.",
+      author: "Maria Williams", 
+      church: "St. Luke's Community",
+      avatar: "MW"
     },
     {
       id: 2,
-      content: "I've been able to help three families with home repairs this month. It's amazing how technology can connect us to serve others right in our neighborhood.",
-      author: "Mike Johnson",
-      church: "First Baptist Church",
-      initials: "MJ"
+      content: "ChurchConnect has revolutionized how our congregation connects and serves. We've facilitated over 200 acts of service this quarter alone. It's like having a full-time ministry coordinator in everyone's pocket.",
+      author: "Pastor Tom Richards",
+      church: "Hillside Christian Church",
+      avatar: "PT"
     },
     {
       id: 3,
-      content: "As a single mom, I was hesitant to ask for help. ChurchConnect made it comfortable and showed me how much our church really cares.",
-      author: "Linda Chen",
-      church: "Community Fellowship",
-      initials: "LC"
+      content: "The transparency and ease of the platform has increased our community engagement by 300%. Members who never participated before are now actively giving and receiving help regularly.",
+      author: "Lisa Stevens",
+      church: "Covenant Community Church", 
+      avatar: "LS"
     },
     {
       id: 4,
-      content: "Our elderly neighbor needed rides to her doctor appointments. Through ChurchConnect, I found other volunteers to help share the responsibility. It's been such a blessing.",
-      author: "David Thompson",
-      church: "Hope Baptist Church",
-      initials: "DT"
+      content: "When my teenage son needed a laptop for college applications, I hesitated to ask. A church family donated their extra MacBook within hours. He's now enrolled at his dream school.",
+      author: "Carlos Delgado",
+      church: "Faith Community Church",
+      avatar: "CD"
     },
     {
       id: 5,
-      content: "When my car broke down, I posted a need for transportation. Within hours, three different church members offered to help. The love and support overwhelmed me.",
-      author: "Jennifer Rodriguez",
-      church: "Faith Community Church",
-      initials: "JR"
+      content: "Hurricane damage left us without basic appliances. Through ChurchConnect, our church family furnished our entire kitchen in three days. We were able to host Thanksgiving after all.",
+      author: "Nancy Kim",
+      church: "Seaside Chapel",
+      avatar: "NK"
     },
     {
       id: 6,
-      content: "I've been volunteering to help with childcare during church events. The platform makes it so easy to coordinate schedules and ensure every family is supported.",
-      author: "Amanda Foster",
-      church: "Grace Lutheran Church",
-      initials: "AF"
+      content: "I've donated over 20 items this year through the platform. Seeing families receive exactly what they need, when they need it most, reminds me that our excess can be someone else's miracle.",
+      author: "Kevin Carter",
+      church: "Cornerstone Baptist",
+      avatar: "KC"
     },
     {
       id: 7,
-      content: "After my surgery, I couldn't cook for weeks. ChurchConnect connected me with families who brought meals. It was like having extended family care for me.",
-      author: "Robert Kim",
-      church: "New Life Community",
-      initials: "RK"
+      content: "I coordinate our monthly grocery drives through the app. Last month we organized 50 volunteers across 8 churches to serve 200 families. The efficiency of connecting so many willing hearts in one place is remarkable.",
+      author: "Amanda Lopez",
+      church: "Riverside Community Church",
+      avatar: "AL"
     },
     {
       id: 8,
-      content: "I love using ChurchConnect to find ways to serve. Last month I helped with yard work for a senior couple. The joy on their faces was priceless.",
-      author: "Maria Garcia",
-      church: "St. Mary's Catholic Church",
-      initials: "MG"
+      content: "When Mrs. Patterson needed her yard cleaned before winter, I saw her request and spent my Saturday morning raking leaves with my kids. Teaching them to serve while building relationships - that's what community is about.",
+      author: "David Wilson",
+      church: "New Hope Fellowship",
+      avatar: "DW"
     },
     {
       id: 9,
-      content: "When I moved to a new city, ChurchConnect helped me connect with my new church family immediately. I found ways to serve and made lifelong friends.",
-      author: "James Wilson",
-      church: "New Hope Community Church",
-      initials: "JW"
+      content: "I teach basic computer skills to seniors every Tuesday through the app. Watching 73-year-old Frank learn to email his grandson in college was worth every minute I've invested.",
+      author: "Jennifer Chen",
+      church: "CrossPoint Church",
+      avatar: "JC"
     },
     {
       id: 10,
-      content: "Our church used ChurchConnect to coordinate meals for a family going through chemotherapy. The outpouring of love and support was overwhelming.",
-      author: "Patricia Davis",
-      church: "Grace United Methodist",
-      initials: "PD"
+      content: "Our neighborhood food prep team meets weekly to make meals for new moms. Through ChurchConnect, we've coordinated 150 home-cooked meals this quarter. It's fellowship with a purpose.",
+      author: "Betty Thompson",
+      church: "Grace Community Church",
+      avatar: "BT"
     },
     {
       id: 11,
-      content: "I'm a retired teacher and love helping families with tutoring. ChurchConnect makes it easy to find students who need academic support in our community.",
-      author: "Dr. Michael Brown",
-      church: "First Presbyterian Church",
-      initials: "MB"
+      content: "I help drive church members to medical appointments twice a week. Being the friendly face in the waiting room or helping someone navigate their insurance forms - these small acts create lasting bonds.",
+      author: "Sofia Patel",
+      church: "Unity Christian Church",
+      avatar: "SP"
     },
     {
       id: 12,
-      content: "As a single parent, I was struggling to balance work and childcare. ChurchConnect connected me with other parents for playdates and mutual support.",
-      author: "Rachel Martinez",
-      church: "Community Bible Church",
-      initials: "RM"
+      content: "Every Saturday, I help elderly members with basic home maintenance - changing light bulbs, unclogging drains, fixing squeaky doors. My toolbox has become my ministry toolkit.",
+      author: "James Robinson",
+      church: "First Methodist",
+      avatar: "JR"
+    },
+    {
+      id: 13,
+      content: "I teach cooking classes for college students and young adults through the platform. Nothing beats seeing someone master their grandmother's recipe or learn to meal prep for the week.",
+      author: "Tom Richards",
+      church: "Hillside Christian Church",
+      avatar: "TR"
+    },
+    {
+      id: 14,
+      content: "Our carpool network for after-school activities has been a game-changer. Working parents support each other seamlessly, and the kids have built friendships across church families.",
+      author: "Emily Rodriguez",
+      church: "Grace Fellowship",
+      avatar: "ER"
+    },
+    {
+      id: 15,
+      content: "I offer free tax preparation for church families during tax season. It's incredible how helping someone navigate their finances becomes an opportunity for deeper conversations about stewardship and planning.",
+      author: "Mark Harris",
+      church: "Community Baptist",
+      avatar: "MH"
+    },
+    {
+      id: 16,
+      content: "Teaching guitar lessons to teenagers through the app has been amazing. Music brings us together across generations, and now we have a youth band that plays monthly at service.",
+      author: "Janet Kim",
+      church: "Riverside Community",
+      avatar: "JK"
+    },
+    {
+      id: 17,
+      content: "I help families organize their homes and create functional spaces. Decluttering isn't just about stuff - it's about creating peaceful environments where families can thrive together.",
+      author: "Tyler Jackson",
+      church: "Mountain View Church",
+      avatar: "TJ"
+    },
+    {
+      id: 18,
+      content: "Our reading tutoring program connects literacy volunteers with struggling students. Watching kids gain confidence with each book we read together reminds me why education is so powerful.",
+      author: "Amanda Lopez",
+      church: "Riverside Community Church",
+      avatar: "AL"
+    },
+    {
+      id: 19,
+      content: "When I was recovering from surgery, church members rotated helping with my dog walks and grocery runs. The coordination was flawless, and I felt so supported during a vulnerable time.",
+      author: "Jennifer Chen",
+      church: "CrossPoint Church",
+      avatar: "JC"
+    },
+    {
+      id: 20,
+      content: "The childcare swap network has been incredible for our family. Parents help each other with date nights and errands, and our kids have formed the sweetest friendships.",
+      author: "David Wilson", 
+      church: "New Hope Fellowship",
+      avatar: "DW"
+    },
+    {
+      id: 21,
+      content: "Learning to garden from experienced church members has transformed my backyard and my perspective. Now I'm teaching my neighbor kids how to grow their own vegetables.",
+      author: "Carlos Delgado",
+      church: "Faith Community Church",
+      avatar: "CD"
+    },
+    {
+      id: 22,
+      content: "The resume writing and interview prep I received helped me land my current job. But more than that, it taught me how to present my best self with confidence.",
+      author: "Nancy Kim",
+      church: "Seaside Chapel",
+      avatar: "NK"
     }
   ];
 
-  const itemsPerPage = 3;
+  // Transform to match Landing page format
+  const testimonials = communityTestimonials.map((testimonial) => ({
+    id: testimonial.id,
+    content: testimonial.content,
+    author: testimonial.author,
+    church: testimonial.church,
+    initials: testimonial.avatar
+  }));
+
+  const itemsPerPage = 4;
   const totalPages = Math.ceil(testimonials.length / itemsPerPage);
 
   const nextTestimonials = () => {
@@ -355,14 +435,14 @@ export default function Landing() {
           
           <div className="relative">
             {/* Testimonials Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-slide-up items-stretch">
               {testimonials
                 .slice(currentTestimonialIndex * itemsPerPage, (currentTestimonialIndex + 1) * itemsPerPage)
                 .map((testimonial) => (
-                  <Card key={testimonial.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group h-full flex flex-col min-h-[280px]">
-                    <CardContent className="p-8 flex flex-col flex-1">
-                      <div className="mb-6 flex-1">
-                        <p className="text-lg text-muted-foreground leading-relaxed">
+                  <Card key={testimonial.id} className="border-0 shadow-card hover:shadow-accent hover-lift bg-card group h-full flex flex-col min-h-[200px]">
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      <div className="mb-4 flex-1">
+                        <p className="text-base text-muted-foreground leading-relaxed">
                           "{testimonial.content}"
                         </p>
                       </div>

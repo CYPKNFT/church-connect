@@ -48,6 +48,7 @@ import {
   ChevronRight as ChevronRightIcon
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getVolunteerRolesForMinistry } from "@/data/ministriesData";
 import { cn } from "@/lib/utils";
 
 interface MinistryDetails {
@@ -100,6 +101,16 @@ interface MinistryDetails {
   gallery: string[];
 }
 
+// Map route names to ministry IDs
+const routeToIdMap: { [key: string]: string } = {
+  "homeless-outreach": "1",
+  "winter-coat-drive": "2",
+  "community-garden-project": "3",
+  "food-pantry": "4",
+  "back-to-school": "5",
+  "community-tutoring": "6",
+};
+
 export default function MinistryDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -118,6 +129,7 @@ export default function MinistryDetails() {
     description: ""
   });
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [donationHistoryFilter, setDonationHistoryFilter] = useState("all");
   const [isMinistryLeader, setIsMinistryLeader] = useState(true); // Mock: set to true for demo
 
@@ -140,12 +152,7 @@ export default function MinistryDetails() {
     { id: "winter-coats", name: "Winter Coats", needed: 60, received: 28, unit: "coats" }
   ];
 
-  const volunteerRoles = [
-    { id: "meal-prep", name: "Meal Preparation", needed: 8, signedUp: 5, description: "Prepare meals for distribution" },
-    { id: "serving", name: "Serving", needed: 12, signedUp: 9, description: "Serve meals to guests" },
-    { id: "cleanup", name: "Cleanup Crew", needed: 6, signedUp: 4, description: "Clean and organize after service" },
-    { id: "outreach", name: "Outreach Team", needed: 10, signedUp: 6, description: "Connect with community members" }
-  ];
+  // Volunteer roles are now loaded from data source (ministriesData)
 
   const donationHistory = [
     { id: 1, donor: "Anonymous", item: "Blankets", qty: 5, status: "Approved", date: "2024-04-10", destination: "Downtown Shelter" },
@@ -229,7 +236,7 @@ export default function MinistryDetails() {
     
     toast({
       title: "Volunteer Request Submitted",
-      description: "The ministry coordinator will contact you soon with next steps."
+      description: `The ministry coordinator will contact you soon with next steps for the "${(rolesFromData.find(r => r.id === selectedRoleId)?.name) || "Selected"}" role.`
     });
     setVolunteerDialogOpen(false);
     setSelectedRoleId(null);
@@ -237,6 +244,18 @@ export default function MinistryDetails() {
 
   // Mock data based on ID
   const getMinistryData = (): MinistryDetails | null => {
+    // Only accept named routes, not numeric IDs
+    if (!id || /^\d+$/.test(id)) {
+      // If ID is numeric or empty, return null (will show not found)
+      return null;
+    }
+    // Convert route name to ID if needed
+    const ministryId = routeToIdMap[id] || null;
+    if (!ministryId) {
+      // Route name not found in map
+      return null;
+    }
+    
     const ministries: { [key: string]: MinistryDetails } = {
       "1": {
         id: "1",
@@ -488,12 +507,171 @@ export default function MinistryDetails() {
           "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=400&auto=format&fit=crop"
         ]
       }
+      ,
+      "4": {
+        id: "4",
+        title: "Food Pantry Ministry",
+        subtitle: "Fighting Hunger Together",
+        description: "Weekly food distribution to families experiencing food insecurity in our community.",
+        longDescription: "Our Food Pantry serves families in need each week with fresh produce, shelf-stable goods, and personal care items. Volunteers help with stocking, client services, and deliveries to homebound neighbors.",
+        image: "https://images.unsplash.com/photo-1593113646773-028c1f7c6c3f?w=800&auto=format&fit=crop",
+        category: "Food Security",
+        status: "Active",
+        nextEvent: "Every Thursday",
+        volunteers: 32,
+        updated: "5 days ago",
+        impact: "Supporting 80+ families weekly",
+        coordinator: {
+          name: "James Carter",
+          role: "Pantry Coordinator",
+          email: "james.carter@church.org",
+          phone: "(555) 456-7890"
+        },
+        mission: "To provide nutritious food to families in need while offering dignity and hope.",
+        activities: [
+          "Receive and sort food donations",
+          "Prepare pantry shelves and cold storage",
+          "Assist clients with food selection",
+          "Deliver food to homebound neighbors"
+        ],
+        requirements: [
+          "Friendly and patient demeanor",
+          "Ability to lift 20–30 lbs for stocking",
+          "Availability on Thursdays preferred",
+          "Background check for client-facing roles"
+        ],
+        schedule: {
+          frequency: "Every Thursday",
+          time: "9:00 AM - 12:00 PM",
+          location: "Church Fellowship Hall"
+        },
+        impactStats: [
+          { label: "Families Served Weekly", value: "80+", icon: Users },
+          { label: "Pounds Distributed / Month", value: "2,000+", icon: Package },
+          { label: "Active Volunteers", value: "32", icon: Heart },
+          { label: "Partner Stores", value: "4", icon: Award }
+        ],
+        testimonials: [
+          {
+            name: "Angela Ruiz",
+            role: "Client",
+            quote: "This pantry has been a blessing to our family during a tough season.",
+            avatar: undefined
+          }
+        ],
+        upcomingEvents: [
+          {
+            title: "Thursday Pantry Day",
+            date: "Every Thursday",
+            time: "9:00 AM - 12:00 PM",
+            location: "Fellowship Hall"
+          }
+        ],
+        gallery: [
+          "https://images.unsplash.com/photo-1586201375761-83865001e31b?w=400&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1556761175-129418cb2dfe?w=400&auto=format&fit=crop"
+        ]
+      },
+      "5": {
+        id: "5",
+        title: "Back to School Drive",
+        subtitle: "Equipping Students for Success",
+        description: "Collect and distribute school supplies to students from low-income families.",
+        longDescription: "The Back to School Drive equips students with backpacks and supplies, reducing barriers to learning. Volunteers sort donations, pack kits, and help at distribution events.",
+        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&auto=format&fit=crop",
+        category: "Education",
+        status: "Upcoming",
+        nextEvent: "August 2025",
+        volunteers: 8,
+        updated: "1 day ago",
+        impact: "25 of 200 supply kits prepared",
+        coordinator: {
+          name: "Rachel Kim",
+          role: "Event Coordinator",
+          email: "rachel.kim@church.org",
+          phone: "(555) 567-2345"
+        },
+        mission: "To empower students with the tools they need to thrive in school.",
+        activities: [
+          "Collect and sort donated supplies",
+          "Assemble backpacks by grade level",
+          "Support distribution day logistics"
+        ],
+        requirements: [
+          "Attention to detail",
+          "Ability to stand for 2–3 hours",
+          "Friendly and welcoming attitude"
+        ],
+        schedule: {
+          frequency: "Seasonal (July–August)",
+          time: "Varies by session",
+          location: "Fellowship Hall"
+        },
+        impactStats: [
+          { label: "Kits Prepared", value: "25 / 200", icon: Package },
+          { label: "Volunteers", value: "8", icon: Users }
+        ],
+        testimonials: [],
+        upcomingEvents: [],
+        gallery: [
+          "https://images.unsplash.com/photo-1588072432836-e10032774350?w=400&auto=format&fit=crop"
+        ]
+      },
+      "6": {
+        id: "6",
+        title: "Community Tutoring",
+        subtitle: "Empowering Through Education",
+        description: "One-on-one tutoring for students K–12 in reading, math, and other subjects.",
+        longDescription: "Our tutoring program provides individualized support to students. Volunteers tutor weekly, track progress, and encourage learners.",
+        image: "https://images.unsplash.com/photo-1513258496099-48168024aec0?w=800&auto=format&fit=crop",
+        category: "Education",
+        status: "Active",
+        nextEvent: "Mon–Thu 4–6 PM",
+        volunteers: 15,
+        updated: "1 week ago",
+        impact: "Tutoring 45 students currently",
+        coordinator: {
+          name: "Daniel Brooks",
+          role: "Tutoring Lead",
+          email: "daniel.brooks@church.org",
+          phone: "(555) 678-9012"
+        },
+        mission: "To strengthen academic confidence and skills through consistent mentorship.",
+        activities: [
+          "Weekly one-on-one tutoring sessions",
+          "Communicate progress with parents",
+          "Prepare lesson resources"
+        ],
+        requirements: [
+          "Background check required",
+          "Commitment to a weekly slot",
+          "Patience and encouragement"
+        ],
+        schedule: {
+          frequency: "Weekly",
+          time: "Mon–Thu 4–6 PM",
+          location: "Education Wing Classrooms"
+        },
+        impactStats: [
+          { label: "Active Students", value: "45", icon: Users },
+          { label: "Volunteer Tutors", value: "15", icon: Heart }
+        ],
+        testimonials: [],
+        upcomingEvents: [],
+        gallery: [
+          "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=400&auto=format&fit=crop"
+        ]
+      }
     };
 
-    return ministries[id || "1"] || null;
+    return ministries[ministryId] || null;
   };
 
   const ministry = getMinistryData();
+  const ministryId = Object.values(routeToIdMap).includes(routeToIdMap[id || ""] || "")
+    ? (routeToIdMap[id || ""] as string)
+    : null;
+  const rolesFromData = ministryId ? getVolunteerRolesForMinistry(ministryId) : [];
 
   const handleJoinMinistry = () => {
     toast({
@@ -525,7 +703,7 @@ export default function MinistryDetails() {
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-2">Ministry Not Found</h2>
           <p className="text-muted-foreground mb-4">The ministry you're looking for doesn't exist.</p>
-          <Link to="/ministries">
+          <Link to="/my-church?tab=ministries">
             <Button>Back to Ministries</Button>
           </Link>
         </div>
@@ -537,7 +715,7 @@ export default function MinistryDetails() {
     <div className="min-h-screen bg-[#0E1116]">
       {/* Hero Header */}
       <div className="relative overflow-hidden">
-        <div className="h-80 relative">
+        <div className="h-[460px] relative -mt-20 pt-20">
           <img 
             src={ministry.image} 
             alt={ministry.title}
@@ -546,12 +724,12 @@ export default function MinistryDetails() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-[#0E1116]" />
         </div>
         
-        <div className="absolute inset-0 flex items-end pb-8">
+        <div className="absolute inset-0 flex items-end pb-12 pt-20">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-7xl w-full mx-auto">
               {/* Breadcrumb */}
               <div className="mb-4">
-                <Link to="/ministries">
+                <Link to="/my-church?tab=ministries">
                   <Button variant="ghost" size="sm" className="text-white/90 hover:bg-white/10 hover:text-white">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Ministries
@@ -613,34 +791,6 @@ export default function MinistryDetails() {
               {/* Quick Action Bar for Ministry Leaders */}
               {isMinistryLeader && (
                 <div className="mt-6 flex flex-wrap gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-[#EACB56]/30 text-[#EACB56] hover:bg-[#EACB56]/10 backdrop-blur-sm"
-                    onClick={() => {
-                      toast({
-                        title: "Post Need",
-                        description: "Opening need creation form..."
-                      });
-                    }}
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Post Need
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-[#2EA98A]/30 text-[#2EA98A] hover:bg-[#2EA98A]/10 backdrop-blur-sm"
-                    onClick={() => {
-                      toast({
-                        title: "Manage Volunteers",
-                        description: "Opening volunteer management..."
-                      });
-                    }}
-                  >
-                    <Settings className="w-4 h-4 mr-2" />
-                    Manage Volunteers
-                  </Button>
                   <Button
                     size="sm"
                     variant="outline"
@@ -873,7 +1023,7 @@ export default function MinistryDetails() {
             )}
 
             {/* DONATIONS TAB */}
-            {activeTab === "donations" && id === "1" && (
+            {activeTab === "donations" && (
               <div className="animate-in fade-in-50 duration-500">
                 <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
                   <CardHeader>
@@ -1018,8 +1168,83 @@ export default function MinistryDetails() {
             )}
 
             {/* VOLUNTEERS TAB */}
-            {activeTab === "volunteers" && id === "1" && (
+            {activeTab === "volunteers" && (
               <div className="animate-in fade-in-50 duration-500 space-y-8">
+                {/* Requirements */}
+                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-[#F4F4F4] text-lg uppercase tracking-wide">
+                        {selectedRoleId 
+                          ? `${rolesFromData.find(r => r.id === selectedRoleId)?.name ?? ""} Requirements`
+                          : "Volunteer Requirements"
+                        }
+                      </CardTitle>
+                      
+                      {/* Role Buttons - Top Right */}
+                      <div className="flex gap-2">
+                        {rolesFromData.map((role) => (
+                          <Button
+                            key={role.id}
+                            size="sm"
+                            variant="outline"
+                            className={cn(
+                              "border-[#2EA98A]/30 hover:bg-[#2EA98A]/10 hover:text-white backdrop-blur-sm text-xs",
+                              selectedRoleId === role.id
+                                ? "bg-[#2EA98A]/10 text-white border-[#2EA98A]"
+                                : "text-[#2EA98A]"
+                            )}
+                            onClick={() => {
+                              setSelectedRoleId(role.id);
+                            }}
+                          >
+                            {role.name}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {(selectedRoleId && rolesFromData.find(r => r.id === selectedRoleId)?.requirements) ? (
+                        // Show role-specific requirements
+                        <>
+                          <div className="space-y-3">
+                            {rolesFromData.find(r => r.id === selectedRoleId)?.requirements?.map((req, index) => (
+                              <div key={index} className="flex items-start gap-3">
+                                <div className="w-7 h-7 rounded-full bg-[#2EA98A]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                  <span className="text-sm font-semibold text-[#2EA98A]">{index + 1}</span>
+                                </div>
+                                <span className="text-[#A0A6AE] leading-relaxed">{req}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {rolesFromData.find(r => r.id === selectedRoleId)?.tasks && rolesFromData.find(r => r.id === selectedRoleId)!.tasks!.length > 0 && (
+                            <div className="pt-4 border-t border-[#F4F4F4]/10">
+                              <h4 className="font-semibold mb-3 text-[#F4F4F4] uppercase text-sm tracking-wide">Typical Tasks</h4>
+                              <ul className="list-disc pl-6 space-y-2">
+                                {rolesFromData.find(r => r.id === selectedRoleId)!.tasks!.map((t, idx) => (
+                                  <li key={idx} className="text-[#A0A6AE]">{t}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        // Show general requirements
+                        ministry.requirements.map((req, index) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <div className="w-7 h-7 rounded-full bg-[#2EA98A]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <span className="text-sm font-semibold text-[#2EA98A]">{index + 1}</span>
+                            </div>
+                            <span className="text-[#A0A6AE] leading-relaxed">{req}</span>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
                 {/* Volunteer Roles */}
                 <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
                   <CardHeader>
@@ -1033,7 +1258,7 @@ export default function MinistryDetails() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid md:grid-cols-2 gap-6">
-                      {volunteerRoles.map((role) => {
+                      {(rolesFromData.length > 0 ? rolesFromData : []).map((role) => {
                         const pct = Math.min(100, Math.round((role.signedUp / role.needed) * 100));
                         const remaining = Math.max(0, role.needed - role.signedUp);
                         return (
@@ -1074,6 +1299,11 @@ export default function MinistryDetails() {
                           </div>
                         );
                       })}
+                      {rolesFromData.length === 0 && (
+                        <div className="col-span-full p-6 border border-[#F4F4F4]/10 rounded-lg bg-[#0E1116]/50 text-center text-[#A0A6AE]">
+                          No volunteer roles have been posted yet for this ministry.
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -1138,27 +1368,6 @@ export default function MinistryDetails() {
                               </div>
                             ))}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Requirements */}
-                <Card className="border-[#F4F4F4]/10 bg-[#1A1F26] shadow-xl">
-                  <CardHeader>
-                    <CardTitle className="text-[#F4F4F4] text-lg uppercase tracking-wide">
-                      Volunteer Requirements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {ministry.requirements.map((req, index) => (
-                        <div key={index} className="flex items-start gap-3">
-                          <div className="w-7 h-7 rounded-full bg-[#2EA98A]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <span className="text-sm font-semibold text-[#2EA98A]">{index + 1}</span>
-                          </div>
-                          <span className="text-[#A0A6AE] leading-relaxed">{req}</span>
                         </div>
                       ))}
                     </div>
@@ -1327,7 +1536,10 @@ export default function MinistryDetails() {
                         {ministry.gallery.map((photo, index) => (
                           <button 
                             key={index} 
-                            onClick={() => setSelectedImage(photo)}
+                            onClick={() => {
+                              setSelectedImage(photo);
+                              setSelectedImageIndex(index);
+                            }}
                             className="aspect-square rounded-lg overflow-hidden group relative cursor-pointer"
                           >
                             <img 
@@ -1424,7 +1636,7 @@ export default function MinistryDetails() {
       </div>
 
       {/* Donation Dialog */}
-      {id === "1" && (
+      {(routeToIdMap[id || ""] || id) === "1" && (
         <Dialog open={donateDialogOpen} onOpenChange={setDonateDialogOpen}>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[#1A1F26] border-[#F4F4F4]/10">
             <DialogHeader>
@@ -1508,7 +1720,7 @@ export default function MinistryDetails() {
       )}
 
       {/* Volunteer Dialog */}
-      {id === "1" && (
+      {(routeToIdMap[id || ""] || id) === "1" && (
         <Dialog open={volunteerDialogOpen} onOpenChange={setVolunteerDialogOpen}>
           <DialogContent className="max-w-md bg-[#1A1F26] border-[#F4F4F4]/10">
             <DialogHeader>
@@ -1516,7 +1728,7 @@ export default function MinistryDetails() {
                 Join as Volunteer
               </DialogTitle>
               <DialogDescription className="text-[#A0A6AE]">
-                {selectedRoleId && `You're applying for: ${volunteerRoles.find(r => r.id === selectedRoleId)?.name}`}
+                {selectedRoleId && `You're applying for: ${rolesFromData.find(r => r.id === selectedRoleId)?.name || "Selected"}`}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
@@ -1544,26 +1756,73 @@ export default function MinistryDetails() {
       )}
 
       {/* Image Lightbox */}
+      {selectedImage && ministry.gallery && (
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="max-w-5xl max-h-[90vh] bg-[#0E1116] border-[#F4F4F4]/10 p-0">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full bg-black/95 border-0 p-0 gap-0">
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-[#F4F4F4]/10 hover:bg-[#F4F4F4]/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center transition-colors"
             aria-label="Close image lightbox"
           >
-            <X className="w-5 h-5 text-[#F4F4F4]" />
+            <X className="w-5 h-5 text-white" />
           </button>
-          {selectedImage && (
-            <div className="relative w-full h-full flex items-center justify-center p-4">
-              <img 
-                src={selectedImage} 
+            
+              {/* Main Image */}
+            <div className="relative w-full flex-1 flex items-center justify-center p-8 pb-24">
+                <img 
+                src={ministry.gallery[selectedImageIndex]} 
                 alt="Gallery image" 
-                className="max-w-full max-h-[85vh] object-contain rounded-lg"
-              />
+                  className="max-w-full max-h-full object-contain"
+                />
+              
+              {/* Navigation Arrows */}
+              {ministry.gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setSelectedImageIndex(prev => prev > 0 ? prev - 1 : ministry.gallery.length - 1)}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center transition-colors"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-white" />
+                  </button>
+                  <button
+                    onClick={() => setSelectedImageIndex(prev => prev < ministry.gallery.length - 1 ? prev + 1 : 0)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center transition-colors"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-6 h-6 text-white" />
+                  </button>
+                </>
+              )}
+            </div>
+              
+              {/* Thumbnail Rail */}
+              {ministry.gallery.length > 1 && (
+              <div className="w-full bg-black/80 backdrop-blur-sm border-t border-white/10 p-4">
+                  <div className="flex gap-3 justify-center overflow-x-auto pb-2">
+                    {ministry.gallery.map((photo, index) => (
+                      <button
+                        key={index}
+                      onClick={() => setSelectedImageIndex(index)}
+                      className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                        index === selectedImageIndex 
+                          ? 'border-[#EACB56] scale-110' 
+                          : 'border-transparent hover:border-white/30 opacity-60 hover:opacity-100'
+                      }`}
+                      >
+                        <img 
+                          src={photo} 
+                          alt={`Thumbnail ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
+      )}
     </div>
   );
 }

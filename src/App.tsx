@@ -129,11 +129,12 @@ const App = () => (
                         <Route path="/feedback" element={<Feedback />} />
                         <Route path="/feedback/app" element={<FeedbackApp />} />
                         <Route path="/feedback/church" element={<FeedbackChurch />} />
-                        <Route path="/ministries/dashboard" element={<MinistriesDashboard />} />
-                        <Route path="/ministries/homeless-outreach" element={<MinistryHomelessOutreach />} />
-                        <Route path="/ministries/winter-coat-drive" element={<MinistryWinterCoatDrive />} />
-                        <Route path="/ministries/food-pantry" element={<MinistryFoodPantry />} />
-                        <Route path="/ministries/back-to-school" element={<MinistryBackToSchool />} />
+                        <Route path="/my-ministries/homeless-outreach" element={<MinistryHomelessOutreach />} />
+                        <Route path="/my-ministries/winter-coat-drive" element={<MinistryWinterCoatDrive />} />
+                        <Route path="/my-ministries/food-pantry" element={<MinistryFoodPantry />} />
+                        <Route path="/my-ministries/back-to-school" element={<MinistryBackToSchool />} />
+                        <Route path="/my-ministries" element={<MinistriesDashboard />} />
+                        <Route path="/my-ministries/:id" element={<MinistryDetails />} />
                       </Route>
                       <Route path="/my-church" element={<MyChurch />} />
           <Route path="/ministries/:id" element={<MinistryDetails />} />

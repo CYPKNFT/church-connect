@@ -26,7 +26,7 @@ export default function MinistriesDashboard() {
       volunteers: 24,
       impact: "Served 150+ meals last month",
       category: "Community Service",
-      path: "/ministries/homeless-outreach",
+      path: "/my-ministries/homeless-outreach",
       icon: Users
     },
     {
@@ -40,7 +40,7 @@ export default function MinistriesDashboard() {
       volunteers: 32,
       impact: "Supporting 80+ families weekly",
       category: "Food Security",
-      path: "/ministries/food-pantry",
+      path: "/my-ministries/food-pantry",
       icon: ShoppingBag
     }
   ];
@@ -59,7 +59,7 @@ export default function MinistriesDashboard() {
       volunteers: 24,
       updated: "3 days ago",
       impact: "Served 150+ meals last month",
-      path: "/ministries/homeless-outreach",
+      path: "/my-ministries/homeless-outreach",
       icon: Users
     },
     {
@@ -76,7 +76,7 @@ export default function MinistriesDashboard() {
       volunteers: 12,
       updated: "1 week ago",
       impact: "40 of 100 coats collected",
-      path: "/ministries/winter-coat-drive",
+      path: "/my-ministries/winter-coat-drive",
       icon: Package
     },
     {
@@ -91,7 +91,7 @@ export default function MinistriesDashboard() {
       volunteers: 32,
       updated: "5 days ago",
       impact: "Supporting 80+ families weekly",
-      path: "/ministries/food-pantry",
+      path: "/my-ministries/food-pantry",
       icon: ShoppingBag
     },
     {
@@ -108,7 +108,7 @@ export default function MinistriesDashboard() {
       volunteers: 8,
       updated: "1 day ago",
       impact: "25 of 200 supply kits prepared",
-      path: "/ministries/back-to-school",
+      path: "/my-ministries/back-to-school",
       icon: BookOpen
     }
   ];

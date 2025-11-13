@@ -63,17 +63,39 @@ function getActiveMenuFromRoute(pathname: string): { activeMenuId: string; activ
   }
 
   // Ministries routes
-  if (pathname.startsWith("/ministries")) {
+  if (pathname.startsWith("/ministries") || pathname.startsWith("/my-ministries")) {
     const ministriesRoutes: { [key: string]: string } = {
-      "/ministries/dashboard": "/ministries/dashboard",
-      "/ministries/homeless-outreach": "/ministries/homeless-outreach",
-      "/ministries/winter-coat-drive": "/ministries/winter-coat-drive",
-      "/ministries/food-pantry": "/ministries/food-pantry",
-      "/ministries/back-to-school": "/ministries/back-to-school",
+      "/my-ministries": "/my-ministries",
+      "/my-ministries/homeless-outreach": "/my-ministries/homeless-outreach",
+      "/my-ministries/winter-coat-drive": "/my-ministries/winter-coat-drive",
+      "/my-ministries/food-pantry": "/my-ministries/food-pantry",
+      "/my-ministries/back-to-school": "/my-ministries/back-to-school",
     };
+    
+    // Handle dynamic routes like /my-ministries/:id
+    if (pathname.startsWith("/my-ministries/") && pathname !== "/my-ministries") {
+      const ministryName = pathname.replace("/my-ministries/", "");
+      if (ministriesRoutes[`/my-ministries/${ministryName}`]) {
+        return {
+          activeMenuId: "ministries",
+          activeSubItemPath: ministriesRoutes[`/my-ministries/${ministryName}`],
+        };
+      }
+      // For dynamic routes, try to match the name
+      const matchedRoute = Object.keys(ministriesRoutes).find(route => 
+        route.includes(ministryName) || ministryName.includes(route.replace("/my-ministries/", ""))
+      );
+      if (matchedRoute) {
+        return {
+          activeMenuId: "ministries",
+          activeSubItemPath: ministriesRoutes[matchedRoute],
+        };
+      }
+    }
+    
     return {
       activeMenuId: "ministries",
-      activeSubItemPath: ministriesRoutes[pathname] || "/ministries/dashboard",
+      activeSubItemPath: ministriesRoutes[pathname] || "/my-ministries",
     };
   }
 
