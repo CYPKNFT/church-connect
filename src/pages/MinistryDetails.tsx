@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -50,6 +50,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { getVolunteerRolesForMinistry } from "@/data/ministriesData";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface MinistryDetails {
   id: string;
@@ -114,6 +115,8 @@ const routeToIdMap: { [key: string]: string } = {
 export default function MinistryDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
   const [isTabBarSticky, setIsTabBarSticky] = useState(false);
@@ -187,6 +190,14 @@ export default function MinistryDetails() {
       ]
     }
   ];
+
+  const requireAuthThen = (next: () => void) => {
+    if (!user) {
+      navigate(`/login?redirect=${encodeURIComponent(location.pathname + location.search)}`);
+      return;
+    }
+    next();
+  };
 
   const handleDonateClick = (itemId: string) => {
     setSelectedItemId(itemId);
@@ -771,7 +782,7 @@ export default function MinistryDetails() {
                   <Button 
                     size="lg"
                     className="bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold shadow-lg"
-                    onClick={() => setActiveTab("donations")}
+                    onClick={() => requireAuthThen(() => setActiveTab("donations"))}
                   >
                     <Package className="w-5 h-5 mr-2" />
                     Donate Items
@@ -780,7 +791,7 @@ export default function MinistryDetails() {
                     size="lg"
                     variant="outline"
                     className="border-[#F4F4F4]/30 text-[#F4F4F4] hover:bg-[#F4F4F4]/10 backdrop-blur-sm"
-                    onClick={() => setActiveTab("volunteers")}
+                    onClick={() => requireAuthThen(() => setActiveTab("volunteers"))}
                   >
                     <UserPlus className="w-5 h-5 mr-2" />
                     Volunteer
@@ -1073,14 +1084,18 @@ export default function MinistryDetails() {
                               <div className="mt-2 text-xs text-[#EACB56] font-medium">{pct}% Complete</div>
                             </div>
 
-                            <Button
-                              size="lg"
-                              onClick={() => handleDonateClick(item.id)}
-                              className="w-full bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold shadow-lg"
-                            >
-                              <Package className="w-5 h-5 mr-2" />
-                              Donate {item.name}
-                            </Button>
+                            {/* Bottom-right Donate button */}
+                            <div className="mt-2 flex justify-end">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-[#F4F4F4]/30 text-[#F4F4F4] hover:bg-[#F4F4F4]/10"
+                                onClick={() => requireAuthThen(() => handleDonateClick(item.id))}
+                              >
+                                <Package className="w-3 h-3 mr-1" />
+                                Donate
+                              </Button>
+                            </div>
                           </div>
                         );
                       })}
@@ -1620,14 +1635,14 @@ export default function MinistryDetails() {
         <div className="flex gap-2">
           <Button 
             className="flex-1 bg-[#EACB56] hover:bg-[#EACB56]/90 text-[#0E1116] font-semibold" 
-            onClick={() => setActiveTab("donations")}
+            onClick={() => requireAuthThen(() => setActiveTab("donations"))}
           >
             <Package className="w-4 h-4 mr-2" />
             Donate
           </Button>
           <Button 
             className="flex-1 bg-[#2EA98A] hover:bg-[#2EA98A]/90 text-white font-semibold" 
-            onClick={() => setActiveTab("volunteers")}
+            onClick={() => requireAuthThen(() => setActiveTab("volunteers"))}
           >
             <UserPlus className="w-4 h-4 mr-2" />
             Volunteer
