@@ -831,7 +831,7 @@ export default function MyChurch() {
               <div className="space-y-8">
                 {/* Intro Section */}
                 <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
-                  <div className="max-w-3xl">
+                  <div className="w-full">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Serving
                     </Badge>
@@ -955,7 +955,7 @@ export default function MyChurch() {
               <div className="space-y-8">
                 {/* Intro Section */}
                 <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
-                  <div className="max-w-3xl">
+                  <div className="w-full">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Giving
                     </Badge>
@@ -1155,7 +1155,12 @@ export default function MyChurch() {
 
                 {/* Wish List Section - Two Columns with Pagination */}
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-foreground">Community Wish List</h3>
+                  <div>
+                    <h2 className="text-3xl font-bold text-foreground">Community Wish List</h2>
+                    <p className="text-muted-foreground text-lg">
+                      Share needs and wishes your church community can help meet.
+                    </p>
+                  </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     {wishListItems.concat(Array(10).fill(null).map((_, i) => ({
                       id: i + 10,
@@ -1391,7 +1396,7 @@ export default function MyChurch() {
               <div className="space-y-8">
                 {/* Hero Section */}
                 <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
-                  <div className="max-w-3xl">
+                  <div className="w-full">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Church Ministries
                     </Badge>
