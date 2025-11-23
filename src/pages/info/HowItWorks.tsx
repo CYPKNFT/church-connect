@@ -1,9 +1,39 @@
+import { useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Plus, Search, Heart, Users, Shield, MessageSquare, CheckCircle, User, Church } from "lucide-react";
+import {
+  Plus,
+  Search,
+  Heart,
+  Users,
+  Shield,
+  MessageSquare,
+  CheckCircle,
+  User,
+  Church,
+} from "lucide-react";
+import promoVideo from "@/assets/ChurchConnect_Promo_Video_Generation.mp4";
 
 export default function HowItWorks() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlayClick = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const handlePause = () => {
+    setIsPlaying(false);
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-24">
@@ -147,14 +177,37 @@ export default function HowItWorks() {
           
           <div className="mx-auto w-full">
             <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-8 border border-accent/20 w-full">
-              <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <div className="w-0 h-0 border-l-[12px] border-l-accent border-y-[8px] border-y-transparent ml-1"></div>
-                  </div>
-                  <p className="text-2xl font-semibold text-foreground">Coming Soon: Demo Video</p>
-                  <p className="text-lg text-muted-foreground mt-2">See ChurchConnect in action</p>
-                </div>
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black/80">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  controls
+                  onPause={handlePause}
+                  onEnded={handleEnded}
+                >
+                  <source src={promoVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+
+                {!isPlaying && (
+                  <button
+                    type="button"
+                    onClick={handlePlayClick}
+                    className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 hover:bg-black/40 transition-colors"
+                  >
+                    <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                      <div className="w-0 h-0 border-l-[18px] border-l-accent border-y-[12px] border-y-transparent ml-1.5" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-semibold text-white">
+                        See ChurchConnect in action
+                      </p>
+                      <p className="text-lg text-white/80 mt-2">
+                        Tap play to watch the demo video
+                      </p>
+                    </div>
+                  </button>
+                )}
               </div>
             </div>
           </div>

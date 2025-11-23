@@ -712,7 +712,7 @@ export default function MyChurch() {
             </TabsList>
 
             {/* Unified Search Bar */}
-            <div className="p-4 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-b border-border/10">
+            <div className="p-4 bg-card/90 border-b border-border/10">
               <div className="flex flex-col gap-3 items-center max-w-4xl mx-auto">
                 {/* Search Input */}
                 <div className="relative w-full max-w-2xl">
@@ -830,7 +830,7 @@ export default function MyChurch() {
               {/* Enhanced Church Family Needs Section */}
               <div className="space-y-8">
                 {/* Intro Section */}
-                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
+                <div className="bg-card/90 rounded-xl p-6 border border-border/40">
                   <div className="w-full">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Serving
@@ -954,7 +954,7 @@ export default function MyChurch() {
             <TabsContent value="giving" className="mt-0">
               <div className="space-y-8">
                 {/* Intro Section */}
-                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
+                <div className="bg-card/90 rounded-xl p-6 border border-border/40">
                   <div className="w-full">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Giving
@@ -1240,7 +1240,7 @@ export default function MyChurch() {
                 {/* Intro Section */}
                 <div className="flex flex-col lg:flex-row gap-6 mb-6">
                   {/* Text Box */}
-                  <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6 flex-1">
+                  <div className="bg-card/90 rounded-xl p-6 flex-1 border border-border/40">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Connecting
                     </Badge>
@@ -1252,7 +1252,7 @@ export default function MyChurch() {
                     </p>
                   </div>
                   {/* Calendar Box */}
-                  <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-2 w-[280px] h-[280px] flex items-center justify-center">
+                  <div className="bg-card/90 rounded-xl p-2 w-[280px] h-[280px] flex items-center justify-center border border-border/40">
                     <div className="w-full h-full">
                       <CompactEventCalendar events={events} showCard={false} />
                     </div>
@@ -1395,7 +1395,7 @@ export default function MyChurch() {
             <TabsContent value="ministries" className="mt-0">
               <div className="space-y-8">
                 {/* Hero Section */}
-                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-xl p-6">
+                <div className="bg-card/90 rounded-xl p-6 border border-border/40">
                   <div className="w-full">
                     <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
                       Church Ministries
