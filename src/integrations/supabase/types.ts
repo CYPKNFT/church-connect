@@ -2219,10 +2219,7 @@ export type Database = {
       }
     }
     Functions: {
-      cancel_my_signup: {
-        Args: { p_signup: string }
-        Returns: boolean
-      }
+      cancel_my_signup: { Args: { p_signup: string }; Returns: boolean }
       church_feed_safe: {
         Args: { p_church: string; p_limit?: number; p_offset?: number }
         Returns: {
@@ -2235,10 +2232,7 @@ export type Database = {
           volunteer_count: number
         }[]
       }
-      complete_signup: {
-        Args: { p_signup: string }
-        Returns: boolean
-      }
+      complete_signup: { Args: { p_signup: string }; Returns: boolean }
       get_event_stats: {
         Args: { p_event_id: string }
         Returns: {
@@ -2258,32 +2252,17 @@ export type Database = {
           tag_code: string
         }[]
       }
-      get_user_roles: {
-        Args: { user_uuid: string }
-        Returns: string[]
-      }
-      is_church_admin: {
-        Args: { ch: string }
-        Returns: boolean
-      }
-      is_church_creator: {
-        Args: { ch: string }
-        Returns: boolean
-      }
-      is_church_member: {
-        Args: { ch: string }
-        Returns: boolean
-      }
-      is_platform_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      get_user_roles: { Args: { user_uuid: string }; Returns: string[] }
+      is_church_admin: { Args: { ch: string }; Returns: boolean }
+      is_church_creator: { Args: { ch: string }; Returns: boolean }
+      is_church_member: { Args: { ch: string }; Returns: boolean }
+      is_platform_admin: { Args: never; Returns: boolean }
       leave_feedback: {
         Args: { p_comment?: string; p_rating: number; p_signup: string }
         Returns: string
       }
       list_churches_member: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           city: string
           id: string
@@ -2295,7 +2274,7 @@ export type Database = {
         }[]
       }
       list_churches_public: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           city: string
           id: string
@@ -2326,10 +2305,7 @@ export type Database = {
           volunteer_count: number
         }[]
       }
-      mark_notification_read: {
-        Args: { p_queue_id: string }
-        Returns: boolean
-      }
+      mark_notification_read: { Args: { p_queue_id: string }; Returns: boolean }
       member_directory: {
         Args: { ch: string }
         Returns: {
@@ -2340,7 +2316,7 @@ export type Database = {
         }[]
       }
       member_directory_for_my_churches: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           church_id: string
           email: string
@@ -2361,7 +2337,7 @@ export type Database = {
         }[]
       }
       my_impact_summary: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           avg_rating: number
           completed: number
@@ -2382,7 +2358,7 @@ export type Database = {
         }[]
       }
       my_needs_summary: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           active: number
           fulfilled: number
@@ -2391,7 +2367,7 @@ export type Database = {
         }[]
       }
       my_signups: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           confirmed_at: string
           end_window: string
